@@ -14,14 +14,14 @@ public class HospitalImplRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public List<Hospital> list(){
-        List<Hospital> list = new ArrayList<>(entityManager
+    public List<HospitalImpl> list(){
+        List<HospitalImpl> list = new ArrayList<>(entityManager
                 .createNamedQuery(HospitalImpl.FIND_ALL, HospitalImpl.class)
                 .getResultList());
         return list;
     }
 
-    public Hospital find(Long id){
+    public HospitalImpl find(Long id){
         return entityManager.find(HospitalImpl.class, id);
     }
 
