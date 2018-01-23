@@ -11,6 +11,15 @@
 </head>
 
 <body>
-  <app-static-nav-bar></app-static-nav-bar>
-  <app-dynamic-nav-bar></app-dynamic-nav-bar>
+<app-static-nav-bar></app-static-nav-bar>
+
+<div class="container-fluid fixed-top">
+  <div class="row">
+    <app-dynamic-nav-bar></app-dynamic-nav-bar>
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+
+
 </body>
