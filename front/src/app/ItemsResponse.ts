@@ -1,0 +1,4 @@
+
+interface ItemsResponse {
+  results: string[];
+}
