@@ -5,6 +5,7 @@ import {HttpClientModule} from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { StaticNavBarComponent } from './static-nav-bar/static-nav-bar.component';
+import { DynamicNavBarComponent } from './dynamic-nav-bar/dynamic-nav-bar.component';
 
 
 
@@ -12,6 +13,7 @@ import { StaticNavBarComponent } from './static-nav-bar/static-nav-bar.component
   declarations: [
     AppComponent,
     StaticNavBarComponent,
+    DynamicNavBarComponent,
   ],
   imports: [
     BrowserModule,

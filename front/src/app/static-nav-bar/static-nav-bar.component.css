@@ -8,12 +8,10 @@
   border-radius:7px;
 }
 
-
-.my_nav {
+.navbar-light {
   background-color: #FAFAFA !important;
   padding-bottom: 5px;
   box-shadow: 0px 2px 4px grey;
-
 }
 
 .icon{
@@ -48,15 +46,14 @@
   padding: 0;
 }
 
-
 .user_icon{
   margin: 5px;
   max-width: 40px;
   float: right;
 }
 
-
 .user_icon:hover{
   margin: 0;
   max-width: 50px;
 }
+
