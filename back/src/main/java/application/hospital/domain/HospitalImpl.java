@@ -98,22 +98,27 @@ public class HospitalImpl implements Hospital {
         return null;
     }
 
+    @Override
     public Long getId() {
         return id;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public String getCountry() {
         return country;
     }
 
+    @Override
     public String getAddress() {
         return address;
     }
 
+    @Override
     public List<Node> getHierarchy() {
         return hierarchy;
     }
