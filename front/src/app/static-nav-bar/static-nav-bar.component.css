@@ -1,0 +1,62 @@
+.logo_PADME {
+  max-width: 130px;
+  height: auto;
+  margin: 0.5px;
+  margin-left: 10px;
+  -moz-border-radius:7px;
+  -webkit-border-radius:7px;
+  border-radius:7px;
+}
+
+
+.my_nav {
+  background-color: #FAFAFA !important;
+  padding-bottom: 5px;
+  box-shadow: 0px 2px 4px grey;
+
+}
+
+.icon{
+  max-width: 40px;
+  margin: 5px;
+}
+
+.icon:hover{
+  margin: 0;
+  max-width: 50px;
+}
+
+.user {
+  background-color: #0B243B !important;
+  width: 300px;
+  margin-right: 10px;
+  box-shadow: 5px 5px 4px grey;
+  -moz-border-radius:5px;
+  -webkit-border-radius:5px;
+  border-radius:5px;
+}
+
+.user_info{
+  margin-left: 15px;
+  float: left;
+  color: white;
+  padding-top: 2px;
+}
+
+.user_info p{
+  margin: 0;
+  padding: 0;
+}
+
+
+.user_icon{
+  margin: 5px;
+  max-width: 40px;
+  float: right;
+}
+
+
+.user_icon:hover{
+  margin: 0;
+  max-width: 50px;
+}
