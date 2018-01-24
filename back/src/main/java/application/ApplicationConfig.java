@@ -1,6 +1,8 @@
 package application;
 
 
+import application.adminfile.domain.AdminFile;
+import application.adminfile.rest.AdminFileRest;
 import application.filters.CORSFilter;
 import org.glassfish.jersey.jackson.JacksonFeature;
 
@@ -18,6 +20,7 @@ public class ApplicationConfig extends Application {
         HashSet<Class<?>> c = new HashSet<>();
         c.add(JacksonFeature.class);
         c.add(CORSFilter.class);
+        c.add(AdminFileRest.class);
         classes = Collections.unmodifiableSet(c);
     }
 
