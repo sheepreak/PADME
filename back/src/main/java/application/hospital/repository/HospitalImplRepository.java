@@ -4,14 +4,17 @@ import application.hospital.Hospital;
 import application.hospital.domain.HospitalImpl;
 
 import javax.ejb.NoSuchEntityException;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Stateless
 public class HospitalImplRepository {
-    @PersistenceContext
+
+    @PersistenceContext(unitName = "JPAPU")
     private EntityManager entityManager;
 
     public List<HospitalImpl> list(){
