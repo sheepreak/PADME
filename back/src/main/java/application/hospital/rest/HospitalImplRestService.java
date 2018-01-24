@@ -48,6 +48,7 @@ public class HospitalImplRestService {
     }
 
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getHospitals() {
         List<HospitalImpl> hospitals = repository.list();
         return Response.ok(hospitals).build();
@@ -55,6 +56,7 @@ public class HospitalImplRestService {
 
     @GET
     @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getHospital(@PathParam("id") Long id) {
         Hospital hospital= repository.find(id);
         if (hospital == null)
@@ -64,6 +66,7 @@ public class HospitalImplRestService {
 
     @POST
     @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response addNodePole(@PathParam("id") Long id, Node nodePole){
         HospitalImpl hospital = repository.find(id);
         if (hospital == null)
