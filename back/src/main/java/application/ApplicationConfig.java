@@ -16,7 +16,6 @@ public class ApplicationConfig extends Application {
 
     public ApplicationConfig() {
         HashSet<Class<?>> c = new HashSet<>();
-        c.add(TestHello.class);
         c.add(JacksonFeature.class);
         c.add(CORSFilter.class);
         classes = Collections.unmodifiableSet(c);
