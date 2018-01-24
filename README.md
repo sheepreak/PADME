@@ -8,6 +8,10 @@ Etapes pour travailler sur ses composants :
 - Coder les classes à la manière du fichier TestHello situé sur la branche Master
 - Pour savoir les paths à mettre à vos méthodes, soit en discuter avec le groupe (principalement Ameline et Charles pour le front), soit tenir compte dans un excel ou un truc du genre
 
+Pour tester : 
+
+- terminal dans le dossier back -> mvn clean install, puis lancer le serveur
+
 Faites d'abord avec votre propre jeu de données, on verra ensemble pour la base de données lors de la phase de convergence.
 
 N'hésitez pas à demander des conseils en cas de bloquage.
