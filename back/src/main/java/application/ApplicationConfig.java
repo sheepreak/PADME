@@ -13,7 +13,6 @@ public class ApplicationConfig extends Application {
 
     public ApplicationConfig() {
         HashSet<Class<?>> c = new HashSet<>();
-        c.add(TestHello.class);
         classes = Collections.unmodifiableSet(c);
     }
 
