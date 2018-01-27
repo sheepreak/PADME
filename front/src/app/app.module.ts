@@ -10,6 +10,7 @@ import {DynamicNavBarComponent} from './dynamic-nav-bar/dynamic-nav-bar.componen
 import {LoginPageComponent} from './login-page/login-page.component';
 import { UserService } from './user.service';
 import {WebApiPromiseService} from './web-api-promise.service';
+import { AdministrationFileComponent } from './administration-file/administration-file.component';
 
 
 const appRoutes: Routes = [
@@ -25,7 +26,8 @@ const appRoutes: Routes = [
     AppComponent,
     StaticNavBarComponent,
     DynamicNavBarComponent,
-    LoginPageComponent
+    LoginPageComponent,
+    AdministrationFileComponent
   ],
 
   imports: [
