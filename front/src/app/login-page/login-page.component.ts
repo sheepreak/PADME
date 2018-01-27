@@ -22,15 +22,19 @@ export class LoginPageComponent implements OnInit {
   }
 
   onSubmit(form) {
-    if (form.login != null && form.password != null) {
 
-      /*this.requester.connectUser(form.login, form.password).then(data => {
-        this.userService.connect(form.login, form.password);
+    console.log(form);
+
+    if (form.login != null && form.password != null) {
+      this.requester.connectUser(form.email, form.password).then(data => {
+        this.userService.connect(form.email, form.password);
         this.errorLogin = null;
       }).catch(err => {
         console.log(err);
-        this.errorLogin = 'Une erreur s\'est produite';
-      });*/
+        this.errorLogin = 'An error has occurred';
+      });
+    } else {
+      this.errorLogin ="Login and password required"
     }
   }
 
