@@ -9,6 +9,7 @@ import {StaticNavBarComponent} from './static-nav-bar/static-nav-bar.component';
 import {DynamicNavBarComponent} from './dynamic-nav-bar/dynamic-nav-bar.component';
 import {LoginPageComponent} from './login-page/login-page.component';
 import { UserService } from './user.service';
+import {WebApiPromiseService} from './web-api-promise.service';
 
 
 const appRoutes: Routes = [
@@ -24,7 +25,7 @@ const appRoutes: Routes = [
     AppComponent,
     StaticNavBarComponent,
     DynamicNavBarComponent,
-    LoginPageComponent,
+    LoginPageComponent
   ],
 
   imports: [
@@ -36,7 +37,7 @@ const appRoutes: Routes = [
       { enableTracing: true } // <-- debugging purposes only
     )
   ],
-  providers: [UserService],
+  providers: [UserService, WebApiPromiseService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

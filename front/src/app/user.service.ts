@@ -2,9 +2,9 @@ import {Injectable} from '@angular/core';
 
 @Injectable()
 export class UserService {
-  connected: boolean;
-  login: string;
-  token: string;
+  private connected: boolean;
+  private login: string;
+  private token: string;
 
   connect(login, token) {
     this.connected = true;
