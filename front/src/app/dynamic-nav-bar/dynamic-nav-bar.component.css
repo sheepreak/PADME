@@ -1,18 +1,6 @@
-.container-fluid{
-  padding-top: 80px;
-  height: 100%;
-  overflow-y: scroll;
-  z-index: 1;
-}
 
-.nav-pills .nav-link.active{
-  color: #fff;
-  background-color: #0B243B;
-}
-
-nav-link{
-
-
+.sidebar{
+  padding-top: 50px;
 }
 
 
