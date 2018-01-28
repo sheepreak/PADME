@@ -1,6 +1,3 @@
 .container-fluid{
   padding-top: 80px;
-  height: 100%;
-  overflow-y: scroll;
-  z-index: 1;
 }

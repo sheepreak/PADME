@@ -34,7 +34,7 @@ export class LoginPageComponent implements OnInit {
         this.errorLogin = 'An error has occurred';
       });
     } else {
-      this.errorLogin ="Login and password required"
+      this.errorLogin = 'Login and password required';
     }
   }
 
