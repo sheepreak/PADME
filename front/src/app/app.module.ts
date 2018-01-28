@@ -1,12 +1,24 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {FormsModule} from '@angular/forms'; // <-- NgModel lives here
 import {HttpClientModule} from '@angular/common/http';
 
-import { AppComponent } from './app.component';
-import { StaticNavBarComponent } from './static-nav-bar/static-nav-bar.component';
-import { DynamicNavBarComponent } from './dynamic-nav-bar/dynamic-nav-bar.component';
+import {AppComponent} from './app.component';
+import {StaticNavBarComponent} from './static-nav-bar/static-nav-bar.component';
+import {DynamicNavBarComponent} from './dynamic-nav-bar/dynamic-nav-bar.component';
+import {LoginPageComponent} from './login-page/login-page.component';
+import { UserService } from './user.service';
+import {WebApiPromiseService} from './web-api-promise.service';
+import { AdministrationFileComponent } from './administration-file/administration-file.component';
 
+
+const appRoutes: Routes = [
+  {
+    path: 'login',
+    component : LoginPageComponent
+  }
+];
 
 
 @NgModule({
@@ -14,13 +26,21 @@ import { DynamicNavBarComponent } from './dynamic-nav-bar/dynamic-nav-bar.compon
     AppComponent,
     StaticNavBarComponent,
     DynamicNavBarComponent,
+    LoginPageComponent,
+    AdministrationFileComponent
   ],
+
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot(
+      appRoutes,
+      { enableTracing: true } // <-- debugging purposes only
+    )
   ],
-  providers: [],
+  providers: [UserService, WebApiPromiseService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
