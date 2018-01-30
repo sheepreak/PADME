@@ -11,6 +11,7 @@ import {LoginPageComponent} from './login-page/login-page.component';
 import { UserService } from './user.service';
 import {WebApiPromiseService} from './web-api-promise.service';
 import { AdministrationFileComponent } from './administration-file/administration-file.component';
+import { PrescriptionFileComponent } from './prescription-file/prescription-file.component';
 
 
 
@@ -22,6 +23,10 @@ const appRoutes: Routes = [
   {
     path: 'administrationfile',
     component: AdministrationFileComponent
+  },
+  {
+    path: 'prescriptionfile',
+    component: PrescriptionFileComponent
   }
 ];
 
@@ -32,7 +37,8 @@ const appRoutes: Routes = [
     StaticNavBarComponent,
     DynamicNavBarComponent,
     LoginPageComponent,
-    AdministrationFileComponent
+    AdministrationFileComponent,
+    PrescriptionFileComponent
   ],
 
   imports: [

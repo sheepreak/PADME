@@ -24,7 +24,22 @@ export class AdministrationFileComponent implements OnInit {
   socialSecurity: string;
 
   constructor() {
-
+    this.address = "4 allée des camélias";
+    this.addressComplement = "Aucun";
+    this.birthday = "12/06/1995";
+    this.birthplace = "Lagny";
+    this.cellular = "06.74.18.98.16";
+    this.city = "Noisy le grand";
+    this.country = "France";
+    this.email = "amelinemoreau@orange.fr";
+    this.fax = "Aucun";
+    this.firstName = "Ameline";
+    this.healthCard = "77642213543213";
+    this.lastName = "Moreau";
+    this.sexe = "F";
+    this.socialSecurity = "Aucun";
+    this.zipcode = "77164";
+    this.fixe = "01.64.64.15.98";
 
   }
 
