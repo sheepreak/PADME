@@ -1,160 +1,160 @@
-
 <div class="col-sm-9 col-md-10 main">
   <div class="row title">
     <div class="col-md-10">
-    <h2>
-      Fiche administrative
-    </h2>
+      <h2>
+        Fiche administrative
+      </h2>
     </div>
     <div class="col-md-1 text-right">
-      <button class="btn btn-modif">Modifier</button>
+      <button type="button" class="btn btn-modif" (click)="this.modifyData = true;  ">Modifier</button>
     </div>
 
   </div>
 
-  <!--
-    <div class="row myrow">
-      <div class="col-md-5">
-        <h3>Données personnelles</h3>
-        <p><strong>Nom :</strong> Moreau </p>
-        <p><strong>Prénom :</strong> Ameline </p>
-        <p><strong>Sexe:</strong> F</p>
-        <p><strong>Date de naissance :</strong> 12/06/1995</p>
-        <p><strong>Lieux de naissance :</strong> Lagny</p>
 
-        <h3>Coordonnées</h3>
-        <p><strong>Adresse :</strong> 3 allées des camélias </p>
-        <p><strong>Code postal :</strong> 77163</p>
-        <p><strong>Ville :</strong> Noisy le grand</p>
-        <p><strong>Complément d'adresse :</strong> Aucun</p>
-        <p><strong>Mail :</strong> amelinemoreau@orange.fr</p>
-        <p><strong>Telephone fixe :</strong> 01.64.66.11.94</p>
-        <p><strong>Telephone portable :</strong> 06.64.66.11.94</p>
-        <p><strong>Fax :</strong> Aucun</p>
-
-
-      </div>
-      <div class="col-md-5">
-        <h3>Autre données</h3>
-        <p><strong>Numero carte vital :</strong> 77153154316541 </p>
-        <p><strong>Sécurité soscial :</strong> Aucune</p>
-      </div>
-
-      -->
-
-  <form class="form-horizontal">
-  <div class="row myrow">
+  <div class="row myrow" *ngIf="!modifyData">
     <div class="col-md-5">
       <h3>Données personnelles</h3>
-      <div class="form-group">
-        <label for="inputEmail3" class="col-sm-3 control-label">Nom: </label>
-        <div class="col-sm-8">
-          <input type="email" class="form-control" id="inputEmail3" value="Moreau">
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="inputEmail3" class="col-sm-2 control-label">Prénom: </label>
-        <div class="col-sm-9">
-          <input type="email" class="form-control" id="inputEmail3" value="Ameline">
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="inputEmail3" class="col-sm-2 control-label">Sexe: </label>
-        <div class="col-sm-9">
-          <input type="email" class="form-control" id="inputEmail3" value="F">
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="inputEmail3" class="col-sm-2 control-label">Date de naissance: </label>
-        <div class="col-sm-9">
-          <input type="email" class="form-control" id="inputEmail3" value="12/06/1995">
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="inputEmail3" class="col-sm-2 control-label">Lieux de naissance: </label>
-        <div class="col-sm-9">
-          <input type="email" class="form-control" id="inputEmail3" value="Lagny">
-        </div>
-      </div>
-
+      <p><strong>Nom :</strong> {{directory.lastName}}</p>
+      <p><strong>Prénom :</strong> {{directory.firstName}}</p>
+      <p><strong>Sexe :</strong> {{directory.sexe}}</p>
+      <p><strong>Date de naissance :</strong> {{directory.birthday}}</p>
+      <p><strong>Lieux de naissance :</strong> {{directory.birthplace}}</p>
 
       <h3>Coordonnées</h3>
-      <div class="form-group">
-        <label for="inputEmail3" class="col-sm-2 control-label">Adresse: </label>
-        <div class="col-sm-9">
-          <input type="email" class="form-control" id="inputEmail3" value="3 allées des camélias">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="inputEmail3" class="col-sm-2 control-label">Code postal: </label>
-        <div class="col-sm-9">
-          <input type="email" class="form-control" id="inputEmail3" value="77164">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="inputEmail3" class="col-sm-2 control-label">Ville: </label>
-        <div class="col-sm-9">
-          <input type="email" class="form-control" id="inputEmail3" value="Noisy le grand">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="inputEmail3" class="col-sm-2 control-label">Complément d'adresse: </label>
-        <div class="col-sm-9">
-          <input type="email" class="form-control" id="inputEmail3" value="Aucun">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="inputEmail3" class="col-sm-2 control-label">Mail: </label>
-        <div class="col-sm-9">
-          <input type="email" class="form-control" id="inputEmail3" value="amelinemoreau@orange.fr">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="inputEmail3" class="col-sm-2 control-label">Téléphone fixe: </label>
-        <div class="col-sm-9">
-          <input type="email" class="form-control" id="inputEmail3" value="01.64.66.11.94">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="inputEmail3" class="col-sm-2 control-label">Téléphone portable: </label>
-        <div class="col-sm-9">
-          <input type="email" class="form-control" id="inputEmail3" value="06.64.66.11.94">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="inputEmail3" class="col-sm-2 control-label">Fax: </label>
-        <div class="col-sm-9">
-          <input type="email" class="form-control" id="inputEmail3" value="Aucun">
-        </div>
-      </div>
+      <p><strong>Adresse :</strong> {{directory.address}} </p>
+      <p><strong>Code postal :</strong> {{directory.zipcode}}</p>
+      <p><strong>Ville :</strong> {{directory.city}}</p>
+      <p><strong>Complément d'adresse :</strong> {{directory.addressComplement}}</p>
+      <p><strong>Mail :</strong> {{directory.email}}</p>
+      <p><strong>Telephone fixe :</strong> {{directory.fixe}}</p>
+      <p><strong>Telephone portable :</strong> {{directory.cellular}}</p>
+      <p><strong>Fax :</strong> {{directory.fax}}</p>
+
 
     </div>
     <div class="col-md-5">
       <h3>Autre données</h3>
-      <div class="form-group">
-        <label for="inputEmail3" class="col-sm-2 control-label">Numero carte vital: </label>
-        <div class="col-sm-9">
-          <input type="email" class="form-control" id="inputEmail3" value="77153154316541">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="inputEmail3" class="col-sm-2 control-label">Sécurité soscial: </label>
-        <div class="col-sm-9">
-          <input type="email" class="form-control" id="inputEmail3" value="Aucun">
-        </div>
-      </div>
-
+      <p><strong>Numéro carte vitale :</strong> {{directory.healthCard}} </p>
+      <p><strong>Sécurité social :</strong> {{directory.socialSecurity}}</p>
     </div>
   </div>
 
-    <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-default">Valider</button>
-    </div>
-  </form>
 
+  <div class="row myrow" *ngIf="modifyData">
+    <form class="form-horizontal">
+      <div class="col-md-6">
+        <h3>Données personnelles</h3>
+        <div class="form-group">
+          <label for="lastName" class="col-sm-3 control-label">Nom:</label>
+          <div class="col-sm-9">
+            <input type="text" [(ngModel)]="directory.lastName" class="form-control" id="lastName" name="lastName" readonly>
+          </div>
+
+        </div>
+
+        <div class="form-group">
+          <label for="firstName" class="col-sm-3 control-label">Prénom: </label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="firstName" name="firstName" [(ngModel)]="directory.firstName" readonly>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="sexe" class="col-sm-3 control-label">Sexe: </label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="sexe" name="sexe" [(ngModel)]="directory.sexe">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="birthDay" class="col-sm-3 control-label">Date de naissance: </label>
+          <div class="col-sm-9">
+            <input type="date" class="form-control" id="birthDay" name="birthDay" [(ngModel)]="directory.birthday">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="placeBirth" class="col-sm-3 control-label">Lieux de naissance: </label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="placeBirth" name="placeBirth" [(ngModel)]="directory.birthplace">
+          </div>
+        </div>
+
+
+        <h3>Coordonnées</h3>
+        <div class="form-group">
+          <label for="adress" class="col-sm-3 control-label">Adresse: </label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="adress" name="adress" [(ngModel)]="directory.address">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="cp" class="col-sm-3 control-label">Code postal: </label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="cp" name="cp" [(ngModel)]="directory.zipcode">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="city" class="col-sm-3 control-label">Ville: </label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="city" name="city" [(ngModel)]="directory.city">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="adressMore" class="col-sm-3 control-label">Complément d'adresse: </label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="adressMore" name="adressMore" [(ngModel)]="directory.addressComplement">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email" class="col-sm-3 control-label">Mail: </label>
+          <div class="col-sm-9">
+            <input type="email" class="form-control" id="email" name="email" [(ngModel)]="directory.email">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="tel" class="col-sm-3 control-label">Téléphone fixe: </label>
+          <div class="col-sm-9">
+            <input type="tel" class="form-control" id="tel" name="tel" [(ngModel)]="directory.fixe">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="portable" class="col-sm-3 control-label">Téléphone portable: </label>
+          <div class="col-sm-9">
+            <input type="tel" class="form-control" id="portable" name="portable" [(ngModel)]="directory.cellular">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="fax" class="col-sm-3 control-label">Fax: </label>
+          <div class="col-sm-9">
+            <input type="tel" class="form-control" id="fax" name="fax" [(ngModel)]="directory.fax">
+          </div>
+        </div>
+
+      </div>
+      <div class="col-md-6">
+        <h3>Autre données</h3>
+        <div class="form-group">
+          <label for="vital" class="col-sm-3 control-label">Numero carte vital: </label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="vital" name="vital" [(ngModel)]="directory.healthCard">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="social" class="col-sm-3 control-label">Sécurité social: </label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="social" name="social" [(ngModel)]="directory.socialSecurity">
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-md-12" style="text-align: center">
+        <button type="submit" class="btn btn-default">Valider les modifications</button>
+        <button (click)="modifyData = false" class="btn btn-warning">Annuler</button>
+      </div>
+    </form>
 
   </div>
+</div>

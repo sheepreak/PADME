@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+
 
 @Component({
   selector: 'app-administration-file',
@@ -6,40 +7,44 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./administration-file.component.css']
 })
 export class AdministrationFileComponent implements OnInit {
-  lastName: string;
-  firstName: string;
-  sexe: string;
-  birthday: string;
-  birthplace: string;
-  address: string;
-  zipcode: string;
-  city: string;
-  country: string;
-  addressComplement: string;
-  email: string;
-  fixe: string;
-  cellular: string;
-  fax: string;
-  healthCard: string;
-  socialSecurity: string;
+  directory = {
+    'lastName': '',
+    'firstName': '',
+    'sexe': '',
+    'birthday': '',
+    'birthplace': '',
+    'address': '',
+    'zipcode': '',
+    'city': '',
+    'country': '',
+    'addressComplement': '',
+    'email': '',
+    'fixe': '',
+    'cellular': '',
+    'fax': '',
+    'healthCard': '',
+    'socialSecurity': ''
+  };
+
+  modifyData = false;
 
   constructor() {
-    this.address = "4 allée des camélias";
-    this.addressComplement = "Aucun";
-    this.birthday = "12/06/1995";
-    this.birthplace = "Lagny";
-    this.cellular = "06.74.18.98.16";
-    this.city = "Noisy le grand";
-    this.country = "France";
-    this.email = "amelinemoreau@orange.fr";
-    this.fax = "Aucun";
-    this.firstName = "Ameline";
-    this.healthCard = "77642213543213";
-    this.lastName = "Moreau";
-    this.sexe = "F";
-    this.socialSecurity = "Aucun";
-    this.zipcode = "77164";
-    this.fixe = "01.64.64.15.98";
+    this.directory.address = '4 allée des camélias';
+    this.directory.addressComplement = 'Aucun';
+    this.directory.birthday = '12/06/1995';
+    this.directory.birthplace = 'Lagny';
+    this.directory.cellular = '06.74.18.98.16';
+    this.directory.city = 'Noisy le grand';
+    this.directory.country = 'France';
+    this.directory.email = 'amelinemoreau@orange.fr';
+    this.directory.fax = 'Aucun';
+    this.directory.firstName = 'Ameline';
+    this.directory.healthCard = '77642213543213';
+    this.directory.lastName = 'Moreau';
+    this.directory.sexe = 'F';
+    this.directory.socialSecurity = 'Aucun';
+    this.directory.zipcode = '77164';
+    this.directory.fixe = '01.64.64.15.98';
 
   }
 
