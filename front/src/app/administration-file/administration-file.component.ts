@@ -27,6 +27,7 @@ export class AdministrationFileComponent implements OnInit {
   };
 
   modifyData = false;
+  oldDirectory;
 
   constructor() {
     this.directory.address = '4 allée des camélias';
@@ -49,6 +50,20 @@ export class AdministrationFileComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+
+  ModifData() {
+    this.oldDirectory = Object.assign({}, this.directory);
+    this.modifyData = true;
+  }
+
+
+  cancelModif() {
+    console.log(this.oldDirectory);
+    this.directory = this.oldDirectory;
+    this.modifyData = false;
+
   }
 
 }
