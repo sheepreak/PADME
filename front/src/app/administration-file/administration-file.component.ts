@@ -11,7 +11,7 @@ export class AdministrationFileComponent implements OnInit {
     'lastName': '',
     'firstName': '',
     'sexe': '',
-    'birthday': '',
+    'birthday': new Date(),
     'birthplace': '',
     'address': '',
     'zipcode': '',
@@ -32,7 +32,7 @@ export class AdministrationFileComponent implements OnInit {
   constructor() {
     this.directory.address = '4 allée des camélias';
     this.directory.addressComplement = 'Aucun';
-    this.directory.birthday = '12/06/1995';
+    this.directory.birthday = new Date('12/06/1995');
     this.directory.birthplace = 'Lagny';
     this.directory.cellular = '06.74.18.98.16';
     this.directory.city = 'Noisy le grand';
