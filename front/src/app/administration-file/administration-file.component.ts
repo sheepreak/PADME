@@ -53,7 +53,7 @@ export class AdministrationFileComponent implements OnInit {
   }
 
 
-  ModifData() {
+  modifData() {
     this.oldDirectory = Object.assign({}, this.directory);
     this.modifyData = true;
   }

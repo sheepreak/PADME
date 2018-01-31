@@ -1,0 +1,80 @@
+<div class="col-sm-9 col-md-10 main">
+  <div class="row title">
+    <div class="col-md-10">
+      <h2>
+        Examen
+      </h2>
+    </div>
+    <div class="col-md-1 text-right" >
+      <button type="button" class="btn btn-modif" (click)="modifData()  ">Modifier</button>
+    </div>
+    <div class="col-md-1 text-right">
+      <button type="button" class="btn btn-modif" (click)="publishData()  ">Publier</button>
+    </div>
+
+  </div>
+
+  <div class="row myrow">
+
+    <div class="col-md-7">
+      <p class="libele" >Fait le {{date}} à {{hopital}}</p>
+    </div>
+
+    <div class="col-md-2 mycol">
+      <h3>Patient</h3>
+      <p>Nom</p>
+      <p>Prénom</p>
+    </div>
+
+    <div class="col-md-2 mycol">
+      <h3>Radiologue</h3>
+      <p>Nom</p>
+      <p>Prénom</p>
+    </div>
+
+    <br>
+    <div class="col-md-10" *ngIf="tmp">
+      <h3>Motif</h3>
+      <p>{{directory.motif}}</p>
+      <h3>Déscription de l'examen</h3>
+      <p>{{directory.description}}</p>
+
+      <h3>Résultats</h3>
+      <div [innerHtml]="imghtml"></div>
+
+      <h3>Observation</h3>
+      <p>{{directory.observation}}</p>
+    </div>
+
+    <div *ngIf="!tmp">
+      <h3>Préscription</h3>
+      <form class="form-horizontal">
+        <h3>Motif</h3>
+        <textarea rows="2" cols="100">
+        {{directory.motif}}
+        </textarea>
+
+        <h3>Déscription de l'examen</h3>
+        <textarea rows="2" cols="100">
+        {{directory.description}}
+        </textarea>
+
+        <h3>Résultats</h3>
+        <textarea rows="2" cols="100">
+        <p>image ou données</p>
+        </textarea>
+
+        <h3>Observation</h3>
+        <textarea rows="2" cols="100">
+        {{directory.observation}}
+        </textarea>
+
+        <div class="col-md-12" style="text-align: center">
+          <button type="submit" class="btn btn-validate">Valider les modifications</button>
+          <button (click)="cancelModif()" class="btn btn-warning">Annuler</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

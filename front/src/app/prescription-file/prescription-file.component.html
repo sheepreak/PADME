@@ -6,7 +6,10 @@
       </h2>
     </div>
     <div class="col-md-1 text-right">
-      <button class="btn btn-modif">Modifier</button>
+      <button type="button" class="btn btn-modif" (click)="modifData()  ">Modifier</button>
+    </div>
+    <div class="col-md-1 text-right">
+      <button type="button" class="btn btn-modif" (click)="publishData()  ">Publier</button>
     </div>
 
   </div>
@@ -14,7 +17,7 @@
     <div class="row myrow">
 
       <div class="col-md-7">
-        <p class="libele">Fait le 02/03/2017 à l'hopital de Paris</p>
+        <p class="libele" *ngIf="publish">Fait le {{date}} à {{hopital}}</p>
       </div>
 
         <div class="col-md-2 mycol">
@@ -30,8 +33,25 @@
       </div>
 
       <br>
-      <h3>Préscription</h3>
-      <p>2 boites de doliprane</p>
-      <p>spasfond</p>
+      <div *ngIf="!modifyData">
+        <h3>Préscription</h3>
+        <p>2 boites de doliprane</p>
+        <p>spasfond</p>
+      </div>
+
+      <div *ngIf="modifyData">
+        <h3>Préscription</h3>
+        <form class="form-horizontal">
+          <textarea rows="4" cols="50">
+            2 boites de doliprane
+            spasfond
+          </textarea>
+
+          <div class="col-md-12" style="text-align: center">
+            <button type="submit" class="btn btn-validate">Valider les modifications</button>
+            <button (click)="cancelModif()" class="btn btn-warning">Annuler</button>
+          </div>
+        </form>
+      </div>
     </div>
 </div>

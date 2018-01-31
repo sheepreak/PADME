@@ -62,3 +62,20 @@ h2 {
   color: #337ab7;
   border: 1px solid #337ab7;
 }
+
+
+.btn-validate{
+  margin-top: 20px;
+  background: #B6E8B6;
+  color: #0B610B;
+}
+
+.btn-validate:hover{
+  background: white;
+  color: #0B610B;
+  border: 1px solid #0B610B;
+}
+
+.btn-warning{
+  margin-top: 20px;
+}

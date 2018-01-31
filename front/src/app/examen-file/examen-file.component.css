@@ -1,6 +1,33 @@
 
-.myrow {
-  padding: 10px;
+
+.mycol{
+  background: #F2F2F2;
+  border-radius: 10px;
+  margin: 5px;
+  box-shadow: 0px 2px 4px grey;
+  padding: 5px;
+}
+
+.mycol:hover{
+  box-shadow: 0px 2px 4px #337ab7;
+}
+
+.mycol h3{
+  color: #337ab7 !important;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #337ab7;
+  text-align: center;
+}
+
+.mycol p{
+  color:#424242 !important;
+}
+
+.libele{
+  padding-top: 10px;
+  font-style: italic;
 }
 
 h2 {
@@ -10,6 +37,7 @@ h2 {
 .title{
   border-bottom: 2px solid #0B243B;
   margin-right: 50px;
+  margin-bottom: 10px;
 }
 
 .myrow p{
@@ -22,7 +50,6 @@ h2 {
   color: #337ab7;
 
 }
-
 
 .btn-modif{
   margin-top: 20px;
@@ -54,4 +81,6 @@ h2 {
 }
 
 
-
+.imgdata{
+  max-width: 60px;
+}

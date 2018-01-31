@@ -12,6 +12,7 @@ import { UserService } from './user.service';
 import {WebApiPromiseService} from './web-api-promise.service';
 import { AdministrationFileComponent } from './administration-file/administration-file.component';
 import { PrescriptionFileComponent } from './prescription-file/prescription-file.component';
+import { ExamenFileComponent } from './examen-file/examen-file.component';
 
 
 
@@ -27,6 +28,10 @@ const appRoutes: Routes = [
   {
     path: 'prescriptionfile',
     component: PrescriptionFileComponent
+  },
+  {
+    path: 'examenfile',
+    component: ExamenFileComponent
   }
 ];
 
@@ -38,7 +43,8 @@ const appRoutes: Routes = [
     DynamicNavBarComponent,
     LoginPageComponent,
     AdministrationFileComponent,
-    PrescriptionFileComponent
+    PrescriptionFileComponent,
+    ExamenFileComponent
   ],
 
   imports: [
