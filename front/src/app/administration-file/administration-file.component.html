@@ -18,7 +18,7 @@
       <p><strong>Nom :</strong> {{directory.lastName}}</p>
       <p><strong>Prénom :</strong> {{directory.firstName}}</p>
       <p><strong>Sexe :</strong> {{directory.sexe}}</p>
-      <p><strong>Date de naissance :</strong> {{directory.birthday}}</p>
+      <p><strong>Date de naissance :</strong> {{directory.birthday | date:'dd/MM/yyyy'}}</p>
       <p><strong>Lieux de naissance :</strong> {{directory.birthplace}}</p>
 
       <h3>Coordonnées</h3>
@@ -48,7 +48,8 @@
         <div class="form-group">
           <label for="lastName" class="col-sm-3 control-label">Nom:</label>
           <div class="col-sm-9">
-            <input type="text" [(ngModel)]="directory.lastName" class="form-control" id="lastName" name="lastName" readonly>
+            <input type="text" [(ngModel)]="directory.lastName" class="form-control" id="lastName" name="lastName"
+                   readonly>
           </div>
 
         </div>
@@ -56,7 +57,8 @@
         <div class="form-group">
           <label for="firstName" class="col-sm-3 control-label">Prénom: </label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="firstName" name="firstName" [(ngModel)]="directory.firstName" readonly>
+            <input type="text" class="form-control" id="firstName" name="firstName" [(ngModel)]="directory.firstName"
+                   readonly>
           </div>
         </div>
 
@@ -70,14 +72,16 @@
         <div class="form-group">
           <label for="birthDay" class="col-sm-3 control-label">Date de naissance: </label>
           <div class="col-sm-9">
-            <input type="date" class="form-control" id="birthDay" name="birthDay" [(ngModel)]="directory.birthday">
+            <input type="date" class="form-control" id="birthDay" name="birthDay"
+                   value='{{directory.birthday|date:"yyyy-MM-dd"}}' ([ngModel])="directory.birthday">
           </div>
         </div>
 
         <div class="form-group">
           <label for="placeBirth" class="col-sm-3 control-label">Lieux de naissance: </label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="placeBirth" name="placeBirth" [(ngModel)]="directory.birthplace">
+            <input type="text" class="form-control" id="placeBirth" name="placeBirth"
+                   [(ngModel)]="directory.birthplace">
           </div>
         </div>
 
@@ -104,7 +108,8 @@
         <div class="form-group">
           <label for="adressMore" class="col-sm-3 control-label">Complément d'adresse: </label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="adressMore" name="adressMore" [(ngModel)]="directory.addressComplement">
+            <input type="text" class="form-control" id="adressMore" name="adressMore"
+                   [(ngModel)]="directory.addressComplement">
           </div>
         </div>
         <div class="form-group">

@@ -10,8 +10,9 @@ import {DynamicNavBarComponent} from './dynamic-nav-bar/dynamic-nav-bar.componen
 import {LoginPageComponent} from './login-page/login-page.component';
 import { UserService } from './user.service';
 import {WebApiPromiseService} from './web-api-promise.service';
-import { AdministrationFileComponent } from './administration-file/administration-file.component';
-import { PrescriptionFileComponent } from './prescription-file/prescription-file.component';
+import {AdministrationFileComponent} from './administration-file/administration-file.component';
+import {PrescriptionFileComponent} from './prescription-file/prescription-file.component';
+import {PatientListComponent} from './patient-list/patient-list.component';
 import { ExamenFileComponent } from './examen-file/examen-file.component';
 
 
@@ -30,6 +31,10 @@ const appRoutes: Routes = [
     component: PrescriptionFileComponent
   },
   {
+    path: 'patientlist',
+    component: PatientListComponent
+  },
+  {
     path: 'examenfile',
     component: ExamenFileComponent
   }
@@ -45,6 +50,8 @@ const appRoutes: Routes = [
     AdministrationFileComponent,
     PrescriptionFileComponent,
     ExamenFileComponent
+    PrescriptionFileComponent,
+    PatientListComponent
   ],
 
   imports: [
