@@ -29,7 +29,7 @@ const appRoutes: Routes = [
     component: PrescriptionFileComponent
   },
   {
-    path: 'patientlistcomponent',
+    path: 'patientlist',
     component: PatientListComponent
   }
 ];
