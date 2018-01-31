@@ -8,17 +8,17 @@ import {AppComponent} from './app.component';
 import {StaticNavBarComponent} from './static-nav-bar/static-nav-bar.component';
 import {DynamicNavBarComponent} from './dynamic-nav-bar/dynamic-nav-bar.component';
 import {LoginPageComponent} from './login-page/login-page.component';
-import { UserService } from './user.service';
+import {UserService} from './user.service';
 import {WebApiPromiseService} from './web-api-promise.service';
-import { AdministrationFileComponent } from './administration-file/administration-file.component';
-import { PrescriptionFileComponent } from './prescription-file/prescription-file.component';
-
+import {AdministrationFileComponent} from './administration-file/administration-file.component';
+import {PrescriptionFileComponent} from './prescription-file/prescription-file.component';
+import {PatientListComponent} from './patient-list/patient-list.component';
 
 
 const appRoutes: Routes = [
   {
     path: 'login',
-    component : LoginPageComponent
+    component: LoginPageComponent
   },
   {
     path: 'administrationfile',
@@ -27,6 +27,10 @@ const appRoutes: Routes = [
   {
     path: 'prescriptionfile',
     component: PrescriptionFileComponent
+  },
+  {
+    path: 'patientlistcomponent',
+    component: PatientListComponent
   }
 ];
 
@@ -38,7 +42,8 @@ const appRoutes: Routes = [
     DynamicNavBarComponent,
     LoginPageComponent,
     AdministrationFileComponent,
-    PrescriptionFileComponent
+    PrescriptionFileComponent,
+    PatientListComponent
   ],
 
   imports: [
@@ -47,7 +52,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
+      {enableTracing: true} // <-- debugging purposes only
     )
   ],
   providers: [UserService, WebApiPromiseService],
