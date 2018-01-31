@@ -1,5 +1,5 @@
-///<reference path="../../../node_modules/@angular/core/src/metadata/directives.d.ts"/>
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+
 
 @Component({
   selector: 'app-patient-list',
@@ -8,9 +8,34 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PatientListComponent implements OnInit {
 
-  constructor() { }
+
+  listPatients = [];
+
+  constructor() {
+
+    this.listPatients.push({
+      id: 1,
+      firstname: 'charles',
+      lastname: 'da silva costa',
+      age: 23,
+      birthday: '29/09/1994'
+    });
+    for (let i = 0; i < 10; i++) {
+      this.listPatients.push({
+        id: i + 2,
+        firstname: 'aaaaa',
+        lastname: 'sdfsdfsdfsdfsdf',
+        age: 34,
+        birthday: '12/09/1992'
+      });
+    }
+  }
 
   ngOnInit() {
+  }
+
+  onClicOnPatient(id) {
+    console.log('oui ' + id);
   }
 
 }
