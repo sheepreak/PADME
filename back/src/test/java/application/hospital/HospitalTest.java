@@ -11,7 +11,6 @@ import java.util.List;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.booleanThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -199,31 +198,18 @@ public class HospitalTest{
         assertTrue(hospital.getName().equals(name) && hospital.getAddress().equals(address)
                 && hospital.getCountry().equals(country));
     }
-//    testHospitalGetHierarchy() : test si la hierarchy d’un Hospital nouvellement créé avec un appelle à initHierarchy(Path path) correct a une hierarchy retourner par getHierarchy correspondante à la hierarchie contenu dans le fichier ciblé par path
+
     @Test
     public void testHospitalGetHierarchy(){
         Hospital hospital = new HospitalImpl("","","" );
-
         List<Node> nodeExpected = new ArrayList<>();
-//        when(poleChirurgie.getSubNodes()).thenReturn(serviceChirurgieList);
-//        when(poleChirurgie.getSpeciality()).thenReturn("Chirurgie");
-//        when(poleChirurgie.isNodePole()).thenReturn(true);
-//
-//        //Urgence
-//        when(poleUrgence.getSubNodes()).thenReturn(serviceUrgenceList);
-//        when(poleUrgence.getSpeciality()).thenReturn("Urgence");
-//        when(poleUrgence.isNodePole()).thenReturn(true);
-
         initDataTest();
         hospital.addNodePole(poleUrgence);
         hospital.addNodePole(poleChirurgie);
-
         nodeExpected.add(poleUrgence);
         nodeExpected.add(poleChirurgie);
-
         assert(hospital.getHierarchy().equals(nodeExpected));
     }
-//   testHospitalGetHierarchyIsAnEmptyListByDefault() : test si getHierarchy sur un Hospital nouvellement créé retourner bien une liste vide
     @Test
     public void testHospitalGetHierarchyIsAnEmptyListByDefault(){
         Hospital hospital = new HospitalImpl("","","" );
@@ -235,46 +221,54 @@ public class HospitalTest{
         Hospital hospital = new HospitalImpl("","","" );
         hospital.addNodePole(null);
     }
-//    testAddNodePoleWithNodeService() : test le comportement de Hospital.addNode(node) avec node de niveau Service, attendu un IllegalArgumentException
-//    @Test
-//    public void testAddNodePoleWithNodeService(){
-//        Hospital hospital = new HospitalImpl("","","" );
-//        //todo mocking
-//        assert(false);
-//    }
-////    testAddNodePoleWithNodeHospitalUnit() : test le comportement de Hospital.addNode(node) avec node de niveau Unité Hospitalière, attendu un IllegalArgumentException
-//    @Test
-//    public void testAddNodePoleWithNodeHospitalUnit(){
-//        Hospital hospital = new HospitalImpl("","","" );
-//        //todo mocking
-//        assert(false);
-//    }
-////    testAddNodePoleWithNodeHealthCareUnit() : test le comportement de Hospital.addNode(node) avec node de niveau Unité de Soin, attendu un IllegalArgumentException
-//    @Test
-//    public void testAddNodePoleWithNodeHealthCareUnit(){
-//        Hospital hospital = new HospitalImpl("","","" );
-//        //todo mocking
-//        assert(false);
-//    }
-////    testAddNodePole() : test le comportement de Hospital.addNode(node)  avec node de niveau Pôle sur un Hospital nouvellement créé, avec plusieurs ajout de node successive, vérifier que la liste contient et ne contient que des nodes passées à la méthode addNodePole et que les appels successifs à la méthode addNodePole renvois toujours vrai avec de bonne données
-//    @Test
-//    public void testAddNodePole(){
-//        Hospital hospital = new HospitalImpl("","","" );
-//        //todo mocking
-//        assert(false);
-//    }
-////    testGetPosition() : test le comportement de la méthode Hospital.getPosition(node) avec une node qui compose une partie de la hierarchy avec tous ses noeuds de niveaux inférieur, vérifier que le résultat et le noeud en entrée contiennent les mêmes données
-//    @Test
-//    public void testGetPosition(){
-//        Hospital hospital = new HospitalImpl("","","" );
-//        //todo mocking
-//        assert(false);
-//    }
-////    testGetPositionWithOtherNode() : test le comportement de la méthode Hospital.getPosition(node) avec une node qui fait pas partie de la hierarchy avec tous ses noeuds de niveaux inférieur, vérifier que le résultat est null
-//    @Test
-//    public void testGetPositionWithOtherNode(){
-//        Hospital hospital = new HospitalImpl("","","" );
-//        //todo mocking
-//        assert(false);
-//    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testAddNodePoleWithNodeService(){
+        Hospital hospital = new HospitalImpl("","","" );
+        initDataTest();
+        hospital.addNodePole(serviceChirurgieA);
+        assert(false);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testAddNodePoleWithNodeHospitalUnit(){
+        Hospital hospital = new HospitalImpl("","","" );
+        initDataTest();
+        hospital.addNodePole(hospUnitChirurgieAA);
+        assert(false);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testAddNodePoleWithNodeHealthCareUnit(){
+        Hospital hospital = new HospitalImpl("","","" );
+        initDataTest();
+        hospital.addNodePole(healthCareUnitChirurgieAAA);
+        assert(false);
+    }
+
+    @Test
+    public void testAddNodePole(){
+        Hospital hospital = new HospitalImpl("","","" );
+        initDataTest();
+        List<Node> nodeExpected = new ArrayList<>();
+        nodeExpected.add(poleChirurgie);
+        hospital.addNodePole(poleChirurgie);
+        assert(hospital.getHierarchy().equals(nodeExpected));
+    }
+
+    @Test
+    public void testGetPosition(){
+        Hospital hospital = new HospitalImpl("","","" );
+        initDataTest();
+        hospital.addNodePole(poleChirurgie);
+        assert(hospital.getPosition(healthCareUnitChirurgieAAA).equals(healthCareUnitChirurgieAAA));
+    }
+
+    @Test
+    public void testGetPositionWithOtherNode(){
+        Hospital hospital = new HospitalImpl("","","" );
+        initDataTest();
+        hospital.addNodePole(poleChirurgie);
+        assert(null == hospital.getPosition(healthCareUnitUrgenceAAA));
+    }
 }

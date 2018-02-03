@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Stateless
 public class HospitalImplRepository {
 
-    @PersistenceContext(unitName="JPAPU")
+    @PersistenceContext(unitName = "JPAPU")
     private EntityManager entityManager;
 
     public List<HospitalImpl> list(){

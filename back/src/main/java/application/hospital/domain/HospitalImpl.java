@@ -34,12 +34,12 @@ public class HospitalImpl implements Hospital {
     @Size(min=2, max=20)
     @NotNull
     @Column(nullable=false)
-    private final String country;
+    private String country;
 
     @Size(min = 2, max = 20)
     @NotNull
     @Column(nullable = false)
-    private final String address;
+    private String address;
 
     @OneToMany
     private List<Node> hierarchy;
@@ -49,6 +49,9 @@ public class HospitalImpl implements Hospital {
         this.country = Objects.requireNonNull(country);
         this.address = Objects.requireNonNull(address);
         hierarchy = new ArrayList<>();
+    }
+
+    public HospitalImpl() {
     }
 
     @Override
