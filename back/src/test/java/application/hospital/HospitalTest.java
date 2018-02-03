@@ -28,7 +28,6 @@ public class HospitalTest{
 
     private List<Node> hospUnitUrgenceListA = new ArrayList<>();
     private Node hospUnitUrgenceAA = mock(Node.class);
-    private Node hospUnitUrgenceAB = mock(Node.class);
 
     private List<Node> hospUnitChirurgieListA = new ArrayList<>();
     private Node hospUnitChirurgieAA = mock(Node.class);
@@ -39,8 +38,7 @@ public class HospitalTest{
 
     private List<Node> healthCareUnitUrgenceListAA = new ArrayList<>();
     private Node healthCareUnitUrgenceAAA = mock(Node.class);
-    private List<Node> healthCareUnitUrgenceListAB = new ArrayList<>();
-    private Node healthCareUnitUrgenceABA = mock(Node.class);
+
 
     private List<Node> healthCareUnitChirurgieListAA = new ArrayList<>();
     private Node healthCareUnitChirurgieAAA = mock(Node.class);
@@ -105,9 +103,21 @@ public class HospitalTest{
         when(poleChirurgie.isNodePole()).thenReturn(true);
 
         //Urgence
+
+        healthCareUnitChirurgieListAA
+                .add(simuleNode(healthCareUnitChirurgieAAA, null, chirurgieLabel,false));
+
+        hospUnitChirurgieListA
+                .add(simuleNode(hospUnitChirurgieAA, healthCareUnitChirurgieListAA, chirurgieLabel, false));
+
+        serviceChirurgieList
+                .add(simuleNode(serviceChirurgieA, hospUnitChirurgieListA, chirurgieLabel, false));
+
+
         when(poleUrgence.getSubNodes()).thenReturn(serviceUrgenceList);
         when(poleUrgence.getSpeciality()).thenReturn("Chirurgie");
         when(poleUrgence.isNodePole()).thenReturn(true);
+
 
 
     }
