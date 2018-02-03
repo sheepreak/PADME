@@ -71,6 +71,7 @@ public class HospitalImpl implements Hospital {
             throw new IllegalArgumentException(message);
         }
         //TODO parse the json file
+
     }
 
     @Override
