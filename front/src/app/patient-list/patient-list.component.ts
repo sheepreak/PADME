@@ -1,4 +1,19 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Pipe, PipeTransform} from '@angular/core';
+
+
+@Pipe({
+  name: 'search'
+})
+
+
+export class SearchPipe implements PipeTransform {
+  public transform(value, keys: string, term: string) {
+    if (!term) {
+      return value;
+    }
+    return (value || []).filter((item) => keys.split(',').some(key => item.hasOwnProperty(key) && new RegExp(term, 'gi').test(item[key])));
+  }
+}
 
 
 @Component({
@@ -6,6 +21,8 @@ import {Component, OnInit} from '@angular/core';
   templateUrl: './patient-list.component.html',
   styleUrls: ['./patient-list.component.css']
 })
+
+
 export class PatientListComponent implements OnInit {
 
 

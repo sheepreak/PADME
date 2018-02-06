@@ -5,7 +5,7 @@
 
   <div class="row">
     <div class="col-md-offset-8 col-md-4">
-      <input type="text" class="form-control" placeholder="Recherche">
+      <input [(ngModel)]="filter" type="text" class="form-control" placeholder="Recherche">
     </div>
 
   </div>
@@ -20,7 +20,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let patient of listPatients" (click)="onClicOnPatient(patient.id)">
+      <tr *ngFor="let patient of listPatients | search:'lastname, firstname':filter" (click)="onClicOnPatient(patient.id)">
         <td>{{patient.lastname | uppercase}}</td>
         <td>{{patient.firstname | uppercase}}</td>
         <td>{{patient.age}}</td>
