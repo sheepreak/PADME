@@ -49,7 +49,7 @@ const appRoutes: Routes = [
     LoginPageComponent,
     AdministrationFileComponent,
     PrescriptionFileComponent,
-    ExamenFileComponent
+    ExamenFileComponent,
     PrescriptionFileComponent,
     PatientListComponent
   ],

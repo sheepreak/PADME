@@ -40,7 +40,7 @@
       <p>{{directory.description}}</p>
 
       <h3>Résultats</h3>
-      <div [innerHtml]="imghtml"></div>
+      <div *ngFor="let i of img">{{i.name}}<img src="{{i.path}}"></div>
 
       <h3>Observation</h3>
       <p>{{directory.observation}}</p>
