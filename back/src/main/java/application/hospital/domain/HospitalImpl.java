@@ -86,12 +86,18 @@ public class HospitalImpl implements Hospital {
                 continue;
             if (!nodePole.getSpeciality().equals(node.getSpeciality()))
                 continue;
+            if(nodePole.getSubNodes() == null)
+                continue;
             for (Node nodeService: nodePole.getSubNodes()) {
                if (nodeService.equals(node))
                    return nodeService;
+               if(nodeService.getSubNodes() == null)
+                   continue;
                for (Node nodeHospUnit: nodeService.getSubNodes()) {
                    if (nodeHospUnit.equals(node))
                        return nodeHospUnit;
+                   if(nodeHospUnit.getSubNodes() == null)
+                       continue;
                    for (Node nodeHealthCareUnit: nodeHospUnit.getSubNodes()) {
                          if(nodeHealthCareUnit.equals(node))
                              return nodeHealthCareUnit;

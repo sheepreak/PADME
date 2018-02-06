@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import application.node.NodeLevel;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
@@ -54,10 +55,11 @@ public class HospitalTest{
     private Node healthCareUnitChirurgieBBB = mock(Node.class);
 
 
-    private Node simuleNode(Node node, List<Node> subNode, String speciality, boolean isNodePole){
+    private Node simuleNode(Node node, List<Node> subNode, String speciality, boolean isNodePole, Enum<NodeLevel> level){
         when(node.getSubNodes()).thenReturn(subNode);
         when(node.getSpeciality()).thenReturn(speciality);
         when(node.isNodePole()).thenReturn(isNodePole);
+        when(node.getLevel()).thenReturn(level);
         return node;
     }
 
@@ -68,58 +70,56 @@ public class HospitalTest{
         //chirurgie
 
         healthCareUnitChirurgieListAA
-                .add(simuleNode(healthCareUnitChirurgieAAA, null, chirurgieLabel,false));
+                .add(simuleNode(healthCareUnitChirurgieAAA, null, chirurgieLabel,false, NodeLevel.healthCareUnit));
         healthCareUnitChirurgieListAA
-                .add(simuleNode(healthCareUnitChirurgieAAB, null, chirurgieLabel,false));
+                .add(simuleNode(healthCareUnitChirurgieAAB, null, chirurgieLabel,false, NodeLevel.healthCareUnit));
         healthCareUnitChirurgieListAB
-                .add(simuleNode(healthCareUnitChirurgieABA, null, chirurgieLabel,false));
+                .add(simuleNode(healthCareUnitChirurgieABA, null, chirurgieLabel,false, NodeLevel.healthCareUnit));
         healthCareUnitChirurgieListAB
-                .add(simuleNode(healthCareUnitChirurgieABB, null, chirurgieLabel,false));
+                .add(simuleNode(healthCareUnitChirurgieABB, null, chirurgieLabel,false, NodeLevel.healthCareUnit));
         healthCareUnitChirurgieListBA
-                .add(simuleNode(healthCareUnitChirurgieBAA, null, chirurgieLabel,false));
+                .add(simuleNode(healthCareUnitChirurgieBAA, null, chirurgieLabel,false, NodeLevel.healthCareUnit));
         healthCareUnitChirurgieListBA
-                .add(simuleNode(healthCareUnitChirurgieBAB, null, chirurgieLabel,false));
+                .add(simuleNode(healthCareUnitChirurgieBAB, null, chirurgieLabel,false, NodeLevel.healthCareUnit));
         healthCareUnitChirurgieListBB
-                .add(simuleNode(healthCareUnitChirurgieBBA, null, chirurgieLabel,false));
+                .add(simuleNode(healthCareUnitChirurgieBBA, null, chirurgieLabel,false, NodeLevel.healthCareUnit));
         healthCareUnitChirurgieListBB
-                .add(simuleNode(healthCareUnitChirurgieBBB, null, chirurgieLabel,false));
+                .add(simuleNode(healthCareUnitChirurgieBBB, null, chirurgieLabel,false, NodeLevel.healthCareUnit));
 
         hospUnitChirurgieListA
-                .add(simuleNode(hospUnitChirurgieAA, healthCareUnitChirurgieListAA, chirurgieLabel, false));
+                .add(simuleNode(hospUnitChirurgieAA, healthCareUnitChirurgieListAA, chirurgieLabel, false, NodeLevel.healthCareUnit));
         hospUnitChirurgieListA
-                .add(simuleNode(hospUnitChirurgieAB, healthCareUnitChirurgieListAB, chirurgieLabel, false));
+                .add(simuleNode(hospUnitChirurgieAB, healthCareUnitChirurgieListAB, chirurgieLabel, false, NodeLevel.healthCareUnit));
         hospUnitChirurgieListB
-                .add(simuleNode(hospUnitChirurgieBA, healthCareUnitChirurgieListBA, chirurgieLabel, false));
+                .add(simuleNode(hospUnitChirurgieBA, healthCareUnitChirurgieListBA, chirurgieLabel, false, NodeLevel.healthCareUnit));
         hospUnitChirurgieListB
-                .add(simuleNode(hospUnitChirurgieBB, healthCareUnitChirurgieListBB, chirurgieLabel, false));
+                .add(simuleNode(hospUnitChirurgieBB, healthCareUnitChirurgieListBB, chirurgieLabel, false, NodeLevel.healthCareUnit));
 
         serviceChirurgieList
-                .add(simuleNode(serviceChirurgieA, hospUnitChirurgieListA, chirurgieLabel, false));
+                .add(simuleNode(serviceChirurgieA, hospUnitChirurgieListA, chirurgieLabel, false, NodeLevel.hospitalUnit));
         serviceChirurgieList
-                .add(simuleNode(serviceChirurgieB, hospUnitChirurgieListB, chirurgieLabel, false));
+                .add(simuleNode(serviceChirurgieB, hospUnitChirurgieListB, chirurgieLabel, false, NodeLevel.hospitalUnit));
 
         when(poleChirurgie.getSubNodes()).thenReturn(serviceChirurgieList);
         when(poleChirurgie.getSpeciality()).thenReturn(chirurgieLabel);
         when(poleChirurgie.isNodePole()).thenReturn(true);
+        when(poleChirurgie.getLevel()).thenReturn(NodeLevel.pole);
 
         //Urgence
 
         healthCareUnitChirurgieListAA
-                .add(simuleNode(healthCareUnitChirurgieAAA, null, chirurgieLabel,false));
+                .add(simuleNode(healthCareUnitChirurgieAAA, null, chirurgieLabel,false, NodeLevel.healthCareUnit));
 
         hospUnitChirurgieListA
-                .add(simuleNode(hospUnitChirurgieAA, healthCareUnitChirurgieListAA, chirurgieLabel, false));
+                .add(simuleNode(hospUnitChirurgieAA, healthCareUnitChirurgieListAA, chirurgieLabel, false, NodeLevel.hospitalUnit));
 
         serviceChirurgieList
-                .add(simuleNode(serviceChirurgieA, hospUnitChirurgieListA, chirurgieLabel, false));
-
+                .add(simuleNode(serviceChirurgieA, hospUnitChirurgieListA, chirurgieLabel, false, NodeLevel.service));
 
         when(poleUrgence.getSubNodes()).thenReturn(serviceUrgenceList);
         when(poleUrgence.getSpeciality()).thenReturn("Chirurgie");
         when(poleUrgence.isNodePole()).thenReturn(true);
-
-
-
+        when(poleUrgence.getLevel()).thenReturn(NodeLevel.pole);
     }
 
     @Test(expected = NullPointerException.class)
