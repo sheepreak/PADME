@@ -1,6 +1,9 @@
 package application;
 
 
+import application.examen.rest.ExamenRest;
+import application.medicalfile.rest.MedicalFileRest;
+
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 import java.util.Collections;
@@ -13,6 +16,8 @@ public class ApplicationConfig extends Application {
 
     public ApplicationConfig() {
         HashSet<Class<?>> c = new HashSet<>();
+        c.add(MedicalFileRest.class);
+        c.add(ExamenRest.class);
         classes = Collections.unmodifiableSet(c);
     }
 
