@@ -5,6 +5,8 @@ import application.node.NodeLevel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 
 public class NodeImpl implements Node {
 
@@ -14,7 +16,12 @@ public class NodeImpl implements Node {
     private List<Node> subNodes = new ArrayList<>();
 
     public NodeImpl(){
-
+    }
+    public void setSpeciality(String speciality){
+        this.speciality = Objects.requireNonNull(speciality);
+    }
+    public void setLevel(NodeLevel level){
+        this.level = Objects.requireNonNull(level);
     }
     public void addNode(Node node){
         subNodes.add(node);
@@ -28,10 +35,7 @@ public class NodeImpl implements Node {
     public String getSpeciality(){
         return speciality;
     }
-    public Enum<NodeLevel> getLevel(){
-
-    }
-    public boolean isNodePole(){
-
+    public NodeLevel getLevel(){
+        return level;
     }
 }

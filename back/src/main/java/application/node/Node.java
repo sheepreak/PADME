@@ -9,5 +9,4 @@ public interface Node {
     public Long getId();
     public String getSpeciality();
     public Enum<NodeLevel> getLevel();
-    public boolean isNodePole();
 }
