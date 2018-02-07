@@ -2,14 +2,14 @@
   <div class="row title">
     <div class="col-md-10">
       <h2>
-        Préscription
+        Consultation
       </h2>
     </div>
     <div class="col-md-1 text-right" *ngIf="manageFile.stateConsulted()">
       <button type="button" class="btn btn-modif" (click)="modifData()  ">Modifier</button>
     </div>
     <div class="col-md-1 text-right" *ngIf="manageFile.stateConsulted()">
-      <button type="button" class="btn btn-modif" (click)="manageFile.publishData()  ">Publier</button>
+      <button type="button" class="btn btn-modif" (click)="manageFile.publishData()">Publier</button>
     </div>
   </div>
 
@@ -32,15 +32,24 @@
 
     <br>
     <div class="col-md-10" *ngIf="manageFile.stateConsulted() || manageFile.statePublish()">
-      <h3>Préscription</h3>
-      <p>{{prescription}}</p>
+
+      <h3>Motif</h3>
+      <p>{{directory.motif}}</p>
+
+      <h3>Observation</h3>
+      <p>{{directory.observation}}</p>
     </div>
 
     <div class="col-md-10" *ngIf="manageFile.stateEdited()">
-      <h3>Préscription</h3>
+      <h3>Motif</h3>
       <form class="form-horizontal">
           <textarea rows="4" cols="50">
-            {{prescription}}
+            {{directory.motif}}
+          </textarea>
+
+        <h3>Observation</h3>
+        <textarea rows="4" cols="50">
+            {{directory.observation}}
           </textarea>
 
         <div class="col-md-12" style="text-align: center">

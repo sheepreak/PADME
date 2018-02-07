@@ -1,4 +1,10 @@
 import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+
+/*
+npm install @ngx-translate/core --save
+npm install @ngx-translate/http-loader
+ */
 
 @Component({
   selector: 'app-root',
@@ -6,5 +12,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  constructor(private translate: TranslateService) {
+    translate.setDefaultLang('en');
+  }
 
+  switchLanguage(language: string) {
+    this.translate.use(language);
+  }
 }
+

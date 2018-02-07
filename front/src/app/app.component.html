@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,10 +23,19 @@
 
   <title>PADME</title>
 
-
 </head>
 
 <body>
+
+<h1 translate>Title</h1>
+
+<button (click)="switchLanguage('en')">en</button>
+
+<button (click)="switchLanguage('fr')">fr</button>
+
+<div>
+  {{ 'Intro' | translate:user }}
+</div>
 
 <app-static-nav-bar></app-static-nav-bar>
 

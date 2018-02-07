@@ -5,14 +5,14 @@
         Fiche administrative
       </h2>
     </div>
-    <div class="col-md-1 text-right">
+    <div class="col-md-1 text-right" *ngIf="manageFile.stateConsulted()">
       <button type="button" class="btn btn-modif" (click)="modifData()  ">Modifier</button>
     </div>
 
   </div>
 
 
-  <div class="row myrow" *ngIf="!modifyData">
+  <div class="row myrow" *ngIf="manageFile.stateConsulted()">
     <div class="col-md-5">
       <h3>Données personnelles</h3>
       <p><strong>Nom :</strong> {{directory.lastName}}</p>
@@ -34,6 +34,12 @@
 
     </div>
     <div class="col-md-5">
+      <div *ngIf="isEmploye">
+        <h3>Données professionnelles</h3>
+        <p><strong>Profession :</strong> {{directory.profession}} </p>
+        <p><strong>Spécialisation :</strong> {{directory.specialisation}}</p>
+      </div>
+
       <h3>Autre données</h3>
       <p><strong>Numéro carte vitale :</strong> {{directory.healthCard}} </p>
       <p><strong>Sécurité social :</strong> {{directory.socialSecurity}}</p>
@@ -41,7 +47,7 @@
   </div>
 
 
-  <div class="row myrow" *ngIf="modifyData">
+  <div class="row myrow" *ngIf="manageFile.stateEdited()">
     <form class="form-horizontal">
       <div class="col-md-6">
         <h3>Données personnelles</h3>
@@ -139,6 +145,28 @@
 
       </div>
       <div class="col-md-6">
+
+        <div *ngIf="isEmploye">
+          <h3>Données professionnelles</h3>
+
+          <p><strong>Profession :</strong> {{directory.profession}} </p>
+          <p><strong>Spécialisation :</strong> {{directory.specialisation}}</p>
+
+          <div class="form-group">
+            <label for="profession" class="col-sm-3 control-label">Profession :</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="profession" name="profession" [(ngModel)]="directory.profession">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="specialisation" class="col-sm-3 control-label">Specialisation :</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="specialisation" name="specialisation" [(ngModel)]="directory.specialisation">
+            </div>
+          </div>
+        </div>
+
         <h3>Autre données</h3>
         <div class="form-group">
           <label for="vital" class="col-sm-3 control-label">Numero carte vital: </label>
@@ -152,7 +180,6 @@
             <input type="text" class="form-control" id="social" name="social" [(ngModel)]="directory.socialSecurity">
           </div>
         </div>
-
       </div>
 
       <div class="col-md-12" style="text-align: center">

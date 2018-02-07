@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
+import {ManageFile} from "../manageFile";
 
 
 @Component({
   selector: 'app-administration-file',
   templateUrl: './administration-file.component.html',
-  styleUrls: ['./administration-file.component.css']
+  styleUrls: ['./administration-file.component.css', './../app.component.css']
 })
 export class AdministrationFileComponent implements OnInit {
   directory = {
@@ -23,11 +24,14 @@ export class AdministrationFileComponent implements OnInit {
     'cellular': '',
     'fax': '',
     'healthCard': '',
-    'socialSecurity': ''
+    'socialSecurity': '',
+    'profession': '',
+    'specialisation': ''
   };
 
-  modifyData = false;
+  isEmploye = true;
   oldDirectory;
+  manageFile: ManageFile = new ManageFile();
 
   constructor() {
     this.directory.address = '4 allée des camélias';
@@ -47,23 +51,22 @@ export class AdministrationFileComponent implements OnInit {
     this.directory.zipcode = '77164';
     this.directory.fixe = '01.64.64.15.98';
 
+    this.directory.profession = "Medecin";
+    this.directory.specialisation = "Protesiste";
+
   }
 
   ngOnInit() {
   }
 
-
   modifData() {
     this.oldDirectory = Object.assign({}, this.directory);
-    this.modifyData = true;
+    this.manageFile.state = ManageFile.State.Edited;
   }
-
 
   cancelModif() {
     console.log(this.oldDirectory);
     this.directory = this.oldDirectory;
-    this.modifyData = false;
-
+    this.manageFile.state = ManageFile.State.Consulted;
   }
-
 }

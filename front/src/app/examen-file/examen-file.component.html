@@ -5,19 +5,19 @@
         Examen
       </h2>
     </div>
-    <div class="col-md-1 text-right" >
+    <div class="col-md-1 text-right" *ngIf="manageFile.stateConsulted()">
       <button type="button" class="btn btn-modif" (click)="modifData()  ">Modifier</button>
     </div>
-    <div class="col-md-1 text-right">
-      <button type="button" class="btn btn-modif" (click)="publishData()  ">Publier</button>
+    <div class="col-md-1 text-right" *ngIf="manageFile.stateConsulted()">
+      <button type="button" class="btn btn-modif" (click)="manageFile.publishData()">Publier</button>
     </div>
 
   </div>
 
   <div class="row myrow">
 
-    <div class="col-md-7">
-      <p class="libele" >Fait le {{date}} à {{hopital}}</p>
+    <div class="col-md-7" *ngIf="manageFile.statePublish()">
+      <p class="libele" >Fait le {{manageFile.date}} à {{manageFile.hopital}}</p>
     </div>
 
     <div class="col-md-2 mycol">
@@ -33,20 +33,26 @@
     </div>
 
     <br>
-    <div class="col-md-10" *ngIf="tmp">
+
+    <div class="col-md-10" *ngIf="manageFile.stateConsulted() || manageFile.statePublish()">
       <h3>Motif</h3>
       <p>{{directory.motif}}</p>
       <h3>Déscription de l'examen</h3>
       <p>{{directory.description}}</p>
 
       <h3>Résultats</h3>
-      <div *ngFor="let i of img">{{i.name}}<img src="{{i.path}}"></div>
+      <div class="row-fluid">
+        <img (click)="loadAllImg()" class="img-thumbnail miniature" src="../../assets/add-all.svg" title="Charger toutes les images">
+        <div class="inline" *ngFor="let i of img">
+          <img (click)="changeImg(i)" [ngClass]="{'img-thumbnail':true,  'miniature': i.mini, 'imgdata':!i.mini}" src={{i.currentpath}} title="{{i.name}}">
+        </div>
+      </div>
 
       <h3>Observation</h3>
       <p>{{directory.observation}}</p>
     </div>
 
-    <div *ngIf="!tmp">
+    <div *ngIf="manageFile.stateEdited()">
       <h3>Préscription</h3>
       <form class="form-horizontal">
         <h3>Motif</h3>
@@ -60,10 +66,39 @@
         </textarea>
 
         <h3>Résultats</h3>
-        <textarea rows="2" cols="100">
-        <p>image ou données</p>
-        </textarea>
+        <div class="row-fluid">
+          <div class="inline" *ngFor="let i of img">
+            <img (click)="changeImg(i)" [ngClass]="{'img-thumbnail':true,  'miniature': i.mini, 'imgdata':!i.mini}" src={{i.currentpath}} title="{{i.name}}">
+          </div>
+        </div>
+<!--
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label for="nameimg" class="col-sm-3 control-label">Nom de l'image :</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="nameimg" name="nameimg" required>
+            </div>
+            <label for="pathimg" class="col-sm-3 control-label">Path : </label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="pathimg" name="pathimg" required>
+            </div>
 
+            <button type="submit" class="btn btn-validate">Ajouter l'image</button>
+          </div>
+        </form>
+-->
+<!--
+        <div formArrayName="items"
+             *ngFor="let item of orderForm.get('items').controls; let i = index;">
+          <div [formGroupName]="i">
+            <input formControlName="name" placeholder="Item name">
+            <input formControlName="description" placeholder="Item description">
+            <input formControlName="price" placeholder="Item price">
+          </div>
+
+          Chosen name: {{ orderForm.controls.items.controls[i].controls.name.value }}
+        </div>
+-->
         <h3>Observation</h3>
         <textarea rows="2" cols="100">
         {{directory.observation}}
