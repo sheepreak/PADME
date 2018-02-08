@@ -1,7 +1,6 @@
 
 .navbar-light {
   background-color: #FAFAFA !important;
-
   box-shadow: 0px 2px 4px grey;
 
 }
@@ -34,7 +33,7 @@
   background-color: #0B243B;
   width: 300px;
   height: 50px;
-  margin-right: 10px;
+  margin-right: 20px;
   box-shadow: 5px 5px 4px grey;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -71,4 +70,28 @@
   padding-top: 10px;
   padding-bottom: 10px;
 }
+
+.flag img{
+  height: 30px;
+}
+
+.langage{
+  height: 100px;
+  position:absolute;
+  right: 0;
+}
+
+.langage img{
+  height: 30px;
+}
+
+.hidden{
+  visibility: hidden;
+}
+
+.visible{
+  visibility: visible;
+}
+
+
 

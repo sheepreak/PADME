@@ -1,4 +1,26 @@
 {
   "Title": "Exemple de traduction",
-  "Intro": "Bonjour je m'appelle Arthur, j'ai 42 ans."
+  "Intro": "Bonjour je m'appelle Arthur, j'ai 42 ans.",
+  "AdminFIle": "Fichier administratif",
+  "PersonalData": "Données personnelles",
+  "FirstName": "Prénom : ",
+  "LastName": "Nom : ",
+  "Sexe": "Sexe : ",
+  "BirthDay": "Date de naissance : ",
+  "BirthPlace": "Lieu de naissance : ",
+  "Coordoonee": "Coordonnées",
+  "Adress": "Adresse : ",
+  "Country": "Ville : ",
+  "AdressComplement": "Complement d'adresse : ",
+  "PostalCode": "Code postal : ",
+  "Mail": "Mail : ",
+  "Phone": "Télephone : ",
+  "CellPhone": "Télephone portable : ",
+  "Fax": "Fax : ",
+  "ProfessionnalData": "Données professionnel",
+  "Profession": "Profession : ",
+  "Specialisation": "Spécialisation : ",
+  "OtherData": "Autre données",
+  "VitalCard": "Carte vitale : ",
+  "SocialSecurity": "Sécurité social : "
 }

@@ -2,6 +2,16 @@
   padding-top: 80px;
 }
 
+.footer {
+  background: white;
+  height: 50px;
+  box-shadow: 0px -2px 3px grey;
+}
+
+.langage{
+  max-height: 30px;
+  margin: 10px;
+}
 
 /* For file page */
 

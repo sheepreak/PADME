@@ -1,4 +1,29 @@
 {
   "Title": "Translation example",
-  "Intro": "Hello I am Arthur, I am 42 years old."
+  "Intro": "Hello I am Arthur, I am 42 years old.",
+  "AdminFIle": "Administration file",
+  "PersonalData": "Personal Data",
+  "FirstName": "First name : ",
+  "LastName": "Last name : ",
+  "Sexe": "Sexe : ",
+  "BirthDay": "BirthDay : ",
+  "BirthPlace": "BirthPlace : ",
+  "BirthPlace": "BirthPlace : ",
+  "Coordoonee": "Coordonnee",
+  "Adress": "Adress : ",
+  "Country": "Country : ",
+  "AdressComplement": "Adress Complement : ",
+  "PostalCode": "Postal code : ",
+  "Mail": "Mail : ",
+  "Phone": "Phone : ",
+  "CellPhone": "CellPhone : ",
+  "Fax": "Fax : ",
+  "ProfessionnalData": "Professionnal data",
+  "Profession": "Profession : ",
+  "Specialisation": "Specialisation : ",
+  "Other data": "Other data",
+  "VitalCard": "VitalCard : ",
+  "SocialSecurity": "Social Security : "
 }
+
+

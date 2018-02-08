@@ -4,14 +4,11 @@
       <a href="#" class="navbar-brand"><img class="logo_PADME" src="../../assets/logo_PADME.jpg" title="Acceuil"></a>
     </div>
 
-
     <ul class="nav navbar-nav navbar-right">
 
       <li><a href="#"><img class="icon" src="../../assets/mail_2.png"
                            title="La messagerie n'est pas encore disponible"></a></li>
       <li><a href="#"><img class="icon" src="../../assets/list_2.png" title="Liste des taches"></a></li>
-
-
       <li>
         <div class="user">
           <div class="user_info">
@@ -23,11 +20,11 @@
           <a href="#"><img class="user_icon" src="../../assets/user_icon.png" title="Page utilisateur"></a>
         </div>
       </li>
-
-
-
+      <li (click)="changeVisibility()"><a href="#"><img  class="icon" src="../../assets/more.svg" title="Changer la langue"></a></li>
     </ul>
-
-
+  </div>
+  <div [ngClass]="{'langage':true, 'hidden':!visibility, 'visible':visibility}">
+    <img (click)="switchLanguage('fr')" src="../../assets/fr.svg">
+    <img (click)="switchLanguage('en')" src="../../assets/en.svg">
   </div>
 </nav>
