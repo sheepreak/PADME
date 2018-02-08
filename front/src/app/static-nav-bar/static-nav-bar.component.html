@@ -20,11 +20,6 @@
           <a href="#"><img class="user_icon" src="../../assets/user_icon.png" title="Page utilisateur"></a>
         </div>
       </li>
-      <li (click)="changeVisibility()"><a href="#"><img  class="icon" src="../../assets/more.svg" title="Changer la langue"></a></li>
     </ul>
-  </div>
-  <div [ngClass]="{'langage':true, 'hidden':!visibility, 'visible':visibility}">
-    <img (click)="switchLanguage('fr')" src="../../assets/fr.svg">
-    <img (click)="switchLanguage('en')" src="../../assets/en.svg">
   </div>
 </nav>
