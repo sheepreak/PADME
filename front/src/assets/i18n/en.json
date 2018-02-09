@@ -1,6 +1,15 @@
 {
-  "Title": "Translation example",
-  "Intro": "Hello I am Arthur, I am 42 years old.",
+  "UserPage": "UserPage",
+  "Home": "Home",
+  "LogOut": "Log out",
+  "Messaging": "Messaging is not yet available",
+  "TodoList": "TodoList",
+
+  "Edit":"Edit",
+  "Publish":"Publish",
+  "Validate":"Validate the changes",
+  "Cancel":"Cancel",
+
   "AdminFIle": "Administration file",
   "PersonalData": "Personal Data",
   "FirstName": "First name : ",
@@ -21,9 +30,25 @@
   "ProfessionnalData": "Professionnal data",
   "Profession": "Profession : ",
   "Specialisation": "Specialisation : ",
-  "Other data": "Other data",
+  "OtherData": "Other data",
   "VitalCard": "VitalCard : ",
-  "SocialSecurity": "Social Security : "
+  "SocialSecurity": "Social Security : ",
+
+  "FileDate":"Done at {{manageFile.hopital}} the {{manageFile.date}}",
+  "Patient":"Patient",
+  "Doctor":"Doctor",
+  "Examen":"Examen",
+  "ExamenDescription":"Description",
+  "ExamenMotif":"Motif",
+  "ExamenResult":"Result",
+  "ExamenObservation":"Observation",
+  "LoadAllImg": "Load all images",
+
+  "Prescription": "Prescription",
+
+  "Consultation":"Consultation"
+
+
 }
 
 

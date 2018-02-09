@@ -1,14 +1,14 @@
 <nav class="navbar navbar-light navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a href="#" class="navbar-brand"><img class="logo_PADME" src="../../assets/logo_PADME.jpg" title="Acceuil"></a>
+      <a href="#" class="navbar-brand"><img class="logo_PADME" src="../../assets/logo_PADME.jpg" title="{{ 'Home' | translate:user }}"></a>
     </div>
 
     <ul class="nav navbar-nav navbar-right">
 
       <li><a href="#"><img class="icon" src="../../assets/mail_2.png"
-                           title="La messagerie n'est pas encore disponible"></a></li>
-      <li><a href="#"><img class="icon" src="../../assets/list_2.png" title="Liste des taches"></a></li>
+                           title="{{ 'Messaging' | translate:user }}"></a></li>
+      <li><a href="#"><img class="icon" src="../../assets/list_2.png" title="{{ 'TodoList' | translate:user }}"></a></li>
       <li>
         <div class="user">
           <div class="user_info">
@@ -16,8 +16,8 @@
             <p class="user_type">{{role}}</p>
           </div>
 
-          <a href="#"><img class="user_icon" src="../../assets/cancel.png" title="Déconnexion"></a>
-          <a href="#"><img class="user_icon" src="../../assets/user_icon.png" title="Page utilisateur"></a>
+          <a href="#"><img class="user_icon" src="../../assets/cancel.png" title="{{ 'LogOut' | translate:user }}"></a>
+          <a href="#"><img class="user_icon" src="../../assets/user_icon.png" title="{{ 'UserPage' | translate:user }}"></a>
         </div>
       </li>
     </ul>

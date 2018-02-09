@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {Image} from '../image';
 import {ManageFile} from '../manageFile';
 import {log} from "util";
+import {PatientListComponent} from "../patient-list/patient-list.component";
+import {Patient} from "../patient";
+import {Doctor} from "../doctor";
 
 @Component({
   selector: 'app-examen-file',
@@ -20,6 +23,9 @@ export class ExamenFileComponent implements OnInit {
   imgMin: boolean;
   manageFile: ManageFile = new ManageFile();
   oldDirectory;
+  patient: Patient = new Patient("Jean", "Dujardin");
+  doctor: Doctor = new Doctor("Dokeh", "Bilal", "Radiologue");
+
 /*
   orderForm: FormGroup;
   items: any[] = [];

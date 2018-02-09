@@ -1,15 +1,13 @@
 <div class="col-sm-9 col-md-10 main">
   <div class="row title">
     <div class="col-md-10">
-      <h2>
-        Examen
-      </h2>
+      <h2 translate>Examen</h2>
     </div>
     <div class="col-md-1 text-right" *ngIf="manageFile.stateConsulted()">
-      <button type="button" class="btn btn-modif" (click)="modifData()  ">Modifier</button>
+      <button type="button" class="btn btn-modif" (click)="modifData()" translate>Edit</button>
     </div>
     <div class="col-md-1 text-right" *ngIf="manageFile.stateConsulted()">
-      <button type="button" class="btn btn-modif" (click)="manageFile.publishData()">Publier</button>
+      <button type="button" class="btn btn-modif" (click)="manageFile.publishData()" translate>Publish</button>
     </div>
 
   </div>
@@ -17,55 +15,54 @@
   <div class="row myrow">
 
     <div class="col-md-7" *ngIf="manageFile.statePublish()">
-      <p class="libele" >Fait le {{manageFile.date}} à {{manageFile.hopital}}</p>
+      <p class="libele">Fait le {{manageFile.date}} à {{manageFile.hopital}}</p>
     </div>
 
     <div class="col-md-2 mycol">
-      <h3>Patient</h3>
-      <p>Nom</p>
-      <p>Prénom</p>
+      <h3 translate>Patient</h3>
+      <p>{{patient.lastname}}</p>
+      <p>{{patient.firstname}}</p>
     </div>
 
     <div class="col-md-2 mycol">
-      <h3>Radiologue</h3>
-      <p>Nom</p>
-      <p>Prénom</p>
+      <h3>{{doctor.specialisation}}</h3>
+      <p>{{doctor.lastname}}</p>
+      <p>{{doctor.firstname}}</p>
     </div>
-
     <br>
 
     <div class="col-md-10" *ngIf="manageFile.stateConsulted() || manageFile.statePublish()">
-      <h3>Motif</h3>
+      <h3 translate>ExamenMotif</h3>
       <p>{{directory.motif}}</p>
-      <h3>Déscription de l'examen</h3>
+      <h3 translate>ExamenDescription</h3>
       <p>{{directory.description}}</p>
 
-      <h3>Résultats</h3>
+      <h3 translate>ExamenResult</h3>
       <div class="row-fluid">
-        <img (click)="loadAllImg()" class="img-thumbnail miniature" src="../../assets/add-all.svg" title="Charger toutes les images">
+        <img (click)="loadAllImg()" class="img-thumbnail miniature" src="../../assets/add-all.svg" title="{{ 'LoadAllImg' | translate:user }}">
         <div class="inline" *ngFor="let i of img">
           <img (click)="changeImg(i)" [ngClass]="{'img-thumbnail':true,  'miniature': i.mini, 'imgdata':!i.mini}" src={{i.currentpath}} title="{{i.name}}">
         </div>
       </div>
 
-      <h3>Observation</h3>
+      <h3 translate>ExamenObservation</h3>
       <p>{{directory.observation}}</p>
     </div>
 
     <div *ngIf="manageFile.stateEdited()">
-      <h3>Préscription</h3>
+      <h3 translate>Examen</h3>
       <form class="form-horizontal">
-        <h3>Motif</h3>
+        <h3 translate>ExamenMotif</h3>
         <textarea rows="2" cols="100">
         {{directory.motif}}
         </textarea>
 
-        <h3>Déscription de l'examen</h3>
+        <h3 translate>ExamenDescription</h3>
         <textarea rows="2" cols="100">
         {{directory.description}}
         </textarea>
 
-        <h3>Résultats</h3>
+        <h3 translate>ExamenResult</h3>
         <div class="row-fluid">
           <div class="inline" *ngFor="let i of img">
             <img (click)="changeImg(i)" [ngClass]="{'img-thumbnail':true,  'miniature': i.mini, 'imgdata':!i.mini}" src={{i.currentpath}} title="{{i.name}}">
@@ -99,14 +96,13 @@
           Chosen name: {{ orderForm.controls.items.controls[i].controls.name.value }}
         </div>
 -->
-        <h3>Observation</h3>
+        <h3 translate>ExamenObservation</h3>
         <textarea rows="2" cols="100">
         {{directory.observation}}
         </textarea>
-
         <div class="col-md-12" style="text-align: center">
-          <button type="submit" class="btn btn-validate">Valider les modifications</button>
-          <button (click)="cancelModif()" class="btn btn-warning">Annuler</button>
+          <button type="submit" class="btn btn-validate" translate>Validate</button>
+          <button (click)="cancelModif()" class="btn btn-warning" translate>Cancel</button>
         </div>
       </form>
     </div>

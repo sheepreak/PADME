@@ -13,7 +13,7 @@ npm install @ngx-translate/http-loader
 })
 export class AppComponent {
   constructor(private translate: TranslateService) {
-    translate.setDefaultLang('en');
+    translate.setDefaultLang('fr');
   }
 
   switchLanguage(language: string) {

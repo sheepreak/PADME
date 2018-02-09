@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ManageFile} from "../manageFile";
+import {Doctor} from "../doctor";
+import {Patient} from "../patient";
 
 @Component({
   selector: 'app-prescription-file',
@@ -10,6 +12,9 @@ export class PrescriptionFileComponent implements OnInit {
   prescription: string;
   oldPrescription;
   manageFile: ManageFile = new ManageFile();
+  patient: Patient = new Patient("Jean", "Dujardin");
+  doctor: Doctor = new Doctor("Dokeh", "Bilal", "Radiologue");
+
 
   constructor() {
     this.prescription = '2 boites de doliprane\n' +

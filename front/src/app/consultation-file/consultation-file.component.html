@@ -1,15 +1,13 @@
 <div class="col-sm-9 col-md-10 main">
   <div class="row title">
     <div class="col-md-10">
-      <h2>
-        Consultation
-      </h2>
+      <h2 translate>Consultation</h2>
     </div>
     <div class="col-md-1 text-right" *ngIf="manageFile.stateConsulted()">
-      <button type="button" class="btn btn-modif" (click)="modifData()  ">Modifier</button>
+      <button type="button" class="btn btn-modif" (click)="modifData()" translate>Edit</button>
     </div>
     <div class="col-md-1 text-right" *ngIf="manageFile.stateConsulted()">
-      <button type="button" class="btn btn-modif" (click)="manageFile.publishData()">Publier</button>
+      <button type="button" class="btn btn-modif" (click)="manageFile.publishData()" translate>Publish</button>
     </div>
   </div>
 
@@ -19,42 +17,43 @@
     </div>
 
     <div class="col-md-2 mycol">
-      <h3>Patient</h3>
-      <p>Nom</p>
-      <p>Prénom</p>
+      <h3 translate>Patient</h3>
+      <p>{{patient.lastname}}</p>
+      <p>{{patient.firstname}}</p>
     </div>
 
     <div class="col-md-2 mycol">
-      <h3>Médecin</h3>
-      <p>Nom</p>
-      <p>Prénom</p>
+      <h3>{{doctor.specialisation}}</h3>
+      <p>{{doctor.lastname}}</p>
+      <p>{{doctor.firstname}}</p>
     </div>
+    <br>
 
     <br>
     <div class="col-md-10" *ngIf="manageFile.stateConsulted() || manageFile.statePublish()">
 
-      <h3>Motif</h3>
+      <h3 translate>ExamenMotif</h3>
       <p>{{directory.motif}}</p>
 
-      <h3>Observation</h3>
+      <h3 translate>ExamenObservation</h3>
       <p>{{directory.observation}}</p>
     </div>
 
     <div class="col-md-10" *ngIf="manageFile.stateEdited()">
-      <h3>Motif</h3>
+      <h3 translate>ExamenMotif</h3>
       <form class="form-horizontal">
           <textarea rows="4" cols="50">
             {{directory.motif}}
           </textarea>
 
-        <h3>Observation</h3>
+        <h3 translate>ExamenObservation</h3>
         <textarea rows="4" cols="50">
             {{directory.observation}}
           </textarea>
 
         <div class="col-md-12" style="text-align: center">
-          <button type="submit" class="btn btn-validate">Valider les modifications</button>
-          <button (click)="cancelModif()" class="btn btn-warning">Annuler</button>
+          <button type="submit" class="btn btn-validate" translate>Validate</button>
+          <button (click)="cancelModif()" class="btn btn-warning" translate>Cancel</button>
         </div>
       </form>
     </div>

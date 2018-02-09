@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DynamicNavBarComponent implements OnInit {
 
+
+
   constructor() { }
 
   ngOnInit() {

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ManageFile} from "../manageFile";
+import {Doctor} from "../doctor";
+import {Patient} from "../patient";
 
 @Component({
   selector: 'app-consultation-file',
@@ -13,6 +15,8 @@ export class ConsultationFileComponent implements OnInit {
   }
   oldDirectory;
   manageFile: ManageFile = new ManageFile();
+  patient: Patient = new Patient("Jean", "Dujardin");
+  doctor: Doctor = new Doctor("Dokeh", "Bilal", "Radiologue");
 
   constructor() {
     this.directory.motif = 'Patient souvrant de maux de ventre';

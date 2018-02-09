@@ -1,4 +1,15 @@
 {
+  "UserPage": "Page utilisateur",
+  "Home": "Accueil",
+  "LogOut": "Déconnexion",
+  "Messaging": "La messagerie n'est pas encore disponible",
+  "TodoList": "Liste des taches",
+
+  "Edit":"Modifier",
+  "Publish":"Publier",
+  "Validate":"Valider les modifications",
+  "Cancel":"Annuler",
+
   "Title": "Exemple de traduction",
   "Intro": "Bonjour je m'appelle Arthur, j'ai 42 ans.",
   "AdminFIle": "Fichier administratif",
@@ -22,5 +33,19 @@
   "Specialisation": "Spécialisation : ",
   "OtherData": "Autre données",
   "VitalCard": "Carte vitale : ",
-  "SocialSecurity": "Sécurité social : "
+  "SocialSecurity": "Sécurité social : ",
+
+  "FileDate":"Fait le {{manageFile.date}} à {{manageFile.hopital}}",
+  "Patient":"Patient",
+  "Doctor":"Medecin",
+  "Examen":"Examen",
+  "ExamenDescription":"Déscription",
+  "ExamenMotif":"Motif",
+  "ExamenResult":"Résultats",
+  "ExamenObservation":"Observation",
+  "LoadAllImg": "Charger toutes les images",
+
+  "Prescription": "Préscription",
+
+  "Consultation":"Consultation"
 }
