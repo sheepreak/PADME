@@ -1,5 +1,6 @@
 .container-fluid{
   padding-top: 80px;
+  padding-bottom:50px;
 }
 
 .footer {
@@ -9,6 +10,11 @@
   width: 100%;
   position: fixed;
   bottom: 0;
+}
+
+
+.footer img{
+  cursor: pointer;
 }
 
 .langage{
