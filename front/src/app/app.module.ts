@@ -17,6 +17,7 @@ import { ConsultationFileComponent } from './consultation-file/consultation-file
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TaskListComponent } from './task-list/task-list.component';
 
 const appRoutes: Routes = [
   {
@@ -58,7 +59,8 @@ const appRoutes: Routes = [
     PrescriptionFileComponent,
     PatientListComponent,
     SearchPipe,
-    ConsultationFileComponent
+    ConsultationFileComponent,
+    TaskListComponent
   ],
 
   imports: [
