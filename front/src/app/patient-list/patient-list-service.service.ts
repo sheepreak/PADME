@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Injectable()
-export class WebApiPromiseService {
+export class PatientListServiceService {
   httpOptions: any;
 
   constructor(private http: HttpClient) {
@@ -11,15 +11,10 @@ export class WebApiPromiseService {
     };
   }
 
-  /* call to connect user */
-  connectUser(login, password) {
-    const body = {
-      'login': login,
-      'password': password
-    };
+  /* get all patient */
+  getPatients() {
     /*TODO add good url */
-    return this.http.post('', body, this.httpOptions).toPromise();
+    return this.http.get('', this.httpOptions).toPromise();
   }
-
 
 }
