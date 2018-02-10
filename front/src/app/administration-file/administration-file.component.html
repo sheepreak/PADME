@@ -12,7 +12,7 @@
   <div class="row myrow" *ngIf="manageFile.stateConsulted()">
     <div class="col-md-5">
       <h3 translate>PersonalData</h3>
-      <p><strong>{{ 'LastName' | translate:user }}LastName</strong> {{directory.lastName}}</p>
+      <p><strong>{{ 'LastName' | translate:user }}</strong> {{directory.lastName}}</p>
       <p><strong>{{ 'FirstName' | translate:user }}</strong> {{directory.firstName}}</p>
       <p><strong>{{ 'Sexe' | translate:user }}</strong> {{directory.sexe}}</p>
       <p><strong>{{ 'BirthDay' | translate:user }}</strong> {{directory.birthday | date:'dd/MM/yyyy'}}</p>
@@ -162,7 +162,7 @@
 
         <h3 translate>OtherData</h3>
         <div class="form-group">
-          <label for="vital" class="col-sm-3 control-label">{{ 'VitalCode' | translate:user }}</label>
+          <label for="vital" class="col-sm-3 control-label">{{ 'VitalCard' | translate:user }}</label>
           <div class="col-sm-9">
             <input type="text" class="form-control" id="vital" name="vital" [(ngModel)]="directory.healthCard">
           </div>
