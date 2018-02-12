@@ -1,15 +1,23 @@
 package application.patient.domain;
 
 import application.adminfile.domain.AdminFile;
+import application.medicalinfo.domain.MedicalInfo;
+import application.medicalfile.domain.MedicalFile;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static application.patient.domain.Patient.FIND_ALL;
+
 @Entity
-@Table(name = "patient")
+@NamedQuery(name = FIND_ALL, query = "SELECT p FROM Patient p ORDER BY p.patientId DESC")
 public class Patient {
+
+    public static final String FIND_ALL = "Patient.findAllPatients";
 
     @Id
     @NotNull
@@ -17,23 +25,60 @@ public class Patient {
     @Column
     private Integer patientId;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy ="medicalFile")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy ="patient")
     private List<MedicalFile> medicalFileList;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private AdminFile adminFile;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private MedicalInfo medicalInfo;
 
-    @ManyToOne
-    @JoinColumn(name = "patientId")
-    private Patient patient;
+    @ElementCollection
+    private Set<Integer> familyBackground;
 
-    @OneToMany(mappedBy = "patient")
-    private Set<Patient> familyBackground;
+    public Patient() {
+        medicalFileList = new ArrayList<>();
+        familyBackground = new HashSet<>();
+    }
 
     public Integer getPatientId() {
         return patientId;
+    }
+
+    public AdminFile getAdminFile() {
+        return adminFile;
+    }
+
+    public List<MedicalFile> getMedicalFileList() {
+        return medicalFileList;
+    }
+
+    public void setPatientId(Integer patientId) {
+        this.patientId = patientId;
+    }
+
+    public void setMedicalFileList(List<MedicalFile> medicalFileList) {
+        this.medicalFileList = medicalFileList;
+    }
+
+    public void setAdminFile(AdminFile adminFile) {
+        this.adminFile = adminFile;
+    }
+
+    public MedicalInfo getMedicalInfo() {
+        return medicalInfo;
+    }
+
+    public void setMedicalInfo(MedicalInfo medicalInfo) {
+        this.medicalInfo = medicalInfo;
+    }
+
+    public Set<Integer> getFamilyBackground() {
+        return familyBackground;
+    }
+
+    public void setFamilyBackground(Set<Integer> familyBackground) {
+        this.familyBackground = familyBackground;
     }
 }

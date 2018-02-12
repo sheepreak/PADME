@@ -3,6 +3,7 @@ package application.medicalfile.domain;
 
 import application.examen.domain.Examen;
 import application.observation.domain.Observation;
+import application.patient.domain.Patient;
 import application.prescription.domain.Prescription;
 
 import javax.persistence.*;
@@ -43,6 +44,10 @@ public class MedicalFile {
     @ManyToOne()
     @JoinColumn(name = "id")
     private Node node;*/
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    @PrimaryKeyJoinColumn(name = "PATIENT_ID")
+    private Patient patient;
 
     public MedicalFile(){
         observations = new ArrayList<Observation>();

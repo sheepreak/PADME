@@ -37,6 +37,8 @@ public class AdminFile {
     @Column
     private String country;
 
+    public AdminFile() { }
+
     public Integer getId() {
         return id;
     }

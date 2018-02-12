@@ -28,7 +28,6 @@ public class Observation {
     @Column
     private final Date date;
 
-
     @ManyToOne(fetch=FetchType.LAZY)
     @PrimaryKeyJoinColumn(name = "MEDICALFILE_ID")
     private MedicalFile file;

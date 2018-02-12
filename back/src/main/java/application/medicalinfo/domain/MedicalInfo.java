@@ -1,13 +1,24 @@
-package application.medical.info.domain;
+package application.medicalinfo.domain;
 
 import java.util.HashMap;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Map;
+
+@Entity
+class InfoAttributes {
+
+    @Id
+    @GeneratedValue
+    @NotNull
+    @Column
+    private Integer id;
+
+    @ElementCollection
+    private List<String> attributes;
+}
 
 @Entity
 public class MedicalInfo {
@@ -15,13 +26,13 @@ public class MedicalInfo {
     @Id
     @GeneratedValue
     @Column
-    Integer id;
+    private Integer id;
 
-    @Column
-    Map<String, List> informations;
+    @OneToMany
+    private Map<String, InfoAttributes> informations;
 
     public MedicalInfo() {
-        informations = new HashMap<String, List>();
+        informations = new HashMap<>();
     }
 
     public void setId(Integer id){
@@ -32,15 +43,15 @@ public class MedicalInfo {
         return id;
     }
 
-    public void setInformations(Map<String, List> informations) {
+    public void setInformations(Map<String, InfoAttributes> informations) {
         this.informations = informations;
     }
 
-    public Map<String, List> getInformations() {
+    public Map<String, InfoAttributes> getInformations() {
         return informations;
     }
 
-    public void addInformations(Map<String, List> map) {
+    public void addInformations(Map<String, InfoAttributes> map) {
         informations.putAll(map);
     }
 

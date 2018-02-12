@@ -1,6 +1,6 @@
-package application.medical.info.repository;
+package application.medicalinfo.repository;
 
-import application.medical.info.domain.MedicalInfo;
+import application.medicalinfo.domain.MedicalInfo;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
