@@ -11,10 +11,7 @@ import java.util.List;
 
 public class Staff {
 
-    SecureRandom random = new SecureRandom();
-    byte tokenBytes[] = new byte[20];
-    random.nextBytes(bytes);
-    String token = bytes.toString();
+
     @Id
     @GeneratedValue
     @NotNull
@@ -28,6 +25,8 @@ public class Staff {
     @NotNull
     @Column(name= "token")
     private String token;    // nom du membre du Staff
+    SecureRandom random = new SecureRandom();
+
 
     @NotNull
     @Column(name="firstname")
@@ -49,5 +48,6 @@ public class Staff {
 
     @OneToMany(mappedBy ="patient")
     private final List<Patient>; //contient la liste des patients dont s’occupe le membre du Staff
+
 
 }
