@@ -1,4 +1,5 @@
 import {Component, OnInit, Pipe, PipeTransform} from '@angular/core';
+import {Router} from '@angular/router';
 
 
 @Pipe({
@@ -29,7 +30,7 @@ export class PatientListComponent implements OnInit {
 
   listPatients = [];
 
-  constructor() {
+  constructor(private router: Router) {
 
     this.listPatients.push({
       id: 1,
@@ -54,6 +55,7 @@ export class PatientListComponent implements OnInit {
 
   onClicOnPatient(id) {
     console.log('oui ' + id);
+    this.router.navigate(['/administrationfile']);
   }
 
 }
