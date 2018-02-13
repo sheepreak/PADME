@@ -17,6 +17,17 @@ import {ConsultationFileComponent} from './consultation-file/consultation-file.c
 import {HttpClientModule, HttpClient} from '@angular/common/http';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {PatientListComponent , SearchPipe} from './patient-list/patient-list.component';
+import { ExamenFileComponent } from './examen-file/examen-file.component';
+import { ConsultationFileComponent } from './consultation-file/consultation-file.component';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { AdminViewComponent } from './admin-view/admin-view.component';
+
+
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService }  from './in-memory-data.service';
 
 const appRoutes: Routes = [
   {
@@ -46,6 +57,10 @@ const appRoutes: Routes = [
   {
     path: '**',
     redirectTo: 'login'
+  },
+  {
+    path: 'adminview',
+    component: AdminViewComponent
   }
 ];
 
@@ -62,7 +77,8 @@ const appRoutes: Routes = [
     PrescriptionFileComponent,
     PatientListComponent,
     SearchPipe,
-    ConsultationFileComponent
+    ConsultationFileComponent,
+    AdminViewComponent
   ],
 
   imports: [
@@ -79,7 +95,13 @@ const appRoutes: Routes = [
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+    // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
+    // and returns simulated server responses.
+    // Remove it when a real server is ready to receive requests.
+    HttpClientInMemoryWebApiModule.forRoot(
+      InMemoryDataService, { dataEncapsulation: false }
+    )
   ],
   providers: [UserService, WebApiPromiseService],
   bootstrap: [AppComponent]
