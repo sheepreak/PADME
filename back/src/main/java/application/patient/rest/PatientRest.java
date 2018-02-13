@@ -1,5 +1,7 @@
 package application.patient.rest;
 
+import application.medicalfile.domain.MedicalFile;
+import application.medicalfile.repository.MedicalFileRepository;
 import application.patient.domain.Patient;
 import application.patient.repository.PatientRepository;
 
@@ -14,6 +16,8 @@ public class PatientRest {
 
     @EJB
     private PatientRepository repository;
+    @EJB
+    private MedicalFileRepository medicalFileRepository;
     @Context
     private UriInfo uriInfo;
 
@@ -41,5 +45,17 @@ public class PatientRest {
         List<Patient> files = repository.getFiles();
         GenericEntity<List<Patient>> entities = new GenericEntity<List<Patient>>(files){};
         return Response.ok(entities).build();
+    }
+
+    @POST
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addMedicalFile(@PathParam("id") Integer id, MedicalFile file) {
+        Patient patient = repository.find(id);
+        medicalFileRepository.save(file);
+        patient.addMedicalFile(file);
+        repository.update(patient);
+        URI fileUri = uriInfo.getBaseUriBuilder().path(PatientRest.class).path(file.getId().toString()).build();
+        return Response.created(fileUri).build();
     }
 }

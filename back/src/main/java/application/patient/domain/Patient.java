@@ -81,4 +81,10 @@ public class Patient {
     public void setFamilyBackground(Set<Integer> familyBackground) {
         this.familyBackground = familyBackground;
     }
+
+    public void addMedicalFile(MedicalFile medicalFile) {
+        if(!getMedicalFileList().contains(medicalFile)) {
+            medicalFileList.add(medicalFile);
+        }
+    }
 }
