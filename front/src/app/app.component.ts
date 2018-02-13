@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import {Component} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
 
 /*
 npm install @ngx-translate/core --save
@@ -12,12 +12,21 @@ npm install @ngx-translate/http-loader
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+
   constructor(private translate: TranslateService) {
-    translate.setDefaultLang('fr');
+
+    const language = localStorage.getItem('language');
+    if (language) {
+      this.switchLanguage(language);
+    } else {
+      translate.setDefaultLang('fr');
+    }
   }
 
   switchLanguage(language: string) {
     this.translate.use(language);
+    localStorage.setItem('language', language);
   }
 }
 

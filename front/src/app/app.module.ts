@@ -7,21 +7,21 @@ import {AppComponent} from './app.component';
 import {StaticNavBarComponent} from './static-nav-bar/static-nav-bar.component';
 import {DynamicNavBarComponent} from './dynamic-nav-bar/dynamic-nav-bar.component';
 import {LoginPageComponent} from './login-page/login-page.component';
-import { UserService } from './user.service';
+import {UserService} from './user.service';
 import {WebApiPromiseService} from './web-api-promise.service';
 import {AdministrationFileComponent} from './administration-file/administration-file.component';
 import {PrescriptionFileComponent} from './prescription-file/prescription-file.component';
-import {PatientListComponent , SearchPipe} from './patient-list/patient-list.component';
-import { ExamenFileComponent } from './examen-file/examen-file.component';
-import { ConsultationFileComponent } from './consultation-file/consultation-file.component';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import {PatientListComponent, SearchPipe} from './patient-list/patient-list.component';
+import {ExamenFileComponent} from './examen-file/examen-file.component';
+import {ConsultationFileComponent} from './consultation-file/consultation-file.component';
+import {HttpClientModule, HttpClient} from '@angular/common/http';
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 const appRoutes: Routes = [
   {
     path: 'login',
-    component : LoginPageComponent
+    component: LoginPageComponent
   },
   {
     path: 'administrationfile',
@@ -42,6 +42,10 @@ const appRoutes: Routes = [
   {
     path: 'consultationfile',
     component: ConsultationFileComponent
+  },
+  {
+    path: '**',
+    redirectTo: 'login'
   }
 ];
 
@@ -67,7 +71,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
+      {enableTracing: true} // <-- debugging purposes only
     ),
     TranslateModule.forRoot({
       loader: {
