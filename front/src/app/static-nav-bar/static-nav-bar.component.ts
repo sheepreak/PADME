@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {UserService} from '../user.service';
-import { TranslateService } from '@ngx-translate/core';
-import {AppComponent} from "../app.component";
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import {TranslateService} from '@ngx-translate/core';
+import {AppComponent} from '../app.component';
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 
 
 @Component({
@@ -31,7 +31,11 @@ export class StaticNavBarComponent implements OnInit {
 
   }
 
-  public changeVisibility(){
+  public loggout() {
+    this.userService.loggout();
+  }
+
+  public changeVisibility() {
     this.visibility = !this.visibility;
   }
 }

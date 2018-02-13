@@ -16,7 +16,7 @@
             <p class="user_type">{{role}}</p>
           </div>
 
-          <a href="#"><img class="user_icon" src="../../assets/cancel.png" title="{{ 'LogOut' | translate:user }}"></a>
+          <a  routerLink="login" (click)="loggout()"><img class="user_icon" src="../../assets/cancel.png" title="{{ 'LogOut' | translate:user }}"></a>
           <a href="#"><img class="user_icon" src="../../assets/user_icon.png" title="{{ 'UserPage' | translate:user }}"></a>
         </div>
       </li>
