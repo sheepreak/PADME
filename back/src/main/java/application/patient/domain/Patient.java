@@ -1,8 +1,11 @@
 package application.patient.domain;
 
 import application.adminfile.domain.AdminFile;
+import application.examen.domain.Examen;
 import application.medicalinfo.domain.MedicalInfo;
 import application.medicalfile.domain.MedicalFile;
+import application.observation.domain.Observation;
+import application.prescription.domain.Prescription;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -85,6 +88,30 @@ public class Patient {
     public void addMedicalFile(MedicalFile medicalFile) {
         if(!getMedicalFileList().contains(medicalFile)) {
             medicalFileList.add(medicalFile);
+        }
+    }
+
+    public void addObservation(Integer medicalFileId, Observation observation) {
+        for (MedicalFile medicalFile: medicalFileList) {
+            if(medicalFile.getId().equals(medicalFileId)) {
+                medicalFile.addObservation(observation);
+            }
+        }
+    }
+
+    public void addPrescription(Integer medicalFileId, Prescription prescription) {
+        for (MedicalFile medicalFile: medicalFileList) {
+            if(medicalFile.getId().equals(medicalFileId)) {
+                medicalFile.addPrescription(prescription);
+            }
+        }
+    }
+
+    public void addExam(Integer medicalFileId, Examen examen) {
+        for (MedicalFile medicalFile: medicalFileList) {
+            if(medicalFile.getId().equals(medicalFileId)) {
+                medicalFile.addExamen(examen);
+            }
         }
     }
 }

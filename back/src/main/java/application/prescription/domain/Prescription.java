@@ -10,6 +10,7 @@ public class Prescription {
 
 
     @Id
+    @GeneratedValue
     @NotNull
     @Column
     private Integer id;

@@ -70,8 +70,8 @@ public class MedicalFile {
         this.id = id;
     }
 
-    public void addComment(Observation observation){
-        observations.add(observation);
+    public void addPrescription(Prescription prescription){
+        prescriptions.add(prescription);
     }
 
     public void addExamen(Examen examen){

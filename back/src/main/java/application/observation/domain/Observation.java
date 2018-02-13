@@ -2,10 +2,13 @@ package application.observation.domain;
 
 import application.medicalfile.domain.MedicalFile;
 import com.sun.istack.NotNull;
+import org.apache.derby.client.am.DateTime;
 
 import javax.persistence.*;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 public class Observation {
@@ -26,7 +29,7 @@ public class Observation {
 
     @NotNull
     @Column
-    private final Date date;
+    private final String date;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @PrimaryKeyJoinColumn(name = "MEDICALFILE_ID")
@@ -36,13 +39,13 @@ public class Observation {
 
         this.staffId = staffId;
         this.comment = comment;
-        this.date = Date.valueOf(LocalDate.now());
+        this.date = LocalDateTime.now().toString();
 
     }
 
 
     public Observation() {
-        this.date = Date.valueOf(LocalDate.now());
+        this.date = LocalDateTime.now().toString();
     }
 
     public Integer getId() {
@@ -69,7 +72,7 @@ public class Observation {
         this.comment = comment;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 

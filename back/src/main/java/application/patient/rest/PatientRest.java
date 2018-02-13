@@ -1,9 +1,15 @@
 package application.patient.rest;
 
+import application.examen.domain.Examen;
+import application.examen.repository.ExamenRepository;
 import application.medicalfile.domain.MedicalFile;
 import application.medicalfile.repository.MedicalFileRepository;
+import application.observation.domain.Observation;
+import application.observation.repository.ObservationRepository;
 import application.patient.domain.Patient;
 import application.patient.repository.PatientRepository;
+import application.prescription.domain.Prescription;
+import application.prescription.repository.PrescriptionRepository;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
@@ -55,7 +61,40 @@ public class PatientRest {
         medicalFileRepository.save(file);
         patient.addMedicalFile(file);
         repository.update(patient);
-        URI fileUri = uriInfo.getBaseUriBuilder().path(PatientRest.class).path(file.getId().toString()).build();
+        URI fileUri = uriInfo.getBaseUriBuilder().path(PatientRest.class).path(patient.getPatientId().toString()).build();
+        return Response.created(fileUri).build();
+    }
+
+    @POST
+    @Path("{id}/addobservation/{medid}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addObservation(@PathParam("id") Integer id, @PathParam("medid") Integer fileId, Observation observation) {
+        Patient patient = repository.find(id);
+        patient.addObservation(fileId, observation);
+        repository.update(patient);
+        URI fileUri = uriInfo.getBaseUriBuilder().path(PatientRest.class).path(patient.getPatientId().toString()).build();
+        return Response.created(fileUri).build();
+    }
+
+    @POST
+    @Path("{id}/addprescription/{medid}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addPrescription(@PathParam("id") Integer id, @PathParam("medid") Integer fileId, Prescription prescription) {
+        Patient patient = repository.find(id);
+        patient.addPrescription(fileId, prescription);
+        repository.update(patient);
+        URI fileUri = uriInfo.getBaseUriBuilder().path(PatientRest.class).path(patient.getPatientId().toString()).build();
+        return Response.created(fileUri).build();
+    }
+
+    @POST
+    @Path("{id}/addexam/{medid}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addExam(@PathParam("id") Integer id, @PathParam("medid") Integer fileId, Examen examen) {
+        Patient patient = repository.find(id);
+        patient.addExam(fileId, examen);
+        repository.update(patient);
+        URI fileUri = uriInfo.getBaseUriBuilder().path(PatientRest.class).path(patient.getPatientId().toString()).build();
         return Response.created(fileUri).build();
     }
 }
