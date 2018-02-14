@@ -46,13 +46,14 @@ const appRoutes: Routes = [
     component: ConsultationFileComponent
   },
   {
+    path: 'adminview',
+    component: AdminViewComponent
+  },
+  {
     path: '**',
     redirectTo: 'login'
   },
-  {
-    path: 'adminview',
-    component: AdminViewComponent
-  }
+
 ];
 
 
