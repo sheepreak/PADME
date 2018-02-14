@@ -20,9 +20,6 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { AdminViewComponent } from './admin-view/admin-view.component';
 
 
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService } from './in-memory-data.service';
-
 const appRoutes: Routes = [
   {
     path: 'login',
