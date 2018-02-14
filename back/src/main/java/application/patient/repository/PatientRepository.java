@@ -16,12 +16,6 @@ public class PatientRepository {
     @PersistenceContext(unitName = "JPAPU")
     private EntityManager em;
 
-    private MedicalFileRepository medicalFileRepository;
-
-    private AdminFileRepository adminFileRepository;
-
-
-
     public List<Patient> getFiles() {
         return em.createNamedQuery(Patient.FIND_ALL, Patient.class).getResultList();
     }

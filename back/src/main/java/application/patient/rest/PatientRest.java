@@ -10,8 +10,6 @@ import application.observation.repository.ObservationRepository;
 import application.patient.domain.Patient;
 import application.patient.repository.PatientRepository;
 import application.prescription.domain.Prescription;
-import application.prescription.repository.PrescriptionRepository;
-
 import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;

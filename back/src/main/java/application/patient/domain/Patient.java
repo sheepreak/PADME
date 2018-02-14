@@ -31,6 +31,7 @@ public class Patient {
     @OneToMany(cascade = CascadeType.ALL, mappedBy ="patient")
     private List<MedicalFile> medicalFileList;
 
+    @NotNull
     @OneToOne(cascade = CascadeType.ALL)
     private AdminFile adminFile;
 
