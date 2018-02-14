@@ -5,6 +5,8 @@ import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 
+import java.time.LocalDateTime;
+
 import static application.examen.domain.Examen.FIND_ALL;
 
 @Entity
@@ -21,6 +23,10 @@ public class Examen {
 
     @NotNull
     @Column
+    private String motive;
+
+    @NotNull
+    @Column
     private String description;
 
     @Column
@@ -30,11 +36,20 @@ public class Examen {
     @Column
     private String observation;
 
+    @NotNull
+    @Column
+    private String date;
+
+    @NotNull
+    @Column
+    private Integer StaffId;
+
     @ManyToOne(fetch=FetchType.LAZY)
     @PrimaryKeyJoinColumn(name = "MEDICALFILE_ID")
     private MedicalFile file;
 
     public Examen() {
+        date = LocalDateTime.now().toString();
     }
 
     public Integer getId() {
@@ -67,5 +82,29 @@ public class Examen {
 
     public void setObservation(String observation) {
         this.observation = observation;
+    }
+
+    public String getMotive() {
+        return motive;
+    }
+
+    public void setMotive(String motive) {
+        this.motive = motive;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public Integer getStaffId() {
+        return StaffId;
+    }
+
+    public void setStaffId(Integer staffId) {
+        StaffId = staffId;
     }
 }

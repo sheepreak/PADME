@@ -1,5 +1,6 @@
 package application.patient.rest;
 
+import application.adminfile.repository.AdminFileRepository;
 import application.examen.domain.Examen;
 import application.examen.repository.ExamenRepository;
 import application.medicalfile.domain.MedicalFile;
@@ -53,6 +54,14 @@ public class PatientRest {
         return Response.ok(entities).build();
     }
 
+    @GET
+    @Path("{id}/adminfile")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAdminFile(@PathParam("id") Integer patientId) {
+        Patient patient = repository.find(patientId);
+        return Response.ok(patient.getAdminFile()).build();
+    }
+
     @POST
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -97,4 +106,6 @@ public class PatientRest {
         URI fileUri = uriInfo.getBaseUriBuilder().path(PatientRest.class).path(patient.getPatientId().toString()).build();
         return Response.created(fileUri).build();
     }
+
+
 }
