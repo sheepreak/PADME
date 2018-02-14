@@ -42,6 +42,10 @@ public class AdminFile {
     @Column
     private String country;
 
+    @NotNull
+    @Column
+    private String gender;
+
     public AdminFile() { }
 
     public Integer getId() {
@@ -54,6 +58,14 @@ public class AdminFile {
 
     public String getLastName() {
         return lastName;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public void setLastName(String lastName) {

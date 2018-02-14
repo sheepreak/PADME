@@ -4,6 +4,7 @@ import application.medicalfile.domain.MedicalFile;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 @Entity
 public class Prescription {
@@ -17,18 +18,66 @@ public class Prescription {
 
     @NotNull
     @Column
-    private String description;
+    private String treatment;
+
+    @Column
+    private String posology;
+
+    @NotNull
+    @Column
+    private String startDate;
+
+    @NotNull
+    @Column
+    private String endDate;
+
+    @NotNull
+    @Column
+    private String prescriptionDate;
 
     @NotNull
     @Column
     private Integer staffId;
 
-    @ManyToOne(fetch= FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.LAZY)
     @PrimaryKeyJoinColumn(name = "MEDICALFILE_ID")
     private MedicalFile file;
 
 
     public Prescription() {
+        prescriptionDate = LocalDateTime.now().toString();
+    }
+
+    public String getPosology() {
+        return posology;
+    }
+
+    public void setPosology(String posology) {
+        this.posology = posology;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getPrescriptionDate() {
+        return prescriptionDate;
+    }
+
+    public void setPrescriptionDate(String prescriptionDate) {
+        this.prescriptionDate = prescriptionDate;
     }
 
     public Integer getId() {
@@ -39,12 +88,12 @@ public class Prescription {
         this.id = id;
     }
 
-    public String getDescription() {
-        return description;
+    public String getTreatment() {
+        return treatment;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setTreatment(String treatment) {
+        this.treatment = treatment;
     }
 
     public Integer getStaffId() {
