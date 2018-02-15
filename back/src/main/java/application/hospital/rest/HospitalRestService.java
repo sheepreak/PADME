@@ -1,8 +1,8 @@
 package application.hospital.rest;
 
-import application.hospital.Hospital;
-import application.hospital.domain.HospitalImpl;
-import application.hospital.repository.HospitalImplRepository;
+import application.hospital.IHospital;
+import application.hospital.domain.Hospital;
+import application.hospital.repository.HospitalRepository;
 import application.node.Node;
 
 import javax.ejb.EJB;
@@ -16,20 +16,20 @@ import java.net.URI;
 import java.util.List;
 
 @Path("/hospital")
-public class HospitalImplRestService {
+public class HospitalRestService {
 
     @EJB
-    private HospitalImplRepository repository;
+    private HospitalRepository repository;
     @Context
     private UriInfo uriInfo ;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response createHospital(HospitalImpl hospital){
+    public Response createHospital(Hospital hospital){
         repository.save(hospital);
         URI hospitalUri = uriInfo
                 .getBaseUriBuilder()
-                .path(HospitalImplRestService.class)
+                .path(HospitalRestService.class)
                 .path(hospital.getId().toString())
                 .build();
         return Response.created(hospitalUri).build();
@@ -50,7 +50,7 @@ public class HospitalImplRestService {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getHospitals() {
-        List<HospitalImpl> hospitals = repository.list();
+        List<Hospital> hospitals = repository.list();
         return Response.ok(hospitals).build();
     }
 
@@ -68,7 +68,7 @@ public class HospitalImplRestService {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response addNodePole(@PathParam("id") Long id, Node nodePole){
-        HospitalImpl hospital = repository.find(id);
+        Hospital hospital = repository.find(id);
         if (hospital == null)
             return Response.status(Response.Status.NOT_FOUND).build();
         hospital.addNodePole(nodePole);

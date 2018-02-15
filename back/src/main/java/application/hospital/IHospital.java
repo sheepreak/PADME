@@ -4,7 +4,7 @@ import application.node.Node;
 import java.nio.file.Path;
 import java.util.List;
 
-public interface Hospital {
+public interface IHospital {
     public boolean addNodePole(Node nodePole);
     public void initHierarchy(Path path);
     public Node getPosition(Node node);

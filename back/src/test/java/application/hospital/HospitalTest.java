@@ -1,6 +1,6 @@
 package application.hospital;
 
-import application.hospital.domain.HospitalImpl;
+import application.hospital.domain.Hospital;
 import application.node.Node;
 
 import java.nio.file.Path;
@@ -124,49 +124,49 @@ public class HospitalTest{
 
     @Test(expected = NullPointerException.class)
     public void testInitHierarchyWithPathNull(){
-        Hospital hospital = new HospitalImpl("","","" );
+        Hospital hospital = new Hospital("","","" );
         hospital.initHierarchy(null);
     }
 
 //    @Test(expected = IllegalArgumentException.class)
 //    public void testInitHierarchyWithDirectoryPathInsteadOfFilePath(){
 //        Path path = Paths.get("../java/");
-//        Hospital hospital = new HospitalImpl("","","" );
+//        Hospital hospital = new Hospital("","","" );
 //        hospital.initHierarchy(path);
 //    }
 //
 //    @Test(expected = IOException.class)
 //    public void testInitHierarchyErrorOpeningFile(){
 //        Path path = Paths.get("../ressources/fileCantBeOpen.json");
-//        Hospital hospital = new HospitalImpl("","","" );
+//        Hospital hospital = new Hospital("","","" );
 //        hospital.initHierarchy(path);
 //    }
 //
 //    @Test(expected = IOException.class)
 //    public void testInitHierarchyErrorReadingFile(){
 //        Path path = Paths.get("../ressources/fileCantBeRead.json");
-//        Hospital hospital = new HospitalImpl("","","" );
+//        Hospital hospital = new Hospital("","","" );
 //        hospital.initHierarchy(path);
 //    }
 //
 //    @Test(expected = IOException.class)
 //    public void testInitHierarchyWithWrongJsonFormatFilePath(){
 //        Path path = Paths.get("../ressources/fileWithWrongJsonFormat.json");
-//        Hospital hospital = new HospitalImpl("","","" );
+//        Hospital hospital = new Hospital("","","" );
 //        hospital.initHierarchy(path);
 //    }
 //
 //    @Test(expected = JsonMappingException.class)
 //    public void testInitWithWrongJsonFormatFilePath(){
 //        Path path = Paths.get("../ressources/recettar.json");
-//        Hospital hospital = new HospitalImpl("","","" );
+//        Hospital hospital = new Hospital("","","" );
 //        hospital.initHierarchy(path);
 //    }
 //
 //    @Test
 //    public void testInitHierarchy(){
 //        Path path = Paths.get("../ressources/hospitalALBERT-CHENEVIER.json");
-//        Hospital hospital = new HospitalImpl("","","" );
+//        Hospital hospital = new Hospital("","","" );
 //        hospital.initHierarchy(path);
 //        //todo mock and assert
 //        assert(false);
@@ -176,8 +176,8 @@ public class HospitalTest{
     public void testInitHierarchyTwice(){
         Path path = Paths.get("../ressources/hospitalALBERT-CHENEVIER.json");
         Path path2 = Paths.get("../ressources/hospitalAMBROISE-PARÉ.json");
-        Hospital hospital = new HospitalImpl("","","" );
-        Hospital hospital2 = new HospitalImpl("","","" );
+        Hospital hospital = new Hospital("","","" );
+        Hospital hospital2 = new Hospital("","","" );
         hospital2.initHierarchy(path);
         hospital.initHierarchy(path);
         hospital.initHierarchy(path2);
@@ -186,17 +186,17 @@ public class HospitalTest{
 
     @Test(expected = NullPointerException.class)
     public void testCreateHospitalWithNullName(){
-        Hospital hospital = new HospitalImpl(null,"","" );
+        Hospital hospital = new Hospital(null,"","" );
     }
 
     @Test(expected = NullPointerException.class)
     public void testCreateHospitalWithNullAddress(){
-        Hospital hospital = new HospitalImpl("","",null );
+        Hospital hospital = new Hospital("","",null );
     }
 
     @Test(expected = NullPointerException.class)
     public void testCreateHospitalWithNullCountry(){
-        Hospital hospital = new HospitalImpl("",null,"" );
+        Hospital hospital = new Hospital("",null,"" );
     }
 
     @Test
@@ -204,14 +204,14 @@ public class HospitalTest{
         String name = "Hopital ALBERT-CHENEVIER";
         String address = "40 rue du Mesly, 94000 Créteil";
         String country = "France";
-        Hospital hospital = new HospitalImpl(name,country,address);
+        Hospital hospital = new Hospital(name,country,address);
         assertTrue(hospital.getName().equals(name) && hospital.getAddress().equals(address)
                 && hospital.getCountry().equals(country));
     }
 
     @Test
     public void testHospitalGetHierarchy(){
-        Hospital hospital = new HospitalImpl("","","" );
+        Hospital hospital = new Hospital("","","" );
         List<Node> nodeExpected = new ArrayList<>();
         initDataTest();
         hospital.addNodePole(poleUrgence);
@@ -222,19 +222,19 @@ public class HospitalTest{
     }
     @Test
     public void testHospitalGetHierarchyIsAnEmptyListByDefault(){
-        Hospital hospital = new HospitalImpl("","","" );
+        Hospital hospital = new Hospital("","","" );
         assertTrue(hospital.getHierarchy().isEmpty());
     }
 
     @Test(expected = NullPointerException.class)
     public void testAddNodePoleWithNodeNull(){
-        Hospital hospital = new HospitalImpl("","","" );
+        Hospital hospital = new Hospital("","","" );
         hospital.addNodePole(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testAddNodePoleWithNodeService(){
-        Hospital hospital = new HospitalImpl("","","" );
+        Hospital hospital = new Hospital("","","" );
         initDataTest();
         hospital.addNodePole(serviceChirurgieA);
         assert(false);
@@ -242,7 +242,7 @@ public class HospitalTest{
 
     @Test(expected = IllegalArgumentException.class)
     public void testAddNodePoleWithNodeHospitalUnit(){
-        Hospital hospital = new HospitalImpl("","","" );
+        Hospital hospital = new Hospital("","","" );
         initDataTest();
         hospital.addNodePole(hospUnitChirurgieAA);
         assert(false);
@@ -250,7 +250,7 @@ public class HospitalTest{
 
     @Test(expected = IllegalArgumentException.class)
     public void testAddNodePoleWithNodeHealthCareUnit(){
-        Hospital hospital = new HospitalImpl("","","" );
+        Hospital hospital = new Hospital("","","" );
         initDataTest();
         hospital.addNodePole(healthCareUnitChirurgieAAA);
         assert(false);
@@ -258,7 +258,7 @@ public class HospitalTest{
 
     @Test
     public void testAddNodePole(){
-        Hospital hospital = new HospitalImpl("","","" );
+        Hospital hospital = new Hospital("","","" );
         initDataTest();
         List<Node> nodeExpected = new ArrayList<>();
         nodeExpected.add(poleChirurgie);
@@ -268,7 +268,7 @@ public class HospitalTest{
 
     @Test
     public void testGetPosition(){
-        Hospital hospital = new HospitalImpl("","","" );
+        Hospital hospital = new Hospital("","","" );
         initDataTest();
         hospital.addNodePole(poleChirurgie);
         assert(hospital.getPosition(healthCareUnitChirurgieAAA).equals(healthCareUnitChirurgieAAA));
@@ -276,7 +276,7 @@ public class HospitalTest{
 
     @Test
     public void testGetPositionWithOtherNode(){
-        Hospital hospital = new HospitalImpl("","","" );
+        Hospital hospital = new Hospital("","","" );
         initDataTest();
         hospital.addNodePole(poleChirurgie);
         assert(null == hospital.getPosition(healthCareUnitUrgenceAAA));

@@ -1,7 +1,7 @@
 package application.hospital.repository;
 
-import application.hospital.Hospital;
-import application.hospital.domain.HospitalImpl;
+import application.hospital.IHospital;
+import application.hospital.domain.Hospital;
 
 import javax.ejb.NoSuchEntityException;
 import javax.ejb.Stateless;
@@ -12,23 +12,23 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Stateless
-public class HospitalImplRepository {
+public class HospitalRepository {
 
     @PersistenceContext(unitName = "JPAPU")
     private EntityManager entityManager;
 
-    public List<HospitalImpl> list(){
-        List<HospitalImpl> list = new ArrayList<>(entityManager
-                .createNamedQuery(HospitalImpl.FIND_ALL, HospitalImpl.class)
+    public List<Hospital> list(){
+        List<Hospital> list = new ArrayList<>(entityManager
+                .createNamedQuery(Hospital.FIND_ALL, Hospital.class)
                 .getResultList());
         return list;
     }
 
-    public HospitalImpl find(Long id){
-        return entityManager.find(HospitalImpl.class, id);
+    public Hospital find(Long id){
+        return entityManager.find(Hospital.class, id);
     }
 
-    public Long save(HospitalImpl hospital) {
+    public Long save(Hospital hospital) {
         entityManager.persist(hospital);
         return hospital.getId();
     }
@@ -41,7 +41,7 @@ public class HospitalImplRepository {
         else throw new NoSuchEntityException();
     }
 
-    public void update(HospitalImpl hospital){
+    public void update(Hospital hospital){
         entityManager.merge(hospital);
     }
 }

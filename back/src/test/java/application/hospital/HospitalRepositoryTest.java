@@ -1,7 +1,7 @@
 package application.hospital;
 
-import application.hospital.domain.HospitalImpl;
-import application.hospital.repository.HospitalImplRepository;
+import application.hospital.domain.Hospital;
+import application.hospital.repository.HospitalRepository;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.junit.Test;
 
@@ -13,11 +13,11 @@ import static org.junit.Assert.assertTrue;
 
 public class HospitalRepositoryTest {
 
-    private HospitalImplRepository repository = new HospitalImplRepository();
+    private HospitalRepository repository = new HospitalRepository();
 
     /*
 
-    public Long save(HospitalImpl hospital) {
+    public Long save(Hospital hospital) {
         entityManager.persist(hospital);
         return hospital.getId();
     }
@@ -30,7 +30,7 @@ public class HospitalRepositoryTest {
         else throw new NoSuchEntityException();
     }
 
-    public void update(HospitalImpl hospital){
+    public void update(Hospital hospital){
         entityManager.merge(hospital);
     }
      */

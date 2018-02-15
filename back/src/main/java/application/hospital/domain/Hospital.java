@@ -4,7 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import application.hospital.Hospital;
+import application.hospital.IHospital;
 import application.node.Node;
 
 import java.io.File;
@@ -13,12 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static application.hospital.domain.HospitalImpl.FIND_ALL;
+import static application.hospital.domain.Hospital.FIND_ALL;
 
 @Table(name="Hospital")
 @Entity
 @NamedQuery(name=FIND_ALL, query="SELECT h FROM Hospital h ORDER BY h.name ASC")
-public class HospitalImpl implements Hospital {
+public class Hospital implements IHospital {
 
     public static final String FIND_ALL = "Hospital.findAllHospitals";
 
@@ -44,14 +44,14 @@ public class HospitalImpl implements Hospital {
     @OneToMany
     private List<Node> hierarchy;
 
-    public HospitalImpl(String name, String country, String address) {
+    public Hospital(String name, String country, String address) {
         this.name = Objects.requireNonNull(name);
         this.country = Objects.requireNonNull(country);
         this.address = Objects.requireNonNull(address);
         hierarchy = new ArrayList<>();
     }
 
-    public HospitalImpl() {
+    public Hospital() {
     }
 
     @Override
@@ -77,6 +77,22 @@ public class HospitalImpl implements Hospital {
 
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setHierarchy(List<Node> hierarchy) {
+        this.hierarchy = hierarchy;
+    }
+
     @Override
     public Node getPosition(Node node) {
         for (Node nodePole: hierarchy) {
@@ -84,6 +100,7 @@ public class HospitalImpl implements Hospital {
                 return nodePole;
             if (nodePole.getLevel().equals(node.getLevel()))
                 continue;
+
             if (!nodePole.getSpeciality().equals(node.getSpeciality()))
                 continue;
             if(nodePole.getSubNodes() == null)
@@ -132,4 +149,6 @@ public class HospitalImpl implements Hospital {
     public List<Node> getHierarchy() {
         return hierarchy;
     }
+
+
 }
