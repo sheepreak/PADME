@@ -1,7 +1,6 @@
 package application.node.repository;
 
 import application.node.domain.Node;
-import application.node.Node;
 
 import javax.ejb.NoSuchEntityException;
 import javax.ejb.Stateless;
