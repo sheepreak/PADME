@@ -46,7 +46,9 @@
 
   "Prescription": "Prescription",
 
-  "Consultation":"Consultation"
+  "Consultation":"Consultation",
+  "PatientList": "Patient list",
+  "Examination": "Examinations"
 
 
 }
