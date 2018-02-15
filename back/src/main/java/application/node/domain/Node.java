@@ -18,6 +18,10 @@ public class Node implements INode {
 
     public static final String FIND_ALL = "Node.findAllNodes";
 
+    public void setSubNodes(List<Node> subNodes) {
+        this.subNodes = subNodes;
+    }
+
     @Id
     @GeneratedValue
     private Long id;
