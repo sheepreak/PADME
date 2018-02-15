@@ -1,15 +1,15 @@
 package application.node;
 
-import application.node.domain.NodeImpl;
+import application.node.domain.Node;
 
 import java.util.List;
 
-public interface Node {
+public interface INode {
 
     public void setSpeciality(String speciality);
     public void setLevel(NodeLevel level);
-    public Node addNode(NodeImpl node);
-    public List<NodeImpl> getSubNodes();
+    public Node addNode(Node node);
+    public List<Node> getSubNodes();
     public Long getId();
     public String getSpeciality();
     public NodeLevel getLevel();

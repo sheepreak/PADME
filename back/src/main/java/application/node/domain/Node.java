@@ -1,6 +1,6 @@
 package application.node.domain;
 
-import application.node.Node;
+import application.node.INode;
 import application.node.NodeLevel;
 
 import javax.persistence.*;
@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static application.node.domain.NodeImpl.FIND_ALL;
+import static application.node.domain.Node.FIND_ALL;
 @Table(name="Node")
 @Entity
 @NamedQuery(name=FIND_ALL, query="SELECT n FROM Node n ORDER BY n.level ASC")
-public class NodeImpl implements Node {
+public class Node implements INode {
 
     public static final String FIND_ALL = "Node.findAllNodes";
 
@@ -32,9 +32,9 @@ public class NodeImpl implements Node {
     private NodeLevel level;
 
     @OneToMany
-    private List<NodeImpl> subNodes = new ArrayList<>();
+    private List<Node> subNodes = new ArrayList<>();
 
-    public NodeImpl(){
+    public Node(){
     }
     @Override
     public void setSpeciality(String speciality){
@@ -45,7 +45,7 @@ public class NodeImpl implements Node {
         this.level = Objects.requireNonNull(level);
     }
     @Override
-    public Node addNode(NodeImpl node){
+    public Node addNode(Node node){
         NodeLevel nodeLevel = Objects.requireNonNull(node).getLevel();
         if(nodeLevel.getHierarchyLevel()-1 != level.getHierarchyLevel())
             throw new IllegalArgumentException("The node:"+node+" isn't a direct hierarchy child level of "+ this);
@@ -55,7 +55,7 @@ public class NodeImpl implements Node {
         return this;
     }
     @Override
-    public List<NodeImpl> getSubNodes(){
+    public List<Node> getSubNodes(){
         return subNodes;
     }
     @Override

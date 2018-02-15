@@ -1,81 +1,80 @@
 package test.application.node.domain;
 
 import application.node.NodeLevel;
-import application.node.Node;
-import application.node.domain.NodeImpl;
+import application.node.domain.Node;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class NodeImplTest {
+public class NodeTest {
     
-    private NodeImpl poleUrgence = new NodeImpl();
-    private NodeImpl poleChirurgie = new NodeImpl();
+    private Node poleUrgence = new Node();
+    private Node poleChirurgie = new Node();
 
-    private NodeImpl serviceUrgenceA = new NodeImpl();
+    private Node serviceUrgenceA = new Node();
 
-    private NodeImpl serviceChirurgieA = new NodeImpl();
-    private NodeImpl serviceChirurgieB = new NodeImpl();
+    private Node serviceChirurgieA = new Node();
+    private Node serviceChirurgieB = new Node();
 
-    private NodeImpl hospUnitUrgenceAA = new NodeImpl();
-    private NodeImpl hospUnitUrgenceAB = new NodeImpl();
+    private Node hospUnitUrgenceAA = new Node();
+    private Node hospUnitUrgenceAB = new Node();
 
-    private NodeImpl hospUnitChirurgieAA = new NodeImpl();
-    private NodeImpl hospUnitChirurgieAB = new NodeImpl();
-    private NodeImpl hospUnitChirurgieBA = new NodeImpl();
-    private NodeImpl hospUnitChirurgieBB = new NodeImpl();
+    private Node hospUnitChirurgieAA = new Node();
+    private Node hospUnitChirurgieAB = new Node();
+    private Node hospUnitChirurgieBA = new Node();
+    private Node hospUnitChirurgieBB = new Node();
 
-    private NodeImpl healthCareUnitUrgenceAAA = new NodeImpl();
-    private NodeImpl healthCareUnitUrgenceABA = new NodeImpl();
+    private Node healthCareUnitUrgenceAAA = new Node();
+    private Node healthCareUnitUrgenceABA = new Node();
 
-    private NodeImpl healthCareUnitChirurgieAAA = new NodeImpl();
-    private NodeImpl healthCareUnitChirurgieAAB = new NodeImpl();
-    private NodeImpl healthCareUnitChirurgieABA = new NodeImpl();
-    private NodeImpl healthCareUnitChirurgieABB = new NodeImpl();
-    private NodeImpl healthCareUnitChirurgieBAA = new NodeImpl();
-    private NodeImpl healthCareUnitChirurgieBAB = new NodeImpl();
-    private NodeImpl healthCareUnitChirurgieBBA = new NodeImpl();
-    private NodeImpl healthCareUnitChirurgieBBB = new NodeImpl();
+    private Node healthCareUnitChirurgieAAA = new Node();
+    private Node healthCareUnitChirurgieAAB = new Node();
+    private Node healthCareUnitChirurgieABA = new Node();
+    private Node healthCareUnitChirurgieABB = new Node();
+    private Node healthCareUnitChirurgieBAA = new Node();
+    private Node healthCareUnitChirurgieBAB = new Node();
+    private Node healthCareUnitChirurgieBBA = new Node();
+    private Node healthCareUnitChirurgieBBB = new Node();
 
     private String chirurgy = "Chirurgy";
     private String urgence = "Urgence";
 
-    private void initNode(NodeImpl node, String speciality, NodeLevel level){
+    private void initNode(Node node, String speciality, NodeLevel level){
         node.setLevel(level);
         node.setSpeciality(speciality);
     }
 
     private void initTestSet(){
 
-        poleUrgence = new NodeImpl();
-        poleChirurgie = new NodeImpl();
+        poleUrgence = new Node();
+        poleChirurgie = new Node();
 
-        serviceUrgenceA = new NodeImpl();
+        serviceUrgenceA = new Node();
 
-        serviceChirurgieA = new NodeImpl();
-        serviceChirurgieB = new NodeImpl();
+        serviceChirurgieA = new Node();
+        serviceChirurgieB = new Node();
 
-        hospUnitUrgenceAA = new NodeImpl();
-        hospUnitUrgenceAB = new NodeImpl();
+        hospUnitUrgenceAA = new Node();
+        hospUnitUrgenceAB = new Node();
 
-        hospUnitChirurgieAA = new NodeImpl();
-        hospUnitChirurgieAB = new NodeImpl();
-        hospUnitChirurgieBA = new NodeImpl();
-        hospUnitChirurgieBB = new NodeImpl();
+        hospUnitChirurgieAA = new Node();
+        hospUnitChirurgieAB = new Node();
+        hospUnitChirurgieBA = new Node();
+        hospUnitChirurgieBB = new Node();
 
-        healthCareUnitUrgenceAAA = new NodeImpl();
-        healthCareUnitUrgenceABA = new NodeImpl();
+        healthCareUnitUrgenceAAA = new Node();
+        healthCareUnitUrgenceABA = new Node();
 
-        healthCareUnitChirurgieAAA = new NodeImpl();
-        healthCareUnitChirurgieAAB = new NodeImpl();
-        healthCareUnitChirurgieABA = new NodeImpl();
-        healthCareUnitChirurgieABB = new NodeImpl();
-        healthCareUnitChirurgieBAA = new NodeImpl();
-        healthCareUnitChirurgieBAB = new NodeImpl();
-        healthCareUnitChirurgieBBA = new NodeImpl();
-        healthCareUnitChirurgieBBB = new NodeImpl();
+        healthCareUnitChirurgieAAA = new Node();
+        healthCareUnitChirurgieAAB = new Node();
+        healthCareUnitChirurgieABA = new Node();
+        healthCareUnitChirurgieABB = new Node();
+        healthCareUnitChirurgieBAA = new Node();
+        healthCareUnitChirurgieBAB = new Node();
+        healthCareUnitChirurgieBBA = new Node();
+        healthCareUnitChirurgieBBB = new Node();
 
         initNode(healthCareUnitChirurgieAAA, chirurgy, NodeLevel.healthCareUnit);
         initNode(healthCareUnitChirurgieAAB, chirurgy, NodeLevel.healthCareUnit);
@@ -145,14 +144,14 @@ public class NodeImplTest {
 
     @Test
     public void testGetSubNodesIsAnEmptyList() {
-        NodeImpl node = new NodeImpl();
+        Node node = new Node();
         List<Node> emptyList = new LinkedList<>();
         assert(node.getSubNodes().equals(emptyList) && node.getSubNodes().isEmpty());
     }
 
     @Test(expected = NullPointerException.class)
     public void testAddNodeWithNodeNull() {
-        NodeImpl node = new NodeImpl();
+        Node node = new Node();
         node.addNode(null);
     }
 
@@ -176,16 +175,16 @@ public class NodeImplTest {
 
     @Test
     public void testAddNode() {
-        NodeImpl nodeP1 =new NodeImpl();
-        NodeImpl nodeS1 =new NodeImpl();
-        NodeImpl nodeS2 =new NodeImpl();
+        Node nodeP1 =new Node();
+        Node nodeS1 =new Node();
+        Node nodeS2 =new Node();
         initNode(nodeP1, chirurgy, NodeLevel.pole);
         initNode(nodeS1, chirurgy, NodeLevel.service);
         initNode(nodeS2, chirurgy, NodeLevel.service);
 
         nodeP1.addNode(nodeS1).addNode(nodeS2);
 
-        List<NodeImpl> expected = new ArrayList<>();
+        List<Node> expected = new ArrayList<>();
         expected.add(nodeS1);
         assert(!nodeP1.getSubNodes().equals(expected));
         expected.add(nodeS2);

@@ -1,6 +1,6 @@
 package application.node.repository;
 
-import application.node.domain.NodeImpl;
+import application.node.domain.Node;
 import application.node.Node;
 
 import javax.ejb.NoSuchEntityException;
@@ -11,36 +11,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Stateless
-public class NodeImplRepository {
+public class NodeRepository {
 
     @PersistenceContext(unitName = "JPAPU")
     private EntityManager entityManager;
 
-    public List<NodeImpl> list(){
-        List<NodeImpl> list = new ArrayList<>(entityManager
-                .createNamedQuery(NodeImpl.FIND_ALL, NodeImpl.class)
+    public List<Node> list(){
+        List<Node> list = new ArrayList<>(entityManager
+                .createNamedQuery(Node.FIND_ALL, Node.class)
                 .getResultList());
         return list;
     }
 
-    public NodeImpl find(Long id){
-        return entityManager.find(NodeImpl.class, id);
+    public Node find(Long id){
+        return entityManager.find(Node.class, id);
     }
 
-    public Long save(NodeImpl node) {
+    public Long save(Node node) {
         entityManager.persist(node);
         return node.getId();
     }
 
     public void delete(Long id) throws NoSuchEntityException{
-        NodeImpl node = null;
+        Node node = null;
         node = find(id);
         if(node!=null)
             entityManager.remove(node);
         else throw new NoSuchEntityException();
     }
 
-    public void update(NodeImpl node){
+    public void update(Node node){
         entityManager.merge(node);
     }
 

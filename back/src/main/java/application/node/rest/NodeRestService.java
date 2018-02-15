@@ -1,8 +1,7 @@
 package application.node.rest;
 
-import application.node.Node;
-import application.node.domain.NodeImpl;
-import application.node.repository.NodeImplRepository;
+import application.node.domain.Node;
+import application.node.repository.NodeRepository;
 
 import javax.ejb.EJB;
 import javax.ejb.NoSuchEntityException;
@@ -15,20 +14,20 @@ import java.net.URI;
 import java.util.List;
 
 @Path("/node")
-public class NodeImplRestService {
+public class NodeRestService {
 
     @EJB
-    private NodeImplRepository repository;
+    private NodeRepository repository;
     @Context
     private UriInfo uriInfo ;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response createNode(NodeImpl node){
+    public Response createNode(Node node){
         repository.save(node);
         URI nodeUri = uriInfo
                 .getBaseUriBuilder()
-                .path(NodeImplRestService.class)
+                .path(NodeRestService.class)
                 .path(node.getId().toString())
                 .build();
         return Response.created(nodeUri).build();
@@ -49,7 +48,7 @@ public class NodeImplRestService {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getNodes() {
-        List<NodeImpl> nodes = repository.list();
+        List<Node> nodes = repository.list();
         return Response.ok(nodes).build();
     }
 
@@ -66,8 +65,8 @@ public class NodeImplRestService {
     @POST
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addNode(@PathParam("id") Long id, NodeImpl node){
-        NodeImpl nodeImpl = repository.find(id);
+    public Response addNode(@PathParam("id") Long id, Node node){
+        Node nodeImpl = repository.find(id);
         if (nodeImpl == null)
             return Response.status(Response.Status.NOT_FOUND).build();
         nodeImpl.addNode(node);
