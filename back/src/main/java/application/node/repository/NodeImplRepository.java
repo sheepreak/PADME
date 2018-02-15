@@ -16,32 +16,32 @@ public class NodeImplRepository {
     @PersistenceContext(unitName = "JPAPU")
     private EntityManager entityManager;
 
-    public List<Node> list(){
-        List<Node> list = new ArrayList<>(entityManager
+    public List<NodeImpl> list(){
+        List<NodeImpl> list = new ArrayList<>(entityManager
                 .createNamedQuery(NodeImpl.FIND_ALL, NodeImpl.class)
                 .getResultList());
         return list;
     }
 
-    public Node find(Long id){
+    public NodeImpl find(Long id){
         return entityManager.find(NodeImpl.class, id);
     }
 
-    public Long save(Node node) {
+    public Long save(NodeImpl node) {
         entityManager.persist(node);
         return node.getId();
     }
 
     public void delete(Long id) throws NoSuchEntityException{
-        Node node = null;
+        NodeImpl node = null;
         node = find(id);
         if(node!=null)
             entityManager.remove(node);
         else throw new NoSuchEntityException();
     }
 
-    public void update(Node hospital){
-        entityManager.merge(hospital);
+    public void update(NodeImpl node){
+        entityManager.merge(node);
     }
 
 }

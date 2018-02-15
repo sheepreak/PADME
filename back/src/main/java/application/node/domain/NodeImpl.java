@@ -32,7 +32,7 @@ public class NodeImpl implements Node {
     private NodeLevel level;
 
     @OneToMany
-    private List<Node> subNodes = new ArrayList<>();
+    private List<NodeImpl> subNodes = new ArrayList<>();
 
     public NodeImpl(){
     }
@@ -45,7 +45,7 @@ public class NodeImpl implements Node {
         this.level = Objects.requireNonNull(level);
     }
     @Override
-    public Node addNode(Node node){
+    public Node addNode(NodeImpl node){
         NodeLevel nodeLevel = Objects.requireNonNull(node).getLevel();
         if(nodeLevel.getHierarchyLevel()-1 != level.getHierarchyLevel())
             throw new IllegalArgumentException("The node:"+node+" isn't a direct hierarchy child level of "+ this);
@@ -55,7 +55,7 @@ public class NodeImpl implements Node {
         return this;
     }
     @Override
-    public List<Node> getSubNodes(){
+    public List<NodeImpl> getSubNodes(){
         return subNodes;
     }
     @Override
