@@ -1,7 +1,7 @@
 package application.hospital;
 
 import application.hospital.domain.Hospital;
-import application.node.Node;
+import application.node.domain.Node;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -55,10 +55,9 @@ public class HospitalTest{
     private Node healthCareUnitChirurgieBBB = mock(Node.class);
 
 
-    private Node simuleNode(Node node, List<Node> subNode, String speciality, boolean isNodePole, Enum<NodeLevel> level){
+    private Node simuleNode(Node node, List<Node> subNode, String speciality, boolean isNodePole, NodeLevel level){
         when(node.getSubNodes()).thenReturn(subNode);
         when(node.getSpeciality()).thenReturn(speciality);
-        when(node.isNodePole()).thenReturn(isNodePole);
         when(node.getLevel()).thenReturn(level);
         return node;
     }
@@ -102,7 +101,6 @@ public class HospitalTest{
 
         when(poleChirurgie.getSubNodes()).thenReturn(serviceChirurgieList);
         when(poleChirurgie.getSpeciality()).thenReturn(chirurgieLabel);
-        when(poleChirurgie.isNodePole()).thenReturn(true);
         when(poleChirurgie.getLevel()).thenReturn(NodeLevel.pole);
 
         //Urgence
@@ -118,7 +116,6 @@ public class HospitalTest{
 
         when(poleUrgence.getSubNodes()).thenReturn(serviceUrgenceList);
         when(poleUrgence.getSpeciality()).thenReturn("Chirurgie");
-        when(poleUrgence.isNodePole()).thenReturn(true);
         when(poleUrgence.getLevel()).thenReturn(NodeLevel.pole);
     }
 

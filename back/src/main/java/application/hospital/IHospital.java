@@ -1,6 +1,6 @@
 package application.hospital;
 
-import application.node.Node;
+import application.node.domain.Node;
 import java.nio.file.Path;
 import java.util.List;
 

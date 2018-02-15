@@ -2,7 +2,7 @@ package application;
 
 import application.filters.CORSFilter;
 import org.glassfish.jersey.jackson.JacksonFeature;
-import application.hospital.rest.HospitalImplRestService;
+import application.hospital.rest.HospitalRestService;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
@@ -19,7 +19,7 @@ public class ApplicationConfig extends Application {
         c.add(TestHello.class);
         c.add(JacksonFeature.class);
         c.add(CORSFilter.class);
-        c.add(HospitalImplRestService.class);
+        c.add(HospitalRestService.class);
         classes = Collections.unmodifiableSet(c);
     }
 

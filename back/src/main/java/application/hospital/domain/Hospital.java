@@ -5,7 +5,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import application.hospital.IHospital;
-import application.node.Node;
+import application.node.NodeLevel;
+import application.node.domain.Node;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -57,7 +58,7 @@ public class Hospital implements IHospital {
     @Override
     public boolean addNodePole(Node nodePole) {
         Objects.requireNonNull(nodePole);
-        if(!nodePole.isNodePole())
+        if(!nodePole.getLevel().equals(NodeLevel.pole))
             throw new IllegalArgumentException();
         return hierarchy.add(nodePole);
     }
