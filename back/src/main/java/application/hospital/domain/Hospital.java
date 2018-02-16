@@ -7,8 +7,11 @@ import javax.validation.constraints.Size;
 import application.hospital.IHospital;
 import application.node.NodeLevel;
 import application.node.domain.Node;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +67,7 @@ public class Hospital implements IHospital {
     }
 
     @Override
-    public void initHierarchy(Path path) {
+    public void initHierarchy(Path path) throws IOException {
         Objects.requireNonNull(path);
         if(!hierarchy.isEmpty())
             return;
@@ -74,8 +77,10 @@ public class Hospital implements IHospital {
             System.err.println(message);//Logger.error(message)
             throw new IllegalArgumentException(message);
         }
-        //TODO parse the json file
-
+        byte[] jsonData = Files.readAllBytes(path);
+        ObjectMapper objectMapper = new ObjectMapper();
+        Hospital hospital =  objectMapper.readValue(jsonData, Hospital.class);
+        setHierarchy(hospital.hierarchy);
     }
 
     public void setName(String name) {

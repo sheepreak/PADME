@@ -1,3 +1,16 @@
 {
-
+  "hierarchy": [{
+    "id":null,
+    "speciality":"hospitalALBERT-CHEVENIER_Spe1",
+    "level":"pole",
+    "subNodes":[
+      {
+        "id":null,
+        "speciality":"hospitalALBERT-CHEVENIER_Spe1",
+        "level":"service",
+        "subNodes":[
+        ]
+      }
+    ]
+  }]
 }

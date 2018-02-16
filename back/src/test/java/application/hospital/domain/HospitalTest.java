@@ -1,15 +1,20 @@
-package application.hospital;
+package application.hospital.domain;
 
 import application.hospital.domain.Hospital;
 import application.node.domain.Node;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 import application.node.NodeLevel;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import org.junit.Test;
+
+import javax.json.Json;
 
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
@@ -120,65 +125,56 @@ public class HospitalTest{
     }
 
     @Test(expected = NullPointerException.class)
-    public void testInitHierarchyWithPathNull(){
+    public void testInitHierarchyWithPathNull() throws IOException {
         Hospital hospital = new Hospital("","","" );
         hospital.initHierarchy(null);
+        assert(false);
     }
 
-//    @Test(expected = IllegalArgumentException.class)
-//    public void testInitHierarchyWithDirectoryPathInsteadOfFilePath(){
-//        Path path = Paths.get("../java/");
-//        Hospital hospital = new Hospital("","","" );
-//        hospital.initHierarchy(path);
-//    }
-//
-//    @Test(expected = IOException.class)
-//    public void testInitHierarchyErrorOpeningFile(){
-//        Path path = Paths.get("../ressources/fileCantBeOpen.json");
-//        Hospital hospital = new Hospital("","","" );
-//        hospital.initHierarchy(path);
-//    }
-//
-//    @Test(expected = IOException.class)
-//    public void testInitHierarchyErrorReadingFile(){
-//        Path path = Paths.get("../ressources/fileCantBeRead.json");
-//        Hospital hospital = new Hospital("","","" );
-//        hospital.initHierarchy(path);
-//    }
-//
-//    @Test(expected = IOException.class)
-//    public void testInitHierarchyWithWrongJsonFormatFilePath(){
-//        Path path = Paths.get("../ressources/fileWithWrongJsonFormat.json");
-//        Hospital hospital = new Hospital("","","" );
-//        hospital.initHierarchy(path);
-//    }
-//
-//    @Test(expected = JsonMappingException.class)
-//    public void testInitWithWrongJsonFormatFilePath(){
-//        Path path = Paths.get("../ressources/recettar.json");
-//        Hospital hospital = new Hospital("","","" );
-//        hospital.initHierarchy(path);
-//    }
-//
-//    @Test
-//    public void testInitHierarchy(){
-//        Path path = Paths.get("../ressources/hospitalALBERT-CHENEVIER.json");
-//        Hospital hospital = new Hospital("","","" );
-//        hospital.initHierarchy(path);
-//        //todo mock and assert
-//        assert(false);
-//    }
-//
+    @Test(expected = IllegalArgumentException.class)
+    public void testInitHierarchyWithDirectoryPathInsteadOfFilePath() throws IOException {
+        Path path = Paths.get("..");
+        Hospital hospital = new Hospital("","","" );
+        hospital.initHierarchy(path);
+        assert(false);
+    }
+
+    @Test(expected = IOException.class)
+    public void testInitHierarchyWithWrongJsonFormatFilePath() throws IOException {
+        Path path = Paths.get("src/test/ressources/wrongJsonFormat.json");
+        Hospital hospital = new Hospital("","","" );
+        hospital.initHierarchy(path);
+        assert(false);
+    }
+
+    @Test(expected = JsonMappingException.class)
+    public void testInitWithWrongJsonFormatFilePath() throws IOException {
+        Path path = Paths.get("src/test/ressources/recettar.json");
+        Hospital hospital = new Hospital("","","" );
+        hospital.initHierarchy(path);
+        assert(false);
+    }
+
     @Test
-    public void testInitHierarchyTwice(){
-        Path path = Paths.get("../ressources/hospitalALBERT-CHENEVIER.json");
-        Path path2 = Paths.get("../ressources/hospitalAMBROISE-PARÉ.json");
+    public void testInitHierarchy() throws IOException {
+        Path path = Paths.get("src/test/ressources/hospitalALBERT-CHENEVIER.json");
+        Hospital hospital = new Hospital("","","" );
+        hospital.initHierarchy(path);
+        assert(hospital.getHierarchy().get(0).getLevel().equals(NodeLevel.pole) && hospital.getHierarchy().get(0).getSpeciality().equals("hospitalALBERT-CHEVENIER_Spe1"));
+    }
+
+    @Test
+    public void testInitHierarchyTwice() throws IOException {
+        Path path = Paths.get("src/test/ressources/hospitalALBERT-CHENEVIER.json");
+        Path path2 = Paths.get("src/test/ressources/hospitalAMBROISE-PARÉ.json");
         Hospital hospital = new Hospital("","","" );
         Hospital hospital2 = new Hospital("","","" );
         hospital2.initHierarchy(path);
         hospital.initHierarchy(path);
         hospital.initHierarchy(path2);
-        assertTrue(hospital.getHierarchy().equals(hospital2.getHierarchy()));
+        System.out.println(hospital.getHierarchy().toString());
+        System.out.println(hospital2.getHierarchy().toString());
+        assert(hospital.getHierarchy().toString().equals(hospital2.getHierarchy().toString()));
     }
 
     @Test(expected = NullPointerException.class)
