@@ -19,6 +19,9 @@ public class NodeJson {
     public void setLevel(String level){
         this.level = level;
     }
+    public void setSubNodes(List<NodeJson> subNodes){
+        this.subNodes = subNodes;
+    }
     public List<NodeJson> getSubNodes(){
         return subNodes;
     }
