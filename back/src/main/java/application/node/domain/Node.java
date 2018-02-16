@@ -74,4 +74,13 @@ public class Node implements INode {
     public NodeLevel getLevel(){
         return level;
     }
+
+    @Override
+    public String toString(){
+        return "Node("
+                +"id:"+id
+                +"\tSpeciality:"+speciality
+                +"\tLevel:"+level
+                +"\tsubNode:"+subNodes+")";
+    }
 }
