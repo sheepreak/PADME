@@ -4,7 +4,6 @@ import application.medicalfile.domain.MedicalFile;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
-
 import java.time.LocalDateTime;
 
 import static application.examen.domain.Examen.FIND_ALL;

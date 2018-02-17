@@ -2,13 +2,9 @@ package application.observation.domain;
 
 import application.medicalfile.domain.MedicalFile;
 import com.sun.istack.NotNull;
-import org.apache.derby.client.am.DateTime;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 @Entity
 public class Observation {

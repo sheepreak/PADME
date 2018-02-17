@@ -1,9 +1,8 @@
 package application.medicalfile.domain;
 
-
-import application.Node;
 import application.adminfile.domain.AdminFile;
 import application.examen.domain.Examen;
+import application.node.domain.Node;
 import application.observation.domain.Observation;
 import application.patient.domain.Patient;
 import application.prescription.domain.Prescription;
@@ -51,8 +50,8 @@ public class MedicalFile {
 
     @NotNull
     @Column
-    @ManyToOne()
-    @JoinColumn(name = "id")
+    @ManyToOne(fetch=FetchType.LAZY)
+    @PrimaryKeyJoinColumn(name = "NODE_ID")
     private Node node;
 
     @ManyToOne(fetch=FetchType.LAZY)
@@ -92,10 +91,13 @@ public class MedicalFile {
         observations.add(observation);
     }
 
-    /*public void setNode(Node node){
+    public void setNode(Node node){
         this.node = node;
-    }*/
+    }
 
+    public Node getNode(){
+        return this.node;
+    }
 
     public List<Prescription> getPrescriptions() {
         return prescriptions;

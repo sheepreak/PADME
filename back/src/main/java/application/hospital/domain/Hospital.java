@@ -1,14 +1,12 @@
 package application.hospital.domain;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import application.hospital.IHospital;
 import application.node.NodeLevel;
 import application.node.domain.Node;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -19,10 +17,9 @@ import java.util.Objects;
 
 import static application.hospital.domain.Hospital.FIND_ALL;
 
-@Table(name="Hospital")
 @Entity
 @NamedQuery(name=FIND_ALL, query="SELECT h FROM Hospital h ORDER BY h.name ASC")
-public class Hospital implements IHospital {
+public class Hospital {
 
     public static final String FIND_ALL = "Hospital.findAllHospitals";
 
@@ -58,7 +55,6 @@ public class Hospital implements IHospital {
     public Hospital() {
     }
 
-    @Override
     public boolean addNodePole(Node nodePole) {
         Objects.requireNonNull(nodePole);
         if(!nodePole.getLevel().equals(NodeLevel.pole))
@@ -66,7 +62,6 @@ public class Hospital implements IHospital {
         return hierarchy.add(nodePole);
     }
 
-    @Override
     public void initHierarchy(Path path) throws IOException {
         Objects.requireNonNull(path);
         if(!hierarchy.isEmpty())
@@ -99,7 +94,6 @@ public class Hospital implements IHospital {
         this.hierarchy = hierarchy;
     }
 
-    @Override
     public Node getPosition(Node node) {
         for (Node nodePole: hierarchy) {
             if (nodePole.equals(node))
@@ -131,27 +125,22 @@ public class Hospital implements IHospital {
         return null;
     }
 
-    @Override
     public Long getId() {
         return id;
     }
 
-    @Override
     public String getName() {
         return name;
     }
 
-    @Override
     public String getCountry() {
         return country;
     }
 
-    @Override
     public String getAddress() {
         return address;
     }
 
-    @Override
     public List<Node> getHierarchy() {
         return hierarchy;
     }

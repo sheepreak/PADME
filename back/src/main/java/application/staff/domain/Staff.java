@@ -1,9 +1,9 @@
 package application.staff.domain;
-import application.Node;
+
+import application.node.domain.Node;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -42,6 +42,7 @@ public class Staff {
 
     public Staff() {
     }
+
 
     public Integer getId() {
         return id;
@@ -103,8 +104,13 @@ public class Staff {
         this.node = node;
     }
 
-    public List getLeafs(){
-        return Collections.EMPTY_LIST;
+    public List<Node> getLeaves(){
+        List<Node> leaves;
+        if((leaves = node.getSubNodes()) != null)
+            for(Node node : leaves) {
+
+            }
+        return null;
     }
 
 }

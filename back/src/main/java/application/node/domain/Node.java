@@ -1,6 +1,5 @@
 package application.node.domain;
 
-import application.node.INode;
 import application.node.NodeLevel;
 
 import javax.persistence.*;
@@ -11,16 +10,13 @@ import java.util.List;
 import java.util.Objects;
 
 import static application.node.domain.Node.FIND_ALL;
-@Table(name="Node")
+
 @Entity
 @NamedQuery(name=FIND_ALL, query="SELECT n FROM Node n ORDER BY n.level ASC")
-public class Node implements INode {
+public class Node{
 
     public static final String FIND_ALL = "Node.findAllNodes";
 
-    public void setSubNodes(List<Node> subNodes) {
-        this.subNodes = subNodes;
-    }
     @Id
     @GeneratedValue
     private Long id;
@@ -35,19 +31,32 @@ public class Node implements INode {
     private NodeLevel level;
 
     @OneToMany
-    private List<Node> subNodes = new ArrayList<>();
+    private List<Node> subNodes;
 
     public Node(){
+        subNodes = new ArrayList<>();
     }
-    @Override
+
     public void setSpeciality(String speciality){
         this.speciality = Objects.requireNonNull(speciality);
     }
-    @Override
+
     public void setLevel(NodeLevel level){
         this.level = Objects.requireNonNull(level);
     }
-    @Override
+
+    public Long getId(){
+        return id;
+    }
+
+    public String getSpeciality(){
+        return speciality;
+    }
+
+    public NodeLevel getLevel(){
+        return level;
+    }
+
     public Node addNode(Node node){
         NodeLevel nodeLevel = Objects.requireNonNull(node).getLevel();
         if(nodeLevel.getHierarchyLevel()-1 != level.getHierarchyLevel())
@@ -57,23 +66,15 @@ public class Node implements INode {
         subNodes.add(node);
         return this;
     }
-    @Override
-    public List<Node> getSubNodes(){
-        return subNodes;
+
+    public void setSubNodes(List<Node> subNodes) {
+        this.subNodes = subNodes;
     }
-    @Override
-    public Long getId(){
-        return id;
+
+    public List<Node> getSubNodes() {
+        return this.subNodes;
     }
-    @Override
-    public String getSpeciality(){
-        return speciality;
-    }
-    @Override
-    public NodeLevel getLevel(){
-        return level;
-    }
-    @Override
+
     public String toString(){
         return "Node("
                 +"id:"+id
@@ -81,4 +82,5 @@ public class Node implements INode {
                 +"\tLevel:"+level
                 +"\tsubNode:"+subNodes+")";
     }
+
 }

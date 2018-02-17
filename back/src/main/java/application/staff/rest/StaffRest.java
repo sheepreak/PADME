@@ -1,14 +1,10 @@
 package application.staff.rest;
 
-import application.Node;
 import application.medicalfile.domain.MedicalFile;
 import application.medicalfile.repository.MedicalFileRepository;
+import application.node.domain.Node;
 import application.staff.domain.Staff;
 import application.staff.repository.StaffRepository;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.ws.rs.GET;
@@ -17,6 +13,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 
 @Path("/staff")
@@ -35,7 +34,7 @@ public class StaffRest {
 
         Staff staff = staffRepository.find(id);
         List<Map<String,String>> maps = new ArrayList<>();
-        List<Node> leafs = staff.getLeafs();
+        List<Node> leafs = staff.getLeaves();
         for(Node node : leafs) {
             List<MedicalFile> medicalFiles = medicalFileRepository.findFilesByNode(node);
             for(MedicalFile medicalFile : medicalFiles) {

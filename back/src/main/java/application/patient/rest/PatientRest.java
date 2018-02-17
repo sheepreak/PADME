@@ -1,15 +1,13 @@
 package application.patient.rest;
 
-import application.adminfile.repository.AdminFileRepository;
 import application.examen.domain.Examen;
-import application.examen.repository.ExamenRepository;
 import application.medicalfile.domain.MedicalFile;
 import application.medicalfile.repository.MedicalFileRepository;
 import application.observation.domain.Observation;
-import application.observation.repository.ObservationRepository;
 import application.patient.domain.Patient;
 import application.patient.repository.PatientRepository;
 import application.prescription.domain.Prescription;
+
 import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;

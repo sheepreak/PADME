@@ -1,7 +1,7 @@
 package application.patient.repository;
 
 
-import application.Node;
+import application.node.domain.Node;
 import application.patient.domain.Patient;
 
 import javax.ejb.Stateless;

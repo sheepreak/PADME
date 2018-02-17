@@ -1,6 +1,5 @@
 package application.hospital.rest;
 
-import application.hospital.IHospital;
 import application.hospital.domain.Hospital;
 import application.hospital.repository.HospitalRepository;
 import application.node.domain.Node;

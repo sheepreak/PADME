@@ -1,8 +1,8 @@
 package application.medicalfile.repository;
 
 
-import application.Node;
 import application.medicalfile.domain.MedicalFile;
+import application.node.domain.Node;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -24,7 +24,7 @@ public class MedicalFileRepository {
         return em.find(MedicalFile.class, id);
     }
 
-    public List<MedicalFile> findFilesByNode(Node node) {
+   public List<MedicalFile> findFilesByNode(Node node) {
         return em.createNamedQuery(MedicalFile.FIND_ALL_BY_NODE, MedicalFile.class)
                 .setParameter("custNode", node)
                 .getResultList();
