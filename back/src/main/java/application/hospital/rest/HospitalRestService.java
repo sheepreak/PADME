@@ -1,7 +1,7 @@
-package test.application.hospital.rest;
+package application.hospital.rest;
 
-import test.application.hospital.domain.Hospital;
-import test.application.hospital.repository.HospitalRepository;
+import application.hospital.domain.Hospital;
+import application.hospital.repository.HospitalRepository;
 import application.node.domain.Node;
 
 import javax.ejb.EJB;

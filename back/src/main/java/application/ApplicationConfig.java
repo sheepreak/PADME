@@ -2,7 +2,7 @@ package application;
 
 import application.filters.CORSFilter;
 import org.glassfish.jersey.jackson.JacksonFeature;
-import test.application.hospital.rest.HospitalRestService;
+import application.hospital.rest.HospitalRestService;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

@@ -1,6 +1,6 @@
-package test.application.hospital.repository;
+package application.hospital.repository;
 
-import test.application.hospital.domain.Hospital;
+import application.hospital.domain.Hospital;
 
 import javax.ejb.NoSuchEntityException;
 import javax.ejb.Stateless;
