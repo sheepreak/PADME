@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static application.hospital.domain.Hospital.FIND_ALL;
+import static javax.persistence.CascadeType.ALL;
 
 @Entity
 @NamedQuery(name=FIND_ALL, query="SELECT h FROM Hospital h ORDER BY h.name ASC")
@@ -42,7 +43,7 @@ public class Hospital {
     @Column(nullable = false)
     private String address;
 
-    @OneToMany
+    @OneToMany(cascade=ALL, mappedBy="hospital")
     private List<Node> hierarchy;
 
     public Hospital(String name, String country, String address) {
@@ -53,6 +54,7 @@ public class Hospital {
     }
 
     public Hospital() {
+        hierarchy = new ArrayList<>();
     }
 
     public boolean addNodePole(Node nodePole) {

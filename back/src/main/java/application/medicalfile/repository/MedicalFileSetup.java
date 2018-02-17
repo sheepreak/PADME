@@ -16,7 +16,7 @@ public class MedicalFileSetup {
 
     @PostConstruct
     private void createData() {
-        repository.save(new MedicalFile(Boolean.TRUE));
-        repository.save(new MedicalFile(Boolean.FALSE));
+        //repository.save(new MedicalFile(Boolean.TRUE));
+        //repository.save(new MedicalFile(Boolean.FALSE));
     }
 }

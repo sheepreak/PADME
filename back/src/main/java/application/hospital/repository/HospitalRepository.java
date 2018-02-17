@@ -32,9 +32,8 @@ public class HospitalRepository {
     }
 
     public void delete(Long id) throws NoSuchEntityException{
-        Hospital hospital = null;
-        hospital = find(id);
-        if(hospital!=null)
+        Hospital hospital = find(id);
+        if(hospital != null)
             entityManager.remove(hospital);
         else throw new NoSuchEntityException();
     }

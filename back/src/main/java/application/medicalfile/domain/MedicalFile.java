@@ -49,7 +49,6 @@ public class MedicalFile {
     private Boolean status;
 
     @NotNull
-    @Column
     @ManyToOne(fetch=FetchType.LAZY)
     @PrimaryKeyJoinColumn(name = "NODE_ID")
     private Node node;

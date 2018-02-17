@@ -1,5 +1,6 @@
 package application.node.domain;
 
+import application.hospital.domain.Hospital;
 import application.node.NodeLevel;
 
 import javax.persistence.*;
@@ -32,6 +33,8 @@ public class Node{
 
     @OneToMany
     private List<Node> subNodes;
+
+    private Hospital hospital;
 
     public Node(){
         subNodes = new ArrayList<>();

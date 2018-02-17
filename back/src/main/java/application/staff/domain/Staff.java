@@ -4,6 +4,7 @@ import application.node.domain.Node;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -33,10 +34,11 @@ public class Staff {
     private String address;   // adresse du membre du Staff
 
     @NotNull
-    @Column(name="status")
+    @Column
     private String status; // indique le poste du membre du Staff
 
-    @OneToMany(fetch=FetchType.LAZY)
+    @NotNull
+    @ManyToOne(fetch=FetchType.LAZY)
     @PrimaryKeyJoinColumn(name = "NODE_ID")
     private Node node;// contient le noeud auquel le membre du Staff est rattaché
 
@@ -105,12 +107,22 @@ public class Staff {
     }
 
     public List<Node> getLeaves(){
-        List<Node> leaves;
-        if((leaves = node.getSubNodes()) != null)
-            for(Node node : leaves) {
+        return getLeavesHelper(this.node);
+    }
 
-            }
-        return null;
+    private List<Node> getLeavesHelper(Node node){
+
+        List<Node> sons;
+        if((sons = node.getSubNodes()) == null)
+            return Collections.EMPTY_LIST;
+
+        for(Node n : sons) {
+            if(n.getSubNodes() == Collections.EMPTY_LIST)
+                sons.add(n);
+            else
+                sons.addAll(getLeavesHelper(n));
+        }
+        return sons;
     }
 
 }

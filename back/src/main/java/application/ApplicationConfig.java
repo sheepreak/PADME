@@ -2,6 +2,8 @@ package application;
 
 import application.filters.CORSFilter;
 import application.hospital.rest.HospitalRestService;
+import application.patient.rest.PatientRest;
+import application.staff.rest.StaffRest;
 import org.glassfish.jersey.jackson.JacksonFeature;
 
 import javax.ws.rs.ApplicationPath;
@@ -19,6 +21,8 @@ public class ApplicationConfig extends Application {
         c.add(JacksonFeature.class);
         c.add(CORSFilter.class);
         c.add(HospitalRestService.class);
+        c.add(StaffRest.class);
+        c.add(PatientRest.class);
         classes = Collections.unmodifiableSet(c);
     }
 
