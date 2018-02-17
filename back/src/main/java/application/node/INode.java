@@ -1,8 +1,10 @@
 package application.node;
 
+import application.node.domain.Node;
+
 import java.util.List;
 
-public interface Node {
+public interface INode {
 
     public void setSpeciality(String speciality);
     public void setLevel(NodeLevel level);

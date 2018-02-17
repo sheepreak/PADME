@@ -1,6 +1,6 @@
 package application.node.domain;
 
-import application.node.Node;
+import application.node.INode;
 import application.node.NodeLevel;
 
 import javax.persistence.*;
@@ -10,13 +10,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static application.node.domain.NodeImpl.FIND_ALL;
+import static application.node.domain.Node.FIND_ALL;
 @Table(name="Node")
 @Entity
 @NamedQuery(name=FIND_ALL, query="SELECT n FROM Node n ORDER BY n.level ASC")
-public class NodeImpl implements Node {
+public class Node implements INode {
 
     public static final String FIND_ALL = "Node.findAllNodes";
+
+    public void setSubNodes(List<Node> subNodes) {
+        this.subNodes = subNodes;
+    }
 
     @Id
     @GeneratedValue
@@ -34,7 +38,7 @@ public class NodeImpl implements Node {
     @OneToMany
     private List<Node> subNodes = new ArrayList<>();
 
-    public NodeImpl(){
+    public Node(){
     }
     @Override
     public void setSpeciality(String speciality){
@@ -69,5 +73,14 @@ public class NodeImpl implements Node {
     @Override
     public NodeLevel getLevel(){
         return level;
+    }
+
+    @Override
+    public String toString(){
+        return "Node("
+                +"id:"+id
+                +"\tSpeciality:"+speciality
+                +"\tLevel:"+level
+                +"\tsubNode:"+subNodes+")";
     }
 }
