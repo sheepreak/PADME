@@ -3,14 +3,13 @@ package application.staff.rest;
 import application.medicalfile.domain.MedicalFile;
 import application.medicalfile.repository.MedicalFileRepository;
 import application.node.domain.Node;
+import application.patient.domain.Patient;
 import application.staff.domain.Staff;
 import application.staff.repository.StaffRepository;
+import com.sun.org.apache.regexp.internal.RE;
 
 import javax.ejb.EJB;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
@@ -43,6 +42,13 @@ public class StaffRest {
         }
         return Response.ok(maps).build();
 
+    }
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response putPatients(Staff staff) {
+        staffRepository.save(staff);
+        return Response.ok().build();
     }
 
 }

@@ -41,4 +41,5 @@ public class HospitalRepository {
     public void update(Hospital hospital){
         entityManager.merge(hospital);
     }
+
 }

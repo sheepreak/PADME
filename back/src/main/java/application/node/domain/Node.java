@@ -34,7 +34,15 @@ public class Node{
     @OneToMany
     private List<Node> subNodes;
 
+    @ManyToOne(fetch=FetchType.LAZY)
+    @PrimaryKeyJoinColumn(name = "HOSPITAL_ID")
     private Hospital hospital;
+
+    public Node(String speciality, NodeLevel level) {
+        subNodes = new ArrayList<>();
+        this.speciality = speciality;
+        this.level = level;
+    }
 
     public Node(){
         subNodes = new ArrayList<>();
