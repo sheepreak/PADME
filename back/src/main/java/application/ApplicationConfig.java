@@ -1,10 +1,8 @@
 package application;
 
-
-import application.adminfile.domain.AdminFile;
 import application.filters.CORSFilter;
-import application.patient.rest.PatientRest;
 import org.glassfish.jersey.jackson.JacksonFeature;
+import application.hospital.rest.HospitalRestService;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
@@ -18,9 +16,10 @@ public class ApplicationConfig extends Application {
 
     public ApplicationConfig() {
         HashSet<Class<?>> c = new HashSet<>();
+        c.add(TestHello.class);
         c.add(JacksonFeature.class);
         c.add(CORSFilter.class);
-        c.add(PatientRest.class);
+        c.add(HospitalRestService.class);
         classes = Collections.unmodifiableSet(c);
     }
 
