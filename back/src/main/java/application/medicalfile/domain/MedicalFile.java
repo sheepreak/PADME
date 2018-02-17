@@ -1,6 +1,8 @@
 package application.medicalfile.domain;
 
 
+import application.Node;
+import application.adminfile.domain.AdminFile;
 import application.examen.domain.Examen;
 import application.observation.domain.Observation;
 import application.patient.domain.Patient;
@@ -9,16 +11,24 @@ import application.prescription.domain.Prescription;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static application.medicalfile.domain.MedicalFile.FIND_ALL;
+import static application.medicalfile.domain.MedicalFile.FIND_ALL_BY_NODE;
 import static javax.persistence.CascadeType.ALL;
 
+
+@NamedQueries({
+        @NamedQuery(name = FIND_ALL, query = "SELECT m FROM MedicalFile m"),
+        @NamedQuery(name = FIND_ALL_BY_NODE, query = "SELECT m FROM MedicalFile m WHERE m.node LIKE :custNode")
+})
 @Entity
-@NamedQuery(name = FIND_ALL, query = "SELECT m FROM MedicalFile m ORDER BY m.id DESC")
 public class MedicalFile {
 
     public static final String FIND_ALL = "MedicalFile.findAllFiles";
+    public static final String FIND_ALL_BY_NODE = "MedicalFile.findAllFilesByNode";
 
     @Id
     @GeneratedValue
@@ -39,11 +49,11 @@ public class MedicalFile {
     @Column
     private Boolean status;
 
-    /*@NotNull
+    @NotNull
     @Column
     @ManyToOne()
     @JoinColumn(name = "id")
-    private Node node;*/
+    private Node node;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @PrimaryKeyJoinColumn(name = "PATIENT_ID")
@@ -117,5 +127,17 @@ public class MedicalFile {
 
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    public Map<String, String> getPatientInformations() {
+        Map<String, String> map = new HashMap<>();
+        AdminFile adminFile = new AdminFile();
+        map.put("firstName", adminFile.getFirstName());
+        map.put("lastName", adminFile.getLastName());
+        map.put("gender", adminFile.getGender());
+        map.put("birthdate", adminFile.getBirthDate());
+        map.put("id", String.valueOf(patient.getPatientId()));
+        map.put("idMedicalFile", String.valueOf(id));
+        return map;
     }
 }

@@ -1,6 +1,7 @@
 package application.medicalfile.repository;
 
 
+import application.Node;
 import application.medicalfile.domain.MedicalFile;
 
 import javax.ejb.Stateless;
@@ -21,6 +22,12 @@ public class MedicalFileRepository {
 
     public MedicalFile getFile(Integer id){
         return em.find(MedicalFile.class, id);
+    }
+
+    public List<MedicalFile> findFilesByNode(Node node) {
+        return em.createNamedQuery(MedicalFile.FIND_ALL_BY_NODE, MedicalFile.class)
+                .setParameter("custNode", node)
+                .getResultList();
     }
 
     public void save(MedicalFile medicalFile){

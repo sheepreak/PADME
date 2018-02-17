@@ -1,13 +1,13 @@
 package application.patient.repository;
 
 
-import application.adminfile.repository.AdminFileRepository;
-import application.medicalfile.repository.MedicalFileRepository;
+import application.Node;
 import application.patient.domain.Patient;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.List;
 
 @Stateless
@@ -22,6 +22,15 @@ public class PatientRepository {
 
     public Patient find(Integer id) {
         return em.find(Patient.class, id);
+    }
+
+    public List<Patient> getPatients(List<Node> leafs) {
+        List<Patient> patients = new ArrayList<>();
+        for(Node n : leafs) {
+            em.find(Patient.class, n);
+            patients.add(null);
+        }
+        return patients;
     }
 
     public void save(Patient file) {
