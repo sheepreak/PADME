@@ -1,6 +1,7 @@
-package application.hospital.domain;
+package test.application.hospital.domain;
 
 import application.node.domain.Node;
+import application.hospital.domain.Hospital;
 
 import java.io.IOException;
 import java.nio.file.Path;
