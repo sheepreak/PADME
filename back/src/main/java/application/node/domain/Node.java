@@ -21,7 +21,6 @@ public class Node implements INode {
     public void setSubNodes(List<Node> subNodes) {
         this.subNodes = subNodes;
     }
-
     @Id
     @GeneratedValue
     private Long id;
@@ -74,7 +73,6 @@ public class Node implements INode {
     public NodeLevel getLevel(){
         return level;
     }
-
     @Override
     public String toString(){
         return "Node("
