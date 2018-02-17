@@ -1,4 +1,4 @@
-package application.hospital;
+package test.application.hospital;
 
 import java.util.ArrayList;
 import java.util.List;

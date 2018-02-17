@@ -1,10 +1,10 @@
-package application.hospital.domain;
+package test.application.hospital.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import application.hospital.IHospital;
+import test.application.hospital.IHospital;
 import application.node.NodeLevel;
 import application.node.domain.Node;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static application.hospital.domain.Hospital.FIND_ALL;
+import static test.application.hospital.domain.Hospital.FIND_ALL;
 
 @Table(name="Hospital")
 @Entity

@@ -1,7 +1,6 @@
-package application.hospital.repository;
+package test.application.hospital.repository;
 
-import application.hospital.IHospital;
-import application.hospital.domain.Hospital;
+import test.application.hospital.domain.Hospital;
 
 import javax.ejb.NoSuchEntityException;
 import javax.ejb.Stateless;
@@ -9,7 +8,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Stateless
 public class HospitalRepository {

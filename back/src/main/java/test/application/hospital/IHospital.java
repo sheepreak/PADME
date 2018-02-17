@@ -1,4 +1,4 @@
-package application.hospital;
+package test.application.hospital;
 
 import application.node.domain.Node;
 
