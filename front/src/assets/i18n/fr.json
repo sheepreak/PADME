@@ -39,13 +39,15 @@
   "Patient":"Patient",
   "Doctor":"Medecin",
   "Examen":"Examen",
-  "ExamenDescription":"Déscription",
+  "ExamenDescription":"Description",
   "ExamenMotif":"Motif",
   "ExamenResult":"Résultats",
   "ExamenObservation":"Observation",
   "LoadAllImg": "Charger toutes les images",
 
-  "Prescription": "Préscription",
+  "Prescription": "Prescription",
 
-  "Consultation":"Consultation"
+  "Consultation":"Consultation",
+  "PatientList": "Liste des patients",
+  "Examination": "Examens"
 }
