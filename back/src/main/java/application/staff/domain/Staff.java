@@ -17,11 +17,15 @@ public class Staff {
 
     @NotNull
     @Column
-    private String lastName;    // nom du membre du Staff
+    private String login;
 
     @NotNull
     @Column
-    private String token;    // nom du membre du Staff
+    private String password;
+
+    @NotNull
+    @Column
+    private String lastName;    // nom du membre du Staff
 
     @NotNull
     @Column
@@ -42,9 +46,11 @@ public class Staff {
     @PrimaryKeyJoinColumn(name = "NODE_ID")
     private Node node;// contient le noeud auquel le membre du Staff est rattaché
 
+    private String token;    // nom du membre du Staff
+
+
     public Staff() {
     }
-
 
     public Integer getId() {
         return id;
@@ -104,6 +110,14 @@ public class Staff {
 
     public void setNode(Node node) {
         this.node = node;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public List<Node> getLeaves(){

@@ -5,11 +5,14 @@ import application.medicalfile.repository.MedicalFileRepository;
 import application.node.domain.Node;
 import application.staff.domain.Staff;
 import application.staff.repository.StaffRepository;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +20,8 @@ import java.util.Map;
 
 @Path("/staff")
 public class StaffRest {
+
+    public static final String KEY = "Code secret trop lol";
 
     @EJB
     private StaffRepository staffRepository;
@@ -55,6 +60,31 @@ public class StaffRest {
     public Response putPatients(@PathParam("id") Integer id) {
         Staff staff = staffRepository.find(id);
         return Response.ok(staff).build();
+    }
+
+    @GET
+    @Path("/{login}/{password}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response connect(@PathParam("login") String login, @PathParam("password") String password) {
+
+        Staff staff;
+        if((staff = staffRepository.tryConnection(login, password)) == null)
+        {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+
+        try {
+
+            Algorithm algorithm = Algorithm.HMAC256(KEY);
+            String token = JWT.create().withIssuer("auth0").sign(algorithm);
+            staff.setToken(token);
+            return Response.ok(token).build();
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+
     }
 
 }
