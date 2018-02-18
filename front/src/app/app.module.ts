@@ -19,7 +19,8 @@ import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { AdminViewComponent } from './admin-view/admin-view.component';
 
-import { CollapseModule } from 'ngx-bootstrap';
+import {CollapseModule, ModalModule} from 'ngx-bootstrap';
+
 
 
 const appRoutes: Routes = [
@@ -77,6 +78,7 @@ const appRoutes: Routes = [
 
   imports: [
     CollapseModule.forRoot(),
+    ModalModule.forRoot(),
     BrowserModule,
     FormsModule,
     HttpClientModule,

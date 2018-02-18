@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, TemplateRef} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {UserService} from '../user.service';
 import {TranslateService} from '@ngx-translate/core';
 import {AppComponent} from '../app.component';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import {BsModalRef, BsModalService} from "ngx-bootstrap";
 
 
 @Component({
@@ -17,7 +18,15 @@ export class StaticNavBarComponent implements OnInit {
   role: string;
   visibility: boolean;
 
-  constructor(private userService: UserService) {
+  modalRef: BsModalRef;
+  config = {
+    animated: true,
+    keyboard: true,
+    backdrop: true,
+    ignoreBackdropClick: false
+  };
+
+  constructor(private userService: UserService, private modalService: BsModalService) {
     this.name = this.userService.getlastName() + ' ' + this.userService.getfirstName();
     this.role = this.userService.getRole();
     this.visibility = false;
@@ -37,6 +46,11 @@ export class StaticNavBarComponent implements OnInit {
 
   public changeVisibility() {
     this.visibility = !this.visibility;
+  }
+
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template,this.config);
   }
 }
 
