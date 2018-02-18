@@ -1,17 +1,61 @@
 <div class="col-sm-3 col-md-2 sidebar">
-  <ul class="nav nav-sidebar" routerLinkActive="active">
-    <!--<li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-    <li><a href="#">Reports</a></li>
-    <li><a href="#">Analytics</a></li>
-    <li><a href="#">Export</a></li>
-    -->
-    <li class="nav-item"><a class="nav-link" routerLink="administrationfile">Fiche administrative</a></li>
-    <li class="nav-item"><a class="nav-link" routerLink="prescriptionfile">Préscription</a></li>
-    <li class="nav-item"><a class="nav-link" routerLink="examenfile">Examen</a></li>
-    <li class="nav-item"><a class="nav-link" routerLink="consultationfile">Consultation</a></li>
-    <li class="nav-item"><a class="nav-link" routerLink="adminview">Vue administrateur</a></li>
+  <ul id="menu-accordeon">
+    <li><a routerLink="administrationfile">Fiche administrative patient</a>
+    <li><a>Consultation(4)</a>
+      <ul>
+        <li><a routerLink="consultationfile">lien sous menu 1</a></li>
+        <li><a routerLink="consultationfile">lien sous menu 1</a></li>
+        <li><a routerLink="consultationfile">lien sous menu 1</a></li>
+        <li><a routerLink="consultationfile">lien sous menu 1</a></li>
+      </ul>
+    </li>
+    <li><a>Examen(3)</a>
+      <ul>
+        <li><a routerLink="examenfile">Lien sous menu 2</a></li>
+        <li><a routerLink="examenfile">Lien sous menu 2</a></li>
+        <li><a routerLink="examenfile">Lien sous menu 2</a></li>
+      </ul>
+    </li>
+    <li><a>Préscription(4)</a>
+      <ul>
+        <li><a routerLink="prescriptionfile">lien sous menu 1</a></li>
+        <li><a routerLink="prescriptionfile">lien sous menu 1</a></li>
+        <li><a routerLink="prescriptionfile">lien sous menu 1</a></li>
+        <li><a routerLink="prescriptionfile">lien sous menu 1</a></li>
+      </ul>
+    </li>
+    <li><a routerLink="adminview">Vue administrateur</a>
+    <li><a>Archive(1)</a>
+      <ul>
+        <li><a routerLink="prescriptionfile">Dossier n152352</a></li>
+      </ul>
+    </li>
 
+
+    <li class="imgList first"><a><img src="../../assets/add-all.svg">Ajout</a>
+      <ul>
+        <li><a routerLink="consultationfile">Consultation</a></li>
+        <li><a routerLink="examenfile">Examen</a></li>
+        <li><a routerLink="prescriptionfile">Préscription</a></li>
+        <li><a routerLink="patientlist">Dossier médical</a></li>
+      </ul>
+    </li>
+    <li class="imgList"><a><img src="../../assets/doc1.png">Mes documents</a>
+      <ul>
+        <li><a routerLink="consultationfile">Consultation</a></li>
+        <li><a routerLink="examenfile">Examen</a></li>
+        <li><a routerLink="prescriptionfile">Préscription</a></li>
+        <li><a routerLink="patientlist">Dossier médical</a></li>
+      </ul>
+    </li>
   </ul>
-
 </div>
+
+
+
+
+
+
+
+
 

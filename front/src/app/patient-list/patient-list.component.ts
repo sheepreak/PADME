@@ -6,7 +6,6 @@ import {Router} from '@angular/router';
   name: 'search'
 })
 
-
 export class SearchPipe implements PipeTransform {
   public transform(value, keys: string, term: string) {
     if (!term) {
@@ -17,7 +16,6 @@ export class SearchPipe implements PipeTransform {
   }
 }
 
-
 @Component({
   selector: 'app-patient-list',
   templateUrl: './patient-list.component.html',
@@ -26,8 +24,6 @@ export class SearchPipe implements PipeTransform {
 
 
 export class PatientListComponent implements OnInit {
-
-
   listPatients = [];
 
   constructor(private router: Router) {
