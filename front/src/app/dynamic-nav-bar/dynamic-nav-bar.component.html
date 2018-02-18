@@ -1,23 +1,23 @@
 <div class="col-sm-3 col-md-2 sidebar">
   <ul id="menu-accordeon">
     <li><a routerLink="administrationfile">Fiche administrative patient</a>
-    <li><a>Consultation(4)</a>
-      <ul>
+    <li><a href="javascript:void(0)" (click)="consultationIsCollapsed = !consultationIsCollapsed">Consultation(4)</a>
+      <ul [collapse]="consultationIsCollapsed">
         <li><a routerLink="consultationfile">lien sous menu 1</a></li>
         <li><a routerLink="consultationfile">lien sous menu 1</a></li>
         <li><a routerLink="consultationfile">lien sous menu 1</a></li>
         <li><a routerLink="consultationfile">lien sous menu 1</a></li>
       </ul>
     </li>
-    <li><a>Examen(3)</a>
-      <ul>
+    <li><a href="javascript:void(0)" (click)="examenIsCollapsed = !examenIsCollapsed">Examen(3)</a>
+      <ul [collapse]="examenIsCollapsed">
         <li><a routerLink="examenfile">Lien sous menu 2</a></li>
         <li><a routerLink="examenfile">Lien sous menu 2</a></li>
         <li><a routerLink="examenfile">Lien sous menu 2</a></li>
       </ul>
     </li>
-    <li><a>Prescription(4)</a>
-      <ul>
+    <li><a href="javascript:void(0)" (click)="prescriptionIsCollapsed = !prescriptionIsCollapsed">Prescription(4)</a>
+      <ul [collapse]="prescriptionIsCollapsed">
         <li><a routerLink="prescriptionfile">lien sous menu 1</a></li>
         <li><a routerLink="prescriptionfile">lien sous menu 1</a></li>
         <li><a routerLink="prescriptionfile">lien sous menu 1</a></li>
@@ -25,23 +25,25 @@
       </ul>
     </li>
     <li><a routerLink="adminview">Vue administrateur</a>
-    <li><a>Archive(1)</a>
-      <ul>
+    <li><a href="javascript:void(0)" (click)="archiveIsCollapsed = !archiveIsCollapsed">Archive(1)</a>
+      <ul [collapse]="archiveIsCollapsed">
         <li><a routerLink="prescriptionfile">Dossier n152352</a></li>
       </ul>
     </li>
 
 
-    <li class="imgList first"><a><img src="../../assets/add-all.svg">Ajout</a>
-      <ul>
+    <li class="imgList first"><a href="javascript:void(0)" (click)="addIsCollapsed = !addIsCollapsed"><img
+      src="../../assets/add-all.svg">Ajout</a>
+      <ul [collapse]="addIsCollapsed">
         <li><a routerLink="consultationfile">Consultation</a></li>
         <li><a routerLink="examenfile">Examen</a></li>
         <li><a routerLink="prescriptionfile">Prescription</a></li>
         <li><a routerLink="patientlist">Dossier médical</a></li>
       </ul>
     </li>
-    <li class="imgList"><a><img src="../../assets/doc1.png">Mes documents</a>
-      <ul>
+    <li class="imgList"><a href="javascript:void(0)" (click)="myDocIsCollapsed = !myDocIsCollapsed"><img
+      src="../../assets/doc1.png">Mes documents</a>
+      <ul [collapse]="myDocIsCollapsed">
         <li><a routerLink="consultationfile">Consultation</a></li>
         <li><a routerLink="examenfile">Examen</a></li>
         <li><a routerLink="prescriptionfile">Prescription</a></li>

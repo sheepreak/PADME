@@ -28,6 +28,7 @@
     "angular-in-memory-web-api": "^0.5.3",
     "angular-tree-component": "^7.0.1",
     "core-js": "^2.4.1",
+    "ngx-bootstrap": "^2.0.2",
     "ngx-treeview": "^2.0.4",
     "rxjs": "^5.5.2",
     "zone.js": "^0.8.14"

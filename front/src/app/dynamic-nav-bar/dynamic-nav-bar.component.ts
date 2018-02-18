@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-dynamic-nav-bar',
@@ -7,9 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DynamicNavBarComponent implements OnInit {
 
-  constructor() { }
+
+  consultationIsCollapsed: boolean = true;
+  examenIsCollapsed: boolean = true;
+  prescriptionIsCollapsed: boolean = true;
+  archiveIsCollapsed: boolean = true;
+  addIsCollapsed: boolean = true;
+  myDocIsCollapsed: boolean = true;
+
+  constructor() {
+  }
 
   ngOnInit() {
   }
+
 
 }
