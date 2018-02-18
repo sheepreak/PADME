@@ -1,7 +1,5 @@
 package application.medicalfile.repository;
 
-import application.medicalfile.domain.MedicalFile;
-
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;

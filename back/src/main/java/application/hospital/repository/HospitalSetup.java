@@ -30,9 +30,6 @@ public class HospitalSetup {
         Node node4 = new Node("Specialité", NodeLevel.hospitalUnit);
         node.addNode(node2).addNode(node3);
         node2.addNode(node4);
-        nodeRepository.save(node4);
-        nodeRepository.save(node3);
-        nodeRepository.save(node2);
         hospital.addNodePole(node);
         hospitalRepository.save(hospital);
 

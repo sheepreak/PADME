@@ -3,10 +3,8 @@ package application.staff.rest;
 import application.medicalfile.domain.MedicalFile;
 import application.medicalfile.repository.MedicalFileRepository;
 import application.node.domain.Node;
-import application.patient.domain.Patient;
 import application.staff.domain.Staff;
 import application.staff.repository.StaffRepository;
-import com.sun.org.apache.regexp.internal.RE;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
@@ -27,7 +25,7 @@ public class StaffRest {
     private MedicalFileRepository medicalFileRepository;
 
     @GET
-    @Path("{id}")
+    @Path("/patients/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPatients(@PathParam("id") Integer id) {
 
@@ -49,6 +47,14 @@ public class StaffRest {
     public Response putPatients(Staff staff) {
         staffRepository.save(staff);
         return Response.ok().build();
+    }
+
+    @GET
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response putPatients(@PathParam("id") Integer id) {
+        Staff staff = staffRepository.find(id);
+        return Response.ok(staff).build();
     }
 
 }

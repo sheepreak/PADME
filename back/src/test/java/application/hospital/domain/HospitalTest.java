@@ -1,20 +1,15 @@
 package application.hospital.domain;
 
-import application.hospital.domain.Hospital;
+import application.node.NodeLevel;
 import application.node.domain.Node;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import org.junit.Test;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-
-import application.node.NodeLevel;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import org.junit.Test;
-
-import javax.json.Json;
 
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;

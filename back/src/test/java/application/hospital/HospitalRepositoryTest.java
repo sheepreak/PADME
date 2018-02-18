@@ -1,15 +1,6 @@
 package application.hospital;
 
-import application.hospital.domain.Hospital;
 import application.hospital.repository.HospitalRepository;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.junit.Test;
-
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
-import static org.junit.Assert.assertTrue;
 
 public class HospitalRepositoryTest {
 

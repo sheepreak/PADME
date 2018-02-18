@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static application.node.domain.Node.FIND_ALL;
+import static javax.persistence.CascadeType.PERSIST;
 
 @Entity
 @NamedQuery(name=FIND_ALL, query="SELECT n FROM Node n ORDER BY n.level ASC")
@@ -31,7 +32,7 @@ public class Node{
     @Column(nullable=false)
     private NodeLevel level;
 
-    @OneToMany
+    @OneToMany(cascade=PERSIST)
     private List<Node> subNodes;
 
     @ManyToOne(fetch=FetchType.LAZY)
