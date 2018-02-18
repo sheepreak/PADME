@@ -23,7 +23,7 @@ export class StaticNavBarComponent implements OnInit {
     animated: true,
     keyboard: true,
     backdrop: true,
-    ignoreBackdropClick: false
+    ignoreBackdropClick: true
   };
 
   constructor(private userService: UserService, private modalService: BsModalService) {
