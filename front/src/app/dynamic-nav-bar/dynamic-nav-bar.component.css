@@ -28,7 +28,7 @@
 #menu-accordeon li li {
   max-height:0;
   overflow: hidden;
-  transition: all .5s;
+  transition: all 1.5s;
   border-radius:0;
   box-shadow: none;
   border:none;
