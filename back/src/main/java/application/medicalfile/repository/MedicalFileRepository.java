@@ -24,9 +24,9 @@ public class MedicalFileRepository {
         return em.find(MedicalFile.class, id);
     }
 
-   public List<MedicalFile> findFilesByNode(Node node) {
+   public List<MedicalFile> findFilesByNode(Integer nodeId) {
         return em.createNamedQuery(MedicalFile.FIND_ALL_BY_NODE, MedicalFile.class)
-                .setParameter("custNode", node)
+                .setParameter("custNode", nodeId)
                 .getResultList();
     }
 

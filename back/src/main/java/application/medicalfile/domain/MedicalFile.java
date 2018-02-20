@@ -21,7 +21,7 @@ import static javax.persistence.CascadeType.ALL;
 
 @NamedQueries({
         @NamedQuery(name = FIND_ALL, query = "SELECT m FROM MedicalFile m"),
-        @NamedQuery(name = FIND_ALL_BY_NODE, query = "SELECT m FROM MedicalFile m WHERE m.node LIKE :custNode")
+        @NamedQuery(name = FIND_ALL_BY_NODE, query = "SELECT m FROM MedicalFile m WHERE m.nodeId LIKE :custNode")
 })
 @Entity
 public class MedicalFile {
@@ -49,9 +49,7 @@ public class MedicalFile {
     private Boolean status;
 
     @NotNull
-    @ManyToOne(fetch=FetchType.LAZY)
-    @PrimaryKeyJoinColumn(name = "NODE_ID")
-    private Node node;
+    private Integer nodeId;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @PrimaryKeyJoinColumn(name = "PATIENT_ID")
@@ -90,12 +88,12 @@ public class MedicalFile {
         observations.add(observation);
     }
 
-    public void setNode(Node node){
-        this.node = node;
+    public void setNode(Integer node){
+        this.nodeId = node;
     }
 
-    public Node getNode(){
-        return this.node;
+    public Integer getNode(){
+        return this.nodeId;
     }
 
     public List<Prescription> getPrescriptions() {
