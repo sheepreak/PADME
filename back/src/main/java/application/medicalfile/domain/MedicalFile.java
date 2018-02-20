@@ -130,7 +130,7 @@ public class MedicalFile {
 
     public Map<String, String> getPatientInformations() {
         Map<String, String> map = new HashMap<>();
-        AdminFile adminFile = new AdminFile();
+        AdminFile adminFile = patient.getAdminFile();
         map.put("firstName", adminFile.getFirstName());
         map.put("lastName", adminFile.getLastName());
         map.put("gender", adminFile.getGender());
