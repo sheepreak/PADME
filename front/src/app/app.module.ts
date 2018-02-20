@@ -50,7 +50,7 @@ const appRoutes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'login'
+    redirectTo: ''
   },
 
 ];
