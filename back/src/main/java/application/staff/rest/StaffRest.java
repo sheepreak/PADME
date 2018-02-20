@@ -82,13 +82,12 @@ public class StaffRest {
             JSONObject jsonObject = new JSONObject(identification);
 
             if((staff = staffRepository.tryConnection(jsonObject.getString("password"), jsonObject.getString("login"))) == null)
-                return Response.status(Response.Status.BAD_REQUEST).build();
+                return Response.status(Response.Status.NOT_FOUND).build();
 
 
         } catch (JSONException e) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
-
 
         try {
 
@@ -99,7 +98,7 @@ public class StaffRest {
 
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+            return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
     }
