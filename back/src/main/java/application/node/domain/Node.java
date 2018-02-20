@@ -21,7 +21,7 @@ public class Node{
 
     @Id
     @GeneratedValue
-    private Long id;
+    private Integer id;
 
     @Size(min=2, max=50)
     @NotNull
@@ -57,7 +57,7 @@ public class Node{
         this.level = Objects.requireNonNull(level);
     }
 
-    public Long getId(){
+    public Integer getId(){
         return id;
     }
 

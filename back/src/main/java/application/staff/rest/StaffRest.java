@@ -7,6 +7,7 @@ import application.staff.domain.Staff;
 import application.staff.repository.StaffRepository;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.sun.messaging.jmq.io.Status;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
@@ -38,18 +39,20 @@ public class StaffRest {
         List<Map<String,String>> maps = new ArrayList<>();
         List<Node> leafs = staff.getLeaves();
         for(Node node : leafs) {
-            List<MedicalFile> medicalFiles = medicalFileRepository.findFilesByNode(node);
+            List<MedicalFile> medicalFiles = medicalFileRepository.findFilesByNode(node.getId());
             for(MedicalFile medicalFile : medicalFiles) {
                 maps.add(medicalFile.getPatientInformations());
             }
         }
-        return Response.ok(maps).build();
 
+        return Response.ok(maps).build();
     }
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response putPatients(Staff staff) {
+    public Response putStaff(Staff staff) {
+        if(staff == null)
+            Response.status(Response.Status.BAD_REQUEST).build();
         staffRepository.save(staff);
         return Response.ok().build();
     }
@@ -59,6 +62,8 @@ public class StaffRest {
     @Produces(MediaType.APPLICATION_JSON)
     public Response putPatients(@PathParam("id") Integer id) {
         Staff staff = staffRepository.find(id);
+        if(staff == null)
+            return Response.status(Status.BAD_REQUEST).build();
         return Response.ok(staff).build();
     }
 

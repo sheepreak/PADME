@@ -26,7 +26,7 @@ public class NodeRepository {
         return entityManager.find(Node.class, id);
     }
 
-    public Long save(Node node) {
+    public Integer save(Node node) {
         entityManager.persist(node);
         return node.getId();
     }
