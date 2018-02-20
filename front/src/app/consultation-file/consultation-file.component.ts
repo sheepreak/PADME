@@ -16,7 +16,7 @@ export class ConsultationFileComponent implements OnInit {
   oldDirectory;
   manageFile: ManageFile = new ManageFile();
   patient: Patient = new Patient("Jean", "Dujardin");
-  doctor: Doctor = new Doctor("Dokeh", "Bilal", "Radiologue");
+  doctor: Doctor = new Doctor("Jean-Luc", "Portos", "Radiologue");
 
   constructor() {
     this.directory.motif = 'Patient souvrant de maux de ventre';

@@ -164,13 +164,13 @@
         <div class="form-group">
           <label for="vital" class="col-sm-3 control-label">{{ 'VitalCard' | translate:user }}</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="vital" name="vital" [(ngModel)]="directory.healthCard">
+            <input type="text" class="form-control" id="vital" name="vital" maxlength="15" [(ngModel)]="directory.healthCard">
           </div>
         </div>
         <div class="form-group">
           <label for="social" class="col-sm-3 control-label">{{ 'SocialSecurity' | translate:user }}</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="social" name="social" [(ngModel)]="directory.socialSecurity">
+            <input type="text" class="form-control" id="social" name="social" maxlength="15" [(ngModel)]="directory.socialSecurity">
           </div>
         </div>
       </div>

@@ -13,7 +13,7 @@ export class PrescriptionFileComponent implements OnInit {
   oldPrescription;
   manageFile: ManageFile = new ManageFile();
   patient: Patient = new Patient("Jean", "Dujardin");
-  doctor: Doctor = new Doctor("Dokeh", "Bilal", "Radiologue");
+  doctor: Doctor = new Doctor("Jean-Luc", "Portos", "Radiologue");
 
 
   constructor() {

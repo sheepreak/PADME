@@ -44,7 +44,7 @@ export class AdministrationFileComponent implements OnInit {
     this.directory.email = 'amelinemoreau@orange.fr';
     this.directory.fax = 'Aucun';
     this.directory.firstName = 'Ameline';
-    this.directory.healthCard = '77642213543213';
+    this.directory.healthCard = '776422135432133';
     this.directory.lastName = 'Moreau';
     this.directory.sexe = 'F';
     this.directory.socialSecurity = 'Aucun';

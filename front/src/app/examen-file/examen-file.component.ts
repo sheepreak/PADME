@@ -24,7 +24,7 @@ export class ExamenFileComponent implements OnInit {
   manageFile: ManageFile = new ManageFile();
   oldDirectory;
   patient: Patient = new Patient("Jean", "Dujardin");
-  doctor: Doctor = new Doctor("Dokeh", "Bilal", "Radiologue");
+  doctor: Doctor = new Doctor("Jean-Luc", "Portos", "Radiologue");
 
 /*
   orderForm: FormGroup;

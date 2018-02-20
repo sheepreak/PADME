@@ -1,5 +1,6 @@
 import {Component, OnInit, Pipe, PipeTransform} from '@angular/core';
 import {Router} from '@angular/router';
+import {PatientListServiceService} from './patient-list-service.service';
 
 
 @Pipe({
@@ -19,14 +20,15 @@ export class SearchPipe implements PipeTransform {
 @Component({
   selector: 'app-patient-list',
   templateUrl: './patient-list.component.html',
-  styleUrls: ['./patient-list.component.css']
+  styleUrls: ['./patient-list.component.css'],
+  providers: [PatientListServiceService]
 })
 
 
 export class PatientListComponent implements OnInit {
   listPatients = [];
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private patientService: PatientListServiceService) {
 
     this.listPatients.push({
       id: 1,
@@ -40,13 +42,17 @@ export class PatientListComponent implements OnInit {
         id: i + 2,
         firstname: 'aaaaa',
         lastname: 'sdfsdfsdfsdfsdf',
-        age: 34,
+        age: 25,
         birthday: '12/09/1992'
       });
     }
   }
 
   ngOnInit() {
+    this.patientService.getPatients().then(data => {
+      console.log(data);
+
+    });
   }
 
   onClicOnPatient(id) {
