@@ -23,7 +23,6 @@ public class Patient {
     public static final String FIND_ALL = "Patient.findAllPatients";
 
     @Id
-    @NotNull
     @GeneratedValue
     @Column
     private Integer patientId;

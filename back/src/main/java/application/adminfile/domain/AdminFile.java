@@ -10,7 +10,6 @@ import javax.validation.constraints.NotNull;
 public class AdminFile {
 
     @Id
-    @NotNull
     @GeneratedValue
     @Column
     private Integer id;
