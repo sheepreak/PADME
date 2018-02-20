@@ -8,6 +8,9 @@ import application.staff.repository.StaffRepository;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.sun.messaging.jmq.io.Status;
+import jdk.nashorn.internal.parser.JSONParser;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
@@ -60,23 +63,32 @@ public class StaffRest {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response putPatients(@PathParam("id") Integer id) {
+    public Response getPatient(@PathParam("id") Integer id) {
         Staff staff = staffRepository.find(id);
         if(staff == null)
             return Response.status(Status.BAD_REQUEST).build();
         return Response.ok(staff).build();
     }
 
-    @GET
-    @Path("/{login}/{password}")
+    @POST
+    @Path("/connect")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response connect(@PathParam("login") String login, @PathParam("password") String password) {
+    public Response connect(String identification) {
 
         Staff staff;
-        if((staff = staffRepository.tryConnection(password, login)) == null)
-        {
+
+        try {
+
+            JSONObject jsonObject = new JSONObject(identification);
+
+            if((staff = staffRepository.tryConnection(jsonObject.getString("password"), jsonObject.getString("login"))) == null)
+                return Response.status(Response.Status.BAD_REQUEST).build();
+
+
+        } catch (JSONException e) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
+
 
         try {
 
