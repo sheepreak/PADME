@@ -17,7 +17,7 @@ public class Staff {
     private Integer id;
 
     @NotNull
-    @Column
+    @Column(unique=true)
     private String login;
 
     @NotNull
@@ -139,4 +139,11 @@ public class Staff {
         return sons;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public String getLogin() {
+        return login;
+    }
 }

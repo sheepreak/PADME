@@ -27,10 +27,10 @@ public class StaffRepository {
 
     public Staff tryConnection(String password, String login) {
 
-        Query query = em.createQuery("select s from staff s where s.password=:password and s.login=:login");
-        query.setParameter("password", password);
-        query.setParameter("login", login);
-        return (Staff)query.getSingleResult();
+        return (Staff)em.createQuery("SELECT s FROM Staff s WHERE s.password LIKE :password AND s.login LIKE :login")
+                .setParameter("password", password)
+                .setParameter("login", login)
+                .getSingleResult();
 
     }
 

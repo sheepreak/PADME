@@ -73,7 +73,7 @@ public class StaffRest {
     public Response connect(@PathParam("login") String login, @PathParam("password") String password) {
 
         Staff staff;
-        if((staff = staffRepository.tryConnection(login, password)) == null)
+        if((staff = staffRepository.tryConnection(password, login)) == null)
         {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
@@ -83,7 +83,7 @@ public class StaffRest {
             Algorithm algorithm = Algorithm.HMAC256(KEY);
             String token = JWT.create().withIssuer("auth0").sign(algorithm);
             staff.setToken(token);
-            return Response.ok(token).build();
+            return Response.ok("{\"token\" : \"" + token + "\"}").build();
 
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
