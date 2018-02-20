@@ -1,6 +1,7 @@
 package application.staff.domain;
 
 import application.node.domain.Node;
+import application.staff.Status;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -39,7 +40,7 @@ public class Staff {
 
     @NotNull
     @Column
-    private String status; // indique le poste du membre du Staff
+    private Status status; // indique le poste du membre du Staff
 
     @NotNull
     @ManyToOne(fetch=FetchType.LAZY)
@@ -96,11 +97,11 @@ public class Staff {
         this.address = address;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
