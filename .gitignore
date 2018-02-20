@@ -1,2 +1,5 @@
-.idea
+*.idea
 **/*.iml
+back/lib/
+back/target/
+front/package-lock.json

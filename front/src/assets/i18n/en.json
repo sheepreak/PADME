@@ -1,0 +1,56 @@
+{
+  "UserPage": "UserPage",
+  "Home": "Home",
+  "LogOut": "Log out",
+  "Messaging": "Messaging is not yet available",
+  "TodoList": "TodoList",
+
+  "Edit":"Edit",
+  "Publish":"Publish",
+  "Validate":"Validate the changes",
+  "Cancel":"Cancel",
+
+  "AdminFIle": "Administration file",
+  "PersonalData": "Personal Data",
+  "FirstName": "First name : ",
+  "LastName": "Last name : ",
+  "Sexe": "Sexe : ",
+  "BirthDay": "BirthDay : ",
+  "BirthPlace": "BirthPlace : ",
+  "BirthPlace": "BirthPlace : ",
+  "Coordoonee": "Coordonnee",
+  "Adress": "Adress : ",
+  "Country": "Country : ",
+  "AdressComplement": "Adress Complement : ",
+  "PostalCode": "Postal code : ",
+  "Mail": "Mail : ",
+  "Phone": "Phone : ",
+  "CellPhone": "CellPhone : ",
+  "Fax": "Fax : ",
+  "ProfessionnalData": "Professionnal data",
+  "Profession": "Profession : ",
+  "Specialisation": "Specialisation : ",
+  "OtherData": "Other data",
+  "VitalCard": "VitalCard : ",
+  "SocialSecurity": "Social Security : ",
+
+  "FileDate":"Done at {{manageFile.hopital}} the {{manageFile.date}}",
+  "Patient":"Patient",
+  "Doctor":"Doctor",
+  "Examen":"Examen",
+  "ExamenDescription":"Description",
+  "ExamenMotif":"Motif",
+  "ExamenResult":"Result",
+  "ExamenObservation":"Observation",
+  "LoadAllImg": "Load all images",
+
+  "Prescription": "Prescription",
+
+  "Consultation":"Consultation",
+  "PatientList": "Patient list",
+  "Examination": "Examinations"
+
+
+}
+
+

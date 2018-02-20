@@ -1,0 +1,111 @@
+<div class="col-sm-9 col-md-10 main">
+  <div class="row title">
+    <div class="col-md-10">
+      <h2 translate>Examen</h2>
+    </div>
+    <div class="col-md-1 text-right" *ngIf="manageFile.stateConsulted()">
+      <button type="button" class="btn btn-modif" (click)="modifData()" translate>Edit</button>
+    </div>
+    <div class="col-md-1 text-right" *ngIf="manageFile.stateConsulted()">
+      <button type="button" class="btn btn-modif" (click)="manageFile.publishData()" translate>Publish</button>
+    </div>
+
+  </div>
+
+  <div class="row myrow">
+
+    <div class="col-md-7" *ngIf="manageFile.statePublish()">
+      <p class="libele">Fait le {{manageFile.date}} à {{manageFile.hopital}}</p>
+    </div>
+
+    <div class="col-md-2 mycol">
+      <h3 translate>Patient</h3>
+      <p>{{patient.lastname}}</p>
+      <p>{{patient.firstname}}</p>
+    </div>
+
+    <div class="col-md-2 mycol">
+      <h3>{{doctor.specialisation}}</h3>
+      <p>{{doctor.lastname}}</p>
+      <p>{{doctor.firstname}}</p>
+    </div>
+    <br>
+
+    <div class="col-md-10" *ngIf="manageFile.stateConsulted() || manageFile.statePublish()">
+      <h3 translate>ExamenMotif</h3>
+      <p>{{directory.motif}}</p>
+      <h3 translate>ExamenDescription</h3>
+      <p>{{directory.description}}</p>
+
+      <h3 translate>ExamenResult</h3>
+      <div class="row-fluid">
+        <img (click)="loadAllImg()" class="img-thumbnail miniature" src="../../assets/add-all.svg" title="{{ 'LoadAllImg' | translate:user }}">
+        <div class="inline" *ngFor="let i of img">
+          <img (click)="changeImg(i)" [ngClass]="{'img-thumbnail':true,  'miniature': i.mini, 'imgdata':!i.mini}" src={{i.currentpath}} title="{{i.name}}">
+        </div>
+      </div>
+
+      <h3 translate>ExamenObservation</h3>
+      <p>{{directory.observation}}</p>
+    </div>
+
+    <div *ngIf="manageFile.stateEdited()">
+      <h3 translate>Examen</h3>
+      <form class="form-horizontal">
+        <h3 translate>ExamenMotif</h3>
+        <textarea rows="2" cols="100">
+        {{directory.motif}}
+        </textarea>
+
+        <h3 translate>ExamenDescription</h3>
+        <textarea rows="2" cols="100">
+        {{directory.description}}
+        </textarea>
+
+        <h3 translate>ExamenResult</h3>
+        <div class="row-fluid">
+          <div class="inline" *ngFor="let i of img">
+            <img (click)="changeImg(i)" [ngClass]="{'img-thumbnail':true,  'miniature': i.mini, 'imgdata':!i.mini}" src={{i.currentpath}} title="{{i.name}}">
+          </div>
+        </div>
+<!--
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label for="nameimg" class="col-sm-3 control-label">Nom de l'image :</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="nameimg" name="nameimg" required>
+            </div>
+            <label for="pathimg" class="col-sm-3 control-label">Path : </label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="pathimg" name="pathimg" required>
+            </div>
+
+            <button type="submit" class="btn btn-validate">Ajouter l'image</button>
+          </div>
+        </form>
+-->
+<!--
+        <div formArrayName="items"
+             *ngFor="let item of orderForm.get('items').controls; let i = index;">
+          <div [formGroupName]="i">
+            <input formControlName="name" placeholder="Item name">
+            <input formControlName="description" placeholder="Item description">
+            <input formControlName="price" placeholder="Item price">
+          </div>
+
+          Chosen name: {{ orderForm.controls.items.controls[i].controls.name.value }}
+        </div>
+-->
+        <h3 translate>ExamenObservation</h3>
+        <textarea rows="2" cols="100">
+        {{directory.observation}}
+        </textarea>
+        <div class="col-md-12" style="text-align: center">
+          <button type="submit" class="btn btn-validate" translate>Validate</button>
+          <button (click)="cancelModif()" class="btn btn-warning" translate>Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

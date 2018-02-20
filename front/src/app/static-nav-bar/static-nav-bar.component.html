@@ -1,0 +1,60 @@
+<nav class="navbar navbar-light navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a href="#" class="navbar-brand"><img class="logo_PADME" src="../../assets/logo_PADME.jpg"
+                                            title="{{ 'Home' | translate:user }}"></a>
+    </div>
+
+    <ul class="nav navbar-nav navbar-right">
+
+      <li><a href="#"><img class="icon" src="../../assets/mail_2.png"
+                           title="{{ 'Messaging' | translate:user }}"></a></li>
+      <li><a href="#"><img class="icon" src="../../assets/list_2.png" title="{{ 'TodoList' | translate:user }}"></a>
+      </li>
+      <li>
+        <div class="user">
+          <div class="user_info">
+            <p class="user_name">{{name}}</p>
+            <p class="user_type">{{role}}</p>
+          </div>
+
+          <a routerLink="login" (click)="loggout()"><img class="user_icon" src="../../assets/cancel.png"
+                                                         title="{{ 'LogOut' | translate:user }}"></a>
+          <a href="javascript:void(0)" (click)="openModal(template)"><img class="user_icon"
+                                                                          src="../../assets/user_icon.png"
+                                                                          title="{{ 'UserPage' | translate:user }}"></a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Vos informations</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <form ngNativeValidate>
+    <div class="modal-body">
+      <label for="email">Nom:</label>
+      <input type="text" class="form-control" id="lastname" required>
+      <label for="email">Prenom:</label>
+      <input type="text" class="form-control" id="firstname" required>
+      <label for="email">Intitulé du poste:</label>
+      <input type="text" class="form-control" id="role" readonly required>
+      <label for="email">Email:</label>
+      <input type="email" class="form-control" id="email" required>
+      <label for="email">Téléphone fixe:</label>
+      <input type="tel" class="form-control" id="phone" required>
+      <label for="email">Téléphone portable:</label>
+      <input type="tel" class="form-control" id="phone2" required>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" aria-label="Close" (click)="modalRef.hide()">Fermer</button>
+      <button type="submit" class="btn btn-primary">Valider</button>
+    </div>
+  </form>
+</ng-template>

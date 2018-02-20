@@ -1,0 +1,10 @@
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #337ab7;
+  cursor: pointer;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  color:white;
+}

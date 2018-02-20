@@ -1,0 +1,13 @@
+.inline{
+  display: inline-block;
+}
+
+.miniature{
+  max-width: 60px;
+}
+
+.imgdata{
+  max-width: 600px;
+}
+
+
