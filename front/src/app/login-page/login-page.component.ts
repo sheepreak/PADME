@@ -28,7 +28,7 @@ export class LoginPageComponent implements OnInit {
 
     if (form.login != null && form.password != null) {
 
-
+        this.userService.connect(form.login, form.login);
       /*this.requester.connectUser(form.email, form.password).then(data => {
         this.userService.connect(form.email, data);
         this.errorLogin = null;

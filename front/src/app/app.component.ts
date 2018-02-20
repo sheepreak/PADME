@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
+import {UserService} from "./user.service";
 
 /*
 npm install @ngx-translate/core --save
@@ -13,9 +14,9 @@ npm install @ngx-translate/http-loader
 })
 export class AppComponent {
 
-
-  constructor(private translate: TranslateService) {
-
+  user: UserService;
+  constructor(private translate: TranslateService, private userService: UserService) {
+    this.user= userService;
     const language = localStorage.getItem('language');
     if (language) {
       this.switchLanguage(language);

@@ -25,6 +25,10 @@
 </head>
 
 <body>
+
+<app-login-page *ngIf="!user.isConnected();else connected"></app-login-page>
+
+<ng-template #connected>
   <app-static-nav-bar></app-static-nav-bar>
 
   <div class="container-fluid">
@@ -41,5 +45,6 @@
       KIWI 2018
     </div>
   </footer>
+</ng-template>
 </body>
 </html>

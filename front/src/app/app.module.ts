@@ -25,10 +25,6 @@ import {CollapseModule, ModalModule} from 'ngx-bootstrap';
 
 const appRoutes: Routes = [
   {
-    path: 'login',
-    component: LoginPageComponent
-  },
-  {
     path: 'administrationfile',
     component: AdministrationFileComponent
   },
