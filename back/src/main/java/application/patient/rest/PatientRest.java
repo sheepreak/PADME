@@ -35,7 +35,7 @@ public class PatientRest {
     }
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response createPatient(Patient file) {
         repository.save(file);
         URI fileUri = uriInfo.getBaseUriBuilder().path(PatientRest.class).path(file.getPatientId().toString()).build();
