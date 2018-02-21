@@ -104,6 +104,10 @@ public class Staff {
         this.status = status;
     }
 
+    public Node getNode() {
+        return node;
+    }
+
     public void setNode(Node node) {
         this.node = node;
     }
@@ -133,6 +137,10 @@ public class Staff {
                 sons.addAll(getLeavesHelper(n));
         }
         return sons;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public String getLogin() {
