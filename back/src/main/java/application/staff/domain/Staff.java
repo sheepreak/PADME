@@ -120,7 +120,7 @@ public class Staff {
         this.password = password;
     }
 
-    public List<Node> getLeaves(){
+    public List<Node> leaves(){
         return getLeavesHelper(this.node);
     }
 

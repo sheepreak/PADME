@@ -8,7 +8,6 @@ import application.staff.repository.StaffRepository;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.sun.messaging.jmq.io.Status;
-import jdk.nashorn.internal.parser.JSONParser;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
@@ -40,7 +39,7 @@ public class StaffRest {
 
         Staff staff = staffRepository.find(id);
         List<Map<String,String>> maps = new ArrayList<>();
-        List<Node> leafs = staff.getLeaves();
+        List<Node> leafs = staff.leaves();
         for(Node node : leafs) {
             List<MedicalFile> medicalFiles = medicalFileRepository.findFilesByNode(node.getId());
             for(MedicalFile medicalFile : medicalFiles) {
@@ -94,7 +93,8 @@ public class StaffRest {
             Algorithm algorithm = Algorithm.HMAC256(KEY);
             String token = JWT.create().withIssuer("auth0").sign(algorithm);
             staff.setToken(token);
-            return Response.ok("{\"token\" : \"" + token + "\"}").build();
+            return Response.ok("{\"token\" : \"" + token + "\"," +
+                    "\"id\" : \"" + staff.getId() + "\"}").build();
 
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
