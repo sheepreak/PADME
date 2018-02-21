@@ -17,6 +17,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -53,10 +54,13 @@ public class StaffRest {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public Response putStaff(Staff staff) {
+
         if(staff == null)
             Response.status(Response.Status.BAD_REQUEST).build();
+
         staffRepository.save(staff);
-        return Response.ok().build();
+        return Response.ok("{\"id\" : \"" + staff.getId() + "\"}").build();
+
     }
 
     @GET
@@ -104,6 +108,15 @@ public class StaffRest {
 
 //----------Helpers-------------
 
+    private static String getStaffInfo(Staff staff) {
+
+        Map<String, String> map = new HashMap<>();
+
+        //map.put("")
+
+        return null;
+
+    }
 
 
 }
