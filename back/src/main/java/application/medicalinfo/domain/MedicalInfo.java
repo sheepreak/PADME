@@ -2,9 +2,7 @@ package application.medicalinfo.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Entity
 class InfoAttributes {
@@ -17,6 +15,21 @@ class InfoAttributes {
 
     @ElementCollection
     private List<String> attributes;
+
+    public InfoAttributes(String ... values) {
+        attributes = new ArrayList<>();
+        attributes.addAll(Arrays.asList(values));
+    }
+
+    public InfoAttributes() {}
+
+    public List<String> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(List<String> attributes) {
+        this.attributes = attributes;
+    }
 }
 
 @Entity
@@ -27,7 +40,7 @@ public class MedicalInfo {
     @Column
     private Integer id;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     private Map<String, InfoAttributes> informations;
 
     public MedicalInfo() {
@@ -54,4 +67,7 @@ public class MedicalInfo {
         informations.putAll(map);
     }
 
+    public void addInformations(String key, String ... values) {
+        informations.put(key, new InfoAttributes(values));
+    }
 }

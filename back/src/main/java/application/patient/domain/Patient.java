@@ -48,6 +48,8 @@ public class Patient {
     public Patient(AdminFile adminFile, MedicalInfo medicalInfo) {
         this.adminFile = adminFile;
         this.medicalInfo = medicalInfo;
+        medicalFileList = new ArrayList<>();
+        familyBackground = new HashSet<>();
     }
 
     public Integer getPatientId() {

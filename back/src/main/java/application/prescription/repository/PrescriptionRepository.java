@@ -2,9 +2,11 @@ package application.prescription.repository;
 
 import application.prescription.domain.Prescription;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+@Stateless
 public class PrescriptionRepository {
 
     @PersistenceContext(unitName = "JPAPU")

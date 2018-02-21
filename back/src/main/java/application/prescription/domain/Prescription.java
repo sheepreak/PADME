@@ -48,12 +48,12 @@ public class Prescription {
         prescriptionDate = LocalDateTime.now().toString();
     }
 
-    public Prescription(String treatment, String posology, String startDate, String endDate, String prescriptionDate, Integer staffId) {
+    public Prescription(String treatment, String posology, String startDate, String endDate, Integer staffId) {
         this.treatment = treatment;
         this.posology = posology;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.prescriptionDate = prescriptionDate;
+        this.prescriptionDate = LocalDateTime.now().toString();
         this.staffId = staffId;
     }
 

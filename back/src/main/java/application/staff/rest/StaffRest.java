@@ -44,7 +44,7 @@ public class StaffRest {
         for(Node node : leafs) {
             List<MedicalFile> medicalFiles = medicalFileRepository.findFilesByNode(node.getId());
             for(MedicalFile medicalFile : medicalFiles) {
-                maps.add(medicalFile.getPatientInformations());
+                maps.add(medicalFile.patientInformations());
             }
         }
 

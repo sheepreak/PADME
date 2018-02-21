@@ -133,7 +133,7 @@ public class MedicalFile {
         this.status = status;
     }
 
-    public Map<String, String> getPatientInformations() {
+    public Map<String, String> patientInformations() {
         Map<String, String> map = new HashMap<>();
         AdminFile adminFile = patient.getAdminFile();
         map.put("firstName", adminFile.getFirstName());
