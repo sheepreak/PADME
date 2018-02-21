@@ -97,7 +97,7 @@ public class StaffRest {
             Algorithm algorithm = Algorithm.HMAC256(KEY);
             String token = JWT.create().withIssuer("auth0").sign(algorithm);
             staff.setToken(token);
-            return Response.ok(staff).build();
+            return Response.ok(staff.staffConnectionInfo()).build();
 
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();

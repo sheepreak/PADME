@@ -6,7 +6,9 @@ import application.staff.Status;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 public class Staff {
@@ -146,4 +148,22 @@ public class Staff {
     public String getLogin() {
         return login;
     }
+
+    public String staffConnectionInfo() {
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("{ ")
+                .append("\"id\" : \"").append(lastName).append("\",")
+                .append("\"login\" : \"").append(login).append("\",")
+                .append("\"lastName\" : \"").append(lastName).append("\",")
+                .append("\"firstName\" : \"").append(firstName).append("\",")
+                .append("\"phone\" : \"").append(phone).append("\",")
+                .append("\"address\" : \"").append(address).append("\",")
+                .append("\"status\" : \"").append(status).append("\",")
+                .append("\"token\" : \"").append(token).append("\",")
+                .append("\"address\" : \"").append(address).append("\"")
+                .append("}");
+        return stringBuilder.toString();
+    }
+
 }

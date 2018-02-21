@@ -1,5 +1,6 @@
 package application.patient.rest;
 
+import application.adminfile.domain.AdminFile;
 import application.examen.domain.Examen;
 import application.medicalfile.domain.MedicalFile;
 import application.medicalfile.repository.MedicalFileRepository;
@@ -11,6 +12,7 @@ import application.prescription.domain.Prescription;
 import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
+import javax.ws.rs.core.Response.Status;
 import java.net.URI;
 import java.util.List;
 
@@ -30,7 +32,7 @@ public class PatientRest {
     public Response getPatient(@PathParam("id") Integer id) {
         Patient file = repository.find(id);
         if(file == null)
-            return Response.status(Response.Status.NOT_FOUND).build();
+            return Response.status(Status.NOT_FOUND).build();
         return Response.ok(file).build();
     }
 
@@ -56,6 +58,20 @@ public class PatientRest {
     public Response getAdminFile(@PathParam("id") Integer patientId) {
         Patient patient = repository.find(patientId);
         return Response.ok(patient.getAdminFile()).build();
+    }
+
+    @POST
+    @Path("{id}/adminfile")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateAdminFile(@PathParam("id") Integer patientId, AdminFile adminFile) {
+        Patient patient = repository.find(patientId);
+        patient.setAdminFile(adminFile);
+        try {
+            repository.update(patient);
+        } catch(Exception e) {
+            return Response.status(Status.BAD_REQUEST).build();
+        }
+        return Response.status(Status.ACCEPTED).build();
     }
 
     @POST
