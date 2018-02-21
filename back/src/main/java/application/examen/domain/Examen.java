@@ -51,6 +51,15 @@ public class Examen {
         date = LocalDateTime.now().toString();
     }
 
+    public Examen(String motive, String description, String imgPath, String observation, String date, Integer staffId) {
+        this.motive = motive;
+        this.description = description;
+        this.imgPath = imgPath;
+        this.observation = observation;
+        this.date = date;
+        StaffId = staffId;
+    }
+
     public Integer getId() {
         return id;
     }

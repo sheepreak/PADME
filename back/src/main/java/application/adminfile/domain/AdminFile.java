@@ -71,6 +71,25 @@ public class AdminFile {
 
     public AdminFile() { }
 
+    public AdminFile(String lastName, String firstName, String gender, String birthDate, String birthPlace, String socialID, String address, String postalCode, String city, String addressComplement, String country, String email, String phone, String cellPhone, String fax, String profession) {
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.gender = gender;
+        this.birthDate = birthDate;
+        this.birthPlace = birthPlace;
+        this.socialID = socialID;
+        this.address = address;
+        this.postalCode = postalCode;
+        this.city = city;
+        this.addressComplement = addressComplement;
+        this.country = country;
+        this.email = email;
+        this.phone = phone;
+        this.cellPhone = cellPhone;
+        this.fax = fax;
+        this.profession = profession;
+    }
+
     public Integer getId() {
         return id;
     }

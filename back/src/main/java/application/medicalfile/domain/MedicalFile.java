@@ -68,6 +68,11 @@ public class MedicalFile {
         exams = new ArrayList<Examen>();
     }
 
+    public MedicalFile(Boolean status, Integer nodeId) {
+        this.status = status;
+        this.nodeId = nodeId;
+    }
+
     public Integer getId() {
         return id;
     }

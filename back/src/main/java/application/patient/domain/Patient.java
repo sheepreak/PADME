@@ -45,6 +45,11 @@ public class Patient {
         familyBackground = new HashSet<>();
     }
 
+    public Patient(AdminFile adminFile, MedicalInfo medicalInfo) {
+        this.adminFile = adminFile;
+        this.medicalInfo = medicalInfo;
+    }
+
     public Integer getPatientId() {
         return patientId;
     }
