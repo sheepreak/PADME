@@ -17,7 +17,6 @@ export class WebApiPromiseService {
       'login': login,
       'password': password
     };
-    /*TODO add good url */
     return this.http.post('http://localhost:8080/back-1.0-SNAPSHOT/rs/staff/connect', body, this.httpOptions).toPromise();
   }
 
