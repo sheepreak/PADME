@@ -1,6 +1,7 @@
 import {Component, OnInit, Pipe, PipeTransform} from '@angular/core';
 import {Router} from '@angular/router';
 import {PatientListServiceService} from './patient-list-service.service';
+import {UserService} from '../user.service';
 
 
 @Pipe({
@@ -29,18 +30,17 @@ export class PatientListComponent implements OnInit {
   listPatients: any;
 
 
-  constructor(private router: Router, private patientService: PatientListServiceService) {
+  constructor(private router: Router, private patientService: PatientListServiceService, private userService: UserService) {
   }
 
   ngOnInit() {
     this.patientService.getPatients().then(data => {
-      console.log(data);
       this.listPatients = data;
     });
   }
 
   onClicOnPatient(id) {
-    console.log('oui ' + id);
+    this.userService.setPatientIdSelected(id);
     this.router.navigate(['/administrationfile']);
   }
 

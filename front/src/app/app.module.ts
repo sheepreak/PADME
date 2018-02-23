@@ -17,10 +17,10 @@ import {ConsultationFileComponent} from './consultation-file/consultation-file.c
 import {HttpClientModule, HttpClient} from '@angular/common/http';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import { AdminViewComponent } from './admin-view/admin-view.component';
+import {AdminViewComponent} from './admin-view/admin-view.component';
+import {AdministrationRequestService} from './administration-file/administration-request.service';
 
 import {CollapseModule, ModalModule} from 'ngx-bootstrap';
-
 
 
 const appRoutes: Routes = [
@@ -90,7 +90,7 @@ const appRoutes: Routes = [
       }
     })
   ],
-  providers: [UserService, WebApiPromiseService],
+  providers: [UserService, WebApiPromiseService, AdministrationRequestService ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

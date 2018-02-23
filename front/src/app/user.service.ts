@@ -5,7 +5,6 @@ import {WebApiPromiseService} from './web-api-promise.service';
 @Injectable()
 export class UserService {
 
-
   private connected: boolean;
   private login: string;
   private token: string;
@@ -15,6 +14,7 @@ export class UserService {
   private phone: string;
   private adress: string;
 
+  private patientId = null;
 
   constructor() {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -23,7 +23,6 @@ export class UserService {
       console.log(user);
     }
   }
-
 
   connect(login, user) {
     this.connected = true;
@@ -43,10 +42,8 @@ export class UserService {
         'lastName': user.lastName,
         'status': user.status,
         'adress': user.adress,
-        'phone' : user.phone
+        'phone': user.phone
       }));
-
-
   }
 
   isConnected() {
@@ -85,6 +82,14 @@ export class UserService {
 
   getPhone(): string {
     return this.phone;
+  }
+
+  setPatientIdSelected(patientId) {
+    this.patientId = patientId;
+  }
+
+  getPatientIdSelected() {
+    return this.patientId;
   }
 
 

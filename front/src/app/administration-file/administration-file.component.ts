@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {ManageFile} from "../manageFile";
+import {ManageFile} from '../manageFile';
+import {UserService} from '../user.service';
+import {AdministrationRequestService} from './administration-request.service';
 
 
 @Component({
@@ -33,7 +35,7 @@ export class AdministrationFileComponent implements OnInit {
   oldDirectory;
   manageFile: ManageFile = new ManageFile();
 
-  constructor() {
+  constructor(private userService: UserService, private administrationRequest: AdministrationRequestService) {
     this.directory.address = '4 allée des camélias';
     this.directory.addressComplement = 'Aucun';
     this.directory.birthday = new Date('12/06/1995');
@@ -51,12 +53,17 @@ export class AdministrationFileComponent implements OnInit {
     this.directory.zipcode = '77164';
     this.directory.fixe = '01.64.64.15.98';
 
-    this.directory.profession = "Medecin";
-    this.directory.specialisation = "Protesiste";
+    this.directory.profession = 'Medecin';
+    this.directory.specialisation = 'Protesiste';
 
   }
 
   ngOnInit() {
+    this.administrationRequest.getAdminFilePatient(this.userService.getPatientIdSelected()).then(data => {
+      console.log(data);
+    }).catch(err => {
+      console.log(err);
+    });
   }
 
   modifData() {

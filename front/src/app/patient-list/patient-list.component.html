@@ -21,7 +21,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let patient of listPatients | search:'lastName,firstName':filter" (click)="onClicOnPatient(patient.id)">
+      <tr *ngFor="let patient of listPatients | search:'lastName,firstName':filter" (click)="onClicOnPatient(patient.patientId)">
         <td>{{patient.lastName | uppercase}}</td>
         <td>{{patient.firstName | uppercase}}</td>
         <td>{{patient.gender}}</td>
