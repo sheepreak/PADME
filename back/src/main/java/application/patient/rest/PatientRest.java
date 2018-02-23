@@ -6,6 +6,7 @@ import application.medicalfile.domain.MedicalFile;
 import application.medicalfile.repository.MedicalFileRepository;
 import application.observation.domain.Observation;
 import application.patient.domain.Patient;
+import application.patient.domain.PatientListing;
 import application.patient.repository.PatientRepository;
 import application.prescription.domain.Prescription;
 
@@ -15,6 +16,7 @@ import javax.ws.rs.core.*;
 import javax.ws.rs.core.Response.Status;
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Path("/patient")
 public class PatientRest {
@@ -48,7 +50,13 @@ public class PatientRest {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPatients(){
         List<Patient> files = repository.getFiles();
-        GenericEntity<List<Patient>> entities = new GenericEntity<List<Patient>>(files){};
+        List<PatientListing> l =files.stream().map(s-> {
+            AdminFile a =s.getAdminFile();
+            return new PatientListing(
+                    s.getPatientId(),a.getFirstName(), a.getLastName(),
+                    a.getGender(), a.getBirthDate(), a.getCountry());
+        }).collect(Collectors.toList());
+        GenericEntity<List<PatientListing>> entities = new GenericEntity<List<PatientListing>>(l){};
         return Response.ok(entities).build();
     }
 
