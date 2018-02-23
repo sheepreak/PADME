@@ -17,7 +17,7 @@ import java.util.Set;
 import static application.patient.domain.Patient.FIND_ALL;
 
 @Entity
-@NamedQuery(name = FIND_ALL, query = "SELECT p.adminFile FROM Patient p ORDER BY p.patientId DESC")
+@NamedQuery(name = FIND_ALL, query = "SELECT p FROM Patient p ORDER BY p.patientId DESC")
 public class Patient {
 
     public static final String FIND_ALL = "Patient.findAllPatients";
