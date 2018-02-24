@@ -14,8 +14,13 @@ import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 })
 export class StaticNavBarComponent implements OnInit {
 
-  name: string;
+  firstName: string;
+  lastName: string;
   status: string;
+  email: string;
+  phone: string;
+  adress: string;
+
   visibility: boolean;
 
   modalRef: BsModalRef;
@@ -27,8 +32,11 @@ export class StaticNavBarComponent implements OnInit {
   };
 
   constructor(private userService: UserService, private modalService: BsModalService) {
-    this.name = this.userService.getfirstName() + ' ' + this.userService.getlastName();
-    this.status = this.userService.getStatus();
+    this.firstName = this.userService.getfirstName() ? this.userService.getfirstName() : '';
+    this.lastName = this.userService.getlastName() ? this.userService.getlastName() : '';
+    this.status = this.userService.getStatus() ? this.userService.getStatus() : '';
+    this.adress = this.userService.getAdress() ? this.userService.getAdress() : '';
+    this.phone = this.userService.getPhone() ? this.userService.getPhone() : '';
     this.visibility = false;
   }
 

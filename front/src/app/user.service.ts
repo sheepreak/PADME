@@ -31,7 +31,7 @@ export class UserService {
     this.firstName = user.firstName;
     this.lastName = user.lastName;
     this.status = user.status;
-    this.phone = user.phone;
+    this.phone = user.phone ? null : '';
     this.adress = user.adress;
 
     localStorage.setItem('user', JSON.stringify(
@@ -80,7 +80,7 @@ export class UserService {
     return this.status;
   }
 
-  getPhone(): string {
+  getPhone() {
     return this.phone;
   }
 
@@ -90,6 +90,10 @@ export class UserService {
 
   getPatientIdSelected() {
     return this.patientId;
+  }
+
+  getAdress() {
+    return this.adress;
   }
 
 
