@@ -25,7 +25,7 @@ export class LoginPageComponent implements OnInit {
   onSubmit(form) {
     if (form.login != null && form.password != null) {
       this.requester.connectUser(form.login, form.password).then(data => {
-        this.userService.connect(form.login, data);
+        this.userService.connect(form.login, form.password, data);
         this.errorLogin = null;
         this.router.navigate(['/patientlist']);
       }).catch(err => {

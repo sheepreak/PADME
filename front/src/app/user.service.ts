@@ -7,6 +7,7 @@ export class UserService {
 
   private connected: boolean;
   private login: string;
+  private password: string;
   private token: string;
   private firstName: string;
   private lastName: string;
@@ -16,17 +17,23 @@ export class UserService {
 
   private patientId = null;
 
-  constructor() {
+  constructor(private requester: WebApiPromiseService, private router: Router) {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user != null) {
-      this.connect(user.login, user);
-      console.log(user);
+      this.requester.connectUser(user.login, user.password).then(data => {
+        this.connect(user.login, user.password, data);
+      }).catch(err => {
+        localStorage.clear();
+        this.router.navigate(['/']);
+        console.log(err);
+      });
     }
   }
 
-  connect(login, user) {
+  connect(login, password, user) {
     this.connected = true;
     this.login = login;
+    this.password = password;
     this.token = user.token;
     this.firstName = user.firstName;
     this.lastName = user.lastName;
@@ -37,6 +44,7 @@ export class UserService {
     localStorage.setItem('user', JSON.stringify(
       {
         'login': login,
+        'password': this.password,
         'token': user.token,
         'firstName': user.firstName,
         'lastName': user.lastName,
