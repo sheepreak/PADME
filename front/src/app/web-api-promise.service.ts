@@ -21,4 +21,9 @@ export class WebApiPromiseService {
   }
 
 
+  getStaffs() {
+    return this.http.get('http://localhost:8080/back-1.0-SNAPSHOT/rs/staff', {headers: this.httpOptions}).toPromise();
+  }
+
+
 }
