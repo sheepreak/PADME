@@ -27,7 +27,16 @@ export class LoginPageComponent implements OnInit {
       this.requester.connectUser(form.login, form.password).then(data => {
         this.userService.connect(form.login, form.password, data);
         this.errorLogin = null;
-        this.router.navigate(['/patientlist']);
+        if (this.userService.getStatus() === 'medical') {
+          this.router.navigate(['/patientlist']);
+        } else if (this.userService.getStatus() === 'secretaire') {
+          this.router.navigate(['/patientlist']);
+        } else if (this.userService.getStatus() === 'admin') {
+          this.router.navigate(['/adminview']);
+        } else {
+          this.router.navigate(['/patientlist']);
+        }
+
       }).catch(err => {
         console.log(err);
         this.errorLogin = 'An error has occurred';

@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {WebApiPromiseService} from './web-api-promise.service';
 
+
 @Injectable()
 export class UserService {
 
@@ -14,6 +15,7 @@ export class UserService {
   private status: string;
   private phone: string;
   private adress: string;
+
 
   private patientId = null;
 
