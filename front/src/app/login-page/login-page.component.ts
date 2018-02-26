@@ -8,7 +8,7 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.css','./../app.component.css']
+  styleUrls: ['./login-page.component.css', './../app.component.css']
 })
 
 
@@ -23,25 +23,15 @@ export class LoginPageComponent implements OnInit {
   }
 
   onSubmit(form) {
-
-    console.log(form);
-
     if (form.login != null && form.password != null) {
-
-        //this.userService.connect(form.login, form.login);
-        this.requester.connectUser(form.email, form.password).then(data => {
-        this.userService.connect(form.email, data);
+      this.requester.connectUser(form.login, form.password).then(data => {
+        this.userService.connect(form.login, form.password, data);
         this.errorLogin = null;
         this.router.navigate(['/patientlist']);
       }).catch(err => {
         console.log(err);
-        console.log('aaaa');
         this.errorLogin = 'An error has occurred';
       });
-
-      //this.router.navigate(['/patientlist']);
-
-
     } else {
       this.errorLogin = 'Login and password required';
     }

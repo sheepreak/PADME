@@ -63,10 +63,23 @@ public class StaffRest {
 
     }
 
+    @POST
+    @Path("/update")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateStaff(Staff staff) {
+
+        if(staff == null)
+            Response.status(Response.Status.BAD_REQUEST).build();
+
+        staffRepository.update(staff);
+        return Response.ok().build();
+
+    }
+
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getPatient(@PathParam("id") Integer id) {
+    public Response getStaff(@PathParam("id") Integer id) {
         Staff staff = staffRepository.find(id);
         if(staff == null)
             return Response.status(Status.BAD_REQUEST).build();
@@ -97,7 +110,7 @@ public class StaffRest {
             Algorithm algorithm = Algorithm.HMAC256(KEY);
             String token = JWT.create().withIssuer("auth0").sign(algorithm);
             staff.setToken(token);
-            return Response.ok(staff).build();
+            return Response.ok(staff.staffConnectionInfo()).build();
 
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -105,6 +118,13 @@ public class StaffRest {
         }
 
     }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getStaffs() {
+        return Response.ok(staffRepository.getStaffs()).build();
+    }
+
 
 //----------Helpers-------------
 

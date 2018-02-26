@@ -14,8 +14,8 @@
       <li>
         <div class="user">
           <div class="user_info">
-            <p class="user_name">{{name}}</p>
-            <p class="user_type">{{role}}</p>
+            <p class="user_name">{{firstName}} {{lastName}}</p>
+            <p class="user_type">{{status | uppercase}}</p>
           </div>
 
           <a routerLink="login" (click)="loggout()"><img class="user_icon" src="../../assets/cancel.png"
@@ -39,18 +39,16 @@
   </div>
   <form ngNativeValidate>
     <div class="modal-body">
-      <label for="email">Nom:</label>
-      <input type="text" class="form-control" id="lastname" required>
-      <label for="email">Prenom:</label>
-      <input type="text" class="form-control" id="firstname" required>
-      <label for="email">Intitulé du poste:</label>
-      <input type="text" class="form-control" id="role" readonly required>
-      <label for="email">Email:</label>
-      <input type="email" class="form-control" id="email" required>
-      <label for="email">Téléphone fixe:</label>
-      <input type="tel" class="form-control" id="phone" required>
-      <label for="email">Téléphone portable:</label>
-      <input type="tel" class="form-control" id="phone2" required>
+      <label for="lastName">Nom:</label>
+      <input type="text" class="form-control" id="lastname" name="lastName" [(ngModel)]="lastName" required>
+      <label for="firstName">Prenom:</label>
+      <input type="text" class="form-control" id="firstname" name="firstName" [(ngModel)]="firstName" required>
+      <label for="status">Intitulé du poste:</label>
+      <input type="text" class="form-control" id="status" name="status" [(ngModel)]="status" readonly required>
+      <label for="phone">Téléphone fixe:</label>
+      <input type="tel" class="form-control" id="phone" name="phone" [(ngModel)]="phone" required>
+      <label for="adress">Adresse</label>
+      <input type="text" class="form-control" id="adress" name="adress" [(ngModel)]="adress" required>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-default" aria-label="Close" (click)="modalRef.hide()">Fermer</button>

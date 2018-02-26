@@ -156,4 +156,22 @@ public class Staff {
     public String getLogin() {
         return login;
     }
+
+    public String staffConnectionInfo() {
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("{ ")
+                .append("\"id\" : \"").append(lastName).append("\",")
+                .append("\"login\" : \"").append(login).append("\",")
+                .append("\"lastName\" : \"").append(lastName).append("\",")
+                .append("\"firstName\" : \"").append(firstName).append("\",")
+                .append("\"phone\" : \"").append(phone).append("\",")
+                .append("\"address\" : \"").append(address).append("\",")
+                .append("\"status\" : \"").append(status).append("\",")
+                .append("\"token\" : \"").append(token).append("\",")
+                .append("\"address\" : \"").append(address).append("\"")
+                .append("}");
+        return stringBuilder.toString();
+    }
+
 }

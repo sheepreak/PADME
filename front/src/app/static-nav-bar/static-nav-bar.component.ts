@@ -4,7 +4,7 @@ import {UserService} from '../user.service';
 import {TranslateService} from '@ngx-translate/core';
 import {AppComponent} from '../app.component';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
-import {BsModalRef, BsModalService} from "ngx-bootstrap";
+import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 
 
 @Component({
@@ -14,8 +14,13 @@ import {BsModalRef, BsModalService} from "ngx-bootstrap";
 })
 export class StaticNavBarComponent implements OnInit {
 
-  name: string;
-  role: string;
+  firstName: string;
+  lastName: string;
+  status: string;
+  email: string;
+  phone: string;
+  adress: string;
+
   visibility: boolean;
 
   modalRef: BsModalRef;
@@ -27,13 +32,12 @@ export class StaticNavBarComponent implements OnInit {
   };
 
   constructor(private userService: UserService, private modalService: BsModalService) {
-    this.name = this.userService.getlastName() + ' ' + this.userService.getfirstName();
-    this.role = this.userService.getRole();
+    this.firstName = this.userService.getfirstName() ? this.userService.getfirstName() : '';
+    this.lastName = this.userService.getlastName() ? this.userService.getlastName() : '';
+    this.status = this.userService.getStatus() ? this.userService.getStatus() : '';
+    this.adress = this.userService.getAdress() ? this.userService.getAdress() : '';
+    this.phone = this.userService.getPhone() ? this.userService.getPhone() : '';
     this.visibility = false;
-
-    /*TODO Remove this */
-    this.name = 'NOM prenom';
-    this.role = 'Docteur';
   }
 
   ngOnInit(): void {
@@ -50,7 +54,7 @@ export class StaticNavBarComponent implements OnInit {
 
 
   openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template,this.config);
+    this.modalRef = this.modalService.show(template, this.config);
   }
 }
 

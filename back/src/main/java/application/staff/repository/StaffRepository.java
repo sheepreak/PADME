@@ -5,7 +5,7 @@ import application.staff.domain.Staff;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import java.util.List;
 
 @Stateless
 public class StaffRepository {
@@ -25,13 +25,18 @@ public class StaffRepository {
         em.merge(staff);
     }
 
+
     public Staff tryConnection(String password, String login) {
 
         return (Staff)em.createQuery("SELECT s FROM Staff s WHERE s.password LIKE :password AND s.login LIKE :login")
                 .setParameter("password", password)
                 .setParameter("login", login)
                 .getSingleResult();
+    }
 
+
+    public List<Staff> getStaffs() {
+        return (List<Staff>) em.createQuery("SELECT s.firstName, s.lastName, s.node FROM Staff s").getResultList();
     }
 
 }
