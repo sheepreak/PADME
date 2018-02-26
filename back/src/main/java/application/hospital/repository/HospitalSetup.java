@@ -140,115 +140,115 @@ public class HospitalSetup {
         staffRepository.save(staff3);
 
         //Patient 1
-//        AdminFile adminFile1 = generateAdminFile(
-//                "Szalony",
-//                "Raymond",
-//                "M",
-//                "1958-06-25",
-//                "Paris",
-//                "18 allée de Chartres",
-//                "93190",
-//                "Livry-Gargan",
-//                null,
-//                "France",
-//                "szalony.raymond@thisisafakeaddress.com",
-//                "0143320054",
-//                "0654789565",
-//                "0143320053",
-//                "Chercheur et maître de conférences"
-//        );
-//
-//
-//        MedicalInfo medicalInfo1 = new MedicalInfo();
-//        medicalInfo1.addInformations("allergies", "sel", "gluten", "lactose");
-//        medicalInfoRepository.save(medicalInfo1);
-//
-//        //TODO remplacer le node ID (le 1) par une node cohérente après coup
-//        MedicalFile medicalFile1 = new MedicalFile(true, 1);
-//        medicalFileRepository.save(medicalFile1);
-//
-//        Observation observation1 = new Observation(1,
-//                "Le patient a été admis pour une chute violente depuis une échelle."
-//        );
-//        observationRepository.save(observation1);
-//
-//        //TODO remplacer le staff ID pour en dessous et au dessus en fonction des staffs existants
-//        Examen exam1 = new Examen(
-//                "Chute d'une échelle",
-//                "Radio crânienne",
-//                null,
-//                "Traumatisme crânien",
-//                "2018-02-16",
-//                1
-//        );
-//        examenRepository.save(exam1);
-//
-//        Prescription prescription1 = new Prescription(
-//                "Morphine",
-//                "Injection par intra-veineuse, 1mL toutes les 10 minutes",
-//                "2018-02-16",
-//                "2018-02-19",
-//                1
-//        );
-//        prescriptionRepository.save(prescription1);
-//
-//        medicalFile1.addObservation(observation1);
-//        medicalFile1.addExamen(exam1);
-//        medicalFile1.addPrescription(prescription1);
-//
-//        Patient patient1 = new Patient(adminFile1, medicalInfo1);
-//        patient1.addMedicalFile(medicalFile1);
-//
-//        patientRepository.save(patient1);
-//
-//    }
-//
-//    public AdminFile generateAdminFile(String lastName,
-//                                       String firstName,
-//                                       String gender,
-//                                       String birthDate,
-//                                       String birthPlace,
-//                                       String address,
-//                                       String postalCode,
-//                                       String city,
-//                                       String addressComplement,
-//                                       String country,
-//                                       String email,
-//                                       String phone,
-//                                       String cellPhone,
-//                                       String fax,
-//                                       String profession) {
-//        StringBuilder socialID = new StringBuilder();
-//
-//        Random random = new Random();
-//
-//        socialID.append(gender.equals("M") ? 1 : 2 );
-//        socialID.append(birthDate.subSequence(2, 4)).append(birthDate.subSequence(5,7));
-//        socialID.append(postalCode);
-//        for(int i = 0 ; i < 5 ; i++)
-//            socialID.append(random.nextInt(10));
-//
-//        AdminFile adminFile = new AdminFile(
-//                lastName,
-//                firstName,
-//                gender,
-//                birthDate,
-//                birthPlace,
-//                socialID.toString(),
-//                address,
-//                postalCode,
-//                city,
-//                addressComplement,
-//                country,
-//                email,
-//                phone,
-//                cellPhone,
-//                fax,
-//                profession
-//        );
-//
-//        adminFileRepository.save(adminFile);
-//        return adminFile;
+        AdminFile adminFile1 = generateAdminFile(
+                "Szalony",
+                "Raymond",
+                "M",
+                "1958-06-25",
+                "Paris",
+                "18 allée de Chartres",
+                "93190",
+                "Livry-Gargan",
+                null,
+                "France",
+                "szalony.raymond@thisisafakeaddress.com",
+                "0143320054",
+                "0654789565",
+                "0143320053",
+                "Chercheur et maître de conférences"
+        );
+
+
+        MedicalInfo medicalInfo1 = new MedicalInfo();
+        medicalInfo1.addInformations("allergies", "sel", "gluten", "lactose");
+        medicalInfoRepository.save(medicalInfo1);
+
+        //TODO remplacer le node ID (le 1) par une node cohérente après coup
+        MedicalFile medicalFile1 = new MedicalFile(true, 1);
+        medicalFileRepository.save(medicalFile1);
+
+        Observation observation1 = new Observation(1,
+                "Le patient a été admis pour une chute violente depuis une échelle."
+        );
+        observationRepository.save(observation1);
+
+        //TODO remplacer le staff ID pour en dessous et au dessus en fonction des staffs existants
+        Examen exam1 = new Examen(
+                "Chute d'une échelle",
+                "Radio crânienne",
+                null,
+                "Traumatisme crânien",
+                "2018-02-16",
+                1
+        );
+        examenRepository.save(exam1);
+
+        Prescription prescription1 = new Prescription(
+                "Morphine",
+                "Injection par intra-veineuse, 1mL toutes les 10 minutes",
+                "2018-02-16",
+                "2018-02-19",
+                1
+        );
+        prescriptionRepository.save(prescription1);
+
+        medicalFile1.addObservation(observation1);
+        medicalFile1.addExamen(exam1);
+        medicalFile1.addPrescription(prescription1);
+
+        Patient patient1 = new Patient(adminFile1, medicalInfo1);
+        patient1.addMedicalFile(medicalFile1);
+
+        patientRepository.save(patient1);
+
+    }
+
+    public AdminFile generateAdminFile(String lastName,
+                                       String firstName,
+                                       String gender,
+                                       String birthDate,
+                                       String birthPlace,
+                                       String address,
+                                       String postalCode,
+                                       String city,
+                                       String addressComplement,
+                                       String country,
+                                       String email,
+                                       String phone,
+                                       String cellPhone,
+                                       String fax,
+                                       String profession) {
+        StringBuilder socialID = new StringBuilder();
+
+        Random random = new Random();
+
+        socialID.append(gender.equals("M") ? 1 : 2 );
+        socialID.append(birthDate.subSequence(2, 4)).append(birthDate.subSequence(5,7));
+        socialID.append(postalCode);
+        for(int i = 0 ; i < 5 ; i++)
+            socialID.append(random.nextInt(10));
+
+        AdminFile adminFile = new AdminFile(
+                lastName,
+                firstName,
+                gender,
+                birthDate,
+                birthPlace,
+                socialID.toString(),
+                address,
+                postalCode,
+                city,
+                addressComplement,
+                country,
+                email,
+                phone,
+                cellPhone,
+                fax,
+                profession
+        );
+
+        adminFileRepository.save(adminFile);
+        return adminFile;
     }
 
 
