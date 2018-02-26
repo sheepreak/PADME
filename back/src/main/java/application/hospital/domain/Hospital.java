@@ -102,9 +102,6 @@ public class Hospital {
                 return nodePole;
             if (nodePole.getLevel().equals(node.getLevel()))
                 continue;
-
-            if (!nodePole.getSpeciality().equals(node.getSpeciality()))
-                continue;
             if(nodePole.getSubNodes() == null)
                 continue;
             for (Node nodeService: nodePole.getSubNodes()) {
