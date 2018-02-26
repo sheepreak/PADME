@@ -1,7 +1,7 @@
 <nav class="navbar navbar-light navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a href="#" class="navbar-brand"><img class="logo_PADME" src="../../assets/logo_PADME.jpg"
+      <a href="javascript:void(0)" (click)="openModal(templatePadme)" class="navbar-brand"><img class="logo_PADME" src="../../assets/logo_PADME.jpg"
                                             title="{{ 'Home' | translate:user }}"></a>
     </div>
 
@@ -55,4 +55,20 @@
       <button type="submit" class="btn btn-primary">Valider</button>
     </div>
   </form>
+</ng-template>
+
+
+
+<!--Modal Padme -->
+
+<ng-template #templatePadme>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">L'équipe PADME</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    Mettre du texte qui parle de nous
+  </div>
 </ng-template>
