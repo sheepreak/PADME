@@ -106,5 +106,9 @@ export class UserService {
     return this.adress;
   }
 
+  isAdmin() {
+    return this.status === 'admin';
+  }
+
 
 }

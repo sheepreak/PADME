@@ -37,6 +37,7 @@ export class PatientListComponent implements OnInit {
     this.patientService.getPatients().then(data => {
       this.listPatients = data;
     });
+    this.userService.setPatientIdSelected(null);
   }
 
   onClicOnPatient(id) {

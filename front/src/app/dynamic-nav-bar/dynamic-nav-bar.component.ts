@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {UserService} from '../user.service';
 
 @Component({
   selector: 'app-dynamic-nav-bar',
@@ -15,7 +16,10 @@ export class DynamicNavBarComponent implements OnInit {
   addIsCollapsed: boolean = true;
   myDocIsCollapsed: boolean = true;
 
-  constructor() {
+  user: UserService;
+
+  constructor(private userService: UserService) {
+    this.user = this.userService ;
   }
 
   ngOnInit() {
