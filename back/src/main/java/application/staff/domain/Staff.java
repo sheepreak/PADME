@@ -12,6 +12,7 @@ import java.util.List;
 public class Staff {
 
     @Id
+    @NotNull
     @GeneratedValue
     @Column
     private Integer id;
@@ -161,7 +162,7 @@ public class Staff {
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("{ ")
-                .append("\"id\" : \"").append(lastName).append("\",")
+                .append("\"id\" : \"").append(id).append("\",")
                 .append("\"login\" : \"").append(login).append("\",")
                 .append("\"lastName\" : \"").append(lastName).append("\",")
                 .append("\"firstName\" : \"").append(firstName).append("\",")
