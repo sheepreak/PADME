@@ -53,7 +53,7 @@ public class PatientRest {
         List<PatientListing> l =files.stream().map(s-> {
             AdminFile a =s.getAdminFile();
             return new PatientListing(
-                    s.getPatientId(),a.getFirstName(), a.getLastName(),
+                    s.getPatientId(), a.getFirstName(), a.getLastName(),
                     a.getGender(), a.getBirthDate(), a.getCountry());
         }).collect(Collectors.toList());
         GenericEntity<List<PatientListing>> entities = new GenericEntity<List<PatientListing>>(l){};

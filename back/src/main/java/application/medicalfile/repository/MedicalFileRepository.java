@@ -2,7 +2,6 @@ package application.medicalfile.repository;
 
 
 import application.medicalfile.domain.MedicalFile;
-import application.node.domain.Node;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

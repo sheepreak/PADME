@@ -2,7 +2,6 @@ package application.medicalfile.domain;
 
 import application.adminfile.domain.AdminFile;
 import application.examen.domain.Examen;
-import application.node.domain.Node;
 import application.observation.domain.Observation;
 import application.patient.domain.Patient;
 import application.prescription.domain.Prescription;
