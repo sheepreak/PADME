@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Map;
 
 @Stateless
 public class StaffRepository {
@@ -36,7 +37,8 @@ public class StaffRepository {
 
 
     public List<Staff> getStaffs() {
-        return (List<Staff>) em.createQuery("SELECT s.firstName, s.lastName, s.node FROM Staff s").getResultList();
+        List<Staff> staffs =  em.createQuery("SELECT s FROM Staff s").getResultList();
+        return staffs;
     }
 
 }

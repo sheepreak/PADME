@@ -17,7 +17,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -122,21 +121,26 @@ public class StaffRest {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getStaffs() {
-        return Response.ok(staffRepository.getStaffs()).build();
+        List<Staff> staffs = staffRepository.getStaffs();
+        return Response.ok(getStaffInfo(staffs)).build();
     }
 
 
-//----------Helpers-------------
+    private String getStaffInfo(List<Staff> staffs) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for(Staff s : staffs) {
+            if(sb.toString().length() > 1)
+                sb.append(",");
+            sb.append("{ ")
+                    .append("\"lastName\" : \"").append(s.getLastName()).append("\",")
+                    .append("\"firstName\" : \"").append(s.getFirstName()).append("\",")
+                    .append("\"node\" : \"").append(s.getNode()).append("\"")
+                    .append("}");
+        }
 
-    private static String getStaffInfo(Staff staff) {
-
-        Map<String, String> map = new HashMap<>();
-
-        //map.put("")
-
-        return null;
-
+        sb.append("]");
+        return sb.toString();
     }
-
 
 }
