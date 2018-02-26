@@ -28,17 +28,17 @@ public class Hospital {
     @GeneratedValue
     private Long id;
 
-    @Size(min=2, max=20)
+    @Size(min=2, max=50)
     @NotNull
     @Column(nullable=false)
     private String name;
 
-    @Size(min=2, max=20)
+    @Size(min=2, max=50)
     @NotNull
     @Column(nullable=false)
     private String country;
 
-    @Size(min = 2, max = 20)
+    @Size(min = 2, max = 200)
     @NotNull
     @Column(nullable = false)
     private String address;

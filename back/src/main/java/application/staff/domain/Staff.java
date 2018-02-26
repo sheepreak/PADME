@@ -52,6 +52,16 @@ public class Staff {
     public Staff() {
     }
 
+    public Staff(String login, String password, String lastName, String firstName, String phone, String address, Status status) {
+        this.login = login;
+        this.password = password;
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.phone = phone;
+        this.address = address;
+        this.status = status;
+    }
+
     public Integer getId() {
         return id;
     }

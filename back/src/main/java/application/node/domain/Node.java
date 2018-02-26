@@ -73,8 +73,6 @@ public class Node{
         NodeLevel nodeLevel = Objects.requireNonNull(node).getLevel();
         if(nodeLevel.getHierarchyLevel()-1 != level.getHierarchyLevel())
             throw new IllegalArgumentException("The node:"+node+" isn't a direct hierarchy child level of "+ this);
-        if(!node.getSpeciality().equals(speciality))
-            throw new IllegalArgumentException("The node:"+node+" haven't the same speciality of "+ this);
         subNodes.add(node);
         return this;
     }
