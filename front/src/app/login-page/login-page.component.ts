@@ -38,8 +38,12 @@ export class LoginPageComponent implements OnInit {
         }
 
       }).catch(err => {
-        console.log(err);
-        this.errorLogin = 'An error has occurred';
+        if (err.status === 401) {
+          this.errorLogin = 'Login or password is false';
+        } else {
+          this.errorLogin = 'An error has occurred';
+        }
+
       });
     } else {
       this.errorLogin = 'Login and password required';

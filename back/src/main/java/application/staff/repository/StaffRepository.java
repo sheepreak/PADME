@@ -4,6 +4,7 @@ import application.staff.domain.Staff;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Map;
@@ -26,30 +27,32 @@ public class StaffRepository {
         em.merge(staff);
     }
 
-    public void updateDataStaff(Staff staff){
-        System.out.println(staff.getPhone());
+    public void updateDataStaff(Staff staff) {
         em.createQuery("Update Staff set address =:adress ,lastName=:lastName," +
                 "firstName=:firstName, phone=:phone  where id=:id")
-                .setParameter("adress",staff.getAddress())
-                .setParameter("lastName",staff.getLastName())
-                .setParameter("firstName",staff.getFirstName())
-                .setParameter("phone",staff.getPhone())
-                .setParameter("id",staff.getId())
+                .setParameter("adress", staff.getAddress())
+                .setParameter("lastName", staff.getLastName())
+                .setParameter("firstName", staff.getFirstName())
+                .setParameter("phone", staff.getPhone())
+                .setParameter("id", staff.getId())
                 .executeUpdate();
     }
 
 
-    public Staff tryConnection(String password, String login) {
-
-        return (Staff)em.createQuery("SELECT s FROM Staff s WHERE s.password LIKE :password AND s.login LIKE :login")
-                .setParameter("password", password)
-                .setParameter("login", login)
-                .getSingleResult();
+    public Staff tryConnection(String password, String login) throws NoResultException{
+        try {
+            return (Staff) em.createQuery("SELECT s FROM Staff s WHERE s.password LIKE :password AND s.login LIKE :login")
+                    .setParameter("password", password)
+                    .setParameter("login", login)
+                    .getSingleResult();
+        } catch (NoResultException e){
+            return null;
+        }
     }
 
 
     public List<Staff> getStaffs() {
-        List<Staff> staffs =  em.createQuery("SELECT s FROM Staff s").getResultList();
+        List<Staff> staffs = em.createQuery("SELECT s FROM Staff s").getResultList();
         return staffs;
     }
 
