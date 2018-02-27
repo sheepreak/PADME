@@ -61,11 +61,9 @@ export class StaticNavBarComponent implements OnInit {
   }
 
   updateStaff(form) {
-
     const body = {'id': this.userService.getId(), ...form.value};
-    console.log(body);
     this.request.updateStaff(body).then(data => {
-      console.log(data);
+      this.modalRef.hide();
     }).catch(err => {
       console.log(err);
     });
