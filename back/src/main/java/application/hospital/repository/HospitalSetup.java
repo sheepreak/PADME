@@ -21,11 +21,19 @@ import application.prescription.repository.PrescriptionRepository;
 import application.staff.Status;
 import application.staff.domain.Staff;
 import application.staff.repository.StaffRepository;
+import utils.Address;
+import utils.InseeRef;
+import utils.Parse;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 @Startup
@@ -302,7 +310,98 @@ public class HospitalSetup {
         return adminFile;
     }
 
+    private int generateOneNumber(){
+        return new Random().nextInt()%10;
+    }
+    private String generatePhoneNumber(String indicatif){
+        StringBuilder phone = new StringBuilder().append(indicatif);
+        for(int i = 0; i<9; i++)
+            phone.append(generateOneNumber());
+        return phone.toString();
+    }
+
+    private List<AdminFile> generateRandomAdminFiles(int nb){
+        Random rand = new Random(1234);
+        List<AdminFile> list = new ArrayList<>();
+        try {
+            String dataPrenom = Parse.parseFileToString(Paths.get("dataForSetup/Prenoms.csv"));
+            HashMap<String, Boolean> prenoms = Parse.parseFirstname(dataPrenom);
+
+            String dataInseeRefs = Parse.parseFileToString(Paths.get("dataForSetup/laposte_hexasmal.csv"));
+            List<InseeRef> listInseeRefs = Parse.parseInseeRef(dataInseeRefs);
+
+            String dataAddress = Parse.parseFileToString(Paths.get("dataForSetup/les_bureaux_de_poste_et_agences_postales_en_idf.csv"));
+            List<Address> addressSamples = Parse.parseSampleAddress(dataAddress, listInseeRefs);
+
+            List<String> firstNames = new ArrayList<>(prenoms.keySet());
+            for(int i= 0; i < nb; i++) {
+                String firstName = firstNames.get(rand.nextInt() % firstNames.size());
+                String gender;
+                if (prenoms.get(firstName))
+                    gender = "M";
+                else gender = "F";
+                int birthYear = (2018 - rand.nextInt() % 100);
+                int birthMonth = (1 + rand.nextInt() % 12);
+                int birthDays = (1 + rand.nextInt() % 28);
+                String birthDate = (birthYear + "-" + birthMonth + "-" + birthDays);
+                Address address = addressSamples.get(rand.nextInt() % addressSamples.size());
+                Address birthAddress = addressSamples.get(rand.nextInt() % addressSamples.size());
+                String lastName = firstNames.get(rand.nextInt() % firstNames.size());
+                list.add(generateAdminFile(
+                        lastName,
+                        firstName,
+                        gender,
+                        birthDate,
+                        birthAddress.getCity(),
+                        address.getAddress(),
+                        address.getPostCode().toString(),
+                        address.getCity(),
+                        null,
+                        address.getCountry(),
+                        lastName + firstName + "@thisisafakeaddress.com",
+                        generatePhoneNumber("01"),
+                        generatePhoneNumber("06"),
+                        generatePhoneNumber("01"),
+                        "Chômeur"
+                ));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 
 
+    private List<MedicalFile> generateRandomMedicalFile(AdminFile adminFile, int nb) {
+        List<MedicalFile> list = new ArrayList<>();
+        for(int i= 0; i < nb; i++) {
+
+        }
+        return list;
+    }
+
+    private List<Observation> generateRandomObservation(MedicalFile medicalFile, int nb) {
+        List<Observation> list = new ArrayList<>();
+        for(int i= 0; i < nb; i++) {
+
+        }
+        return list;
+    }
+
+    private List<Examen> generateRandomExamem(MedicalFile medicalFile, int nb) {
+        List<Examen> list = new ArrayList<>();
+        for(int i= 0; i < nb; i++) {
+
+        }
+        return list;
+    }
+
+    private List<Prescription> generateRandomPrescription(MedicalFile medicalFile, int nb) {
+        List<Prescription> list = new ArrayList<>();
+        for(int i= 0; i < nb; i++) {
+
+        }
+        return list;
+    }
 
 }
