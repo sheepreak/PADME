@@ -30,6 +30,7 @@ export class AdminViewComponent implements OnInit {
 
   ngOnInit() {
     this.request.getStaffs().then(data => {
+      console.log(data);
       this.listStaff = data;
     }).catch(err => {
       console.log(err);
