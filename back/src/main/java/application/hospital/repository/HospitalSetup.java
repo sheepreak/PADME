@@ -61,6 +61,7 @@ public class HospitalSetup {
     @EJB
     private StaffRepository staffRepository;
 
+    private Random rand = new Random();
 
 
     @PostConstruct
@@ -260,6 +261,8 @@ public class HospitalSetup {
 
         patientRepository.save(patient1);
 
+        generateRandomPatient(20);
+
     }
 
     private AdminFile generateAdminFile(String lastName,
@@ -321,32 +324,29 @@ public class HospitalSetup {
     }
 
     private List<AdminFile> generateRandomAdminFiles(int nb){
-        Random rand = new Random(1234);
         List<AdminFile> list = new ArrayList<>();
         try {
-            String dataPrenom = Parse.parseFileToString(Paths.get("dataForSetup/Prenoms.csv"));
+            List<String> dataPrenom = Parse.parseFileToString(Paths.get("/home/dev/Dropbox_Host/padme_project/PADME-Project/back/src/main/resources/dataForSetup/Prenoms.csv"));
             HashMap<String, Boolean> prenoms = Parse.parseFirstname(dataPrenom);
 
-            String dataInseeRefs = Parse.parseFileToString(Paths.get("dataForSetup/laposte_hexasmal.csv"));
-            List<InseeRef> listInseeRefs = Parse.parseInseeRef(dataInseeRefs);
 
-            String dataAddress = Parse.parseFileToString(Paths.get("dataForSetup/les_bureaux_de_poste_et_agences_postales_en_idf.csv"));
-            List<Address> addressSamples = Parse.parseSampleAddress(dataAddress, listInseeRefs);
+            List<String> dataAddress = Parse.parseFileToString(Paths.get("/home/dev/Dropbox_Host/padme_project/PADME-Project/back/src/main/resources/dataForSetup/les_bureaux_de_poste_et_agences_postales_en_idf.csv"));
+            List<Address> addressSamples = Parse.parseSampleAddress(dataAddress);
 
             List<String> firstNames = new ArrayList<>(prenoms.keySet());
             for(int i= 0; i < nb; i++) {
-                String firstName = firstNames.get(rand.nextInt() % firstNames.size());
+                String firstName = firstNames.get(Math.abs(rand.nextInt() % firstNames.size()));
                 String gender;
                 if (prenoms.get(firstName))
                     gender = "M";
                 else gender = "F";
-                int birthYear = (2018 - rand.nextInt() % 100);
-                int birthMonth = (1 + rand.nextInt() % 12);
-                int birthDays = (1 + rand.nextInt() % 28);
+                int birthYear = (2018 - Math.abs(rand.nextInt() % 100));
+                int birthMonth = (1 + Math.abs(rand.nextInt() % 12));
+                int birthDays = (1 + Math.abs(rand.nextInt() % 28));
                 String birthDate = (birthYear + "-" + birthMonth + "-" + birthDays);
-                Address address = addressSamples.get(rand.nextInt() % addressSamples.size());
-                Address birthAddress = addressSamples.get(rand.nextInt() % addressSamples.size());
-                String lastName = firstNames.get(rand.nextInt() % firstNames.size());
+                Address address = addressSamples.get(Math.abs(rand.nextInt() % addressSamples.size()));
+                Address birthAddress = addressSamples.get(Math.abs(rand.nextInt() % addressSamples.size()));
+                String lastName = firstNames.get(Math.abs(rand.nextInt() % firstNames.size()));
                 list.add(generateAdminFile(
                         lastName,
                         firstName,
@@ -370,7 +370,20 @@ public class HospitalSetup {
         }
         return list;
     }
+    private List<Patient> generateRandomPatient(int nb){
+        List<Patient> list = new ArrayList<>();
 
+        List<AdminFile> adminFiles = generateRandomAdminFiles(nb);
+        for(AdminFile adminFile : adminFiles) {
+            MedicalInfo medicalInfo = new MedicalInfo();
+            medicalInfo.addInformations("allergies", "sel", "gluten", "lactose");
+            medicalInfoRepository.save(medicalInfo);
+            Patient patient = new Patient(adminFile, medicalInfo);
+            patientRepository.save(patient);
+            list.add(patient);
+        }
+        return list;
+    }
 
     private List<MedicalFile> generateRandomMedicalFile(AdminFile adminFile, int nb) {
         List<MedicalFile> list = new ArrayList<>();

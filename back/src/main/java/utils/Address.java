@@ -5,17 +5,13 @@ public class Address {
     private String city ="";
     private Integer postCode = -1;
     private String country = "";
-    private Integer insee = -1;
-    public Address(String address, String city, Integer postCode, String country, Integer insee){
+
+    public Address(String address, String city, Integer postCode, String country){
         this.address = address;
         this.city = city;
         this.postCode = postCode;
         this.country = country;
-        this.insee = insee;
-    }
 
-    public Integer getInsee() {
-        return insee;
     }
 
     public Integer getPostCode() {

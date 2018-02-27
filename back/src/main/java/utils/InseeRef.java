@@ -4,15 +4,15 @@ public class InseeRef {
 
     private String city ="";
     private Integer postCode = -1;
-    private Integer insee = -1;
+    private String insee = "";
 
-    public InseeRef(String city, Integer postCode, Integer insee){
+    public InseeRef(String city, Integer postCode, String insee){
         this.city = city;
         this.postCode = postCode;
         this.insee = insee;
     }
 
-    public Integer getInsee() {
+    public String getInsee() {
         return insee;
     }
 
