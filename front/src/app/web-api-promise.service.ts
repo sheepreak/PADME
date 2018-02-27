@@ -25,5 +25,9 @@ export class WebApiPromiseService {
     return this.http.get('http://localhost:8080/back-1.0-SNAPSHOT/rs/staff', {headers: this.httpOptions}).toPromise();
   }
 
+  updateStaff(body) {
+    return this.http.put('http://localhost:8080/back-1.0-SNAPSHOT/rs/staff/updatesocio', body, {headers: this.httpOptions}).toPromise();
+  }
+
 
 }

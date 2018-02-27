@@ -14,7 +14,8 @@ export class UserService {
   private lastName: string;
   private status: string;
   private phone: string;
-  private adress: string;
+  private address: string;
+  private id: string;
 
 
   private patientId = null;
@@ -39,19 +40,21 @@ export class UserService {
     this.token = user.token;
     this.firstName = user.firstName;
     this.lastName = user.lastName;
-    this.status = user.status;
-    this.phone = user.phone ? null : '';
-    this.adress = user.adress;
+    this.status = user.status.toUpperCase();
+    this.phone = user.phone;
+    this.address = user.address;
+    this.id = user.id;
 
     localStorage.setItem('user', JSON.stringify(
       {
+        'id': user.id,
         'login': login,
         'password': this.password,
         'token': user.token,
         'firstName': user.firstName,
         'lastName': user.lastName,
-        'status': user.status,
-        'adress': user.adress,
+        'status': user.status.toUpperCase(),
+        'address': user.address,
         'phone': user.phone
       }));
   }
@@ -103,12 +106,15 @@ export class UserService {
   }
 
   getAdress() {
-    return this.adress;
+    return this.address;
   }
 
   isAdmin() {
     return this.status === 'admin';
   }
 
+  getId() {
+    return this.id;
+  }
 
 }

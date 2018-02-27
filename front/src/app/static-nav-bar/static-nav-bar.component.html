@@ -37,7 +37,7 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <form ngNativeValidate>
+  <form ngNativeValidate #formStaff="ngForm"  (submit)="updateStaff(formStaff)">
     <div class="modal-body">
       <label for="lastName">Nom:</label>
       <input type="text" class="form-control" id="lastname" name="lastName" [(ngModel)]="lastName" required>
@@ -47,8 +47,8 @@
       <input type="text" class="form-control" id="status" name="status" [(ngModel)]="status" readonly required>
       <label for="phone">Téléphone fixe:</label>
       <input type="tel" class="form-control" id="phone" name="phone" [(ngModel)]="phone" required>
-      <label for="adress">Adresse</label>
-      <input type="text" class="form-control" id="adress" name="adress" [(ngModel)]="adress" required>
+      <label for="address">Adresse</label>
+      <input type="text" class="form-control" id="address" name="address" [(ngModel)]="address" required>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-default" aria-label="Close" (click)="modalRef.hide()">Fermer</button>
