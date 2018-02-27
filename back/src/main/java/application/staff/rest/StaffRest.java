@@ -12,6 +12,7 @@ import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
 import javax.ejb.EJB;
+import javax.persistence.NoResultException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -111,13 +112,12 @@ public class StaffRest {
             JSONObject jsonObject = new JSONObject(identification);
 
             if((staff = staffRepository.tryConnection(jsonObject.getString("password"), jsonObject.getString("login"))) == null)
-                return Response.status(Response.Status.NOT_FOUND).build();
+                return Response.status(Response.Status.UNAUTHORIZED).build();
 
 
         } catch (JSONException e) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
-
         try {
 
             Algorithm algorithm = Algorithm.HMAC256(KEY);
