@@ -27,10 +27,12 @@
         <div *ngIf="errorLogin != null" class="alert alert-danger">
           {{errorLogin}}
         </div>
-
-        <button type="submit" class="btn btn-primary" style="width: 90%; margin-top: 20px">Connexion</button>
-        <img src="../../assets/img/icon/help1.png" style="margin-top: 20px" title="Documentation utilisateur">
-
+        <div class="col-md-11 col-sm-11 col-xs-11" style="padding-right:0">
+          <button type="submit" class="btn btn-primary btn-block">Connexion</button>
+        </div>
+        <div class="col-md-1 col-sm-1 col-xs-1" style="padding-left:5px">
+          <a href="#"><img src="../../assets/img/icon/help1.png" title="Documentation utilisateur"></a>
+        </div>
 
       </form>
     </div>
