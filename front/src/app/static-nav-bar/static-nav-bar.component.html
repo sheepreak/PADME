@@ -2,15 +2,15 @@
   <div class="container-fluid">
     <div class="navbar-header">
       <a href="javascript:void(0)" (click)="openModal(templatePadme)" class="navbar-brand"><img class="logo_PADME"
-                                                                                                src="../../assets/logo_PADME.jpg"
+                                                                                                src="../../assets/img/logo/logo_PADME.jpg"
                                                                                                 title="{{ 'Home' | translate:user }}"></a>
     </div>
 
     <ul class="nav navbar-nav navbar-right">
 
-      <li><a href="#"><img class="icon" src="../../assets/mail_2.png"
+      <li><a href="#"><img class="icon" src="../../assets/img/icon/mail_2.png"
                            title="{{ 'Messaging' | translate:user }}"></a></li>
-      <li><a href="#"><img class="icon" src="../../assets/list_2.png" title="{{ 'TodoList' | translate:user }}"></a>
+      <li><a href="#"><img class="icon" src="../../assets/img/icon/list_2.png" title="{{ 'TodoList' | translate:user }}"></a>
       </li>
       <li>
         <div class="user">
@@ -19,10 +19,10 @@
             <p class="user_type">{{status | uppercase}}</p>
           </div>
 
-          <a routerLink="login" (click)="loggout()"><img class="user_icon" src="../../assets/cancel.png"
+          <a routerLink="login" (click)="loggout()"><img class="user_icon" src="../../assets/img/icon/cancel.png"
                                                          title="{{ 'LogOut' | translate:user }}"></a>
           <a href="javascript:void(0)" (click)="openModal(template)"><img class="user_icon"
-                                                                          src="../../assets/user_icon.png"
+                                                                          src="../../assets/img/icon/user_icon.png"
                                                                           title="{{ 'UserPage' | translate:user }}"></a>
         </div>
       </li>
