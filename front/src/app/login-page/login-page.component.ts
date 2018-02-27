@@ -27,7 +27,7 @@ export class LoginPageComponent implements OnInit {
       this.requester.connectUser(form.login, form.password).then(data => {
         this.userService.connect(form.login, form.password, data);
         this.errorLogin = null;
-        if (this.userService.getStatus() === 'medical') {
+        if (this.userService.getStatus() === 'doctor' || this.userService.getStatus() === 'nurse') {
           this.router.navigate(['/patientlist']);
         } else if (this.userService.getStatus() === 'secretaire') {
           this.router.navigate(['/patientlist']);

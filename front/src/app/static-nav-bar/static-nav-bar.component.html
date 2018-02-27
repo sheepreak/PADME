@@ -1,8 +1,9 @@
 <nav class="navbar navbar-light navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a href="javascript:void(0)" (click)="openModal(templatePadme)" class="navbar-brand"><img class="logo_PADME" src="../../assets/logo_PADME.jpg"
-                                            title="{{ 'Home' | translate:user }}"></a>
+      <a href="javascript:void(0)" (click)="openModal(templatePadme)" class="navbar-brand"><img class="logo_PADME"
+                                                                                                src="../../assets/logo_PADME.jpg"
+                                                                                                title="{{ 'Home' | translate:user }}"></a>
     </div>
 
     <ul class="nav navbar-nav navbar-right">
@@ -37,7 +38,7 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <form ngNativeValidate #formStaff="ngForm"  (submit)="updateStaff(formStaff)">
+  <form ngNativeValidate #formStaff="ngForm" (submit)="updateStaff(formStaff)">
     <div class="modal-body">
       <label for="lastName">Nom:</label>
       <input type="text" class="form-control" id="lastname" name="lastName" [(ngModel)]="lastName" required>
@@ -58,7 +59,6 @@
 </ng-template>
 
 
-
 <!--Modal Padme -->
 
 <ng-template #templatePadme>
@@ -69,6 +69,17 @@
     </button>
   </div>
   <div class="modal-body">
-    Mettre du texte qui parle de nous
+    <p>
+      Application créée et réalisée par l'équipe PADME de l'entreprise Kiwi :
+    </p>
+    <p>
+      Entreprise de services et applications Web.
+    </p>
+    <p>
+      Comment nous contacter ?
+      <br>
+      <strong>contact@kiwi.com</strong>
+    </p>
+
   </div>
 </ng-template>
