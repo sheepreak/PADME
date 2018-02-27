@@ -179,6 +179,18 @@ public class HospitalSetup {
         doc8.setNode(nodeService21);
         staffRepository.save(doc8);
 
+        Staff nurse1 = new Staff("obaker", "obaker", "Baker", "Oscar", "0606060617", "65 avenue Jean Jaurès 93390 Clichy-sous-bois", Status.NURSE);
+        nurse1.setNode(nodeHU111);
+        staffRepository.save(nurse1);
+
+        Staff nurse2 = new Staff("obake2", "obake2", "Baker", "Olivia", "0606060618", "65 avenue Jean Jaurès 93390 Clichy-sous-bois", Status.NURSE);
+        nurse2.setNode(nodeHU112);
+        staffRepository.save(nurse2);
+
+        Staff nurse3 = new Staff("mvalen", "mvalen", "Valentine", "Mai", "0606060619", "16 allée Monge 93320 Les Pavillons-sous-bois", Status.NURSE);
+        nurse3.setNode(nodeHU113);
+        staffRepository.save(nurse3);
+
 
 
         //Patient 1
@@ -187,7 +199,7 @@ public class HospitalSetup {
                 "Raymond",
                 "M",
                 "1958-06-25",
-                "Paris",
+                "Livry-Gargan",
                 "18 allée de Chartres",
                 "93190",
                 "Livry-Gargan",
@@ -197,31 +209,28 @@ public class HospitalSetup {
                 "0143320054",
                 "0654789565",
                 "0143320053",
-                "Chercheur et maître de conférences"
+                "Soldat"
         );
-
 
         MedicalInfo medicalInfo1 = new MedicalInfo();
         medicalInfo1.addInformations("allergies", "sel", "gluten", "lactose");
         medicalInfoRepository.save(medicalInfo1);
 
-        //TODO remplacer le node ID (le 1) par une node cohérente après coup
-        MedicalFile medicalFile1 = new MedicalFile(true, 1);
+        MedicalFile medicalFile1 = new MedicalFile(true, 20);
         medicalFileRepository.save(medicalFile1);
 
-        Observation observation1 = new Observation(1,
+        Observation observation1 = new Observation(23,
                 "Le patient a été admis pour une chute violente depuis une échelle."
         );
         observationRepository.save(observation1);
 
-        //TODO remplacer le staff ID pour en dessous et au dessus en fonction des staffs existants
         Examen exam1 = new Examen(
                 "Chute d'une échelle",
                 "Radio crânienne",
                 null,
                 "Traumatisme crânien",
                 "2018-02-16",
-                1
+                23
         );
         examenRepository.save(exam1);
 
@@ -230,7 +239,7 @@ public class HospitalSetup {
                 "Injection par intra-veineuse, 1mL toutes les 10 minutes",
                 "2018-02-16",
                 "2018-02-19",
-                1
+                23
         );
         prescriptionRepository.save(prescription1);
 
