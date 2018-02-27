@@ -26,6 +26,18 @@ public class StaffRepository {
         em.merge(staff);
     }
 
+    public void updateDataStaff(Staff staff){
+        System.out.println(staff.getPhone());
+        em.createQuery("Update Staff set address =:adress ,lastName=:lastName," +
+                "firstName=:firstName, phone=:phone  where id=:id")
+                .setParameter("adress",staff.getAddress())
+                .setParameter("lastName",staff.getLastName())
+                .setParameter("firstName",staff.getFirstName())
+                .setParameter("phone",staff.getPhone())
+                .setParameter("id",staff.getId())
+                .executeUpdate();
+    }
+
 
     public Staff tryConnection(String password, String login) {
 

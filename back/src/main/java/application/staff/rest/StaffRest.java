@@ -71,7 +71,21 @@ public class StaffRest {
             Response.status(Response.Status.BAD_REQUEST).build();
 
         staffRepository.update(staff);
-        return Response.ok().build();
+        return Response.ok(Response.Status.OK).build();
+
+    }
+
+
+    @PUT
+    @Path("/updatesocio")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateStaffSocio(Staff staff) {
+
+        if(staff == null)
+            Response.status(Response.Status.BAD_REQUEST).build();
+
+        staffRepository.updateDataStaff(staff);
+        return Response.ok(Response.Status.OK).build();
 
     }
 
