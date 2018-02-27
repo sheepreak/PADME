@@ -66,6 +66,7 @@ public class HospitalSetup {
         Node nodeService11 = new Node("Chirurgie cardio-thoracique", NodeLevel.service);
         Node nodeService12 = new Node("Neurochirurgie", NodeLevel.service);
         Node nodeService13 = new Node("Chirurgie orthopédique et traumatologique", NodeLevel.service);
+        Node nodeService14 = new Node("Chirurgie pédiatrique", NodeLevel.service);
         Node nodeService21 = new Node("Service de consultation", NodeLevel.service);
         Node nodeService22 = new Node("Service de prescription", NodeLevel.service);
         Node nodeService23 = new Node("Service de rééducation", NodeLevel.service);
@@ -84,6 +85,10 @@ public class HospitalSetup {
         Node nodeHU132 = new Node("Unité 2", NodeLevel.hospitalUnit);
         Node nodeHU133 = new Node("Unité 3", NodeLevel.hospitalUnit);
         Node nodeHU134 = new Node("Unité 4", NodeLevel.hospitalUnit);
+        Node nodeHU141 = new Node("Unité 1", NodeLevel.hospitalUnit);
+        Node nodeHU142 = new Node("Unité 2", NodeLevel.hospitalUnit);
+        Node nodeHU143 = new Node("Unité 3", NodeLevel.hospitalUnit);
+        Node nodeHU144 = new Node("Unité 4", NodeLevel.hospitalUnit);
         Node nodeHU211 = new Node("Unité 1", NodeLevel.hospitalUnit);
         Node nodeHU212 = new Node("Unité 2", NodeLevel.hospitalUnit);
         Node nodeHU213 = new Node("Unité 3", NodeLevel.hospitalUnit);
@@ -109,13 +114,14 @@ public class HospitalSetup {
         Node nodeHU333 = new Node("Unité 3", NodeLevel.hospitalUnit);
         Node nodeHU334 = new Node("Unité 4", NodeLevel.hospitalUnit);
 
-        nodePole1.addNode(nodeService11).addNode(nodeService12).addNode(nodeService13);
+        nodePole1.addNode(nodeService11).addNode(nodeService12).addNode(nodeService13).addNode(nodeService14);
         nodePole2.addNode(nodeService21).addNode(nodeService22).addNode(nodeService23);
         nodePole3.addNode(nodeService31).addNode(nodeService32).addNode(nodeService33);
 
         nodeService11.addNode(nodeHU111).addNode(nodeHU112).addNode(nodeHU113).addNode(nodeHU114);
         nodeService12.addNode(nodeHU121).addNode(nodeHU122).addNode(nodeHU123).addNode(nodeHU124);
         nodeService13.addNode(nodeHU131).addNode(nodeHU132).addNode(nodeHU133).addNode(nodeHU134);
+        nodeService14.addNode(nodeHU141).addNode(nodeHU142).addNode(nodeHU143).addNode(nodeHU144);
         nodeService21.addNode(nodeHU211).addNode(nodeHU212).addNode(nodeHU213).addNode(nodeHU214);
         nodeService22.addNode(nodeHU221).addNode(nodeHU222).addNode(nodeHU223).addNode(nodeHU224);
         nodeService23.addNode(nodeHU231).addNode(nodeHU232).addNode(nodeHU233).addNode(nodeHU234);
@@ -129,8 +135,9 @@ public class HospitalSetup {
 
         hospitalRepository.save(hospital);
 
+        //user accounts for testing
         Staff staff1 = new Staff("ameline", "ameline", "Moreau", "Ameline", "0606060606", "123 fake street", Status.ADMIN);
-        Staff staff2 = new Staff("charles", "charles", "Da Silva Costa", "Charles", "0606060607", "125 fake street", Status.MEDICAL);
+        Staff staff2 = new Staff("charles", "charles", "Da Silva Costa", "Charles", "0606060607", "125 fake street", Status.DOCTOR);
         Staff staff3 = new Staff("jeanluc", "jeanluc", "Fernandes", "Jean-Luc", "0606060608", "127 fake street", Status.SECRETAIRE);
         staff1.setNode(nodePole1);
         staff2.setNode(nodePole1);
@@ -138,6 +145,41 @@ public class HospitalSetup {
         staffRepository.save(staff1);
         staffRepository.save(staff2);
         staffRepository.save(staff3);
+
+        //dataset accounts for coherent data
+        Staff doc1 = new Staff("mgrey", "mgrey", "Grey", "Meredith", "0606060608", "15 rue Chapatte 75001 Paris", Status.DOCTOR);
+        doc1.setNode(nodePole2);
+        staffRepository.save(doc1);
+
+        Staff doc2 = new Staff("cyang", "cyang", "Yang", "Cristina", "0606060609", "25 allée de la brûme 75012 Paris", Status.DOCTOR);
+        doc2.setNode(nodeService11);
+        staffRepository.save(doc2);
+
+        Staff doc3 = new Staff("dshep", "dshep", "Shepherd", "Derek", "0606060610", "15 rue Chapatte 75001 Paris", Status.DOCTOR);
+        doc3.setNode(nodeService12);
+        staffRepository.save(doc3);
+
+        Staff doc4 = new Staff("akepn", "akepn", "Kepner", "April", "0606060611", "32 rue de la mairie 77450 Esbly", Status.DOCTOR);
+        doc4.setNode(nodeService13);
+        staffRepository.save(doc4);
+
+        Staff doc5 = new Staff("arobb", "arobb", "Robbins", "Arizona", "0606060612", "47 rue Pasteur 77700 Coupvray", Status.DOCTOR);
+        doc5.setNode(nodeService14);
+        staffRepository.save(doc5);
+
+        Staff doc6 = new Staff("mbail", "mbail", "Bailey", "Miranda", "0606060613", "25 avenue de la République 77340 Pontault-Combault", Status.DOCTOR);
+        doc6.setNode(nodePole1);
+        staffRepository.save(doc6);
+
+        Staff doc7 = new Staff("ohunt", "ohunt", "Hunt", "Owen", "0606060615", "64 allée des mille et une nuits 77184 Emerainville", Status.DOCTOR);
+        doc7.setNode(nodePole3);
+        staffRepository.save(doc7);
+
+        Staff doc8 = new Staff("ghous", "ghous", "House", "Gregory", "0606060616", "18 allée Montesquieu 93190 Livry-Gargan", Status.DOCTOR);
+        doc8.setNode(nodeService21);
+        staffRepository.save(doc8);
+
+
 
         //Patient 1
         AdminFile adminFile1 = generateAdminFile(
@@ -203,7 +245,7 @@ public class HospitalSetup {
 
     }
 
-    public AdminFile generateAdminFile(String lastName,
+    private AdminFile generateAdminFile(String lastName,
                                        String firstName,
                                        String gender,
                                        String birthDate,

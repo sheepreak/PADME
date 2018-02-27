@@ -4,7 +4,8 @@ public enum Status {
 
     ADMIN("admin"),
     SECRETAIRE("secretaire"),
-    MEDICAL("medical");
+    DOCTOR("doctor"),
+    NURSE("nurse");
 
     private final String name;
 
