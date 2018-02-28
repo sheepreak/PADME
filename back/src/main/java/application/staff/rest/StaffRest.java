@@ -63,7 +63,7 @@ public class StaffRest {
 
     }
 
-    @POST
+    @PUT
     @Path("/update")
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateStaff(Staff staff) {
@@ -149,7 +149,7 @@ public class StaffRest {
             sb.append("{ ")
                     .append("\"lastName\" : \"").append(s.getLastName()).append("\",")
                     .append("\"firstName\" : \"").append(s.getFirstName()).append("\",")
-                    .append("\"node\" : \"").append(s.getNode()).append("\"")
+                    .append("\"node\" :").append(s.getNode())
                     .append("}");
         }
 

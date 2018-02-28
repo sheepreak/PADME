@@ -63,7 +63,7 @@ public class HospitalRestService {
         return Response.ok(hospital).build();
     }
 
-    @POST
+    @PUT
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response addNodePole(@PathParam("id") Long id, Node nodePole){

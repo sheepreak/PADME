@@ -62,7 +62,7 @@ public class NodeRestService {
         return Response.ok(node).build();
     }
 
-    @POST
+    @PUT
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response addNode(@PathParam("id") Long id, Node node){

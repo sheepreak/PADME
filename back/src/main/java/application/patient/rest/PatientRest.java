@@ -68,7 +68,7 @@ public class PatientRest {
         return Response.ok(patient.getAdminFile()).build();
     }
 
-    @POST
+    @PUT
     @Path("{id}/adminfile")
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateAdminFile(@PathParam("id") Integer patientId, AdminFile adminFile) {
@@ -82,7 +82,7 @@ public class PatientRest {
         return Response.status(Status.ACCEPTED).build();
     }
 
-    @POST
+    @PUT
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response addMedicalFile(@PathParam("id") Integer id, MedicalFile file) {
@@ -94,36 +94,36 @@ public class PatientRest {
         return Response.created(fileUri).build();
     }
 
-    @POST
-    @Path("{id}/addobservation/{medid}")
+    @PUT
+    @Path("addobservation/{medid}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addObservation(@PathParam("id") Integer id, @PathParam("medid") Integer fileId, Observation observation) {
-        Patient patient = repository.find(id);
-        patient.addObservation(fileId, observation);
-        repository.update(patient);
-        URI fileUri = uriInfo.getBaseUriBuilder().path(PatientRest.class).path(patient.getPatientId().toString()).build();
+    public Response addObservation(@PathParam("medid") Integer fileId, Observation observation) {
+        MedicalFile medicalFile = medicalFileRepository.getFile(fileId);
+        medicalFile.addObservation(observation);
+        medicalFileRepository.update(medicalFile);
+        URI fileUri = uriInfo.getBaseUriBuilder().path(PatientRest.class).path(medicalFile.getId().toString()).build();
         return Response.created(fileUri).build();
     }
 
-    @POST
-    @Path("{id}/addprescription/{medid}")
+    @PUT
+    @Path("addprescription/{medid}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addPrescription(@PathParam("id") Integer id, @PathParam("medid") Integer fileId, Prescription prescription) {
-        Patient patient = repository.find(id);
-        patient.addPrescription(fileId, prescription);
-        repository.update(patient);
-        URI fileUri = uriInfo.getBaseUriBuilder().path(PatientRest.class).path(patient.getPatientId().toString()).build();
+    public Response addPrescription(@PathParam("medid") Integer fileId, Prescription prescription) {
+        MedicalFile medicalFile = medicalFileRepository.getFile(fileId);
+        medicalFile.addPrescription(prescription);
+        medicalFileRepository.update(medicalFile);
+        URI fileUri = uriInfo.getBaseUriBuilder().path(PatientRest.class).path(medicalFile.getId().toString()).build();
         return Response.created(fileUri).build();
     }
 
-    @POST
-    @Path("{id}/addexam/{medid}")
+    @PUT
+    @Path("addexam/{medid}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addExam(@PathParam("id") Integer id, @PathParam("medid") Integer fileId, Examen examen) {
-        Patient patient = repository.find(id);
-        patient.addExam(fileId, examen);
-        repository.update(patient);
-        URI fileUri = uriInfo.getBaseUriBuilder().path(PatientRest.class).path(patient.getPatientId().toString()).build();
+    public Response addExam(@PathParam("medid") Integer fileId, Examen examen) {
+        MedicalFile medicalFile = medicalFileRepository.getFile(fileId);
+        medicalFile.addExamen(examen);
+        medicalFileRepository.update(medicalFile);
+        URI fileUri = uriInfo.getBaseUriBuilder().path(PatientRest.class).path(medicalFile.getId().toString()).build();
         return Response.created(fileUri).build();
     }
 

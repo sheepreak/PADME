@@ -39,7 +39,7 @@ public class MedicalFileRest {
         return Response.ok(entities).build();
     }
 
-    @POST
+    @PUT
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response putExam(@PathParam("id") Integer id, Examen examen){

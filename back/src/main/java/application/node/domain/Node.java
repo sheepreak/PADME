@@ -72,7 +72,7 @@ public class Node{
     public Node addNode(Node node){
         NodeLevel nodeLevel = Objects.requireNonNull(node).getLevel();
         if(nodeLevel.getHierarchyLevel()-1 != level.getHierarchyLevel())
-            throw new IllegalArgumentException("The node:"+node+" isn't a direct hierarchy child level of "+ this);
+            throw new IllegalArgumentException("The node:" + node + " isn't a direct hierarchy child level of "+ this);
         subNodes.add(node);
         return this;
     }
@@ -86,11 +86,10 @@ public class Node{
     }
 
     public String toString(){
-        return "Node("
-                +"id:"+id
-                +"\tSpeciality:"+speciality
-                +"\tLevel:"+level
-                +"\tsubNode:"+subNodes+")";
+        return "{\"id\":"+id
+                +",\"speciality\":\""+ speciality + "\""
+                +",\"level\":\"" + level + "\""
+                +",\"subNode\":\"null\"}";
     }
 
 }
