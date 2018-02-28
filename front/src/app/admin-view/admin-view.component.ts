@@ -24,21 +24,35 @@ export class SearchPipe implements PipeTransform {
 export class AdminViewComponent implements OnInit {
 
   listStaff: any;
+  listHospital: any;
+  listPole = [];
+  listService = [];
+
 
   constructor(private request: WebApiPromiseService) {
   }
 
   ngOnInit() {
     this.request.getStaffs().then(data => {
-      console.log(data);
       this.listStaff = data;
+    }).catch(err => {
+      console.log(err);
+    });
+
+    this.request.getHospitals().then(data => {
+      this.listHospital = data;
     }).catch(err => {
       console.log(err);
     });
   }
 
-  onClicOnStaff(id) {
+  onChangeHospital(index, hospital) {
+    this.listPole[index] = hospital.hierarchy;
+  }
 
+  onChangePole(index, pole) {
+    console.log(pole);
+    this.listService[index] = pole.subNodes;
   }
 
 }

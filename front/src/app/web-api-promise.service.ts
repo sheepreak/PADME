@@ -30,4 +30,8 @@ export class WebApiPromiseService {
   }
 
 
+  getHospitals() {
+    return this.http.get('http://localhost:8080/back-1.0-SNAPSHOT/rs/hospital', {headers: this.httpOptions}).toPromise();
+  }
+
 }

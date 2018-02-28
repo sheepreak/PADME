@@ -10,19 +10,49 @@
 
   </div>
   <div class="table-responsive">
-    <table class="table table-striped table-hover">
+    <table class="table table-striped">
       <thead>
       <tr>
         <th>NOM</th>
         <th>PRENOM</th>
         <th>FONCTION</th>
         <th>HOPITAL</th>
+        <th>PÔLE</th>
+        <th>SERVICE</th>
+        <th>UNITE</th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let staff of listStaff | search:'lastname,firstname':filter" (click)="onClicOnStaff(staff.id)">
+      <tr *ngFor="let staff of listStaff | search:'lastName,firstName':filter ; let i = index" [attr.data-index]="i">
         <td>{{staff.lastName | uppercase}}</td>
         <td>{{staff.firstName | uppercase}}</td>
+        <td></td>
+        <td>
+          <select [ngModel] (ngModelChange)="onChangeHospital(i,$event)" name="hospital"
+                  class="form-control">
+            <option [ngValue]="hospital" *ngFor="let hospital of listHospital">{{hospital.name}}</option>
+          </select>
+        </td>
+        <td>
+          <select [ngModel] (ngModelChange)="onChangePole(i,$event)" name="pole"
+                  class="form-control">
+            <option [ngValue]="pole" *ngFor="let pole of listPole[i]">
+              {{pole.speciality}}
+            </option>
+          </select>
+        </td>
+        <td>
+          <select class="form-control">
+            <option *ngFor="let service of listService[i]">
+              {{service.speciality}}
+            </option>
+          </select>
+        </td>
+
+        <td></td>
+        <td>
+          <button type="button" class="btn btn-primary">Modifier</button>
+        </td>
 
       </tr>
       </tbody>
