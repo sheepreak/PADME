@@ -358,7 +358,7 @@ public class HospitalSetup {
                 int birthYear = (2017 - Math.abs(rand.nextInt(100)));
                 int birthMonth = (1 + rand.nextInt(12));
                 int birthDays = (1 + rand.nextInt(28));
-                String birthDate = String.format(birthYear + "-" + birthMonth+"-"+birthDays,Integer.);
+                String birthDate = birthYear + "-" + String.format("%02d", birthMonth)+"-"+String.format("%02d", birthDays);
                 Address address = addressSamples.get(rand.nextInt(addressSamples.size()));
                 Address birthAddress = addressSamples.get(rand.nextInt(addressSamples.size()));
                 String lastName = firstNames.get(rand.nextInt(firstNames.size()));
