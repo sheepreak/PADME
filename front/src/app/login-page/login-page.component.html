@@ -1,12 +1,13 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-12 text-center" style="padding-bottom: 5px; margin-top:80px;">
-      <img src="../assets/logo_PADME_login.png" alt="logo PADME" class="img-responsive" style="display: inline-block;">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 text-center">
 
+    <div class="col-md-12 col-sm-12 text-center" style="margin-top:5px;">
+      <a href="https://www.aphp.fr/"><img src="../../assets/img/logo/Logo_AP-Hôpitaux_de_Paris.gif" class="img-responsive" alt="" style="display: inline-block;"></a>
+      <br>
+      <img src="../assets/img/logo/logo_PADME_login.png" alt="logo PADME" class="img-responsive" style="display: inline-block;">
+    </div>
+
+    <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 text-center connexion">
       <h1>Connexion</h1>
 
       <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm.value)" ngNativeValidate style="padding-top: 15px">
@@ -26,16 +27,19 @@
         <div *ngIf="errorLogin != null" class="alert alert-danger">
           {{errorLogin}}
         </div>
+        <div class="col-md-11 col-sm-11 col-xs-11" style="padding-right:0">
+          <button type="submit" class="btn btn-primary btn-block">Connexion</button>
+        </div>
+        <div class="col-md-1 col-sm-1 col-xs-1" style="padding-left:5px">
+          <a href="#"><img src="../../assets/img/icon/help1.png" title="Documentation utilisateur"></a>
+        </div>
 
-
-        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 20px">Connexion</button>
       </form>
     </div>
   </div>
 
-
   <div class="row" style="margin-top:50px">
-    <div class="col-md-4 col-md-offset-4 text-center">
+    <div class="text-center">
       &copy; 2018 KIWI
     </div>
   </div>

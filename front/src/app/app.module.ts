@@ -21,6 +21,7 @@ import {AdminViewComponent} from './admin-view/admin-view.component';
 import {AdministrationRequestService} from './administration-file/administration-request.service';
 
 import {CollapseModule, ModalModule} from 'ngx-bootstrap';
+import {UserDocComponent} from './user-doc/user-doc.component';
 
 
 const appRoutes: Routes = [
@@ -49,6 +50,10 @@ const appRoutes: Routes = [
     component: AdminViewComponent
   },
   {
+    path: 'userdoc',
+    component: UserDocComponent
+  },
+  {
     path: '**',
     redirectTo: ''
   },
@@ -69,7 +74,8 @@ const appRoutes: Routes = [
     PatientListComponent,
     SearchPipe,
     ConsultationFileComponent,
-    AdminViewComponent
+    AdminViewComponent,
+    UserDocComponent
   ],
 
   imports: [
@@ -90,7 +96,7 @@ const appRoutes: Routes = [
       }
     })
   ],
-  providers: [UserService, WebApiPromiseService, AdministrationRequestService ],
+  providers: [UserService, WebApiPromiseService, AdministrationRequestService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

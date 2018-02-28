@@ -21,8 +21,8 @@
       </thead>
       <tbody>
       <tr *ngFor="let staff of listStaff | search:'lastname,firstname':filter" (click)="onClicOnStaff(staff.id)">
-        <td>{{staff.lastname | uppercase}}</td>
-        <td>{{staff.firstname | uppercase}}</td>
+        <td>{{staff.lastName | uppercase}}</td>
+        <td>{{staff.firstName | uppercase}}</td>
 
       </tr>
       </tbody>

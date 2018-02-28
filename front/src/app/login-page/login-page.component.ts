@@ -27,11 +27,11 @@ export class LoginPageComponent implements OnInit {
       this.requester.connectUser(form.login, form.password).then(data => {
         this.userService.connect(form.login, form.password, data);
         this.errorLogin = null;
-        if (this.userService.getStatus() === 'doctor' || this.userService.getStatus() === 'nurse') {
+        if (this.userService.getStatus() === 'DOCTOR' || this.userService.getStatus() === 'DOCTOR') {
           this.router.navigate(['/patientlist']);
-        } else if (this.userService.getStatus() === 'secretaire') {
+        } else if (this.userService.getStatus() === 'SECRETAIRE') {
           this.router.navigate(['/patientlist']);
-        } else if (this.userService.getStatus() === 'admin') {
+        } else if (this.userService.getStatus() === 'ADMIN') {
           this.router.navigate(['/adminview']);
         } else {
           this.router.navigate(['/patientlist']);
