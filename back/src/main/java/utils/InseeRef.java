@@ -20,7 +20,6 @@ public class InseeRef {
         return postCode;
     }
 
-
     public String getCity() {
         return city;
     }

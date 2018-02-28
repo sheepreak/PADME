@@ -22,6 +22,7 @@ import application.staff.Status;
 import application.staff.domain.Staff;
 import application.staff.repository.StaffRepository;
 import utils.Address;
+import utils.InseeRef;
 import utils.Parse;
 
 import javax.annotation.PostConstruct;
@@ -31,6 +32,7 @@ import javax.ejb.Startup;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Startup
@@ -206,7 +208,7 @@ public class HospitalSetup {
                 "Raymond",
                 "M",
                 "1958-06-25",
-                "Livry-Gargan",
+                new Address("","Livry-Gargan", 93190, "france", "93046"),
                 "18 allée de Chartres",
                 "93190",
                 "Livry-Gargan",
@@ -267,7 +269,7 @@ public class HospitalSetup {
                                        String firstName,
                                        String gender,
                                        String birthDate,
-                                       String birthPlace,
+                                       Address birthPlace,
                                        String address,
                                        String postalCode,
                                        String city,
@@ -284,7 +286,7 @@ public class HospitalSetup {
 
         socialID.append(gender.equals("M") ? 1 : 2 );
         socialID.append(birthDate.subSequence(2, 4)).append(birthDate.subSequence(5,7));
-        socialID.append(postalCode);
+        socialID.append(birthPlace.getPostCode());
         for(int i = 0 ; i < 5 ; i++)
             socialID.append(random.nextInt(10));
 
@@ -293,7 +295,7 @@ public class HospitalSetup {
                 firstName,
                 gender,
                 birthDate,
-                birthPlace,
+                birthPlace.getCity(),
                 socialID.toString(),
                 address,
                 postalCode,
@@ -318,6 +320,25 @@ public class HospitalSetup {
         return phone.toString();
     }
 
+    private String generateRandomOccupation(int age){
+        if(age < 6)
+            return "Sans-emploi";
+        if(age < 21)
+             return "Etudiant";
+        List<String> jobs = new ArrayList<>();
+        jobs.add("Coursier");
+        jobs.add("Vendeur Immobilier");
+        jobs.add("Gestionnaire de fonds");
+        jobs.add("Sans-emploi");
+        jobs.add("Paintre");
+        jobs.add("Vendeur");
+        jobs.add("Courtier");
+        jobs.add("Professeur");
+        jobs.add("Architecte");
+
+        return jobs.get(rand.nextInt(jobs.size()));
+    }
+
     private List<AdminFile> generateRandomAdminFiles(int nb){
         List<String> emailBox = new ArrayList<>();
         emailBox.add("@yahoo.fr");
@@ -329,24 +350,18 @@ public class HospitalSetup {
         emailBox.add("@sfr.fr");
         emailBox.add("@orange.fr");
         emailBox.add("@yopmail.com");
-        List<String> jobs = new ArrayList<>();
-        jobs.add("Coursier");
-        jobs.add("Vendeur Immobilier");
-        jobs.add("Gestionnaire de fonds");
-        jobs.add("Sans emploie");
-        jobs.add("Paintre");
-        jobs.add("Vendeur");
-        jobs.add("Courtier");
-        jobs.add("Professeur");
-        jobs.add("Architecte");
+
         List<AdminFile> list = new ArrayList<>();
         try {
             List<String> dataPrenom = Parse.parseFileToString(Paths.get("/home/dev/Dropbox_Host/padme_project/PADME-Project/back/src/main/resources/dataForSetup/Prenoms.csv"));
             HashMap<String, Boolean> prenoms = Parse.parseFirstname(dataPrenom);
 
+            List<String> dataInseeRefs = Parse.parseFileToString(Paths.get("/home/dev/Dropbox_Host/padme_project/PADME-Project/back/src/main/resources/dataForSetup/laposte_hexasmal.csv"));
+            List<InseeRef> listInseeRefs = Parse.parseInseeRef(dataInseeRefs);
+
 
             List<String> dataAddress = Parse.parseFileToString(Paths.get("/home/dev/Dropbox_Host/padme_project/PADME-Project/back/src/main/resources/dataForSetup/les_bureaux_de_poste_et_agences_postales_en_idf.csv"));
-            List<Address> addressSamples = Parse.parseSampleAddress(dataAddress);
+            List<Address> addressSamples = Parse.parseSampleAddress(dataAddress, listInseeRefs);
 
             List<String> firstNames = new ArrayList<>(prenoms.keySet());
             for(int i= 0; i < nb; i++) {
@@ -367,7 +382,7 @@ public class HospitalSetup {
                         firstName,
                         gender,
                         birthDate,
-                        birthAddress.getCity(),
+                        birthAddress,
                         address.getAddress(),
                         address.getPostCode().toString(),
                         address.getCity(),
@@ -377,7 +392,7 @@ public class HospitalSetup {
                         generatePhoneNumber("01"),
                         generatePhoneNumber("06"),
                         generatePhoneNumber("01"),
-                        jobs.get(rand.nextInt(jobs.size()))
+                        generateRandomOccupation(LocalDateTime.now().getYear()-birthYear)
                 ));
             }
         } catch (IOException e) {

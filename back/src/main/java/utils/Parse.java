@@ -49,7 +49,7 @@ public class Parse {
 	 * @return HashMap<Address>
 	 * @throws IOException
 	 */
-	public static List<Address> parseSampleAddress(List<String> data) throws IOException{
+	public static List<Address> parseSampleAddress(List<String> data, List<InseeRef> inseeRefs) throws IOException{
 
 		boolean isFirst = true;
 
@@ -65,7 +65,11 @@ public class Parse {
 			Integer postCode = Integer.parseInt(values[5]);
 			String country = values[7].toLowerCase();
 			String city = values[6].toLowerCase();
-			Address address = new Address(addressString, city, postCode, country);
+			InseeRef inseeRef = inseeRefs.stream().filter( p -> p.getPostCode().equals(postCode)).findFirst().orElse(null);
+			String insee = "";
+			if(inseeRef != null)
+				insee = inseeRef.getInsee();
+			Address address = new Address(addressString, city, postCode, country, insee);
 			list.add(address);
 		}
 		return list;
@@ -135,7 +139,7 @@ public class Parse {
 				Integer postCode = Integer.parseInt(values[14].split(" ")[0]);
 				String country = "France";
 				String city = values[14].split(" ")[1].toLowerCase();
-				Address address = new Address(addressString, city, postCode, country);
+				Address address = new Address(addressString, city, postCode, country, "");
 				map.putIfAbsent(name, address);
 			}
 		}
