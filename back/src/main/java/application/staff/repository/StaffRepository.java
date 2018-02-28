@@ -38,7 +38,6 @@ public class StaffRepository {
                 .executeUpdate();
     }
 
-
     public Staff tryConnection(String password, String login) throws NoResultException{
         try {
             return (Staff) em.createQuery("SELECT s FROM Staff s WHERE s.password LIKE :password AND s.login LIKE :login")
@@ -49,7 +48,6 @@ public class StaffRepository {
             return null;
         }
     }
-
 
     public List<Staff> getStaffs() {
         List<Staff> staffs = em.createQuery("SELECT s FROM Staff s").getResultList();
