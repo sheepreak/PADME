@@ -22,7 +22,6 @@ import application.staff.Status;
 import application.staff.domain.Staff;
 import application.staff.repository.StaffRepository;
 import utils.Address;
-import utils.InseeRef;
 import utils.Parse;
 
 import javax.annotation.PostConstruct;
@@ -31,10 +30,8 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Startup
 @Singleton
@@ -63,6 +60,7 @@ public class HospitalSetup {
 
     private Random rand = new Random();
 
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
 
     @PostConstruct
     private void createData() {
@@ -261,7 +259,7 @@ public class HospitalSetup {
 
         patientRepository.save(patient1);
 
-        generateRandomPatient(20);
+        generateRandomPatient(292);
 
     }
 
@@ -313,17 +311,34 @@ public class HospitalSetup {
         return adminFile;
     }
 
-    private int generateOneNumber(){
-        return new Random().nextInt()%10;
-    }
     private String generatePhoneNumber(String indicatif){
         StringBuilder phone = new StringBuilder().append(indicatif);
-        for(int i = 0; i<9; i++)
-            phone.append(generateOneNumber());
+        for(int i = 0; i<8; i++)
+            phone.append(rand.nextInt(10));
         return phone.toString();
     }
 
     private List<AdminFile> generateRandomAdminFiles(int nb){
+        List<String> emailBox = new ArrayList<>();
+        emailBox.add("@yahoo.fr");
+        emailBox.add("@gmail.com");
+        emailBox.add("@free.fr");
+        emailBox.add("@hotmail.fr");
+        emailBox.add("@hotmail.com");
+        emailBox.add("@live.fr");
+        emailBox.add("@sfr.fr");
+        emailBox.add("@orange.fr");
+        emailBox.add("@yopmail.com");
+        List<String> jobs = new ArrayList<>();
+        jobs.add("Coursier");
+        jobs.add("Vendeur Immobilier");
+        jobs.add("Gestionnaire de fonds");
+        jobs.add("Sans emploie");
+        jobs.add("Paintre");
+        jobs.add("Vendeur");
+        jobs.add("Courtier");
+        jobs.add("Professeur");
+        jobs.add("Architecte");
         List<AdminFile> list = new ArrayList<>();
         try {
             List<String> dataPrenom = Parse.parseFileToString(Paths.get("/home/dev/Dropbox_Host/padme_project/PADME-Project/back/src/main/resources/dataForSetup/Prenoms.csv"));
@@ -335,18 +350,18 @@ public class HospitalSetup {
 
             List<String> firstNames = new ArrayList<>(prenoms.keySet());
             for(int i= 0; i < nb; i++) {
-                String firstName = firstNames.get(Math.abs(rand.nextInt() % firstNames.size()));
+                String firstName = firstNames.get(rand.nextInt(firstNames.size()));
                 String gender;
                 if (prenoms.get(firstName))
                     gender = "M";
                 else gender = "F";
-                int birthYear = (2018 - Math.abs(rand.nextInt() % 100));
-                int birthMonth = (1 + Math.abs(rand.nextInt() % 12));
-                int birthDays = (1 + Math.abs(rand.nextInt() % 28));
-                String birthDate = (birthYear + "-" + birthMonth + "-" + birthDays);
-                Address address = addressSamples.get(Math.abs(rand.nextInt() % addressSamples.size()));
-                Address birthAddress = addressSamples.get(Math.abs(rand.nextInt() % addressSamples.size()));
-                String lastName = firstNames.get(Math.abs(rand.nextInt() % firstNames.size()));
+                int birthYear = (2017 - Math.abs(rand.nextInt(100)));
+                int birthMonth = (1 + rand.nextInt(12));
+                int birthDays = (1 + rand.nextInt(28));
+                String birthDate = String.format(birthYear + "-" + birthMonth+"-"+birthDays,Integer.);
+                Address address = addressSamples.get(rand.nextInt(addressSamples.size()));
+                Address birthAddress = addressSamples.get(rand.nextInt(addressSamples.size()));
+                String lastName = firstNames.get(rand.nextInt(firstNames.size()));
                 list.add(generateAdminFile(
                         lastName,
                         firstName,
@@ -358,11 +373,11 @@ public class HospitalSetup {
                         address.getCity(),
                         null,
                         address.getCountry(),
-                        lastName + firstName + "@thisisafakeaddress.com",
+                        lastName + "." + firstName + emailBox.get(rand.nextInt(emailBox.size())),
                         generatePhoneNumber("01"),
                         generatePhoneNumber("06"),
                         generatePhoneNumber("01"),
-                        "Chômeur"
+                        jobs.get(rand.nextInt(jobs.size()))
                 ));
             }
         } catch (IOException e) {

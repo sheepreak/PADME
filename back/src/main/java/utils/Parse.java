@@ -39,7 +39,7 @@ public class Parse {
 				continue;
 			}
 			String[] values = str.split(";",3);
-			map.putIfAbsent(values[0], values[1].toLowerCase().equals("m"));
+			map.putIfAbsent(values[0].split(" ")[0], values[1].toLowerCase().equals("m"));
 		}
 		return map;
 	}
@@ -61,7 +61,7 @@ public class Parse {
 				continue;
 			}
 			String[] values = str.split(";",16);
-			String addressString = values[3].toLowerCase();
+			String addressString = values[2].toLowerCase();
 			Integer postCode = Integer.parseInt(values[5]);
 			String country = values[7].toLowerCase();
 			String city = values[6].toLowerCase();
