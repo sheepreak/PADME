@@ -21,6 +21,7 @@ import {AdminViewComponent} from './admin-view/admin-view.component';
 import {AdministrationRequestService} from './administration-file/administration-request.service';
 
 import {CollapseModule, ModalModule} from 'ngx-bootstrap';
+import {UserDocComponent} from "./user-doc/user-doc.component";
 
 
 const appRoutes: Routes = [
@@ -47,6 +48,10 @@ const appRoutes: Routes = [
   {
     path: 'adminview',
     component: AdminViewComponent
+  },
+  {
+    path: 'userdoc',
+    component: UserDocComponent
   },
   {
     path: '**',
