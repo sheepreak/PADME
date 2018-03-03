@@ -88,8 +88,7 @@ public class Node{
     public String toString(){
         return "{\"id\":"+id
                 +",\"speciality\":\""+ speciality + "\""
-                +",\"level\":\"" + level + "\""
-                +",\"subNode\":\"null\"}";
+                +",\"level\":\"" + level + "\"}";
     }
 
 }
