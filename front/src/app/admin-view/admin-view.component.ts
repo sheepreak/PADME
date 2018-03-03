@@ -25,8 +25,10 @@ export class AdminViewComponent implements OnInit {
 
   listStaff: any;
   listHospital: any;
+
   listPole = [];
   listService = [];
+  listUnity = [];
 
 
   constructor(private request: WebApiPromiseService) {
@@ -51,8 +53,11 @@ export class AdminViewComponent implements OnInit {
   }
 
   onChangePole(index, pole) {
-    console.log(pole);
     this.listService[index] = pole.subNodes;
+  }
+
+  onChangeService(index, service) {
+    this.listUnity[index] = service.subNodes;
   }
 
 }

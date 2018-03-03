@@ -1,4 +1,4 @@
-<div class="col-md-9 col-sm-8">
+<div class="col-md-10 col-sm-9">
   <h2>
     Liste du personnel
   </h2>
@@ -26,7 +26,7 @@
       <tr *ngFor="let staff of listStaff | search:'lastName,firstName':filter ; let i = index" [attr.data-index]="i">
         <td>{{staff.lastName | uppercase}}</td>
         <td>{{staff.firstName | uppercase}}</td>
-        <td></td>
+        <td>{{staff.status}}</td>
         <td>
           <select [ngModel] (ngModelChange)="onChangeHospital(i,$event)" name="hospital"
                   class="form-control">
@@ -42,14 +42,18 @@
           </select>
         </td>
         <td>
-          <select class="form-control">
-            <option *ngFor="let service of listService[i]">
+          <select [ngModel] (ngModelChange)="onChangeService(i,$event)" name="service" class="form-control">
+            <option [ngValue]="service" *ngFor="let service of listService[i]">
               {{service.speciality}}
             </option>
           </select>
         </td>
 
-        <td></td>
+        <td><select class="form-control">
+          <option *ngFor="let unity of listUnity[i]">
+            {{unity.speciality}}
+          </option>
+        </select></td>
         <td>
           <button type="button" class="btn btn-primary">Modifier</button>
         </td>
