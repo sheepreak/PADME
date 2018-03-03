@@ -1,6 +1,6 @@
-import {Component, OnInit, Pipe, PipeTransform} from '@angular/core';
+import {AfterViewChecked, ChangeDetectionStrategy, Component, OnInit, Pipe, PipeTransform} from '@angular/core';
 import {WebApiPromiseService} from '../web-api-promise.service';
-
+import {ChangeDetectorRef} from '@angular/core';
 
 @Pipe({
   name: 'search'
@@ -17,47 +17,79 @@ export class SearchPipe implements PipeTransform {
 }
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-admin-view',
   templateUrl: './admin-view.component.html',
   styleUrls: ['./admin-view.component.css']
 })
-export class AdminViewComponent implements OnInit {
+
+
+export class AdminViewComponent implements OnInit, AfterViewChecked {
+
 
   listStaff: any;
   listHospital: any;
 
-  listPole = [];
-  listService = [];
-  listUnity = [];
 
-
-  constructor(private request: WebApiPromiseService) {
+  constructor(private request: WebApiPromiseService, private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit() {
     this.request.getStaffs().then(data => {
       this.listStaff = data;
+      this.listStaff.forEach(staff => {
+        staff.hospital = [];
+        staff.pole = [];
+        staff.service = [];
+      });
     }).catch(err => {
       console.log(err);
     });
 
     this.request.getHospitals().then(data => {
       this.listHospital = data;
+      this.cdr.detectChanges();
     }).catch(err => {
       console.log(err);
     });
   }
 
-  onChangeHospital(index, hospital) {
-    this.listPole[index] = hospital.hierarchy;
+  ngAfterViewChecked(): void {
+    this.cdr.detectChanges();
   }
 
-  onChangePole(index, pole) {
-    this.listService[index] = pole.subNodes;
+  onChangeHospital(hospital, staff) {
+    staff.hospital = hospital;
+    staff.pole = [];
+    staff.service = [];
+    staff.unity = [];
   }
 
-  onChangeService(index, service) {
-    this.listUnity[index] = service.subNodes;
+  onChangePole(pole, staff) {
+    staff.pole = pole;
+    staff.service = [];
+    staff.unity = [];
   }
 
+  onChangeService(service, staff) {
+    staff.service = service;
+    staff.unity = [];
+  }
+
+
+  selectedHospital(hospital, staff) {
+    if (1 === hospital.id) {
+      staff.hospital = hospital;
+    }
+    return 1 === hospital.id;
+  }
+
+
+  selectedPole(pole, staff) {
+    if (staff.node.level === 'pole' && staff.node.id === pole.id) {
+      staff.pole = pole;
+      return true;
+    }
+    return false;
+  }
 }

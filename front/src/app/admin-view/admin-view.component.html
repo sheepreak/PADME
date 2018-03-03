@@ -28,29 +28,32 @@
         <td>{{staff.firstName | uppercase}}</td>
         <td>{{staff.status}}</td>
         <td>
-          <select [ngModel] (ngModelChange)="onChangeHospital(i,$event)" name="hospital"
-                  class="form-control">
-            <option [ngValue]="hospital" *ngFor="let hospital of listHospital">{{hospital.name}}</option>
+          <select class="form-control" [ngModel]="staff.hospital" (ngModelChange)="onChangeHospital($event,staff)">
+            <option *ngFor="let hospital of listHospital" [ngValue]="hospital"
+                    [selected]="selectedHospital(hospital,staff)"> {{hospital.name}}
+            </option>
           </select>
         </td>
+
         <td>
-          <select [ngModel] (ngModelChange)="onChangePole(i,$event)" name="pole"
-                  class="form-control">
-            <option [ngValue]="pole" *ngFor="let pole of listPole[i]">
+          <select class="form-control" [ngModel]="staff.pole" (ngModelChange)="onChangePole($event,staff)">
+            <option *ngFor="let pole of staff.hospital.hierarchy" [ngValue]="pole"
+                    [selected]="selectedPole(pole,staff)">
               {{pole.speciality}}
             </option>
           </select>
         </td>
+
         <td>
-          <select [ngModel] (ngModelChange)="onChangeService(i,$event)" name="service" class="form-control">
-            <option [ngValue]="service" *ngFor="let service of listService[i]">
+          <select class="form-control" [ngModel]="staff.service" (ngModelChange)="onChangeService($event,staff)">
+            <option *ngFor="let service of staff.pole.subNodes" [ngValue]="service">
               {{service.speciality}}
             </option>
           </select>
         </td>
 
-        <td><select class="form-control">
-          <option *ngFor="let unity of listUnity[i]">
+        <td><select class="form-control" [ngModel]="staff.unity">
+          <option *ngFor="let unity of staff.service.subNodes" [ngValue]="unity">
             {{unity.speciality}}
           </option>
         </select></td>
