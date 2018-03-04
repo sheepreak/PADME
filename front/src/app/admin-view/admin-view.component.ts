@@ -1,6 +1,7 @@
-import {AfterViewChecked, ChangeDetectionStrategy, Component, OnInit, Pipe, PipeTransform} from '@angular/core';
+import {AfterViewChecked, ChangeDetectionStrategy, Component, OnInit, Pipe, PipeTransform, TemplateRef} from '@angular/core';
 import {WebApiPromiseService} from '../web-api-promise.service';
 import {ChangeDetectorRef} from '@angular/core';
+import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 
 @Pipe({
   name: 'search'
@@ -30,8 +31,10 @@ export class AdminViewComponent implements OnInit, AfterViewChecked {
   listStaff: any;
   listHospital: any;
 
+  modalRef: BsModalRef;
 
-  constructor(private request: WebApiPromiseService, private cdr: ChangeDetectorRef) {
+
+  constructor(private request: WebApiPromiseService, private cdr: ChangeDetectorRef, private modalService: BsModalService) {
   }
 
   ngOnInit() {
@@ -92,4 +95,22 @@ export class AdminViewComponent implements OnInit, AfterViewChecked {
     }
     return false;
   }
+
+
+  modificationStaff(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, {
+      animated: true,
+      keyboard: false,
+      backdrop: false,
+      ignoreBackdropClick: false
+    });
+
+    setTimeout(() => {
+      this.modalRef.hide();
+    }, 700);
+
+
+  }
+
+
 }
