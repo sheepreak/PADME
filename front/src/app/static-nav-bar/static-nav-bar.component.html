@@ -10,9 +10,19 @@
       <a href="javascript:void(0)" (click)="openModal(templatePadme)" class="navbar-brand"><img class="logo_PADME"
                                                                                                 src="../../assets/img/logo/logo_PADME.jpg"
                                                                                                 title="{{ 'Home' | translate:user }}"></a>
+      <div class="visible-xs">
+        <a routerLink="login" (click)="loggout()"><img class="user_icon img-responsive"
+                                                                          src="../../assets/img/icon/cancel.png"
+                                                                          title="{{ 'LogOut' | translate:user }}"></a>
+        <a href="javascript:void(0)" (click)="openModal(template)"><img
+          class="user_icon img-responsive"
+          src="../../assets/img/icon/user_icon.png"
+          title="{{ 'UserPage' | translate:user }}"></a>
+
+      </div>
     </div>
     <div class="collapse navbar-collapse" id="navBarStatic">
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav navbar-right hidden-xs">
 
         <li><a href="#"><img class="icon" src="../../assets/img/icon/mail_2.png"
                              title="{{ 'Messaging' | translate:user }}"></a></li>
@@ -34,6 +44,14 @@
           </div>
         </li>
       </ul>
+
+
+      <ul class="nav navbar-nav navbar-right visible-xs">
+        <li style="text-align: center"><a href="#">Messagerie</a></li>
+        <li style="text-align: center"><a href="#">Liste des tâches</a></li>
+      </ul>
+
+
     </div>
   </div>
 </nav>
