@@ -1,32 +1,40 @@
 <nav class="navbar navbar-light navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
+      <button type="button" class="navbar-toggle buttonCollapse" data-toggle="collapse" data-target="#navBarStatic">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
       <a href="javascript:void(0)" (click)="openModal(templatePadme)" class="navbar-brand"><img class="logo_PADME"
                                                                                                 src="../../assets/img/logo/logo_PADME.jpg"
                                                                                                 title="{{ 'Home' | translate:user }}"></a>
     </div>
+    <div class="collapse navbar-collapse" id="navBarStatic">
+      <ul class="nav navbar-nav navbar-right">
 
-    <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><img class="icon" src="../../assets/img/icon/mail_2.png"
+                             title="{{ 'Messaging' | translate:user }}"></a></li>
+        <li><a href="#"><img class="icon" src="../../assets/img/icon/list_2.png"
+                             title="{{ 'TodoList' | translate:user }}"></a>
+        </li>
+        <li>
+          <div class="user">
+            <div class="user_info">
+              <p class="user_name">{{firstName}} {{lastName}}</p>
+              <p class="user_type">{{status | uppercase}}</p>
+            </div>
 
-      <li><a href="#"><img class="icon" src="../../assets/img/icon/mail_2.png"
-                           title="{{ 'Messaging' | translate:user }}"></a></li>
-      <li><a href="#"><img class="icon" src="../../assets/img/icon/list_2.png" title="{{ 'TodoList' | translate:user }}"></a>
-      </li>
-      <li>
-        <div class="user">
-          <div class="user_info">
-            <p class="user_name">{{firstName}} {{lastName}}</p>
-            <p class="user_type">{{status | uppercase}}</p>
+            <a routerLink="login" (click)="loggout()"><img class="user_icon" src="../../assets/img/icon/cancel.png"
+                                                           title="{{ 'LogOut' | translate:user }}"></a>
+            <a href="javascript:void(0)" (click)="openModal(template)"><img class="user_icon"
+                                                                            src="../../assets/img/icon/user_icon.png"
+                                                                            title="{{ 'UserPage' | translate:user }}"></a>
           </div>
-
-          <a routerLink="login" (click)="loggout()"><img class="user_icon" src="../../assets/img/icon/cancel.png"
-                                                         title="{{ 'LogOut' | translate:user }}"></a>
-          <a href="javascript:void(0)" (click)="openModal(template)"><img class="user_icon"
-                                                                          src="../../assets/img/icon/user_icon.png"
-                                                                          title="{{ 'UserPage' | translate:user }}"></a>
-        </div>
-      </li>
-    </ul>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>
 
