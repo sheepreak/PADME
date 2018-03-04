@@ -12,6 +12,7 @@
   text-align: center;
   font-size: 12px;
   box-shadow: 0px 2px 3px grey;
+  background: white;
 }
 
 #menu-accordeon ul {
@@ -69,7 +70,7 @@
 .sidebar{
   position: fixed;
   padding: 0;
-  index: 999;
+  z-index: 9999;
 }
 
 .sidebarVisible{
