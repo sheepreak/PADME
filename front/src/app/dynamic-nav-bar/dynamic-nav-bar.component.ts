@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {UserService} from '../user.service';
 
 @Component({
@@ -18,11 +18,29 @@ export class DynamicNavBarComponent implements OnInit {
 
   user: UserService;
 
+  navVisible = true;
+
+  @ViewChild('sidebar')
+  private documentSection: ElementRef;
+
+  divWidth: number;
+
   constructor(private userService: UserService) {
-    this.user = this.userService ;
+    this.user = this.userService;
   }
 
   ngOnInit() {
+  }
+
+
+  closeNav() {
+    this.divWidth = this.documentSection.nativeElement.offsetWidth * -1;
+    this.navVisible = false;
+  }
+
+  openNav() {
+    this.navVisible = true;
+    this.divWidth = 0;
   }
 
 

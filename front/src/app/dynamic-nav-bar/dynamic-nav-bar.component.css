@@ -67,7 +67,18 @@
 
 
 .sidebar{
+  position: fixed;
   padding: 0;
+  index: 999;
+}
+
+.sidebarVisible{
+  left:0;
+  transition: 0.4s;
+}
+
+.sidebarHidden{
+  transition: 0.4s;
 }
 
 @media screen and (min-width: 750px) {

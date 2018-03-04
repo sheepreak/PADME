@@ -1,4 +1,22 @@
-<div class="col-sm-3 col-md-2 sidebar">
+<!--<script>-->
+<!--function openNav() {-->
+<!--document.getElementById("sidebar").style.left = "0px";-->
+<!--}-->
+
+<!--function closeNav() {-->
+<!--console.log("aaa");-->
+<!--document.getElementById("sidebar").style.left = "-500px";-->
+<!--}-->
+<!--</script>-->
+
+<div class="col-sm-3 col-md-2 sidebar" id="sidebar" #sidebar [style.left.px]="divWidth"
+     [ngClass]="{'sidebarVisible': navVisible, 'sidebarHidden': !navVisible}">
+
+  <a href="javascript:void(0)" (click)="closeNav()" *ngIf="navVisible"><span class="glyphicon glyphicon-chevron-left"
+                                                                             style="position: absolute; right:0"></span></a>
+
+  <a *ngIf="!navVisible" href="javascript:void(0)" (click)="openNav()"><span class="glyphicon glyphicon-chevron-right"
+                                                                             style="position: absolute" [style.left.px]="-divWidth"></span></a>
   <ul id="menu-accordeon">
     <li><a routerLink="patientlist">Liste des patients</a>
     <li *ngIf="user.getPatientIdSelected()!= null"><a routerLink="administrationfile">Fiche administrative patient</a>
@@ -54,7 +72,6 @@
   </ul>
 
 </div>
-
 
 
 
