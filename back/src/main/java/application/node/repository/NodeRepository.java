@@ -22,7 +22,7 @@ public class NodeRepository {
         return list;
     }
 
-    public Node find(Long id){
+    public Node find(Integer id){
         return entityManager.find(Node.class, id);
     }
 
@@ -31,9 +31,8 @@ public class NodeRepository {
         return node.getId();
     }
 
-    public void delete(Long id) throws NoSuchEntityException{
-        Node node = null;
-        node = find(id);
+    public void delete(Integer id) throws NoSuchEntityException{
+        Node node = find(id);
         if(node!=null)
             entityManager.remove(node);
         else throw new NoSuchEntityException();

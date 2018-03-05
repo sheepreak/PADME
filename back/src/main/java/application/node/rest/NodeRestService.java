@@ -36,7 +36,7 @@ public class NodeRestService {
     @DELETE
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteNode(@PathParam("id") Long id) {
+    public Response deleteNode(@PathParam("id") Integer id) {
         try {
             repository.delete(id);
         } catch (NoSuchEntityException e) {
@@ -55,7 +55,7 @@ public class NodeRestService {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getNode(@PathParam("id") Long id) {
+    public Response getNode(@PathParam("id") Integer id) {
         Node node= repository.find(id);
         if (node == null)
             return Response.status(Response.Status.NOT_FOUND).build();
@@ -65,12 +65,23 @@ public class NodeRestService {
     @PUT
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addNode(@PathParam("id") Long id, Node node){
+    public Response addNode(@PathParam("id") Integer id, Node node){
         Node nodeImpl = repository.find(id);
         if (nodeImpl == null)
             return Response.status(Response.Status.NOT_FOUND).build();
         nodeImpl.addNode(node);
         repository.update(nodeImpl);
         return Response.ok(nodeImpl).build();
+    }
+
+
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateNode(Node node){
+        Node newNode = repository.find(node.getId());
+        newNode.setLevel(node.getLevel());
+        newNode.setSpeciality(node.getSpeciality());
+        repository.update(newNode);
+        return Response.ok().build();
     }
 }
