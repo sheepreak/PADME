@@ -4,6 +4,10 @@
   "LogOut": "Déconnexion",
   "Messaging": "La messagerie n'est pas encore disponible",
   "TodoList": "Liste des tâches",
+  "DOCTOR": "Medecin",
+  "ADMIN": "Admin",
+  "NURTH": "Infirmier",
+  "SECRETARY": "Secrétaire",
 
   "Edit":"Modifier",
   "Publish":"Publier",
@@ -49,5 +53,13 @@
 
   "Consultation":"Consultation",
   "PatientList": "Liste des patients",
-  "Examination": "Examens"
+  "Examination": "Examens",
+
+  "PatientList" : "Liste des patients",
+  "AdminDocPatient" : "Fiche administrative patient",
+  "AdminView" : "Vue administrateur",
+  "Archive" : "Archive",
+  "MedicalFolder" : "Dossier médical",
+  "Add" : "Ajout",
+  "MyDocument" : "Mes documents"
 }
