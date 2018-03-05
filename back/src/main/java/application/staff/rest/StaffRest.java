@@ -1,5 +1,7 @@
 package application.staff.rest;
 
+import application.hospital.domain.Hospital;
+import application.hospital.repository.HospitalRepository;
 import application.medicalfile.domain.MedicalFile;
 import application.medicalfile.repository.MedicalFileRepository;
 import application.node.domain.Node;
@@ -17,9 +19,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Path("/staff")
@@ -29,6 +29,9 @@ public class StaffRest {
 
     @EJB
     private StaffRepository staffRepository;
+
+    @EJB
+    private HospitalRepository hospitalRepository;
 
     @EJB
     private MedicalFileRepository medicalFileRepository;
@@ -141,21 +144,78 @@ public class StaffRest {
 
 
     private String getStaffInfo(List<Staff> staffs) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("[");
+        List<Hospital> hospitals = hospitalRepository.list();
+        StringBuilder json = new StringBuilder();
+        Map<Integer, List<Staff>> map = new HashMap<>();
+        Integer key;
+        List<Staff> tmpListStaff;
+
         for(Staff s : staffs) {
-            if(sb.toString().length() > 1)
-                sb.append(",");
-            sb.append("{ ")
-                    .append("\"lastName\" : \"").append(s.getLastName()).append("\",")
-                    .append("\"firstName\" : \"").append(s.getFirstName()).append("\",")
-                    .append("\"status\" : \"").append(s.getStatus()).append("\",")
-                    .append("\"node\" :").append(s.getNode())
-                    .append("}");
+
+            key = s.getNode().getId();
+
+            if(!map.containsKey(key))
+                tmpListStaff = new ArrayList();
+            else
+                tmpListStaff = map.get(key);
+
+            tmpListStaff.add(s);
+            map.put(key, tmpListStaff);
+
         }
 
-        sb.append("]");
+        json.append("[");
+
+        for(Hospital h : hospitals) {
+            List<Node> nodes = h.getHierarchy();
+            for(Node n : nodes) {
+                StringBuilder stringBuilder = new StringBuilder();
+                json.append(parcourTree(n, stringBuilder, map));
+            }
+        }
+
+        json.deleteCharAt(json.length() - 1);
+        json.append("]");
+        return json.toString();
+
+    }
+
+    private String parcourTree(Node node, StringBuilder hierarchy, Map<Integer, List<Staff>> map) {
+
+        List<Staff> tmpListStaff;
+        StringBuilder sb = new StringBuilder();
+        StringBuilder tmpHierarchy = new StringBuilder(hierarchy.toString());
+
+        tmpHierarchy.append(node.getId());
+
+        if((tmpListStaff = map.getOrDefault(node.getId(), Collections.EMPTY_LIST)) != Collections.EMPTY_LIST)
+            for(Staff s : tmpListStaff)
+                sb.append(initJson(s, tmpHierarchy.toString()));
+
+        tmpHierarchy.append(",");
+
+        for(Node n : node.getSubNodes())
+            sb.append(parcourTree(n, tmpHierarchy, map));
+
         return sb.toString();
+
+    }
+
+
+    private String initJson(Staff s, String hierarchie) {
+
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("{ ")
+                .append("\"lastName\" : \"").append(s.getLastName()).append("\",")
+                .append("\"firstName\" : \"").append(s.getFirstName()).append("\",")
+                .append("\"status\" : \"").append(s.getStatus()).append("\",")
+                .append("\"hierarchy\" : [").append(hierarchie).append("],")
+                .append("\"node\" :").append(s.getNode())
+                .append("},");
+
+        return sb.toString();
+
     }
 
 }
