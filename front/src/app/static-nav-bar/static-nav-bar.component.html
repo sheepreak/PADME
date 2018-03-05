@@ -36,7 +36,7 @@
           <div class="user">
             <div class="user_info">
               <p class="user_name">{{firstName}} {{lastName}}</p>
-              <p class="user_type">{{status | uppercase}}</p>
+              <p class="user_type">{{status | translate:user | uppercase  }}</p>
             </div>
 
             <a routerLink="login" (click)="loggout()"><img class="user_icon" src="../../assets/img/icon/cancel.png"
