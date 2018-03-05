@@ -113,7 +113,19 @@ export class UserService {
   }
 
   isAdmin() {
-    return this.status === 'admin';
+    return this.status === 'ADMIN';
+  }
+
+  isDoctor() {
+    return this.status === 'DOCTOR';
+  }
+
+  isNurse() {
+    return this.status === 'NURSE';
+  }
+
+  isSecretary() {
+    return this.status === 'SECRETAIRE';
   }
 
   getId() {
