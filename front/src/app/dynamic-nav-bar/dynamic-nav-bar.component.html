@@ -7,63 +7,30 @@
   <a *ngIf="!navVisible" href="javascript:void(0)" class="displayNav" (click)="openNav()"><span class="glyphicon glyphicon-chevron-right"
                                                                              style="position: absolute" [style.left.px]="-user.marginLeft"></span></a>
   <ul id="menu-accordeon">
-    <li><a routerLink="patientlist">{{ 'PatientList' | translate:user }}</a>
-    <li *ngIf="user.getPatientIdSelected()!= null"><a routerLink="administrationfile">{{ 'AdminDocPatient' | translate:user }}</a>
+    <li *ngIf="user.isAdmin()"><a routerLink="adminview">Liste du personnel</a></li>
+    <li *ngIf="user.isDoctor() || user.isNurse()"><a routerLink="patientlist">Liste des patients</a></li>
+    <li *ngIf="(user.isDoctor() || user.isNurse()) && user.getPatientIdSelected()!= null"><a routerLink="administrationfile">Fiche administrative patient</a>
     <li><a href="javascript:void(0)">{{ 'Consultation' | translate:user }}</a></li>
     <li><a href="javascript:void(0)">{{ 'Examen' | translate:user }}</a></li>
     <li><a href="javascript:void(0)">{{ 'Prescription' | translate:user }}</a></li>
     <li *ngIf="user.isAdmin()"><a routerLink="adminview">{{ 'AdminView' | translate:user }}</a>
-    <li><a href="javascript:void(0)">{{ 'Archive' | translate:user }}</a>
-    <li *ngIf="user.isAdmin()"><a routerLink="adminview">Liste du personnel</a></li>
-    <li *ngIf="user.isDoctor() || user.isNurse()"><a routerLink="patientlist">Liste des patients</a></li>
-    <li *ngIf="(user.isDoctor() || user.isNurse()) && user.getPatientIdSelected()!= null"><a routerLink="administrationfile">Fiche administrative patient</a>
-    <li><a href="javascript:void(0)" (click)="consultationIsCollapsed = !consultationIsCollapsed">Consultation(4)</a>
-      <ul [collapse]="consultationIsCollapsed">
-        <li><a routerLink="consultationfile">lien sous menu 1</a></li>
-        <li><a routerLink="consultationfile">lien sous menu 1</a></li>
-        <li><a routerLink="consultationfile">lien sous menu 1</a></li>
-        <li><a routerLink="consultationfile">lien sous menu 1</a></li>
-      </ul>
-    </li>
-    <li><a href="javascript:void(0)" (click)="examenIsCollapsed = !examenIsCollapsed">Examen(3)</a>
-      <ul [collapse]="examenIsCollapsed">
-        <li><a routerLink="examenfile">Lien sous menu 2</a></li>
-        <li><a routerLink="examenfile">Lien sous menu 2</a></li>
-        <li><a routerLink="examenfile">Lien sous menu 2</a></li>
-      </ul>
-    </li>
-    <li><a href="javascript:void(0)" (click)="prescriptionIsCollapsed = !prescriptionIsCollapsed">Prescription(4)</a>
-      <ul [collapse]="prescriptionIsCollapsed">
-        <li><a routerLink="prescriptionfile">lien sous menu 1</a></li>
-        <li><a routerLink="prescriptionfile">lien sous menu 1</a></li>
-        <li><a routerLink="prescriptionfile">lien sous menu 1</a></li>
-        <li><a routerLink="prescriptionfile">lien sous menu 1</a></li>
-      </ul>
-    </li>
-    <li *ngIf="user.isAdmin()"><a routerLink="adminview">Vue administrateur</a>
-    <li><a href="javascript:void(0)" (click)="archiveIsCollapsed = !archiveIsCollapsed">Archive(1)</a>
-      <ul [collapse]="archiveIsCollapsed">
-        <li><a routerLink="prescriptionfile">Dossier n152352</a></li>
-      </ul>
-    </li>
-
-
+    <li><a href="javascript:void(0)" (click)="archiveIsCollapsed = !archiveIsCollapsed">{{ 'Archive' | translate:user }}</a></li>
+    
     <li class="imgList first"><a href="javascript:void(0)" (click)="addIsCollapsed = !addIsCollapsed"><img
-      src="../../assets/img/icon/add-all.svg">Ajout</a>
+      src="../../assets/img/icon/add-all.svg">{{ 'Add' | translate:user }}</a>
       <ul [collapse]="addIsCollapsed">
-        <li><a routerLink="consultationfile">Consultation</a></li>
-        <li><a routerLink="examenfile">Examen</a></li>
-        <li><a routerLink="prescriptionfile">Prescription</a></li>
-        <li><a routerLink="patientlist">Dossier médical</a></li>
+        <li *ngIf="user.isDoctor()"><a routerLink="consultationfile">{{ 'Consultation' | translate:user }}</a></li>
+        <li *ngIf="user.isDoctor()"><a routerLink="examenfile">{{ 'Examen' | translate:user }}</a></li>
+        <li *ngIf="user.isDoctor()"><a routerLink="prescriptionfile">{{ 'Prescription' | translate:user }}</a></li>
+        <li><a routerLink="administrationfile">{{ 'AdminFIle' | translate:user }}</a></li>
       </ul>
     </li>
     <li class="imgList"><a href="javascript:void(0)" (click)="myDocIsCollapsed = !myDocIsCollapsed"><img
-      src="../../assets/img/icon/doc1.png">Mes documents</a>
+      src="../../assets/img/icon/doc1.png">{{ 'MyDocument' | translate:user }}</a>
       <ul [collapse]="myDocIsCollapsed">
-        <li><a routerLink="consultationfile">Consultation</a></li>
-        <li><a routerLink="examenfile">Examen</a></li>
-        <li><a routerLink="prescriptionfile">Prescription</a></li>
-        <li><a routerLink="patientlist">Dossier médical</a></li>
+        <li *ngIf="user.isDoctor()"><a routerLink="consultationfile">{{ 'Consultation' | translate:user }}</a></li>
+        <li *ngIf="user.isDoctor()"><a routerLink="examenfile">{{ 'Examen' | translate:user }}</a></li>
+        <li *ngIf="user.isDoctor()"><a routerLink="prescriptionfile">{{ 'Presciption' | translate:user }}</a></li>
       </ul>
     </li>
   </ul>
