@@ -15,5 +15,4 @@ export class PatientListServiceService {
   getPatients() {
     return this.http.get('http://localhost:8080/back-1.0-SNAPSHOT/rs/patient', {headers: this.httpOptions}).toPromise();
   }
-
 }

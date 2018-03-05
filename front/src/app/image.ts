@@ -12,7 +12,7 @@ export class Image {
   constructor(name: string, path: string) {
     this.name = name;
     this.img = path;
-    this.miniature = "../../assets/add-image.png";
+    this.miniature = "../../assets/img/icon/add-image.png";
     this.currentpath = this.miniature;
   }
 
