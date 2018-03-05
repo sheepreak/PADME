@@ -21,12 +21,19 @@ import application.prescription.repository.PrescriptionRepository;
 import application.staff.Status;
 import application.staff.domain.Staff;
 import application.staff.repository.StaffRepository;
+import utils.Address;
+import utils.InseeRef;
+import utils.Parse;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
-import java.util.Random;
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Startup
 @Singleton
@@ -53,7 +60,9 @@ public class HospitalSetup {
     @EJB
     private StaffRepository staffRepository;
 
+    private Random rand = new Random();
 
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
 
     @PostConstruct
     private void createData() {
@@ -199,7 +208,7 @@ public class HospitalSetup {
                 "Raymond",
                 "M",
                 "1958-06-25",
-                "Livry-Gargan",
+                new Address("","Livry-Gargan", 93190, "france", "93046"),
                 "18 allée de Chartres",
                 "93190",
                 "Livry-Gargan",
@@ -252,13 +261,15 @@ public class HospitalSetup {
 
         patientRepository.save(patient1);
 
+        generateRandomPatient(292);
+
     }
 
     private AdminFile generateAdminFile(String lastName,
                                        String firstName,
                                        String gender,
                                        String birthDate,
-                                       String birthPlace,
+                                       Address birthPlace,
                                        String address,
                                        String postalCode,
                                        String city,
@@ -275,7 +286,7 @@ public class HospitalSetup {
 
         socialID.append(gender.equals("M") ? 1 : 2 );
         socialID.append(birthDate.subSequence(2, 4)).append(birthDate.subSequence(5,7));
-        socialID.append(postalCode);
+        socialID.append(birthPlace.getPostCode());
         for(int i = 0 ; i < 5 ; i++)
             socialID.append(random.nextInt(10));
 
@@ -284,7 +295,7 @@ public class HospitalSetup {
                 firstName,
                 gender,
                 birthDate,
-                birthPlace,
+                birthPlace.getCity(),
                 socialID.toString(),
                 address,
                 postalCode,
@@ -302,7 +313,138 @@ public class HospitalSetup {
         return adminFile;
     }
 
+    private String generatePhoneNumber(String indicatif){
+        StringBuilder phone = new StringBuilder().append(indicatif);
+        for(int i = 0; i<8; i++)
+            phone.append(rand.nextInt(10));
+        return phone.toString();
+    }
+
+    private String generateRandomOccupation(int age){
+        if(age < 6)
+            return "Sans-emploi";
+        if(age < 21)
+             return "Etudiant";
+        List<String> jobs = new ArrayList<>();
+        jobs.add("Coursier");
+        jobs.add("Vendeur Immobilier");
+        jobs.add("Gestionnaire de fonds");
+        jobs.add("Sans-emploi");
+        jobs.add("Paintre");
+        jobs.add("Vendeur");
+        jobs.add("Courtier");
+        jobs.add("Professeur");
+        jobs.add("Architecte");
+
+        return jobs.get(rand.nextInt(jobs.size()));
+    }
+
+    private List<AdminFile> generateRandomAdminFiles(int nb){
+        List<String> emailBox = new ArrayList<>();
+        emailBox.add("@yahoo.fr");
+        emailBox.add("@gmail.com");
+        emailBox.add("@free.fr");
+        emailBox.add("@hotmail.fr");
+        emailBox.add("@hotmail.com");
+        emailBox.add("@live.fr");
+        emailBox.add("@sfr.fr");
+        emailBox.add("@orange.fr");
+        emailBox.add("@yopmail.com");
+
+        List<AdminFile> list = new ArrayList<>();
+        try {
+            List<String> dataPrenom = Parse.parseFileToString(Paths.get("/home/dev/Dropbox_Host/padme_project/PADME-Project/back/src/main/resources/dataForSetup/Prenoms.csv"));
+            HashMap<String, Boolean> prenoms = Parse.parseFirstname(dataPrenom);
+
+            List<String> dataInseeRefs = Parse.parseFileToString(Paths.get("/home/dev/Dropbox_Host/padme_project/PADME-Project/back/src/main/resources/dataForSetup/laposte_hexasmal.csv"));
+            List<InseeRef> listInseeRefs = Parse.parseInseeRef(dataInseeRefs);
 
 
+            List<String> dataAddress = Parse.parseFileToString(Paths.get("/home/dev/Dropbox_Host/padme_project/PADME-Project/back/src/main/resources/dataForSetup/les_bureaux_de_poste_et_agences_postales_en_idf.csv"));
+            List<Address> addressSamples = Parse.parseSampleAddress(dataAddress, listInseeRefs);
+
+            List<String> firstNames = new ArrayList<>(prenoms.keySet());
+            for(int i= 0; i < nb; i++) {
+                String firstName = firstNames.get(rand.nextInt(firstNames.size()));
+                String gender;
+                if (prenoms.get(firstName))
+                    gender = "M";
+                else gender = "F";
+                int birthYear = (2017 - Math.abs(rand.nextInt(100)));
+                int birthMonth = (1 + rand.nextInt(12));
+                int birthDays = (1 + rand.nextInt(28));
+                String birthDate = birthYear + "-" + String.format("%02d", birthMonth)+"-"+String.format("%02d", birthDays);
+                Address address = addressSamples.get(rand.nextInt(addressSamples.size()));
+                Address birthAddress = addressSamples.get(rand.nextInt(addressSamples.size()));
+                String lastName = firstNames.get(rand.nextInt(firstNames.size()));
+                list.add(generateAdminFile(
+                        lastName,
+                        firstName,
+                        gender,
+                        birthDate,
+                        birthAddress,
+                        address.getAddress(),
+                        address.getPostCode().toString(),
+                        address.getCity(),
+                        null,
+                        address.getCountry(),
+                        lastName + "." + firstName + emailBox.get(rand.nextInt(emailBox.size())),
+                        generatePhoneNumber("01"),
+                        generatePhoneNumber("06"),
+                        generatePhoneNumber("01"),
+                        generateRandomOccupation(LocalDateTime.now().getYear()-birthYear)
+                ));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    private List<Patient> generateRandomPatient(int nb){
+        List<Patient> list = new ArrayList<>();
+
+        List<AdminFile> adminFiles = generateRandomAdminFiles(nb);
+        for(AdminFile adminFile : adminFiles) {
+            MedicalInfo medicalInfo = new MedicalInfo();
+            medicalInfo.addInformations("allergies", "sel", "gluten", "lactose");
+            medicalInfoRepository.save(medicalInfo);
+            Patient patient = new Patient(adminFile, medicalInfo);
+            patientRepository.save(patient);
+            list.add(patient);
+        }
+        return list;
+    }
+
+    private List<MedicalFile> generateRandomMedicalFile(AdminFile adminFile, int nb) {
+        List<MedicalFile> list = new ArrayList<>();
+        for(int i= 0; i < nb; i++) {
+
+        }
+        return list;
+    }
+
+    private List<Observation> generateRandomObservation(MedicalFile medicalFile, int nb) {
+        List<Observation> list = new ArrayList<>();
+        for(int i= 0; i < nb; i++) {
+
+        }
+        return list;
+    }
+
+    private List<Examen> generateRandomExamem(MedicalFile medicalFile, int nb) {
+        List<Examen> list = new ArrayList<>();
+        for(int i= 0; i < nb; i++) {
+
+        }
+        return list;
+    }
+
+    private List<Prescription> generateRandomPrescription(MedicalFile medicalFile, int nb) {
+        List<Prescription> list = new ArrayList<>();
+        for(int i= 0; i < nb; i++) {
+
+        }
+        return list;
+    }
 
 }
