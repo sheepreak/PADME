@@ -75,11 +75,11 @@
 
 .sidebarVisible{
   left:0;
-  transition: 0.4s;
+  /*transition: 0.4s;*/
 }
 
 .sidebarHidden{
-  transition: 0.4s;
+  /*transition: 0.4s;*/
 }
 
 @media screen and (min-width: 750px) {
@@ -100,4 +100,8 @@
 img{
   max-height: 40px;
   padding: 10px;
+}
+
+.displayNav{
+  font-size: x-large;
 }

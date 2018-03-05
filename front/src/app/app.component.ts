@@ -16,6 +16,7 @@ export class AppComponent {
 
   user: UserService;
 
+
   constructor(private translate: TranslateService, private userService: UserService) {
     this.user = userService;
     const language = localStorage.getItem('language');

@@ -17,6 +17,9 @@ export class UserService {
   private address: string;
   private id: string;
 
+  marginLeft = 0;
+  marginBody = 0;
+
 
   private patientId = null;
 
