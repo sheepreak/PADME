@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {Image} from '../image';
 import {ManageFile} from '../manageFile';
 import {log} from "util";
-import {PatientListComponent} from "../patient-list/patient-list.component";
 import {Patient} from "../patient";
 import {Doctor} from "../doctor";
 
@@ -25,12 +24,8 @@ export class ExamenFileComponent implements OnInit {
   oldDirectory;
   patient: Patient = new Patient("Jean", "Dujardin");
   doctor: Doctor = new Doctor("Jean-Luc", "Portos", "Radiologue");
-
-/*
-  orderForm: FormGroup;
-  items: any[] = [];
-  formBuilder: FormBuilder;
-*/
+  name: string;
+  path: string;
 
   constructor() {
     this.directory.description = 'Radiographie simple de l\'epaule gauche avec clicher de face stricte et profile auxillaire';
@@ -38,8 +33,8 @@ export class ExamenFileComponent implements OnInit {
     this.directory.observation = 'Fracture tassement de la face posterieur de la tếte humérale';
     this.imgMin = true;
 
-    let i = new Image('Radio épaule profile auxillaire', '../../assets/epaule1.jpg');
-    let ii = new Image('Radio épaule face stricte', '../../assets/epaule2.png');
+    let i = new Image('Radio épaule profile auxillaire', '../../assets/img/photo/epaule1.jpg');
+    let ii = new Image('Radio épaule face stricte', '../../assets/img/photo/epaule2.png');
     console.log(i.name);
     this.img.push(i);
     this.img.push(ii);
@@ -52,29 +47,8 @@ export class ExamenFileComponent implements OnInit {
   }
 
   ngOnInit() {
-    /*
-    this.orderForm = this.formBuilder.group({
-      customerName: '',
-      email: '',
-      items: this.formBuilder.array([ this.createItem() ])
-    });
-*/
-  }
 
-/*
-  createItem(): FormGroup {
-    return this.formBuilder.group({
-      name: '',
-      description: '',
-      price: ''
-    });
   }
-
-  addItem(): void {
-    this.items = this.orderForm.get('items') as FormArray;
-    this.items.push(this.createItem());
-  }
-  */
 
   modifData() {
     this.oldDirectory = Object.assign({}, this.directory);
@@ -87,7 +61,6 @@ export class ExamenFileComponent implements OnInit {
     this.manageFile.state = ManageFile.State.Consulted;
   }
 
-
   public changeImg(img: Image){
     img.changeImg();
   }
@@ -95,6 +68,17 @@ export class ExamenFileComponent implements OnInit {
   public loadAllImg(){
     for (let i of this.img){
       i.loadImg();
+    }
+  }
+
+  public addImg(){
+    if (this.name != null && this.path != null) {
+
+      let i = new Image(this.name, this.path);
+      this.img.push(i);
+
+      this.path = null;
+      this.name = null;
     }
   }
 }

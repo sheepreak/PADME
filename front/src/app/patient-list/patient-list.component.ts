@@ -14,7 +14,6 @@ export class SearchPipe implements PipeTransform {
       return value;
     }
     return (value || []).filter((item) => keys.split(',').some(key => item.hasOwnProperty(key) && new RegExp(term, 'gi').test(item[key])));
-
   }
 }
 
