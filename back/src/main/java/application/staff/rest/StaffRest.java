@@ -42,11 +42,11 @@ public class StaffRest {
     public Response getPatients(@PathParam("id") Integer id) {
 
         Staff staff = staffRepository.find(id);
-        List<Map<String,String>> maps = new ArrayList<>();
+        List<Map<String, String>> maps = new ArrayList<>();
         List<Node> leafs = staff.leaves();
-        for(Node node : leafs) {
+        for (Node node : leafs) {
             List<MedicalFile> medicalFiles = medicalFileRepository.findFilesByNode(node.getId());
-            for(MedicalFile medicalFile : medicalFiles) {
+            for (MedicalFile medicalFile : medicalFiles) {
                 maps.add(medicalFile.patientInformations());
             }
         }
@@ -58,7 +58,7 @@ public class StaffRest {
     @Produces(MediaType.APPLICATION_JSON)
     public Response putStaff(Staff staff) {
 
-        if(staff == null)
+        if (staff == null)
             Response.status(Response.Status.BAD_REQUEST).build();
 
         staffRepository.save(staff);
@@ -71,7 +71,7 @@ public class StaffRest {
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateStaff(Staff staff) {
 
-        if(staff == null)
+        if (staff == null)
             Response.status(Response.Status.BAD_REQUEST).build();
 
         staffRepository.update(staff);
@@ -85,7 +85,7 @@ public class StaffRest {
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateStaffSocio(Staff staff) {
 
-        if(staff == null)
+        if (staff == null)
             Response.status(Response.Status.BAD_REQUEST).build();
 
         staffRepository.updateDataStaff(staff);
@@ -98,7 +98,7 @@ public class StaffRest {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getStaff(@PathParam("id") Integer id) {
         Staff staff = staffRepository.find(id);
-        if(staff == null)
+        if (staff == null)
             return Response.status(Status.BAD_REQUEST).build();
         return Response.ok(staff).build();
     }
@@ -114,7 +114,7 @@ public class StaffRest {
 
             JSONObject jsonObject = new JSONObject(identification);
 
-            if((staff = staffRepository.tryConnection(jsonObject.getString("password"), jsonObject.getString("login"))) == null)
+            if ((staff = staffRepository.tryConnection(jsonObject.getString("password"), jsonObject.getString("login"))) == null)
                 return Response.status(Response.Status.UNAUTHORIZED).build();
 
 
@@ -142,6 +142,21 @@ public class StaffRest {
         return Response.ok(getStaffInfo(staffs)).build();
     }
 
+    @PUT
+    @Path("/{id}/node")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateNode(@PathParam("id") Integer id, Node node) {
+
+        Staff staff = staffRepository.find(id);
+        staff.setNode(node);
+        staffRepository.update(staff);
+
+        return Response.status(Status.ACCEPTED).build();
+
+    }
+
+
+    //------------- Private Helpers --------------
 
     private String getStaffInfo(List<Staff> staffs) {
         List<Hospital> hospitals = hospitalRepository.list();
@@ -201,12 +216,12 @@ public class StaffRest {
 
     }
 
-
     private String initJson(Staff s, String hierarchie) {
 
         StringBuilder sb = new StringBuilder();
 
         sb.append("{ ")
+                .append("\"id\" : ").append(s.getId()).append(",")
                 .append("\"lastName\" : \"").append(s.getLastName()).append("\",")
                 .append("\"firstName\" : \"").append(s.getFirstName()).append("\",")
                 .append("\"status\" : \"").append(s.getStatus()).append("\",")
