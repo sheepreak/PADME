@@ -138,7 +138,7 @@ public class HospitalSetup {
         //user accounts for testing
         Staff staff1 = new Staff("ameline", "ameline", "Moreau", "Ameline", "0606060606", "123 fake street", Status.ADMIN);
         Staff staff2 = new Staff("charles", "charles", "Da Silva Costa", "Charles", "0606060607", "125 fake street", Status.DOCTOR);
-        Staff staff3 = new Staff("jeanluc", "jeanluc", "Fernandes", "Jean-Luc", "0606060608", "127 fake street", Status.SECRETAIRE);
+        Staff staff3 = new Staff("jeanluc", "jeanluc", "Fernandes", "Jean-Luc", "0606060608", "127 fake street", Status.SECRETARY);
         staff1.setNode(nodePole1);
         staff2.setNode(nodePole1);
         staff3.setNode(nodePole1);

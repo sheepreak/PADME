@@ -135,10 +135,10 @@ public class Staff {
     }
 
     public List<Node> leaves(){
-        return getLeavesHelper(this.node);
+        return leavesHelper(this.node);
     }
 
-    private List<Node> getLeavesHelper(Node node){
+    private List<Node> leavesHelper(Node node){
 
         List<Node> sons;
         if((sons = node.getSubNodes()) == null)
@@ -148,7 +148,7 @@ public class Staff {
             if(n.getSubNodes() == Collections.EMPTY_LIST)
                 sons.add(n);
             else
-                sons.addAll(getLeavesHelper(n));
+                sons.addAll(leavesHelper(n));
         }
         return sons;
     }

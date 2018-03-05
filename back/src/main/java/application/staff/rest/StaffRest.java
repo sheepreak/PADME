@@ -1,5 +1,7 @@
 package application.staff.rest;
 
+import application.hospital.domain.Hospital;
+import application.hospital.repository.HospitalRepository;
 import application.medicalfile.domain.MedicalFile;
 import application.medicalfile.repository.MedicalFileRepository;
 import application.node.domain.Node;
@@ -17,9 +19,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Path("/staff")
@@ -31,6 +31,9 @@ public class StaffRest {
     private StaffRepository staffRepository;
 
     @EJB
+    private HospitalRepository hospitalRepository;
+
+    @EJB
     private MedicalFileRepository medicalFileRepository;
 
     @GET
@@ -39,11 +42,11 @@ public class StaffRest {
     public Response getPatients(@PathParam("id") Integer id) {
 
         Staff staff = staffRepository.find(id);
-        List<Map<String,String>> maps = new ArrayList<>();
+        List<Map<String, String>> maps = new ArrayList<>();
         List<Node> leafs = staff.leaves();
-        for(Node node : leafs) {
+        for (Node node : leafs) {
             List<MedicalFile> medicalFiles = medicalFileRepository.findFilesByNode(node.getId());
-            for(MedicalFile medicalFile : medicalFiles) {
+            for (MedicalFile medicalFile : medicalFiles) {
                 maps.add(medicalFile.patientInformations());
             }
         }
@@ -55,7 +58,7 @@ public class StaffRest {
     @Produces(MediaType.APPLICATION_JSON)
     public Response putStaff(Staff staff) {
 
-        if(staff == null)
+        if (staff == null)
             Response.status(Response.Status.BAD_REQUEST).build();
 
         staffRepository.save(staff);
@@ -68,7 +71,7 @@ public class StaffRest {
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateStaff(Staff staff) {
 
-        if(staff == null)
+        if (staff == null)
             Response.status(Response.Status.BAD_REQUEST).build();
 
         staffRepository.update(staff);
@@ -82,7 +85,7 @@ public class StaffRest {
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateStaffSocio(Staff staff) {
 
-        if(staff == null)
+        if (staff == null)
             Response.status(Response.Status.BAD_REQUEST).build();
 
         staffRepository.updateDataStaff(staff);
@@ -95,7 +98,7 @@ public class StaffRest {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getStaff(@PathParam("id") Integer id) {
         Staff staff = staffRepository.find(id);
-        if(staff == null)
+        if (staff == null)
             return Response.status(Status.BAD_REQUEST).build();
         return Response.ok(staff).build();
     }
@@ -111,7 +114,7 @@ public class StaffRest {
 
             JSONObject jsonObject = new JSONObject(identification);
 
-            if((staff = staffRepository.tryConnection(jsonObject.getString("password"), jsonObject.getString("login"))) == null)
+            if ((staff = staffRepository.tryConnection(jsonObject.getString("password"), jsonObject.getString("login"))) == null)
                 return Response.status(Response.Status.UNAUTHORIZED).build();
 
 
@@ -139,23 +142,95 @@ public class StaffRest {
         return Response.ok(getStaffInfo(staffs)).build();
     }
 
+    @PUT
+    @Path("/{id}/node")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateNode(@PathParam("id") Integer id, Node node) {
+
+        Staff staff = staffRepository.find(id);
+        staff.setNode(node);
+        staffRepository.update(staff);
+
+        return Response.status(Status.ACCEPTED).build();
+
+    }
+
+
+    //------------- Private Helpers --------------
 
     private String getStaffInfo(List<Staff> staffs) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("[");
+        List<Hospital> hospitals = hospitalRepository.list();
+        StringBuilder json = new StringBuilder();
+        Map<Integer, List<Staff>> map = new HashMap<>();
+        Integer key;
+        List<Staff> tmpListStaff;
+
         for(Staff s : staffs) {
-            if(sb.toString().length() > 1)
-                sb.append(",");
-            sb.append("{ ")
-                    .append("\"lastName\" : \"").append(s.getLastName()).append("\",")
-                    .append("\"firstName\" : \"").append(s.getFirstName()).append("\",")
-                    .append("\"status\" : \"").append(s.getStatus()).append("\",")
-                    .append("\"node\" :").append(s.getNode())
-                    .append("}");
+
+            key = s.getNode().getId();
+
+            if(!map.containsKey(key))
+                tmpListStaff = new ArrayList();
+            else
+                tmpListStaff = map.get(key);
+
+            tmpListStaff.add(s);
+            map.put(key, tmpListStaff);
+
         }
 
-        sb.append("]");
+        json.append("[");
+
+        for(Hospital h : hospitals) {
+            List<Node> nodes = h.getHierarchy();
+            for(Node n : nodes) {
+                StringBuilder stringBuilder = new StringBuilder();
+                json.append(parcourTree(n, stringBuilder, map));
+            }
+        }
+
+        json.deleteCharAt(json.length() - 1);
+        json.append("]");
+        return json.toString();
+
+    }
+
+    private String parcourTree(Node node, StringBuilder hierarchy, Map<Integer, List<Staff>> map) {
+
+        List<Staff> tmpListStaff;
+        StringBuilder sb = new StringBuilder();
+        StringBuilder tmpHierarchy = new StringBuilder(hierarchy.toString());
+
+        tmpHierarchy.append(node.getId());
+
+        if((tmpListStaff = map.getOrDefault(node.getId(), Collections.EMPTY_LIST)) != Collections.EMPTY_LIST)
+            for(Staff s : tmpListStaff)
+                sb.append(initJson(s, tmpHierarchy.toString()));
+
+        tmpHierarchy.append(",");
+
+        for(Node n : node.getSubNodes())
+            sb.append(parcourTree(n, tmpHierarchy, map));
+
         return sb.toString();
+
+    }
+
+    private String initJson(Staff s, String hierarchie) {
+
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("{ ")
+                .append("\"id\" : ").append(s.getId()).append(",")
+                .append("\"lastName\" : \"").append(s.getLastName()).append("\",")
+                .append("\"firstName\" : \"").append(s.getFirstName()).append("\",")
+                .append("\"status\" : \"").append(s.getStatus()).append("\",")
+                .append("\"hierarchy\" : [").append(hierarchie).append("],")
+                .append("\"node\" :").append(s.getNode())
+                .append("},");
+
+        return sb.toString();
+
     }
 
 }
