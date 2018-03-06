@@ -39,6 +39,13 @@ public class Parse {
 		languages.add("english");
 		languages.add("spain");
 		languages.add("finnish");
+		languages.add("biblical");
+		languages.add("german");
+		languages.add("italian");
+		languages.add("portuguese");
+		languages.add("polish");
+		languages.add("romanian");
+		languages.add("astronomy");
 		for(String str : data) {
 			if(isFirst) {
 				isFirst = false;
