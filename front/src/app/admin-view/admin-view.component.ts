@@ -104,6 +104,8 @@ export class AdminViewComponent implements OnInit, AfterViewChecked {
     console.log(this.hospitalSeleted[index]);
     console.log(this.poleSeleted[index]);
     console.log(this.serviceSeleted[index]);
+
+
     this.modalRef = this.modalService.show(template, {
       animated: true,
       keyboard: false,
