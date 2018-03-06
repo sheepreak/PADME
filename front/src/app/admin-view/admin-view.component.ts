@@ -27,7 +27,6 @@ export class SearchPipe implements PipeTransform {
 
 export class AdminViewComponent implements OnInit, AfterViewChecked {
 
-
   listStaff: any;
   listHospital: any;
 
@@ -40,24 +39,60 @@ export class AdminViewComponent implements OnInit, AfterViewChecked {
   hospitalSeleted = [];
   poleSeleted = [];
   serviceSeleted = [];
+  unitySeleted = [];
 
 
   constructor(private request: WebApiPromiseService, private cdr: ChangeDetectorRef, private modalService: BsModalService) {
+    this.request.getStaffs().then(data => {
+      this.listStaff = data;
+
+      this.request.getHospitals().then(data2 => {
+        this.listHospital = data2;
+
+        for (let i = 0; i < this.listStaff.length; i++) {
+          this.hospitalSeleted[i] = this.listHospital[0];
+          this.listPole[i] = this.hospitalSeleted[i].hierarchy;
+
+          for (const p of this.hospitalSeleted[i].hierarchy) {
+            if (p.id === this.listStaff[i].hierarchy[0]) {
+              this.poleSeleted[i] = p;
+              this.listService[i] = p.subNodes;
+              break;
+            }
+          }
+
+          if (this.listStaff[i].hierarchy[1] !== undefined && this.listService[i].length > 0) {
+            for (const s of this.listService[i]) {
+              if (s.id === this.listStaff[i].hierarchy[1]) {
+                this.serviceSeleted[i] = s;
+                this.listUnity[i] = s.subNodes;
+                break;
+              }
+            }
+          }
+
+          if (this.listStaff[i].hierarchy[2] !== undefined && this.listUnity[i].length > 0) {
+            for (const u of this.listUnity[i]) {
+              if (u.id === this.listStaff[i].hierarchy[2]) {
+                this.unitySeleted[i] = u;
+                break;
+              }
+            }
+          }
+
+
+        }
+      }).catch(err => {
+        console.log(err);
+      });
+
+
+    }).catch(err => {
+      console.log(err);
+    });
   }
 
   ngOnInit() {
-    this.request.getStaffs().then(data => {
-      this.listStaff = data;
-    }).catch(err => {
-      console.log(err);
-    });
-
-    this.request.getHospitals().then(data => {
-      this.listHospital = data;
-
-    }).catch(err => {
-      console.log(err);
-    });
   }
 
   ngAfterViewChecked(): void {
@@ -65,15 +100,12 @@ export class AdminViewComponent implements OnInit, AfterViewChecked {
   }
 
 
-  byIdHospital(item1, item2) {
-    return item1.id === 1;
-  }
-
-
   onSubmit(template: TemplateRef<any>, index) {
     console.log(this.hospitalSeleted[index]);
     console.log(this.poleSeleted[index]);
     console.log(this.serviceSeleted[index]);
+
+
     this.modalRef = this.modalService.show(template, {
       animated: true,
       keyboard: false,
@@ -89,14 +121,20 @@ export class AdminViewComponent implements OnInit, AfterViewChecked {
 
   hospitalChange(hospital, index) {
     this.listPole[index] = hospital.hierarchy;
+    this.poleSeleted[index] = [];
+    this.serviceSeleted[index] = [];
+    this.unitySeleted[index] = [];
   }
 
   poleChange(pole, index) {
     this.listService[index] = pole.subNodes;
+    this.serviceSeleted[index] = [];
+    this.unitySeleted[index] = [];
   }
 
   serviceChange(service, index) {
     this.listUnity[index] = service.subNodes;
+    this.unitySeleted[index] = [];
   }
 
 }
