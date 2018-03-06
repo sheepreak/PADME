@@ -21,7 +21,12 @@ export class UserService {
   marginBody = 0;
 
 
-  private patientId = null;
+  private patient = {
+    'patientId': null,
+    'firstName': null,
+    'lastName': null
+  };
+
 
   constructor(private requester: WebApiPromiseService, private router: Router) {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -100,12 +105,20 @@ export class UserService {
     return this.phone;
   }
 
-  setPatientIdSelected(patientId) {
-    this.patientId = patientId;
+  setPatient(patient) {
+    this.patient = patient;
+    console.log(patient);
   }
 
   getPatientIdSelected() {
-    return this.patientId;
+    if (this.patient != null) {
+      return this.patient.patientId;
+    }
+    return null;
+  }
+
+  getPatient() {
+    return this.patient;
   }
 
   getAdress() {
@@ -131,5 +144,6 @@ export class UserService {
   getId() {
     return this.id;
   }
+
 
 }

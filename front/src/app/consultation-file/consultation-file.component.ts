@@ -46,8 +46,8 @@ export class ConsultationFileComponent implements OnInit {
 
     });
 
-    this.patientFirstName = this.patientService.getfirstName() ? this.patientService.getfirstName(): 'null';
-    this.patientLastName = this.patientService.getlastName() ? this.patientService.getlastName(): 'oups';
+    this.patientFirstName = this.userService.getPatient().firstName;
+    this.patientLastName = this.userService.getPatient().lastName;
 
   }
 

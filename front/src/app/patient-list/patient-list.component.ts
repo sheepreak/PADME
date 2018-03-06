@@ -37,11 +37,11 @@ export class PatientListComponent implements OnInit {
     this.patientService.getPatients().then(data => {
       this.listPatients = data;
     });
-    this.userService.setPatientIdSelected(null);
+    this.userService.setPatient(null);
   }
 
-  onClicOnPatient(id) {
-    this.userService.setPatientIdSelected(id);
+  onClicOnPatient(patient) {
+    this.userService.setPatient(patient);
     this.router.navigate(['/administrationfile']);
   }
 
