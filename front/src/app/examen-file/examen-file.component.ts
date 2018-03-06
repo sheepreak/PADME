@@ -78,10 +78,12 @@ export class ExamenFileComponent implements OnInit {
   }
 
   onSubmit(form) {
-    const req = this.http.post('http://jsonplaceholder.typicode.com/posts', {
-      title: 'foo',
-      body: 'bar',
-      userId: 1
+    const req = this.http.put('http://localhost:8080/back-1.0-SNAPSHOT/rs/patient/addexam/72', {
+      motive: 'test',
+      description : 'test',
+      observation : 'test',
+      date : 'test',
+      StaffId: 121
     })
       .subscribe(
         res => {
