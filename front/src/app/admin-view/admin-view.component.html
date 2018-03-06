@@ -34,8 +34,8 @@
         <td>{{staff.firstName | uppercase}}</td>
         <td>{{staff.status}}</td>
         <td>
-          <select class="form-control" [(ngModel)]="hospitalSeleted[i]" (ngModelChange)="hospitalChange($event,i)">
-            <option *ngFor="let hospital of listHospital" [ngValue]="hospital">
+          <select class="form-control" [ngModel]="hospitalSeleted[i]" (ngModelChange)="hospitalChange($event,i)">
+            <option *ngFor="let hospital of listHospital" [ngValue]="hospital" >
               {{hospital.name}}
             </option>
           </select>
@@ -43,7 +43,7 @@
 
         <td>
           <select class="form-control" [(ngModel)]="poleSeleted[i]" (ngModelChange)="poleChange($event,i)">
-            <option *ngFor="let pole of listPole[i]" [ngValue]="pole">
+            <option *ngFor="let pole of listPole[i]" [ngValue]="pole" >
               {{pole.speciality}}
             </option>
           </select>
@@ -58,7 +58,7 @@
           </select>
         </td>
 
-        <td><select class="form-control">
+        <td><select class="form-control" [(ngModel)]="unitySeleted[i]">
           <option></option>
           <option *ngFor="let unity of listUnity[i]" [ngValue]="unity">
             {{unity.speciality}}
