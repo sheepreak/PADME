@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ManageFile} from "../manageFile";
-import {Doctor} from "../doctor";
 import {Patient} from "../patient";
-import State = ManageFile.State;
 import {ActivatedRoute} from "@angular/router";
 import {UserService} from "../user.service";
+import {PatientService} from "../patient.service";
 
 @Component({
   selector: 'app-consultation-file',
@@ -18,31 +17,38 @@ export class ConsultationFileComponent implements OnInit {
   }
   oldDirectory;
   manageFile: ManageFile = new ManageFile();
-  patient: Patient = new Patient("Jean", "Dujardin");
-  firstName: string;
-  lastName: string;
-  status: string;
+  userFirstName: string;
+  userLastName: string;
+  userStatus: string;
 
-  constructor(private route: ActivatedRoute, private userService: UserService) {
-    this.firstName = this.userService.getfirstName() ? this.userService.getfirstName() : '';
-    this.lastName = this.userService.getlastName() ? this.userService.getlastName() : '';
-    this.status = this.userService.getStatus() ? this.userService.getStatus() : '';
+  patientFirstName: string;
+  patientLastName: string;
 
-
-    let state;
-    this.route.params.subscribe(params => { state = params['state']; });
-
-    if (state == 'new'){
-      this.manageFile.state = ManageFile.State.New;
-    }else{
-      this.directory.motif = 'Patient souvrant de maux de ventre';
-      this.directory.observation = 'Rythme cardiaque normale\n' +
-        '      Respiration normale\n' +
-        '      Grosseur aux niveau de l\'abdomen';
-    }
+  constructor(private route: ActivatedRoute, private userService: UserService, private patientService: PatientService) {
   }
 
   ngOnInit() {
+    this.userFirstName = this.userService.getfirstName() ? this.userService.getfirstName() : '';
+    this.userLastName = this.userService.getlastName() ? this.userService.getlastName() : '';
+    this.userStatus = this.userService.getStatus() ? this.userService.getStatus() : '';
+
+    let state;
+    this.route.params.subscribe(params => {
+      state = params['state'];
+      if (state == 'new') {
+        this.manageFile.state = ManageFile.State.New;
+      } else {
+        this.directory.motif = 'Patient souvrant de maux de ventre';
+        this.directory.observation = 'Rythme cardiaque normale\n' +
+          '      Respiration normale\n' +
+          '      Grosseur aux niveau de l\'abdomen';
+      }
+
+    });
+
+    this.patientFirstName = this.patientService.getfirstName() ? this.patientService.getfirstName(): 'null';
+    this.patientLastName = this.patientService.getlastName() ? this.patientService.getlastName(): 'oups';
+
   }
 
 

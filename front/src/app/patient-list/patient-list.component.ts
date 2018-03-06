@@ -2,6 +2,7 @@ import {Component, OnInit, Pipe, PipeTransform} from '@angular/core';
 import {Router} from '@angular/router';
 import {PatientListServiceService} from './patient-list-service.service';
 import {UserService} from '../user.service';
+import {Patient} from "../patient";
 
 
 @Pipe({

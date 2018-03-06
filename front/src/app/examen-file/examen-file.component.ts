@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Image} from '../image';
 import {ManageFile} from '../manageFile';
-import {log} from "util";
 import {Patient} from "../patient";
-import {Doctor} from "../doctor";
 import {ActivatedRoute} from "@angular/router";
 import {UserService} from "../user.service";
 
@@ -32,17 +30,21 @@ export class ExamenFileComponent implements OnInit {
   path: string;
 
 
-    constructor(private route: ActivatedRoute, private userService: UserService) {
-      this.firstName = this.userService.getfirstName() ? this.userService.getfirstName() : '';
-      this.lastName = this.userService.getlastName() ? this.userService.getlastName() : '';
-      this.status = this.userService.getStatus() ? this.userService.getStatus() : '';
+  constructor(private route: ActivatedRoute, private userService: UserService) {
+  }
 
-      let state;
-      this.route.params.subscribe(params => { state = params['state']; });
+  ngOnInit() {
+    this.firstName = this.userService.getfirstName() ? this.userService.getfirstName() : '';
+    this.lastName = this.userService.getlastName() ? this.userService.getlastName() : '';
+    this.status = this.userService.getStatus() ? this.userService.getStatus() : '';
 
-      if (state == 'new'){
+    let state;
+    this.route.params.subscribe(params => {
+      state = params['state'];
+
+      if (state == 'new') {
         this.manageFile.state = ManageFile.State.New;
-      }else {
+      } else {
         this.directory.description = 'Radiographie simple de l\'epaule gauche avec clicher de face stricte et profile auxillaire';
         this.directory.motif = 'Suite à une chute d\'équitation, douleur à l\'epaule droit, et manque de mobilité';
         this.directory.observation = 'Fracture tassement de la face posterieur de la tếte humérale';
@@ -54,10 +56,7 @@ export class ExamenFileComponent implements OnInit {
         this.img.push(i);
         this.img.push(ii);
       }
-  }
-
-  ngOnInit() {
-
+    });
   }
 
   modifData() {
@@ -71,17 +70,17 @@ export class ExamenFileComponent implements OnInit {
     this.manageFile.state = ManageFile.State.Consulted;
   }
 
-  public changeImg(img: Image){
+  public changeImg(img: Image) {
     img.changeImg();
   }
 
-  public loadAllImg(){
-    for (let i of this.img){
+  public loadAllImg() {
+    for (let i of this.img) {
       i.loadImg();
     }
   }
 
-  public addImg(){
+  public addImg() {
     if (this.name != null && this.path != null) {
 
       let i = new Image(this.name, this.path);

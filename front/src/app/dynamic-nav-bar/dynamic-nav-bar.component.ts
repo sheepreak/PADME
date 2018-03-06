@@ -1,5 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {UserService} from '../user.service';
+import {PatientService} from "../patient.service";
 
 @Component({
   selector: 'app-dynamic-nav-bar',
@@ -21,6 +22,7 @@ export class DynamicNavBarComponent implements OnInit {
 
   user: UserService;
 
+
   navVisible: boolean;
 
   @ViewChild('sidebar')
@@ -28,12 +30,11 @@ export class DynamicNavBarComponent implements OnInit {
 
   constructor(private userService: UserService) {
     this.user = this.userService;
-
   }
 
   ngOnInit() {
     this.closeNav();
-  }
+    }
 
 
   closeNav() {
