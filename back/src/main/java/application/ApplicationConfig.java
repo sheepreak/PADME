@@ -3,6 +3,7 @@ package application;
 import application.filters.CORSFilter;
 import application.hospital.rest.HospitalRestService;
 import application.medicalfile.rest.MedicalFileRest;
+import application.node.rest.NodeRestService;
 import application.patient.rest.PatientRest;
 import application.staff.rest.StaffRest;
 import org.glassfish.jersey.jackson.JacksonFeature;
@@ -25,6 +26,7 @@ public class ApplicationConfig extends Application {
         c.add(StaffRest.class);
         c.add(PatientRest.class);
         c.add(MedicalFileRest.class);
+        c.add(NodeRestService.class);
         classes = Collections.unmodifiableSet(c);
     }
 
