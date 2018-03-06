@@ -39,6 +39,17 @@ public class MedicalFileRest {
         return Response.ok(entities).build();
     }
 
+    @GET
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getMedicalFile(@PathParam("id") Integer id){
+        MedicalFile file = medicalFileRepository.getFile(id);
+        file.setPatient(null);
+        GenericEntity<MedicalFile> entities = new GenericEntity<MedicalFile>(file){};
+        return Response.ok(entities).build();
+    }
+
+
     @PUT
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
