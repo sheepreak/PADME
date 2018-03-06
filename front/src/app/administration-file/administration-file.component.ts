@@ -3,8 +3,6 @@ import {ManageFile} from '../manageFile';
 import {UserService} from '../user.service';
 import {AdministrationRequestService} from './administration-request.service';
 import {ActivatedRoute} from "@angular/router";
-import {Patient} from "../patient";
-import {PatientService} from "../patient.service";
 
 
 @Component({
@@ -12,6 +10,7 @@ import {PatientService} from "../patient.service";
   templateUrl: './administration-file.component.html',
   styleUrls: ['./administration-file.component.css', './../app.component.css']
 })
+
 export class AdministrationFileComponent implements OnInit {
   directory: any = {};
 
@@ -19,7 +18,7 @@ export class AdministrationFileComponent implements OnInit {
   oldDirectory: any;
   manageFile: ManageFile = new ManageFile();
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private administrationRequest: AdministrationRequestService, private patientService: PatientService) {
+  constructor(private route: ActivatedRoute, private userService: UserService, private administrationRequest: AdministrationRequestService) {
   }
 
   ngOnInit() {
@@ -28,8 +27,6 @@ export class AdministrationFileComponent implements OnInit {
     }).catch(err => {
       console.log(err);
     });
-
-    this.patientService.setPatient(this.directory.firstname, this.directory.lastname);
 
     let state;
     this.route.params.subscribe(params => {

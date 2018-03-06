@@ -20,8 +20,8 @@
 
     <div class="col-md-2 mycol">
       <h3 translate>Patient</h3>
-      <p>{{patient.lastname}}</p>
-      <p>{{patient.firstname}}</p>
+      <p>{{patientLastName}}</p>
+      <p>{{patientFirstName}}</p>
     </div>
 
     <div class="col-md-2 mycol">
@@ -49,11 +49,10 @@
       <p>{{directory.observation}}</p>
     </div>
 
-    <div *ngIf="manageFile.stateEdited() || manageFile.stateNew()">
-      <h3 translate>Examen</h3>
+    <div class="col-md-10" *ngIf="manageFile.stateEdited() || manageFile.stateNew()">
       <form class="form-horizontal">
         <h3 translate>ExamenMotif</h3>
-        <textarea rows="2" cols="100">
+        <textarea id="motif" rows="2" cols="100">
         {{directory.motif}}
         </textarea>
 
@@ -79,7 +78,7 @@
           </div>
 
           <div class="form-group">
-            <label for="name" class="col-sm-1 control-label">{{ 'Name' | translate:user }}:</label>
+            <label for="name" class="col-sm-1 control-label">{{ 'ImgName' | translate:user }}:</label>
             <div class="col-sm-9">
               <input type="text" class="form-control" id="name" name="name" [(ngModel)]="name">
             </div>

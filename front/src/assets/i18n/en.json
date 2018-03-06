@@ -43,10 +43,12 @@
   "Doctor":"Doctor",
   "Examen":"Exam",
   "ExamenDescription":"Description",
-  "ExamenMotif":"Motive",
+  "ExamenMotif":"Motif",
   "ExamenResult":"Result",
   "ExamenObservation":"Observation",
   "LoadAllImg": "Load all images",
+  "ImgName": "Name",
+  "Path": "Path",
 
   "Prescription": "Prescription",
 

@@ -1,6 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {UserService} from '../user.service';
-import {PatientService} from "../patient.service";
 
 @Component({
   selector: 'app-dynamic-nav-bar',
@@ -10,18 +9,19 @@ import {PatientService} from "../patient.service";
     '(window:resize)': 'onResize($event)'
   }
 })
+
 export class DynamicNavBarComponent implements OnInit {
-
-
   consultationIsCollapsed: boolean = true;
   examenIsCollapsed: boolean = true;
   prescriptionIsCollapsed: boolean = true;
   archiveIsCollapsed: boolean = true;
   addIsCollapsed: boolean = true;
   myDocIsCollapsed: boolean = true;
+  isPatientSelected: boolean = false;
 
   user: UserService;
-
+  patientFirstName: string;
+  patientLastName: string;
 
   navVisible: boolean;
 
@@ -34,8 +34,7 @@ export class DynamicNavBarComponent implements OnInit {
 
   ngOnInit() {
     this.closeNav();
-    }
-
+  }
 
   closeNav() {
     this.userService.marginLeft = this.documentSection.nativeElement.offsetWidth * -1;
@@ -47,6 +46,9 @@ export class DynamicNavBarComponent implements OnInit {
     this.navVisible = true;
     this.userService.marginLeft = 0;
     this.userService.marginBody = this.documentSection.nativeElement.offsetWidth;
+
+    this.patientFirstName = this.user.getPatient().firstName;
+    this.patientLastName = this.user.getPatient().lastName;
   }
 
   onResize(event) {
@@ -55,5 +57,4 @@ export class DynamicNavBarComponent implements OnInit {
       this.userService.marginLeft = this.documentSection.nativeElement.offsetWidth * -1;
     }
   }
-
 }

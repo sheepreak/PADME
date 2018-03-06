@@ -44,5 +44,4 @@ export class PatientListComponent implements OnInit {
     this.userService.setPatient(patient);
     this.router.navigate(['/administrationfile']);
   }
-
 }

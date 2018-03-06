@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {ManageFile} from "../manageFile";
-import {Patient} from "../patient";
 import {ActivatedRoute} from "@angular/router";
 import {UserService} from "../user.service";
 
@@ -13,11 +12,12 @@ export class PrescriptionFileComponent implements OnInit {
   prescription: string;
   oldPrescription;
   manageFile: ManageFile = new ManageFile();
-  patient: Patient = new Patient("Jean", "Dujardin");
   firstName: string;
   lastName: string;
   status: string;
 
+  patientFirstName: string;
+  patientLastName: string;
 
   constructor(private route: ActivatedRoute, private userService: UserService) {
   }
@@ -27,6 +27,8 @@ export class PrescriptionFileComponent implements OnInit {
     this.lastName = this.userService.getlastName() ? this.userService.getlastName() : '';
     this.status = this.userService.getStatus() ? this.userService.getStatus() : '';
 
+    this.patientFirstName = this.userService.getPatient().firstName;
+    this.patientLastName = this.userService.getPatient().lastName;
 
     let state;
     this.route.params.subscribe(params => {

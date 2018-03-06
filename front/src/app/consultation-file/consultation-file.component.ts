@@ -3,7 +3,6 @@ import {ManageFile} from "../manageFile";
 import {Patient} from "../patient";
 import {ActivatedRoute} from "@angular/router";
 import {UserService} from "../user.service";
-import {PatientService} from "../patient.service";
 
 @Component({
   selector: 'app-consultation-file',
@@ -17,6 +16,7 @@ export class ConsultationFileComponent implements OnInit {
   }
   oldDirectory;
   manageFile: ManageFile = new ManageFile();
+
   userFirstName: string;
   userLastName: string;
   userStatus: string;
@@ -24,13 +24,16 @@ export class ConsultationFileComponent implements OnInit {
   patientFirstName: string;
   patientLastName: string;
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private patientService: PatientService) {
+  constructor(private route: ActivatedRoute, private userService: UserService) {
   }
 
   ngOnInit() {
     this.userFirstName = this.userService.getfirstName() ? this.userService.getfirstName() : '';
     this.userLastName = this.userService.getlastName() ? this.userService.getlastName() : '';
     this.userStatus = this.userService.getStatus() ? this.userService.getStatus() : '';
+
+    this.patientFirstName = this.userService.getPatient().firstName;
+    this.patientLastName = this.userService.getPatient().lastName;
 
     let state;
     this.route.params.subscribe(params => {
@@ -43,12 +46,7 @@ export class ConsultationFileComponent implements OnInit {
           '      Respiration normale\n' +
           '      Grosseur aux niveau de l\'abdomen';
       }
-
     });
-
-    this.patientFirstName = this.userService.getPatient().firstName;
-    this.patientLastName = this.userService.getPatient().lastName;
-
   }
 
 

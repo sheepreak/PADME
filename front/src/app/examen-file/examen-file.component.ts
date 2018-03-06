@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Image} from '../image';
 import {ManageFile} from '../manageFile';
-import {Patient} from "../patient";
 import {ActivatedRoute} from "@angular/router";
 import {UserService} from "../user.service";
+import {WebApiPromiseService} from "../web-api-promise.service";
+import {HttpClient, HttpRequest} from "@angular/common/http";
 
 @Component({
   selector: 'app-examen-file',
@@ -18,25 +19,31 @@ export class ExamenFileComponent implements OnInit {
     result: '',
     observation: ''
   };
+  oldDirectory;
+
   img: Array<Image> = [];
   imgMin: boolean;
   manageFile: ManageFile = new ManageFile();
-  oldDirectory;
-  patient: Patient = new Patient("Jean", "Dujardin");
+
   firstName: string;
   lastName: string;
   status: string;
-  name: string;
-  path: string;
+  nameImg: string;
+  pathImg: string;
 
+  patientFirstName: string;
+  patientLastName: string
 
-  constructor(private route: ActivatedRoute, private userService: UserService) {
+  constructor(private route: ActivatedRoute, private userService: UserService,  private requester: WebApiPromiseService, private http: HttpClient) {
   }
 
   ngOnInit() {
     this.firstName = this.userService.getfirstName() ? this.userService.getfirstName() : '';
     this.lastName = this.userService.getlastName() ? this.userService.getlastName() : '';
     this.status = this.userService.getStatus() ? this.userService.getStatus() : '';
+
+    this.patientFirstName = this.userService.getPatient().firstName;
+    this.patientLastName = this.userService.getPatient().lastName;
 
     let state;
     this.route.params.subscribe(params => {
@@ -70,6 +77,22 @@ export class ExamenFileComponent implements OnInit {
     this.manageFile.state = ManageFile.State.Consulted;
   }
 
+  onSubmit(form) {
+    const req = this.http.post('http://jsonplaceholder.typicode.com/posts', {
+      title: 'foo',
+      body: 'bar',
+      userId: 1
+    })
+      .subscribe(
+        res => {
+          console.log(res);
+        },
+        err => {
+          console.log("Error occured");
+        }
+      );
+  }
+
   public changeImg(img: Image) {
     img.changeImg();
   }
@@ -81,13 +104,13 @@ export class ExamenFileComponent implements OnInit {
   }
 
   public addImg() {
-    if (this.name != null && this.path != null) {
+    if (this.nameImg != null && this.pathImg != null) {
 
-      let i = new Image(this.name, this.path);
+      let i = new Image(this.nameImg, this.pathImg);
       this.img.push(i);
 
-      this.path = null;
-      this.name = null;
+      this.pathImg = null;
+      this.nameImg = null;
     }
   }
 }
