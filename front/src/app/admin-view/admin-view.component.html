@@ -4,8 +4,12 @@
   </h2>
 
   <div class="row">
-    <div class="col-md-2 col-sm-3"><button class="btn btn-success btn-block btn-responsive">Ajouter personnel</button></div>
-    <div class="col-md-2 col-sm-3"><button class="btn btn-warning btn-block btn-responsive">Ajouter noeud</button></div>
+    <div class="col-md-2 col-sm-3">
+      <button class="btn btn-success btn-block btn-responsive">Ajouter personnel</button>
+    </div>
+    <div class="col-md-2 col-sm-3">
+      <button class="btn btn-warning btn-block btn-responsive">Ajouter noeud</button>
+    </div>
     <div class="col-md-offset-4 col-md-4 col-sm-6">
       <input [(ngModel)]="filter" type="text" class="form-control" placeholder="Recherche">
     </div>
@@ -30,42 +34,43 @@
         <td>{{staff.firstName | uppercase}}</td>
         <td>{{staff.status}}</td>
         <td>
-          <select class="form-control" [ngModel]="staff.hospital" (ngModelChange)="onChangeHospital($event,staff)">
-            <option *ngFor="let hospital of listHospital" [ngValue]="hospital"
-                    [selected]="selectedHospital(hospital,staff)"> {{hospital.name}}
+          <select class="form-control" [(ngModel)]="hospitalSeleted[i]" (ngModelChange)="hospitalChange($event,i)">
+            <option *ngFor="let hospital of listHospital" [ngValue]="hospital">
+              {{hospital.name}}
             </option>
           </select>
         </td>
 
         <td>
-          <select class="form-control" [ngModel]="staff.pole" (ngModelChange)="onChangePole($event,staff)">
-            <option *ngFor="let pole of staff.hospital.hierarchy" [ngValue]="pole"
-                    [selected]="selectedPole(pole,staff)">
+          <select class="form-control" [(ngModel)]="poleSeleted[i]" (ngModelChange)="poleChange($event,i)">
+            <option *ngFor="let pole of listPole[i]" [ngValue]="pole">
               {{pole.speciality}}
             </option>
           </select>
         </td>
 
         <td>
-          <select class="form-control" [ngModel]="staff.service" (ngModelChange)="onChangeService($event,staff)">
-            <option *ngFor="let service of staff.pole.subNodes" [ngValue]="service">
+          <select class="form-control" [(ngModel)]="serviceSeleted[i]" (ngModelChange)="serviceChange($event,i)">
+            <option></option>
+            <option *ngFor="let service of listService[i]" [ngValue]="service">
               {{service.speciality}}
             </option>
           </select>
         </td>
 
-        <td><select class="form-control" [ngModel]="staff.unity">
-          <option *ngFor="let unity of staff.service.subNodes" [ngValue]="unity">
+        <td><select class="form-control">
+          <option></option>
+          <option *ngFor="let unity of listUnity[i]" [ngValue]="unity">
             {{unity.speciality}}
           </option>
         </select></td>
         <td>
-          <button type="button" class="btn btn-primary" (click)="modificationStaff(modalModif)">Modifier</button>
+          <button type="button" class="btn btn-primary" (click)="onSubmit(modalModif,i)">Modifier</button>
         </td>
-
       </tr>
       </tbody>
     </table>
+
   </div>
 
 </div>

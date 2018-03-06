@@ -31,7 +31,15 @@ export class AdminViewComponent implements OnInit, AfterViewChecked {
   listStaff: any;
   listHospital: any;
 
+  listPole = [];
+  listService = [];
+  listUnity = [];
+
   modalRef: BsModalRef;
+
+  hospitalSeleted = [];
+  poleSeleted = [];
+  serviceSeleted = [];
 
 
   constructor(private request: WebApiPromiseService, private cdr: ChangeDetectorRef, private modalService: BsModalService) {
@@ -40,18 +48,13 @@ export class AdminViewComponent implements OnInit, AfterViewChecked {
   ngOnInit() {
     this.request.getStaffs().then(data => {
       this.listStaff = data;
-      this.listStaff.forEach(staff => {
-        staff.hospital = [];
-        staff.pole = [];
-        staff.service = [];
-      });
     }).catch(err => {
       console.log(err);
     });
 
     this.request.getHospitals().then(data => {
       this.listHospital = data;
-      this.cdr.detectChanges();
+
     }).catch(err => {
       console.log(err);
     });
@@ -61,43 +64,16 @@ export class AdminViewComponent implements OnInit, AfterViewChecked {
     this.cdr.detectChanges();
   }
 
-  onChangeHospital(hospital, staff) {
-    staff.hospital = hospital;
-    staff.pole = [];
-    staff.service = [];
-    staff.unity = [];
-  }
 
-  onChangePole(pole, staff) {
-    staff.pole = pole;
-    staff.service = [];
-    staff.unity = [];
-  }
-
-  onChangeService(service, staff) {
-    staff.service = service;
-    staff.unity = [];
+  byIdHospital(item1, item2) {
+    return item1.id === 1;
   }
 
 
-  selectedHospital(hospital, staff) {
-    if (1 === hospital.id) {
-      staff.hospital = hospital;
-    }
-    return 1 === hospital.id;
-  }
-
-
-  selectedPole(pole, staff) {
-    if (staff.node.level === 'pole' && staff.node.id === pole.id) {
-      staff.pole = pole;
-      return true;
-    }
-    return false;
-  }
-
-
-  modificationStaff(template: TemplateRef<any>) {
+  onSubmit(template: TemplateRef<any>, index) {
+    console.log(this.hospitalSeleted[index]);
+    console.log(this.poleSeleted[index]);
+    console.log(this.serviceSeleted[index]);
     this.modalRef = this.modalService.show(template, {
       animated: true,
       keyboard: false,
@@ -109,8 +85,18 @@ export class AdminViewComponent implements OnInit, AfterViewChecked {
       this.modalRef.hide();
     }, 700);
 
-
   }
 
+  hospitalChange(hospital, index) {
+    this.listPole[index] = hospital.hierarchy;
+  }
+
+  poleChange(pole, index) {
+    this.listService[index] = pole.subNodes;
+  }
+
+  serviceChange(service, index) {
+    this.listUnity[index] = service.subNodes;
+  }
 
 }

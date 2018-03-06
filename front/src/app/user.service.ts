@@ -125,7 +125,7 @@ export class UserService {
   }
 
   isSecretary() {
-    return this.status === 'SECRETAIRE';
+    return this.status === 'SECRETARY';
   }
 
   getId() {
