@@ -7,15 +7,14 @@
   <a *ngIf="!navVisible" href="javascript:void(0)" class="displayNav" (click)="openNav()"><span class="glyphicon glyphicon-chevron-right"
                                                                              style="position: absolute" [style.left.px]="-user.marginLeft"></span></a>
   <ul id="menu-accordeon">
-    <li ><a>{{patientFirstName}}</a></li>
     <li *ngIf="user.isAdmin()"><a routerLink="adminview">Liste du personnel</a></li>
     <li *ngIf="user.isDoctor() || user.isNurse()"><a routerLink="patientlist">Liste des patients</a></li>
     <li *ngIf="(user.isDoctor() || user.isNurse()) && user.getPatientIdSelected()!= null"><a routerLink="administrationfile">Fiche administrative patient</a>
-    <li><a href="javascript:void(0)">{{ 'Consultation' | translate:user }}</a></li>
-    <li><a href="javascript:void(0)">{{ 'Examen' | translate:user }}</a></li>
-    <li><a href="javascript:void(0)">{{ 'Prescription' | translate:user }}</a></li>
+    <li><a href="javascript:void(0)" [routerLink]="['doclist', { type: 'Consultation' }]">{{ 'Consultation' | translate:user }}</a></li>
+    <li><a href="javascript:void(0)" [routerLink]="['doclist', { type: 'Examen' }]">{{ 'Examen' | translate:user }}</a></li>
+    <li><a href="javascript:void(0)" [routerLink]="['doclist', { type: 'Prescription' }]">{{ 'Prescription' | translate:user }}</a></li>
     <li *ngIf="user.isAdmin()"><a routerLink="adminview">{{ 'AdminView' | translate:user }}</a>
-    <li><a href="javascript:void(0)" (click)="archiveIsCollapsed = !archiveIsCollapsed">{{ 'Archive' | translate:user }}</a></li>
+    <li><a href="javascript:void(0)" (click)="archiveIsCollapsed = !archiveIsCollapsed" [routerLink]="['doclist', { type: 'Archive' }]">{{ 'Archive' | translate:user }}</a></li>
 
     <li class="imgList first"><a href="javascript:void(0)" (click)="addIsCollapsed = !addIsCollapsed"><img
       src="../../assets/img/icon/add-all.svg">{{ 'Add' | translate:user }}</a>

@@ -23,6 +23,7 @@ import {AdministrationRequestService} from './administration-file/administration
 import {CollapseModule, ModalModule} from 'ngx-bootstrap';
 import {UserDocComponent} from './user-doc/user-doc.component';
 import {PatientService} from "./patient.service";
+import { MedicalDocListComponent } from './medical-doc-list/medical-doc-list.component';
 
 
 const appRoutes: Routes = [
@@ -55,6 +56,10 @@ const appRoutes: Routes = [
     component: UserDocComponent
   },
   {
+    path: 'doclist',
+    component: MedicalDocListComponent
+  },
+  {
     path: '**',
     redirectTo: ''
   },
@@ -76,7 +81,8 @@ const appRoutes: Routes = [
     SearchPipe,
     ConsultationFileComponent,
     AdminViewComponent,
-    UserDocComponent
+    UserDocComponent,
+    MedicalDocListComponent
   ],
 
   imports: [
