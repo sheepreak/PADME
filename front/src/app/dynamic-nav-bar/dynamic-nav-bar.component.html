@@ -7,6 +7,7 @@
   <a *ngIf="!navVisible" href="javascript:void(0)" class="displayNav" (click)="openNav()"><span class="glyphicon glyphicon-chevron-right"
                                                                              style="position: absolute" [style.left.px]="-user.marginLeft"></span></a>
   <ul id="menu-accordeon">
+    <li ><a>{{patientFirstName}}</a></li>
     <li *ngIf="user.isAdmin()"><a routerLink="adminview">Liste du personnel</a></li>
     <li *ngIf="user.isDoctor() || user.isNurse()"><a routerLink="patientlist">Liste des patients</a></li>
     <li *ngIf="(user.isDoctor() || user.isNurse()) && user.getPatientIdSelected()!= null"><a routerLink="administrationfile">Fiche administrative patient</a>

@@ -22,6 +22,7 @@ import {AdministrationRequestService} from './administration-file/administration
 
 import {CollapseModule, ModalModule} from 'ngx-bootstrap';
 import {UserDocComponent} from './user-doc/user-doc.component';
+import {PatientService} from "./patient.service";
 
 
 const appRoutes: Routes = [
@@ -96,7 +97,7 @@ const appRoutes: Routes = [
       }
     })
   ],
-  providers: [UserService, WebApiPromiseService, AdministrationRequestService],
+  providers: [PatientService, UserService, WebApiPromiseService, AdministrationRequestService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
