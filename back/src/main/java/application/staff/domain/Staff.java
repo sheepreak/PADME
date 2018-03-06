@@ -6,6 +6,7 @@ import application.staff.Status;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -140,12 +141,13 @@ public class Staff {
 
     private List<Node> leavesHelper(Node node){
 
-        List<Node> sons;
-        if((sons = node.getSubNodes()) == null)
+        List<Node> subNodes;
+        List<Node> sons = new ArrayList<>();
+        if((subNodes = node.getSubNodes()) == null)
             return Collections.EMPTY_LIST;
 
-        for(Node n : sons) {
-            if(n.getSubNodes() == Collections.EMPTY_LIST)
+        for(Node n : subNodes) {
+            if(n.getSubNodes().size() == 0)
                 sons.add(n);
             else
                 sons.addAll(leavesHelper(n));

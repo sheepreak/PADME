@@ -42,7 +42,7 @@ public class PatientRest {
     @Produces(MediaType.APPLICATION_JSON)
     public Response createPatient(Patient file) {
         repository.save(file);
-        URI fileUri = uriInfo.getBaseUriBuilder().path(PatientRest.class).path(file.getPatientId().toString()).build();
+        URI fileUri = uriInfo.getBaseUriBuilder().path(PatientRest.class).path(file.getId().toString()).build();
         return Response.created(fileUri).build();
     }
 
@@ -53,12 +53,13 @@ public class PatientRest {
         List<PatientListing> l =files.stream().map(s-> {
             AdminFile a =s.getAdminFile();
             return new PatientListing(
-                    s.getPatientId(), a.getFirstName(), a.getLastName(),
+                    s.getId(), a.getFirstName(), a.getLastName(),
                     a.getGender(), a.getBirthDate(), a.getCountry());
         }).collect(Collectors.toList());
         GenericEntity<List<PatientListing>> entities = new GenericEntity<List<PatientListing>>(l){};
         return Response.ok(entities).build();
     }
+
 
     @GET
     @Path("{id}/adminfile")
@@ -90,7 +91,7 @@ public class PatientRest {
         medicalFileRepository.save(file);
         patient.addMedicalFile(file);
         repository.update(patient);
-        URI fileUri = uriInfo.getBaseUriBuilder().path(PatientRest.class).path(patient.getPatientId().toString()).build();
+        URI fileUri = uriInfo.getBaseUriBuilder().path(PatientRest.class).path(patient.getId().toString()).build();
         return Response.created(fileUri).build();
     }
 

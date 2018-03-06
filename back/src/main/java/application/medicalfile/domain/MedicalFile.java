@@ -8,10 +8,7 @@ import application.prescription.domain.Prescription;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static application.medicalfile.domain.MedicalFile.FIND_ALL;
 import static application.medicalfile.domain.MedicalFile.FIND_ALL_BY_NODE;
@@ -20,7 +17,7 @@ import static javax.persistence.CascadeType.ALL;
 
 @NamedQueries({
         @NamedQuery(name = FIND_ALL, query = "SELECT m FROM MedicalFile m"),
-        @NamedQuery(name = FIND_ALL_BY_NODE, query = "SELECT m FROM MedicalFile m WHERE m.nodeId LIKE :custNode")
+        @NamedQuery(name = FIND_ALL_BY_NODE, query = "SELECT m FROM MedicalFile m WHERE m.nodeId = :custNode")
 })
 @Entity
 public class MedicalFile {
@@ -51,8 +48,9 @@ public class MedicalFile {
     private Integer nodeId;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @PrimaryKeyJoinColumn(name = "PATIENT_ID")
+    @JoinColumn(name = "fk_patient")
     private Patient patient;
+
 
     public MedicalFile(){
         observations = new ArrayList<Observation>();
@@ -132,15 +130,30 @@ public class MedicalFile {
         this.status = status;
     }
 
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    public Patient getPatient() {
+        return this.patient;
+    }
+
     public Map<String, String> patientInformations() {
+
+        if(patient == null)
+            return Collections.EMPTY_MAP;
+
         Map<String, String> map = new HashMap<>();
         AdminFile adminFile = patient.getAdminFile();
         map.put("firstName", adminFile.getFirstName());
         map.put("lastName", adminFile.getLastName());
         map.put("gender", adminFile.getGender());
         map.put("birthdate", adminFile.getBirthDate());
-        map.put("id", String.valueOf(patient.getPatientId()));
+        map.put("id", String.valueOf(patient.getId()));
         map.put("idMedicalFile", String.valueOf(id));
         return map;
+
     }
+
+
 }

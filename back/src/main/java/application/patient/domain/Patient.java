@@ -17,7 +17,7 @@ import java.util.Set;
 import static application.patient.domain.Patient.FIND_ALL;
 
 @Entity
-@NamedQuery(name = FIND_ALL, query = "SELECT p FROM Patient p ORDER BY p.patientId DESC")
+@NamedQuery(name = FIND_ALL, query = "SELECT p FROM Patient p ORDER BY p.id DESC")
 public class Patient {
 
     public static final String FIND_ALL = "Patient.findAllPatients";
@@ -25,9 +25,9 @@ public class Patient {
     @Id
     @GeneratedValue
     @Column
-    private Integer patientId;
+    private Integer id;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy ="patient")
+    @OneToMany(mappedBy ="patient")
     private List<MedicalFile> medicalFileList;
 
     @NotNull
@@ -52,8 +52,8 @@ public class Patient {
         familyBackground = new HashSet<>();
     }
 
-    public Integer getPatientId() {
-        return patientId;
+    public Integer getId() {
+        return id;
     }
 
     public AdminFile getAdminFile() {
@@ -64,8 +64,8 @@ public class Patient {
         return medicalFileList;
     }
 
-    public void setPatientId(Integer patientId) {
-        this.patientId = patientId;
+    public void setId(Integer patientId) {
+        this.id = patientId;
     }
 
     public void setMedicalFileList(List<MedicalFile> medicalFileList) {
@@ -94,8 +94,10 @@ public class Patient {
 
     public void addMedicalFile(MedicalFile medicalFile) {
 
-        if(!getMedicalFileList().contains(medicalFile))
+        if(!getMedicalFileList().contains(medicalFile)) {
+            medicalFile.setPatient(this);
             medicalFileList.add(medicalFile);
+        }
 
     }
 
@@ -122,4 +124,5 @@ public class Patient {
                 medicalFile.addExamen(examen);
 
     }
+
 }

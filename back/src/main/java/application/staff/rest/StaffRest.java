@@ -5,16 +5,18 @@ import application.hospital.repository.HospitalRepository;
 import application.medicalfile.domain.MedicalFile;
 import application.medicalfile.repository.MedicalFileRepository;
 import application.node.domain.Node;
+import application.patient.repository.PatientRepository;
 import application.staff.domain.Staff;
 import application.staff.repository.StaffRepository;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.messaging.jmq.io.Status;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
 import javax.ejb.EJB;
-import javax.persistence.NoResultException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -36,22 +38,27 @@ public class StaffRest {
     @EJB
     private MedicalFileRepository medicalFileRepository;
 
+    @EJB
+    private PatientRepository patientRepository;
+
     @GET
     @Path("/patients/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getPatients(@PathParam("id") Integer id) {
+    public Response getPatients(@PathParam("id") Integer id) throws JsonProcessingException {
 
         Staff staff = staffRepository.find(id);
         List<Map<String, String>> maps = new ArrayList<>();
         List<Node> leafs = staff.leaves();
+        System.out.println(leafs.size());
         for (Node node : leafs) {
             List<MedicalFile> medicalFiles = medicalFileRepository.findFilesByNode(node.getId());
             for (MedicalFile medicalFile : medicalFiles) {
                 maps.add(medicalFile.patientInformations());
             }
         }
+        ObjectMapper mapper = new ObjectMapper();
+        return Response.ok(mapper.writeValueAsString(maps)).build();
 
-        return Response.ok(maps).build();
     }
 
     @POST
