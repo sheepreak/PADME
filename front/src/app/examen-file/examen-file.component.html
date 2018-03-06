@@ -25,9 +25,9 @@
     </div>
 
     <div class="col-md-2 mycol">
-      <h3>{{doctor.specialisation}}</h3>
-      <p>{{doctor.lastname}}</p>
-      <p>{{doctor.firstname}}</p>
+      <h3>{{status | translate:user  }}</h3>
+      <p>{{lastName}}</p>
+      <p>{{firstName}}</p>
     </div>
     <br>
 
@@ -49,7 +49,7 @@
       <p>{{directory.observation}}</p>
     </div>
 
-    <div *ngIf="manageFile.stateEdited()">
+    <div *ngIf="manageFile.stateEdited() || manageFile.stateNew()">
       <h3 translate>Examen</h3>
       <form class="form-horizontal">
         <h3 translate>ExamenMotif</h3>
@@ -92,9 +92,13 @@
         <textarea rows="2" cols="100">
         {{directory.observation}}
         </textarea>
-        <div class="col-md-12" style="text-align: center">
-          <button type="submit" class="btn btn-validate" translate>Validate</button>
-          <button (click)="cancelModif()" class="btn btn-warning" translate>Cancel</button>
+        <div class="col-md-12" style="text-align: center" *ngIf="manageFile.stateNew()">
+          <button type="submit" class="btn btn-validate" translate>{{"Create" | translate:user }}</button>
+        </div>
+
+        <div class="col-md-12" style="text-align: center" *ngIf="manageFile.stateEdited()">
+          <button type="submit" class="btn btn-validate" translate>{{"Validate" | translate:user }}</button>
+          <button (click)="cancelModif()" class="btn btn-warning" translate>{{"Cancel" | translate:user }}</button>
         </div>
       </form>
     </div>

@@ -22,9 +22,9 @@
     </div>
 
     <div class="col-md-2 mycol">
-      <h3>{{doctor.specialisation}}</h3>
-      <p>{{doctor.lastname}}</p>
-      <p>{{doctor.firstname}}</p>
+      <h3>{{status | translate:user  }}</h3>
+      <p>{{lastName}}</p>
+      <p>{{firstName}}</p>
     </div>
     <br>
     <br>
@@ -33,14 +33,18 @@
       <p>{{prescription}}</p>
     </div>
 
-    <div class="col-md-10" *ngIf="manageFile.stateEdited()">
+    <div class="col-md-10" *ngIf="manageFile.stateEdited() || manageFile.stateNew()">
       <h3 translate>Prescription</h3>
       <form class="form-horizontal">
           <textarea rows="4" cols="50">
             {{prescription}}
           </textarea>
 
-        <div class="col-md-12" style="text-align: center">
+        <div class="col-md-12" style="text-align: center" *ngIf="manageFile.stateNew()">
+          <button type="submit" class="btn btn-validate" translate>Créer le document</button>
+        </div>
+
+        <div class="col-md-12" style="text-align: center" *ngIf="manageFile.stateEdited()">
           <button type="submit" class="btn btn-validate" translate>Validate</button>
           <button (click)="cancelModif()" class="btn btn-warning" translate>Cancel</button>
         </div>

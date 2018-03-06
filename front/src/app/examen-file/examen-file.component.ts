@@ -4,6 +4,8 @@ import {ManageFile} from '../manageFile';
 import {log} from "util";
 import {Patient} from "../patient";
 import {Doctor} from "../doctor";
+import {ActivatedRoute} from "@angular/router";
+import {UserService} from "../user.service";
 
 @Component({
   selector: 'app-examen-file',
@@ -23,27 +25,35 @@ export class ExamenFileComponent implements OnInit {
   manageFile: ManageFile = new ManageFile();
   oldDirectory;
   patient: Patient = new Patient("Jean", "Dujardin");
-  doctor: Doctor = new Doctor("Jean-Luc", "Portos", "Radiologue");
+  firstName: string;
+  lastName: string;
+  status: string;
   name: string;
   path: string;
 
-  constructor() {
-    this.directory.description = 'Radiographie simple de l\'epaule gauche avec clicher de face stricte et profile auxillaire';
-    this.directory.motif = 'Suite à une chute d\'équitation, douleur à l\'epaule droit, et manque de mobilité';
-    this.directory.observation = 'Fracture tassement de la face posterieur de la tếte humérale';
-    this.imgMin = true;
 
-    let i = new Image('Radio épaule profile auxillaire', '../../assets/img/photo/epaule1.jpg');
-    let ii = new Image('Radio épaule face stricte', '../../assets/img/photo/epaule2.png');
-    console.log(i.name);
-    this.img.push(i);
-    this.img.push(ii);
+    constructor(private route: ActivatedRoute, private userService: UserService) {
+      this.firstName = this.userService.getfirstName() ? this.userService.getfirstName() : '';
+      this.lastName = this.userService.getlastName() ? this.userService.getlastName() : '';
+      this.status = this.userService.getStatus() ? this.userService.getStatus() : '';
 
-    if (this.manageFile.stateConsulted()) {
-      log("Consulted");
-    }else{
-      log("Not consulted");
-    }
+      let state;
+      this.route.params.subscribe(params => { state = params['state']; });
+
+      if (state == 'new'){
+        this.manageFile.state = ManageFile.State.New;
+      }else {
+        this.directory.description = 'Radiographie simple de l\'epaule gauche avec clicher de face stricte et profile auxillaire';
+        this.directory.motif = 'Suite à une chute d\'équitation, douleur à l\'epaule droit, et manque de mobilité';
+        this.directory.observation = 'Fracture tassement de la face posterieur de la tếte humérale';
+        this.imgMin = true;
+
+        let i = new Image('Radio épaule profile auxillaire', '../../assets/img/photo/epaule1.jpg');
+        let ii = new Image('Radio épaule face stricte', '../../assets/img/photo/epaule2.png');
+        console.log(i.name);
+        this.img.push(i);
+        this.img.push(ii);
+      }
   }
 
   ngOnInit() {

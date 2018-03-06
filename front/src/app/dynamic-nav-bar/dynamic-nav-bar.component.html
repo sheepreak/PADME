@@ -15,14 +15,14 @@
     <li><a href="javascript:void(0)">{{ 'Prescription' | translate:user }}</a></li>
     <li *ngIf="user.isAdmin()"><a routerLink="adminview">{{ 'AdminView' | translate:user }}</a>
     <li><a href="javascript:void(0)" (click)="archiveIsCollapsed = !archiveIsCollapsed">{{ 'Archive' | translate:user }}</a></li>
-    
+
     <li class="imgList first"><a href="javascript:void(0)" (click)="addIsCollapsed = !addIsCollapsed"><img
       src="../../assets/img/icon/add-all.svg">{{ 'Add' | translate:user }}</a>
       <ul [collapse]="addIsCollapsed">
-        <li *ngIf="user.isDoctor()"><a routerLink="consultationfile">{{ 'Consultation' | translate:user }}</a></li>
-        <li *ngIf="user.isDoctor()"><a routerLink="examenfile">{{ 'Examen' | translate:user }}</a></li>
-        <li *ngIf="user.isDoctor()"><a routerLink="prescriptionfile">{{ 'Prescription' | translate:user }}</a></li>
-        <li><a routerLink="administrationfile">{{ 'AdminFIle' | translate:user }}</a></li>
+        <li *ngIf="user.isDoctor()"><a [routerLink]="['consultationfile', { state: 'new' }]">{{ 'Consultation' | translate:user }}</a></li>
+        <li *ngIf="user.isDoctor()"><a [routerLink]="['examenfile', { state: 'new' }]">{{ 'Examen' | translate:user }}</a></li>
+        <li *ngIf="user.isDoctor()"><a [routerLink]="['prescriptionfile', { state: 'new' }]">{{ 'Prescription' | translate:user }}</a></li>
+        <li><a [routerLink]="['administrationfile', { state: 'new' }]">{{ 'AdminFIle' | translate:user }}</a></li>
       </ul>
     </li>
     <li class="imgList"><a href="javascript:void(0)" (click)="myDocIsCollapsed = !myDocIsCollapsed"><img

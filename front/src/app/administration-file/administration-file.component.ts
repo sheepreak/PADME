@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ManageFile} from '../manageFile';
 import {UserService} from '../user.service';
 import {AdministrationRequestService} from './administration-request.service';
+import {ActivatedRoute} from "@angular/router";
 
 
 @Component({
@@ -16,8 +17,15 @@ export class AdministrationFileComponent implements OnInit {
   oldDirectory: any;
   manageFile: ManageFile = new ManageFile();
 
-  constructor(private userService: UserService, private administrationRequest: AdministrationRequestService) {
+  constructor(private route: ActivatedRoute, private userService: UserService, private administrationRequest: AdministrationRequestService) {
+    let state;
+    this.route.params.subscribe(params => {
+      state = params['state'];
+    });
 
+    if (state == 'new') {
+      this.manageFile.state = ManageFile.State.New;
+    }
   }
 
   ngOnInit() {
