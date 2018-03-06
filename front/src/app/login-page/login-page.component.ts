@@ -13,7 +13,6 @@ import {Router} from '@angular/router';
 
 
 export class LoginPageComponent implements OnInit {
-
   errorLogin = null;
 
   constructor(private userService: UserService, private requester: WebApiPromiseService, private router: Router) {
@@ -27,7 +26,7 @@ export class LoginPageComponent implements OnInit {
       this.requester.connectUser(form.login, form.password).then(data => {
         this.userService.connect(form.login, form.password, data);
         this.errorLogin = null;
-        if (this.userService.getStatus() === 'DOCTOR' || this.userService.getStatus() === 'DOCTOR') {
+        if (this.userService.getStatus() === 'DOCTOR') {
           this.router.navigate(['/patientlist']);
         } else if (this.userService.getStatus() === 'SECRETAIRE') {
           this.router.navigate(['/patientlist']);

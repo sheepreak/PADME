@@ -21,7 +21,7 @@
       <h3 translate>Coordoonee</h3>
       <p><strong>{{ 'Adress' | translate:user }}:</strong> {{directory.address}} </p>
       <p><strong>{{ 'PostalCode' | translate:user }}:</strong> {{directory.postalCode}}</p>
-      <p><strong>{{ 'Country' | translate:user }}</strong> {{directory.city}}</p>
+      <p><strong>{{ 'Country' | translate:user }}:</strong> {{directory.city}}</p>
       <p><strong>{{ 'AdressComplement' | translate:user }}:</strong> {{directory.addressComplement}}</p>
       <p><strong>{{ 'Mail' | translate:user }}:</strong> {{directory.email}}</p>
       <p><strong>{{ 'Phone' | translate:user }}:</strong> {{directory.phone}}</p>
@@ -43,7 +43,7 @@
   </div>
 
 
-  <div class="row myrow" *ngIf="manageFile.stateEdited()">
+  <div class="row myrow" *ngIf="manageFile.stateEdited() || manageFile.stateNew()">
     <form class="form-horizontal">
       <div class="col-md-6">
         <h3 translate>PersonalData</h3>
@@ -174,7 +174,11 @@
         </div>
       </div>
 
-      <div class="col-md-12" style="text-align: center">
+      <div class="col-md-12" style="text-align: center" *ngIf="manageFile.stateNew()">
+        <button type="submit" class="btn btn-validate" translate>Créer le document</button>
+      </div>
+
+      <div class="col-md-12" style="text-align: center" *ngIf="manageFile.stateEdited()">
         <button type="submit" class="btn btn-validate" translate>Validate</button>
         <button (click)="cancelModif()" class="btn btn-warning" translate>Cancel</button>
       </div>

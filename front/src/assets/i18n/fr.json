@@ -13,6 +13,7 @@
   "Publish":"Publier",
   "Validate":"Valider les modifications",
   "Cancel":"Annuler",
+  "Create":"Créer le document",
 
   "Title": "Exemple de traduction",
   "Intro": "Bonjour je m'appelle Arthur, j'ai 42 ans.",
@@ -48,12 +49,15 @@
   "ExamenResult":"Résultats",
   "ExamenObservation":"Observation",
   "LoadAllImg": "Charger toutes les images",
+  "ImgName": "Nom",
+  "Path": "Lien",
 
   "Prescription": "Prescription",
 
   "Consultation":"Consultation",
   "PatientList": "Liste des patients",
   "Examination": "Examens",
+  "StaffList": "List du personnel",
 
   "PatientList" : "Liste des patients",
   "AdminDocPatient" : "Fiche administrative patient",

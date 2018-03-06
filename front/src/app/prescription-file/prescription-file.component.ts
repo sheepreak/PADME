@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ManageFile} from "../manageFile";
-import {Doctor} from "../doctor";
-import {Patient} from "../patient";
+import {ActivatedRoute} from "@angular/router";
+import {UserService} from "../user.service";
 
 @Component({
   selector: 'app-prescription-file',
@@ -12,16 +12,34 @@ export class PrescriptionFileComponent implements OnInit {
   prescription: string;
   oldPrescription;
   manageFile: ManageFile = new ManageFile();
-  patient: Patient = new Patient("Jean", "Dujardin");
-  doctor: Doctor = new Doctor("Jean-Luc", "Portos", "Radiologue");
+  firstName: string;
+  lastName: string;
+  status: string;
 
+  patientFirstName: string;
+  patientLastName: string;
 
-  constructor() {
-    this.prescription = '2 boites de doliprane\n' +
-      '      spasfond';
+  constructor(private route: ActivatedRoute, private userService: UserService) {
   }
 
   ngOnInit() {
+    this.firstName = this.userService.getfirstName() ? this.userService.getfirstName() : '';
+    this.lastName = this.userService.getlastName() ? this.userService.getlastName() : '';
+    this.status = this.userService.getStatus() ? this.userService.getStatus() : '';
+
+    this.patientFirstName = this.userService.getPatient().firstName;
+    this.patientLastName = this.userService.getPatient().lastName;
+
+    let state;
+    this.route.params.subscribe(params => {
+      state = params['state'];
+      if (state == 'new') {
+        this.manageFile.state = ManageFile.State.New;
+      } else {
+        this.prescription = '2 boites de doliprane\n' +
+          '      spasfond';
+      }
+    });
   }
 
   modifData() {

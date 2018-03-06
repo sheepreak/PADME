@@ -2,6 +2,7 @@ import {Component, OnInit, Pipe, PipeTransform} from '@angular/core';
 import {Router} from '@angular/router';
 import {PatientListServiceService} from './patient-list-service.service';
 import {UserService} from '../user.service';
+import {Patient} from "../patient";
 
 
 @Pipe({
@@ -36,12 +37,11 @@ export class PatientListComponent implements OnInit {
     this.patientService.getPatients().then(data => {
       this.listPatients = data;
     });
-    this.userService.setPatientIdSelected(null);
+    this.userService.setPatient(null);
   }
 
-  onClicOnPatient(id) {
-    this.userService.setPatientIdSelected(id);
+  onClicOnPatient(patient) {
+    this.userService.setPatient(patient);
     this.router.navigate(['/administrationfile']);
   }
-
 }

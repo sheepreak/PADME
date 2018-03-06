@@ -2,7 +2,6 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {FormsModule} from '@angular/forms'; // <-- NgModel lives here
-
 import {AppComponent} from './app.component';
 import {StaticNavBarComponent} from './static-nav-bar/static-nav-bar.component';
 import {DynamicNavBarComponent} from './dynamic-nav-bar/dynamic-nav-bar.component';
@@ -19,9 +18,9 @@ import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {AdminViewComponent} from './admin-view/admin-view.component';
 import {AdministrationRequestService} from './administration-file/administration-request.service';
-
 import {CollapseModule, ModalModule} from 'ngx-bootstrap';
 import {UserDocComponent} from './user-doc/user-doc.component';
+import { MedicalDocListComponent } from './medical-doc-list/medical-doc-list.component';
 
 
 const appRoutes: Routes = [
@@ -54,6 +53,10 @@ const appRoutes: Routes = [
     component: UserDocComponent
   },
   {
+    path: 'doclist',
+    component: MedicalDocListComponent
+  },
+  {
     path: '**',
     redirectTo: ''
   },
@@ -75,7 +78,8 @@ const appRoutes: Routes = [
     SearchPipe,
     ConsultationFileComponent,
     AdminViewComponent,
-    UserDocComponent
+    UserDocComponent,
+    MedicalDocListComponent
   ],
 
   imports: [

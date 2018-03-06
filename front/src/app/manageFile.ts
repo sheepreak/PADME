@@ -1,9 +1,12 @@
+
+
 export class ManageFile
 {
   constructor ()
   {
-    this.state = ManageFile.State.Consulted;
+      this.state = ManageFile.State.Consulted;
   }
+
   state: ManageFile.State;
   hopital: string
   date: string
@@ -37,6 +40,10 @@ export class ManageFile
   statePublish(){
     return this.state == ManageFile.State.Publish;
   }
+
+  stateNew(){
+    return this.state == ManageFile.State.New;
+  }
 }
 
 export namespace ManageFile
@@ -45,6 +52,7 @@ export namespace ManageFile
   {
     Consulted,
     Edited,
-    Publish
+    Publish,
+    New
   }
 }
