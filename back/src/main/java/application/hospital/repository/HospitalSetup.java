@@ -21,6 +21,8 @@ import application.prescription.repository.PrescriptionRepository;
 import application.staff.Status;
 import application.staff.domain.Staff;
 import application.staff.repository.StaffRepository;
+import org.glassfish.embeddable.web.Context;
+import org.glassfish.embeddable.web.config.SecurityConfig;
 import utils.Address;
 import utils.InseeRef;
 import utils.Parse;
@@ -29,7 +31,17 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.servlet.*;
+import javax.servlet.descriptor.JspConfigDescriptor;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -261,7 +273,7 @@ public class HospitalSetup {
 
         patientRepository.save(patient1);
 
-        generateRandomPatient(292);
+        generateRandomPatient(300);
 
     }
 
@@ -353,14 +365,15 @@ public class HospitalSetup {
 
         List<AdminFile> list = new ArrayList<>();
         try {
-            List<String> dataPrenom = Parse.parseFileToString(Paths.get("/home/dev/Dropbox_Host/padme_project/PADME-Project/back/src/main/resources/dataForSetup/Prenoms.csv"));
+
+
+            List<String> dataPrenom = Parse.parseFileToString(Paths.get(this.getClass().getClassLoader().getResource("dataForSetup/Prenoms.csv").getPath()));
             HashMap<String, Boolean> prenoms = Parse.parseFirstname(dataPrenom);
 
-            List<String> dataInseeRefs = Parse.parseFileToString(Paths.get("/home/dev/Dropbox_Host/padme_project/PADME-Project/back/src/main/resources/dataForSetup/laposte_hexasmal.csv"));
+            List<String> dataInseeRefs = Parse.parseFileToString(Paths.get(this.getClass().getClassLoader().getResource("dataForSetup/laposte_hexasmal.csv").getPath()));
             List<InseeRef> listInseeRefs = Parse.parseInseeRef(dataInseeRefs);
 
-
-            List<String> dataAddress = Parse.parseFileToString(Paths.get("/home/dev/Dropbox_Host/padme_project/PADME-Project/back/src/main/resources/dataForSetup/les_bureaux_de_poste_et_agences_postales_en_idf.csv"));
+            List<String> dataAddress = Parse.parseFileToString(Paths.get(this.getClass().getClassLoader().getResource("dataForSetup/les_bureaux_de_poste_et_agences_postales_en_idf.csv").getPath()));
             List<Address> addressSamples = Parse.parseSampleAddress(dataAddress, listInseeRefs);
 
             List<String> firstNames = new ArrayList<>(prenoms.keySet());

@@ -1,5 +1,6 @@
 package utils;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -33,13 +34,21 @@ public class Parse {
 	public static HashMap<String, Boolean> parseFirstname(List<String> data) throws IOException{
 		boolean isFirst = true;
 		HashMap<String, Boolean> map = new HashMap<>();
+		List languages = new ArrayList();
+		languages.add("french");
+		languages.add("english");
+		languages.add("spain");
+		languages.add("finnish");
 		for(String str : data) {
 			if(isFirst) {
 				isFirst = false;
 				continue;
 			}
 			String[] values = str.split(";",3);
-			map.putIfAbsent(values[0].split(" ")[0], values[1].toLowerCase().equals("m"));
+			String language = values[2].split(",")[0];
+
+			if (languages.contains(language))
+				map.putIfAbsent(values[0].split(" ")[0], values[1].toLowerCase().split(" ")[0].equals("m"));
 		}
 		return map;
 	}
