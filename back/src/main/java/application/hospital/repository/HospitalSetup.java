@@ -337,16 +337,21 @@ public class HospitalSetup {
             return "Sans-emploi";
         if(age < 21)
              return "Etudiant";
+        if(age > 63)
+            return "Retraité";
         List<String> jobs = new ArrayList<>();
         jobs.add("Coursier");
         jobs.add("Vendeur Immobilier");
         jobs.add("Gestionnaire de fonds");
         jobs.add("Sans-emploi");
-        jobs.add("Paintre");
+        jobs.add("Peintre");
         jobs.add("Vendeur");
         jobs.add("Courtier");
         jobs.add("Professeur");
         jobs.add("Architecte");
+        jobs.add("Gardien");
+        jobs.add("Vigile");
+        jobs.add("Responsable des ressources humaines");
 
         return jobs.get(rand.nextInt(jobs.size()));
     }
