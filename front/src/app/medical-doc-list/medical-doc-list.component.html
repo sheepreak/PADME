@@ -1,9 +1,7 @@
 <div class="col-md-11 col-sm-11">
   <h2>
-
     {{ type | translate:user }}
   </h2>
-
 
   <div class="row">
     <div class="col-md-offset-8 col-md-4">
@@ -11,20 +9,51 @@
     </div>
   </div>
   <div class="table-responsive">
-    <table class="table table-striped table-hover">
+    <table class="table table-striped table-hover" *ngIf="type == 'Consultation'">
       <thead>
       <tr>
         <th>Date</th>
-        <th>TYPE</th>
+        <th>COMMENT</th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let patient of listPatients | search:'lastName,firstName':filter" (click)="onClicOnPatient(patient.patientId)">
-        <td>{{patient.lastName | uppercase}}</td>
-        <td>{{patient.firstName | uppercase}}</td>
-        <td>{{patient.gender}}</td>
-        <td>{{patient.birthDate}}</td>
-        <td>{{patient.country}}</td>
+      <tr *ngFor="let consultation of listDoc.observations" (click)="onClicOnConsultation(consultation)">
+        <td>{{consultation.date}}</td>
+        <td>{{consultation.comment}}</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <table class="table table-striped table-hover" *ngIf="type == 'Examen'">
+      <thead>
+      <tr>
+        <th>Date</th>
+        <th>MOTIVE</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let examen of listDoc.exams" (click)="onClicOnExamen(examen)">
+        <td>{{examen.date}}</td>
+        <td>{{examen.motive}}</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <table class="table table-striped table-hover" *ngIf="type == 'Prescription'">
+      <thead>
+      <tr>
+        <th>Prescription date</th>
+        <th>Traitement</th>
+        <th>Start date</th>
+        <th>End date</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let prescription of listDoc.prescriptions" (click)="onClicOnPrescription(prescription)">
+        <td>{{prescription.prescriptionDate | date:"MM/dd/yyyy 'at' h:mma"}}</td>
+        <td>{{prescription.treatment}}</td>
+        <td>{{prescription.startDate | date:"MM/dd/yyyy 'at' h:mma"}}</td>
+        <td>{{prescription.endDate | date:"MM/dd/yyyy 'at' h:mma"}}</td>
       </tr>
       </tbody>
     </table>

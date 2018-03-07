@@ -41,10 +41,8 @@ export class ConsultationFileComponent implements OnInit {
       if (state == 'new') {
         this.manageFile.state = ManageFile.State.New;
       } else {
-        this.directory.motif = 'Patient souvrant de maux de ventre';
-        this.directory.observation = 'Rythme cardiaque normale\n' +
-          '      Respiration normale\n' +
-          '      Grosseur aux niveau de l\'abdomen';
+        this.directory.motif = this.userService.getConsultation().comment;
+        this.directory.observation = this.userService.getConsultation().comment;
       }
     });
   }

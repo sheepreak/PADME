@@ -52,6 +52,18 @@ export class ExamenFileComponent implements OnInit {
       if (state == 'new') {
         this.manageFile.state = ManageFile.State.New;
       } else {
+        this.directory.description = this.userService.getExamen().description;
+        this.directory.motif = this.userService.getExamen().motive;;
+        this.directory.observation = this.userService.getExamen().description;
+        this.imgMin = true;
+
+        let i = new Image('Radio épaule profile auxillaire', '../../assets/img/photo/epaule1.jpg');
+        let ii = new Image('Radio épaule face stricte', '../../assets/img/photo/epaule2.png');
+        console.log(i.name);
+        this.img.push(i);
+        this.img.push(ii);
+
+        /*
         this.directory.description = 'Radiographie simple de l\'epaule gauche avec clicher de face stricte et profile auxillaire';
         this.directory.motif = 'Suite à une chute d\'équitation, douleur à l\'epaule droit, et manque de mobilité';
         this.directory.observation = 'Fracture tassement de la face posterieur de la tếte humérale';
@@ -62,6 +74,7 @@ export class ExamenFileComponent implements OnInit {
         console.log(i.name);
         this.img.push(i);
         this.img.push(ii);
+        */
       }
     });
   }
@@ -78,10 +91,12 @@ export class ExamenFileComponent implements OnInit {
   }
 
   onSubmit(form) {
-    const req = this.http.post('http://jsonplaceholder.typicode.com/posts', {
-      title: 'foo',
-      body: 'bar',
-      userId: 1
+    const req = this.http.put('http://localhost:8080/back-1.0-SNAPSHOT/rs/patient/addexam/72', {
+      motive: 'test',
+      description : 'test',
+      observation : 'test',
+      date : 'test',
+      StaffId: 121
     })
       .subscribe(
         res => {
