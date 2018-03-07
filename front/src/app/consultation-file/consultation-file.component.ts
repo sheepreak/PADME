@@ -39,6 +39,7 @@ export class ConsultationFileComponent implements OnInit {
     this.route.params.subscribe(params => {
       state = params['state'];
       if (state == 'new') {
+        this.userService.resetConsultation();
         this.manageFile.state = ManageFile.State.New;
       } else {
         this.directory.motif = this.userService.getConsultation().comment;

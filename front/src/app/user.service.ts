@@ -146,6 +146,18 @@ export class UserService {
     this.prescription = prescription;
   }
 
+  resetPrescription(){
+    this.prescription = null;
+  }
+
+  resetExamen(){
+    this.examen = null;
+  }
+
+  resetConsultation(){
+    this.consultation = null;
+  }
+
   getPatientIdSelected() {
     if (this.patient != null) {
       return this.patient.patientId;

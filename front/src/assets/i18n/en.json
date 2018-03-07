@@ -51,11 +51,15 @@
   "Path": "Path",
 
   "Prescription": "Prescription",
-
+  "Observation": "Observation",
   "Consultation":"Consultation",
   "PatientList": "Patients list",
   "Examination": "Examinations",
   "StaffList": "Staff list",
+  "PrescriptionDate": "Prescription date",
+  "Treatment": "Treatment",
+  "StartDate": "Start of treatment",
+  "EndDate": "End of treatment",
 
   "PatientList" : "Patient List",
   "AdminDocPatient" : "Administration document patient",
@@ -63,8 +67,8 @@
   "Archive" : "Archive",
   "MedicalFolder" : "Medical folder",
   "Add" : "Add document",
-  "MyDocument" : "My document"
-
+  "MyDocument" : "My document",
+  "Date": "Date"
 
 }
 

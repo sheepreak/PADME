@@ -53,11 +53,16 @@
   "Path": "Lien",
 
   "Prescription": "Prescription",
-
+  "Observation": "Observation",
   "Consultation":"Consultation",
   "PatientList": "Liste des patients",
   "Examination": "Examens",
   "StaffList": "List du personnel",
+  "PrescriptionDate": "Date de préscription",
+  "Treatment": "Traitement",
+  "StartDate": "Début du traitement",
+  "EndDate": "Fin du traitement",
+  "DateFormated" : "MM/dd/yyyy 'a' h:mma",
 
   "PatientList" : "Liste des patients",
   "AdminDocPatient" : "Fiche administrative patient",
@@ -65,5 +70,6 @@
   "Archive" : "Archive",
   "MedicalFolder" : "Dossier médical",
   "Add" : "Ajout",
-  "MyDocument" : "Mes documents"
+  "MyDocument" : "Mes documents",
+  "Date": "Date"
 }

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Image} from '../image';
 import {ManageFile} from '../manageFile';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../user.service";
 import {WebApiPromiseService} from "../web-api-promise.service";
 import {HttpClient, HttpRequest} from "@angular/common/http";
@@ -34,7 +34,7 @@ export class ExamenFileComponent implements OnInit {
   patientFirstName: string;
   patientLastName: string
 
-  constructor(private route: ActivatedRoute, private userService: UserService,  private requester: WebApiPromiseService, private http: HttpClient) {
+  constructor(private router: Router, private route: ActivatedRoute, private userService: UserService,  private requester: WebApiPromiseService, private http: HttpClient) {
   }
 
   ngOnInit() {
@@ -50,6 +50,7 @@ export class ExamenFileComponent implements OnInit {
       state = params['state'];
 
       if (state == 'new') {
+        this.userService.resetExamen();
         this.manageFile.state = ManageFile.State.New;
       } else {
         this.directory.description = this.userService.getExamen().description;
@@ -96,7 +97,7 @@ export class ExamenFileComponent implements OnInit {
       description : 'test',
       observation : 'test',
       date : 'test',
-      StaffId: 121
+      staffId: 121
     })
       .subscribe(
         res => {
@@ -106,6 +107,8 @@ export class ExamenFileComponent implements OnInit {
           console.log("Error occured");
         }
       );
+
+    this.router.navigate(['/doclist']);
   }
 
   public changeImg(img: Image) {
