@@ -62,7 +62,7 @@
   "Treatment": "Traitement",
   "StartDate": "Début du traitement",
   "EndDate": "Fin du traitement",
-  "DateFormated" : "MM/dd/yyyy 'a' h:mma",
+  "TreatmentDuration": "Durée du traitment",
 
   "PatientList" : "Liste des patients",
   "AdminDocPatient" : "Fiche administrative patient",

@@ -48,7 +48,8 @@ export class UserService {
     'startDate': null,
     'endDate': null,
     'prescriptionDate': null,
-    'treatment': null
+    'treatment': null,
+    'posology': null
   }
 
 

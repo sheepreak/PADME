@@ -60,22 +60,8 @@ export class ExamenFileComponent implements OnInit {
 
         let i = new Image('Radio épaule profile auxillaire', '../../assets/img/photo/epaule1.jpg');
         let ii = new Image('Radio épaule face stricte', '../../assets/img/photo/epaule2.png');
-        console.log(i.name);
         this.img.push(i);
         this.img.push(ii);
-
-        /*
-        this.directory.description = 'Radiographie simple de l\'epaule gauche avec clicher de face stricte et profile auxillaire';
-        this.directory.motif = 'Suite à une chute d\'équitation, douleur à l\'epaule droit, et manque de mobilité';
-        this.directory.observation = 'Fracture tassement de la face posterieur de la tếte humérale';
-        this.imgMin = true;
-
-        let i = new Image('Radio épaule profile auxillaire', '../../assets/img/photo/epaule1.jpg');
-        let ii = new Image('Radio épaule face stricte', '../../assets/img/photo/epaule2.png');
-        console.log(i.name);
-        this.img.push(i);
-        this.img.push(ii);
-        */
       }
     });
   }
@@ -92,12 +78,26 @@ export class ExamenFileComponent implements OnInit {
   }
 
   onSubmit(form) {
+    var today = new Date();
+    var jj = today.getDay().toString();
+    var mm = (today.getMonth()+1).toString();
+    var aaaa = today.getFullYear();
+
+    if (jj.length != 2){
+      jj = "0".concat(jj);
+    }
+    if (mm.length != 2){
+      mm = "0".concat(mm);
+    }
+
+    let date = aaaa+"-"+mm+"-"+jj;
+
     const req = this.http.put('http://localhost:8080/back-1.0-SNAPSHOT/rs/patient/addexam/72', {
-      motive: 'test',
-      description : 'test',
-      observation : 'test',
-      date : 'test',
-      staffId: 121
+      motive: form.motif,
+      description : form.description,
+      observation : form.description,
+      date : date,
+      staffId: this.userService.getId()
     })
       .subscribe(
         res => {
@@ -107,8 +107,7 @@ export class ExamenFileComponent implements OnInit {
           console.log("Error occured");
         }
       );
-
-    this.router.navigate(['/doclist']);
+    this.router.navigate(['doclist', { type: 'Examen' }]);
   }
 
   public changeImg(img: Image) {

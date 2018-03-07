@@ -50,14 +50,14 @@
     </div>
 
     <div class="col-md-10" *ngIf="manageFile.stateEdited() || manageFile.stateNew()">
-      <form class="form-horizontal"  #examenForm="ngForm" (ngSubmit)="onSubmit(examenForm.value)" ngNativeValidate>
+      <form class="form-horizontal" #examenForm="ngForm" (ngSubmit)="onSubmit(examenForm.value)" ngNativeValidate>
         <h3 translate>ExamenMotif</h3>
-        <textarea id="motif" rows="2" cols="100">
+        <textarea [(ngModel)]="motif" id="motif" name="motif" rows="2" cols="100">
         {{directory.motif}}
         </textarea>
 
         <h3 translate>ExamenDescription</h3>
-        <textarea rows="2" cols="100">
+        <textarea [(ngModel)]="description" id="description" name="description" rows="2" cols="100">
         {{directory.description}}
         </textarea>
 

@@ -60,6 +60,7 @@
   "Treatment": "Treatment",
   "StartDate": "Start of treatment",
   "EndDate": "End of treatment",
+  "TreatmentDuration": "Duration of treatment",
 
   "PatientList" : "Patient List",
   "AdminDocPatient" : "Administration document patient",

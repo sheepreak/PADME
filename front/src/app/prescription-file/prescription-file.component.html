@@ -22,7 +22,7 @@
     </div>
 
     <div class="col-md-2 mycol">
-      <h3>{{status | translate:user  }}</h3>
+      <h3>{{status | translate:user}}</h3>
       <p>{{lastName}}</p>
       <p>{{firstName}}</p>
     </div>
@@ -30,15 +30,57 @@
     <br>
     <div class="col-md-10" *ngIf="manageFile.stateConsulted() || manageFile.statePublish()">
       <h3 translate>Prescription</h3>
-      <p>{{prescription}}</p>
+      <p>{{directory.treatment}}</p>
+
+      <h3 translate>TreatmentDuration</h3>
+      <p>{{"StartDate" | translate:user}} : {{directory.startDate}}</p>
+      <p>{{"EndDate" | translate:user}} : {{directory.endDate}}</p>
+
+    <h3 translate>Posologie</h3>
+    <p>{{directory.posologie}}</p>
+
+    <h3 translate>Prise des posologies</h3>
+    <div class="table-responsive">
+      <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+          <th>{{'Date' | translate:user | uppercase}}</th>
+          <th>{{'Observation' | translate:user | uppercase}}</th>
+          <th>INFIRMIER</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let posology of posologies | search:'date':filter">
+          <td>{{posology.date}}</td>
+          <td>{{posology.observation}}</td>
+          <td>{{posology.infirmier}}</td>
+        </tr>
+        </tbody>
+      </table>
     </div>
 
     <div class="col-md-10" *ngIf="manageFile.stateEdited() || manageFile.stateNew()">
-      <h3 translate>Prescription</h3>
-      <form class="form-horizontal">
-          <textarea rows="4" cols="50">
-            {{prescription}}
+
+      <form class="form-horizontal" #prescriptionForm="ngForm" (ngSubmit)="onSubmit(prescriptionForm.value)">
+        <h3 translate>Prescription</h3>
+          <textarea [(ngModel)]="treatment" rows="4" cols="50">
+            {{directory.treatment}}
           </textarea>
+
+        <h3 translate>StartDate</h3>
+        <textarea [(ngModel)]="startDate" rows="4" cols="50">
+            {{"StartDate" | translate:user}} : {{directory.startDate}}
+          </textarea>
+
+        <h3 translate>EndDate</h3>
+        <textarea [(ngModel)]="endDate" rows="4" cols="50">
+        {{"EndDate" | translate:user}} :{{directory.endDate}}
+        </textarea>
+
+        <h3 translate>Posologie</h3>
+        <textarea [(ngModel)]="endDate" rows="4" cols="50">
+          {{directory.posologie}}
+        </textarea>
 
         <div class="col-md-12" style="text-align: center" *ngIf="manageFile.stateNew()">
           <button type="submit" class="btn btn-validate" translate>Créer le document</button>

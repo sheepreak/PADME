@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {ManageFile} from "../manageFile";
 import {Patient} from "../patient";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../user.service";
+import {WebApiPromiseService} from "../web-api-promise.service";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-consultation-file',
@@ -24,7 +26,7 @@ export class ConsultationFileComponent implements OnInit {
   patientFirstName: string;
   patientLastName: string;
 
-  constructor(private route: ActivatedRoute, private userService: UserService) {
+  constructor(private router: Router, private route: ActivatedRoute, private userService: UserService, private http: HttpClient) {
   }
 
   ngOnInit() {
@@ -48,6 +50,36 @@ export class ConsultationFileComponent implements OnInit {
     });
   }
 
+  onSubmit(form) {
+    var today = new Date();
+    var jj = today.getDay().toString();
+    var mm = (today.getMonth()+1).toString();
+    var aaaa = today.getFullYear();
+
+    if (jj.length != 2){
+      jj = "0".concat(jj);
+    }
+    if (mm.length != 2){
+      mm = "0".concat(mm);
+    }
+
+    let date = aaaa+"-"+mm+"-"+jj;
+
+    const req = this.http.put('http://localhost:8080/back-1.0-SNAPSHOT/rs/patient/addobservation/72', {
+      comment: form.comment,
+      date : date,
+      staffId: this.userService.getId()
+    })
+      .subscribe(
+        res => {
+          console.log(res);
+        },
+        err => {
+          console.log("Error occured");
+        }
+      );
+    this.router.navigate(['doclist', { type: 'Consultation' }]);
+  }
 
   modifData() {
     this.oldDirectory = Object.assign({}, this.directory);
