@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {UserService} from "../user.service";
 import {MedicalDocService} from "./medical-doc.service";
@@ -13,7 +13,7 @@ export class MedicalDocListComponent implements OnInit {
   type: string;
   listDoc: any;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private userService: UserService, private medicalDocService: MedicalDocService) {
+  constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, private userService: UserService, private medicalDocService: MedicalDocService) {
   }
 
   ngOnInit() {
@@ -27,6 +27,18 @@ export class MedicalDocListComponent implements OnInit {
     });
   }
 
+  onClicOnConsultation(consultation) {
+    this.userService.setConsultation(consultation);
+    this.router.navigate(['/consultationfile']);
+  }
 
+  onClicOnExamen(examen) {
+    this.userService.setExamen(examen);
+    this.router.navigate(['/examenfile']);
+  }
 
+  onClicOnPrescription(prescription) {
+    this.userService.setPrescription(prescription);
+    this.router.navigate(['/prescriptionfile']);
+  }
 }

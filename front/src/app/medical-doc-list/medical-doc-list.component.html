@@ -3,7 +3,6 @@
     {{ type | translate:user }}
   </h2>
 
-
   <div class="row">
     <div class="col-md-offset-8 col-md-4">
       <input [(ngModel)]="filter" type="text" class="form-control" placeholder="Recherche">
@@ -18,9 +17,9 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let doc of listDoc.observations">
-        <td>{{doc.date}}</td>
-        <td>{{doc.comment}}</td>
+      <tr *ngFor="let consultation of listDoc.observations" (click)="onClicOnConsultation(consultation)">
+        <td>{{consultation.date}}</td>
+        <td>{{consultation.comment}}</td>
       </tr>
       </tbody>
     </table>
@@ -33,9 +32,9 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let doc of listDoc.exams">
-        <td>{{doc.date}}</td>
-        <td>{{doc.motive}}</td>
+      <tr *ngFor="let examen of listDoc.exams" (click)="onClicOnExamen(examen)">
+        <td>{{examen.date}}</td>
+        <td>{{examen.motive}}</td>
       </tr>
       </tbody>
     </table>
@@ -44,15 +43,17 @@
       <thead>
       <tr>
         <th>Prescription date</th>
+        <th>Traitement</th>
         <th>Start date</th>
         <th>End date</th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let doc of listDoc.prescriptions">
-        <td>{{doc.prescriptionDate}}</td>
-        <td>{{doc.startDate}}</td>
-        <td>{{doc.endDate}}</td>
+      <tr *ngFor="let prescription of listDoc.prescriptions" (click)="onClicOnPrescription(prescription)">
+        <td>{{prescription.prescriptionDate | date:"MM/dd/yyyy 'at' h:mma"}}</td>
+        <td>{{prescription.treatment}}</td>
+        <td>{{prescription.startDate | date:"MM/dd/yyyy 'at' h:mma"}}</td>
+        <td>{{prescription.endDate | date:"MM/dd/yyyy 'at' h:mma"}}</td>
       </tr>
       </tbody>
     </table>

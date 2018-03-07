@@ -34,10 +34,10 @@ export class PrescriptionFileComponent implements OnInit {
     this.route.params.subscribe(params => {
       state = params['state'];
       if (state == 'new') {
+        //this.userService.getPrescription().reset();
         this.manageFile.state = ManageFile.State.New;
       } else {
-        this.prescription = '2 boites de doliprane\n' +
-          '      spasfond';
+        this.prescription = this.userService.getPrescription().treatment;
       }
     });
   }
