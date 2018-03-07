@@ -27,17 +27,6 @@ public class StaffRepository {
         em.merge(staff);
     }
 
-    public void updateDataStaff(Staff staff) {
-        em.createQuery("Update Staff set address =:adress ,lastName=:lastName," +
-                "firstName=:firstName, phone=:phone  where id=:id")
-                .setParameter("adress", staff.getAddress())
-                .setParameter("lastName", staff.getLastName())
-                .setParameter("firstName", staff.getFirstName())
-                .setParameter("phone", staff.getPhone())
-                .setParameter("id", staff.getId())
-                .executeUpdate();
-    }
-
     public Staff tryConnection(String password, String login) throws NoResultException{
         try {
             return (Staff) em.createQuery("SELECT s FROM Staff s WHERE s.password LIKE :password AND s.login LIKE :login")
@@ -51,6 +40,14 @@ public class StaffRepository {
 
     public List<Staff> getStaffs() {
         List<Staff> staffs = em.createQuery("SELECT s FROM Staff s").getResultList();
+        return staffs;
+    }
+
+    public List<Staff> getStaffsWithPagination(int page, int size) {
+        List<Staff> staffs = em.createQuery("SELECT s FROM Staff s LIMIT 10").setMaxResults(size)
+                /*.setParameter("offset",size*page)
+                .setParameter("limit",size)*/
+                .getResultList();
         return staffs;
     }
 
