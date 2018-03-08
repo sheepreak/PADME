@@ -46,6 +46,7 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Startup
 @Singleton
@@ -74,11 +75,47 @@ public class HospitalSetup {
 
     private Random rand = new Random();
 
+    private int nbAutoGeneratePatient = 300;
+
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
 
-    @PostConstruct
-    private void createData() {
+    List<String> jobsM = new ArrayList<>();
+    List<String> jobsF = new ArrayList<>();
+    List<String> jobs = new ArrayList<>();
 
+    private void initJobsList(){
+        jobs.add("Coursier");
+        jobs.add("Vendeur Immobilier");
+        jobs.add("Gestionnaire de fonds");
+        jobs.add("Sans-emploi");
+        jobs.add("Peintre");
+        jobs.add("Vendeur");
+        jobs.add("Courtier");
+        jobs.add("Professeur");
+        jobs.add("Architecte");
+        jobs.add("Gardien");
+        jobs.add("Vigile");
+        jobs.add("Responsable des ressources humaines");
+//        try {
+//            List<String> dataJobs = Parse.parseFileToString(Paths.get(this.getClass().getClassLoader().getResource("dataForSetup/Professions.csv").getPath()));
+//            jobs = Parse.parseJobs(dataJobs);
+//            for(String job:jobs){
+//                String[] values = job.split("/");
+//                if(values.length == 2){
+//                    jobsM.add(values[0]);
+//                    jobsF.add(values[1]);
+//                }
+//            }
+//        } catch (IOException ioe){
+//            //do nothing
+//        }
+    }
+
+    @PersistenceContext(unitName = "JPAPU")
+    private EntityManager entityManager;
+        @PostConstruct
+    private void createData() {
+        initJobsList();
         //Hospital and nodes
         Hospital hospital = new Hospital("Hopital Rothschild", "France", "5 Rue Santerre 75012 Paris");
         Node nodePole1 = new Node("Chirurgie", NodeLevel.pole);
@@ -94,46 +131,128 @@ public class HospitalSetup {
         Node nodeService31 = new Node("Radiologie cardio-thoracique", NodeLevel.service);
         Node nodeService32 = new Node("Radiologie crânienne", NodeLevel.service);
         Node nodeService33 = new Node("Radiologie des membres", NodeLevel.service);
-        Node nodeHU111 = new Node("Unité 1", NodeLevel.hospitalUnit);
-        Node nodeHU112 = new Node("Unité 2", NodeLevel.hospitalUnit);
-        Node nodeHU113 = new Node("Unité 3", NodeLevel.hospitalUnit);
-        Node nodeHU114 = new Node("Unité 4", NodeLevel.hospitalUnit);
-        Node nodeHU121 = new Node("Unité 1", NodeLevel.hospitalUnit);
-        Node nodeHU122 = new Node("Unité 2", NodeLevel.hospitalUnit);
-        Node nodeHU123 = new Node("Unité 3", NodeLevel.hospitalUnit);
-        Node nodeHU124 = new Node("Unité 4", NodeLevel.hospitalUnit);
-        Node nodeHU131 = new Node("Unité 1", NodeLevel.hospitalUnit);
-        Node nodeHU132 = new Node("Unité 2", NodeLevel.hospitalUnit);
-        Node nodeHU133 = new Node("Unité 3", NodeLevel.hospitalUnit);
-        Node nodeHU134 = new Node("Unité 4", NodeLevel.hospitalUnit);
-        Node nodeHU141 = new Node("Unité 1", NodeLevel.hospitalUnit);
-        Node nodeHU142 = new Node("Unité 2", NodeLevel.hospitalUnit);
-        Node nodeHU143 = new Node("Unité 3", NodeLevel.hospitalUnit);
-        Node nodeHU144 = new Node("Unité 4", NodeLevel.hospitalUnit);
-        Node nodeHU211 = new Node("Unité 1", NodeLevel.hospitalUnit);
-        Node nodeHU212 = new Node("Unité 2", NodeLevel.hospitalUnit);
-        Node nodeHU213 = new Node("Unité 3", NodeLevel.hospitalUnit);
-        Node nodeHU214 = new Node("Unité 4", NodeLevel.hospitalUnit);
-        Node nodeHU221 = new Node("Unité 1", NodeLevel.hospitalUnit);
-        Node nodeHU222 = new Node("Unité 2", NodeLevel.hospitalUnit);
-        Node nodeHU223 = new Node("Unité 3", NodeLevel.hospitalUnit);
-        Node nodeHU224 = new Node("Unité 4", NodeLevel.hospitalUnit);
-        Node nodeHU231 = new Node("Unité 1", NodeLevel.hospitalUnit);
-        Node nodeHU232 = new Node("Unité 2", NodeLevel.hospitalUnit);
-        Node nodeHU233 = new Node("Unité 3", NodeLevel.hospitalUnit);
-        Node nodeHU234 = new Node("Unité 4", NodeLevel.hospitalUnit);
-        Node nodeHU311 = new Node("Unité 1", NodeLevel.hospitalUnit);
-        Node nodeHU312 = new Node("Unité 2", NodeLevel.hospitalUnit);
-        Node nodeHU313 = new Node("Unité 3", NodeLevel.hospitalUnit);
-        Node nodeHU314 = new Node("Unité 4", NodeLevel.hospitalUnit);
-        Node nodeHU321 = new Node("Unité 1", NodeLevel.hospitalUnit);
-        Node nodeHU322 = new Node("Unité 2", NodeLevel.hospitalUnit);
-        Node nodeHU323 = new Node("Unité 3", NodeLevel.hospitalUnit);
-        Node nodeHU324 = new Node("Unité 4", NodeLevel.hospitalUnit);
-        Node nodeHU331 = new Node("Unité 1", NodeLevel.hospitalUnit);
-        Node nodeHU332 = new Node("Unité 2", NodeLevel.hospitalUnit);
-        Node nodeHU333 = new Node("Unité 3", NodeLevel.hospitalUnit);
-        Node nodeHU334 = new Node("Unité 4", NodeLevel.hospitalUnit);
+        Node nodeHU111 = new Node("Unité hospitalière 1", NodeLevel.hospitalUnit);
+        Node nodeHU112 = new Node("Unité hospitalière 2", NodeLevel.hospitalUnit);
+        Node nodeHU113 = new Node("Unité hospitalière 3", NodeLevel.hospitalUnit);
+        Node nodeHU114 = new Node("Unité hospitalière 4", NodeLevel.hospitalUnit);
+        Node nodeHU121 = new Node("Unité hospitalière 1", NodeLevel.hospitalUnit);
+        Node nodeHU122 = new Node("Unité hospitalière 2", NodeLevel.hospitalUnit);
+        Node nodeHU123 = new Node("Unité hospitalière 3", NodeLevel.hospitalUnit);
+        Node nodeHU124 = new Node("Unité hospitalière 4", NodeLevel.hospitalUnit);
+        Node nodeHU131 = new Node("Unité hospitalière 1", NodeLevel.hospitalUnit);
+        Node nodeHU132 = new Node("Unité hospitalière 2", NodeLevel.hospitalUnit);
+        Node nodeHU133 = new Node("Unité hospitalière 3", NodeLevel.hospitalUnit);
+        Node nodeHU134 = new Node("Unité hospitalière 4", NodeLevel.hospitalUnit);
+        Node nodeHU141 = new Node("Unité hospitalière 1", NodeLevel.hospitalUnit);
+        Node nodeHU142 = new Node("Unité hospitalière 2", NodeLevel.hospitalUnit);
+        Node nodeHU143 = new Node("Unité hospitalière 3", NodeLevel.hospitalUnit);
+        Node nodeHU144 = new Node("Unité hospitalière 4", NodeLevel.hospitalUnit);
+        Node nodeHU211 = new Node("Unité hospitalière 1", NodeLevel.hospitalUnit);
+        Node nodeHU212 = new Node("Unité hospitalière 2", NodeLevel.hospitalUnit);
+        Node nodeHU213 = new Node("Unité hospitalière 3", NodeLevel.hospitalUnit);
+        Node nodeHU214 = new Node("Unité hospitalière 4", NodeLevel.hospitalUnit);
+        Node nodeHU221 = new Node("Unité hospitalière 1", NodeLevel.hospitalUnit);
+        Node nodeHU222 = new Node("Unité hospitalière 2", NodeLevel.hospitalUnit);
+        Node nodeHU223 = new Node("Unité hospitalière 3", NodeLevel.hospitalUnit);
+        Node nodeHU224 = new Node("Unité hospitalière 4", NodeLevel.hospitalUnit);
+        Node nodeHU231 = new Node("Unité hospitalière 1", NodeLevel.hospitalUnit);
+        Node nodeHU232 = new Node("Unité hospitalière 2", NodeLevel.hospitalUnit);
+        Node nodeHU233 = new Node("Unité hospitalière 3", NodeLevel.hospitalUnit);
+        Node nodeHU234 = new Node("Unité hospitalière 4", NodeLevel.hospitalUnit);
+        Node nodeHU311 = new Node("Unité hospitalière 1", NodeLevel.hospitalUnit);
+        Node nodeHU312 = new Node("Unité hospitalière 2", NodeLevel.hospitalUnit);
+        Node nodeHU313 = new Node("Unité hospitalière 3", NodeLevel.hospitalUnit);
+        Node nodeHU314 = new Node("Unité hospitalière 4", NodeLevel.hospitalUnit);
+        Node nodeHU321 = new Node("Unité hospitalière 1", NodeLevel.hospitalUnit);
+        Node nodeHU322 = new Node("Unité hospitalière 2", NodeLevel.hospitalUnit);
+        Node nodeHU323 = new Node("Unité hospitalière 3", NodeLevel.hospitalUnit);
+        Node nodeHU324 = new Node("Unité hospitalière 4", NodeLevel.hospitalUnit);
+        Node nodeHU331 = new Node("Unité hospitalière 1", NodeLevel.hospitalUnit);
+        Node nodeHU332 = new Node("Unité hospitalière 2", NodeLevel.hospitalUnit);
+        Node nodeHU333 = new Node("Unité hospitalière 3", NodeLevel.hospitalUnit);
+        Node nodeHU334 = new Node("Unité hospitalière 4", NodeLevel.hospitalUnit);
+
+        Node nodeHCU1111 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU1121 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU1131 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU1141 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU1211 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU1221 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU1231 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU1241 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU1311 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU1321 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU1331 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU1341 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU1411 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU1421 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU1431 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU1441 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU2111 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU2121 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU2131 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU2141 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU2211 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU2221 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU2231 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU2241 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU2311 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU2321 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU2331 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU2341 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU3111 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU3121 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU3131 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU3141 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU3211 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU3221 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU3231 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU3241 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU3311 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU3321 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU3331 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU3341 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+
+        Node nodeHCU1112 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU1122 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU1132 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU1142 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU1212 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU1222 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU1232 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU1242 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU1312 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU1322 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU1332 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU1342 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU1412 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU1422 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU1432 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU1442 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU2112 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU2122 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU2132 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU2142 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU2212 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU2222 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU2232 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU2242 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU2312 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU2322 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU2332 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU2342 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU3112 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU3122 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU3132 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU3142 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU3212 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU3222 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU3232 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU3242 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU3312 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU3322 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU3332 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU3342 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
 
         nodePole1.addNode(nodeService11).addNode(nodeService12).addNode(nodeService13).addNode(nodeService14);
         nodePole2.addNode(nodeService21).addNode(nodeService22).addNode(nodeService23);
@@ -149,6 +268,47 @@ public class HospitalSetup {
         nodeService31.addNode(nodeHU311).addNode(nodeHU312).addNode(nodeHU313).addNode(nodeHU314);
         nodeService32.addNode(nodeHU321).addNode(nodeHU322).addNode(nodeHU323).addNode(nodeHU324);
         nodeService33.addNode(nodeHU331).addNode(nodeHU332).addNode(nodeHU333).addNode(nodeHU334);
+
+        nodeHU111.addNode(nodeHCU1111).addNode(nodeHCU1112);
+        nodeHU112.addNode(nodeHCU1121).addNode(nodeHCU1122);
+        nodeHU113.addNode(nodeHCU1131).addNode(nodeHCU1132);
+        nodeHU114.addNode(nodeHCU1141).addNode(nodeHCU1142);
+        nodeHU121.addNode(nodeHCU1211).addNode(nodeHCU1212);
+        nodeHU122.addNode(nodeHCU1221).addNode(nodeHCU1222);
+        nodeHU123.addNode(nodeHCU1231).addNode(nodeHCU1232);
+        nodeHU124.addNode(nodeHCU1241).addNode(nodeHCU1242);
+        nodeHU131.addNode(nodeHCU1311).addNode(nodeHCU1312);
+        nodeHU132.addNode(nodeHCU1321).addNode(nodeHCU1322);
+        nodeHU133.addNode(nodeHCU1331).addNode(nodeHCU1332);
+        nodeHU134.addNode(nodeHCU1341).addNode(nodeHCU1342);
+        nodeHU141.addNode(nodeHCU1411).addNode(nodeHCU1412);
+        nodeHU142.addNode(nodeHCU1421).addNode(nodeHCU1422);
+        nodeHU143.addNode(nodeHCU1431).addNode(nodeHCU1432);
+        nodeHU144.addNode(nodeHCU1441).addNode(nodeHCU1442);
+        nodeHU211.addNode(nodeHCU2111).addNode(nodeHCU2112);
+        nodeHU212.addNode(nodeHCU2121).addNode(nodeHCU2122);
+        nodeHU213.addNode(nodeHCU2131).addNode(nodeHCU2132);
+        nodeHU214.addNode(nodeHCU2141).addNode(nodeHCU2142);
+        nodeHU221.addNode(nodeHCU2211).addNode(nodeHCU2212);
+        nodeHU222.addNode(nodeHCU2221).addNode(nodeHCU2222);
+        nodeHU223.addNode(nodeHCU2231).addNode(nodeHCU2232);
+        nodeHU224.addNode(nodeHCU2241).addNode(nodeHCU2242);
+        nodeHU231.addNode(nodeHCU2311).addNode(nodeHCU2312);
+        nodeHU232.addNode(nodeHCU2321).addNode(nodeHCU2322);
+        nodeHU233.addNode(nodeHCU2331).addNode(nodeHCU2332);
+        nodeHU234.addNode(nodeHCU2341).addNode(nodeHCU2342);
+        nodeHU311.addNode(nodeHCU3111).addNode(nodeHCU3112);
+        nodeHU312.addNode(nodeHCU3121).addNode(nodeHCU3122);
+        nodeHU313.addNode(nodeHCU3131).addNode(nodeHCU3132);
+        nodeHU314.addNode(nodeHCU3141).addNode(nodeHCU3142);
+        nodeHU321.addNode(nodeHCU3211).addNode(nodeHCU3212);
+        nodeHU322.addNode(nodeHCU3221).addNode(nodeHCU3222);
+        nodeHU323.addNode(nodeHCU3231).addNode(nodeHCU3232);
+        nodeHU324.addNode(nodeHCU3241).addNode(nodeHCU3242);
+        nodeHU331.addNode(nodeHCU3311).addNode(nodeHCU3312);
+        nodeHU332.addNode(nodeHCU3321).addNode(nodeHCU3322);
+        nodeHU333.addNode(nodeHCU3331).addNode(nodeHCU3332);
+        nodeHU334.addNode(nodeHCU3341).addNode(nodeHCU3342);
 
         hospital.addNodePole(nodePole1);
         hospital.addNodePole(nodePole2);
@@ -214,6 +374,7 @@ public class HospitalSetup {
 
 
 
+
         //Patient 1
         AdminFile adminFile1 = generateAdminFile(
                 "Szalony",
@@ -273,7 +434,9 @@ public class HospitalSetup {
 
         patientRepository.save(patient1);
 
-        generateRandomPatient(300);
+
+        //Patient autogeneration
+        generateRandomPatient(nbAutoGeneratePatient);
 
     }
 
@@ -339,21 +502,33 @@ public class HospitalSetup {
              return "Etudiant";
         if(age > 63)
             return "Retraité";
-        List<String> jobs = new ArrayList<>();
-        jobs.add("Coursier");
-        jobs.add("Vendeur Immobilier");
-        jobs.add("Gestionnaire de fonds");
-        jobs.add("Sans-emploi");
-        jobs.add("Peintre");
-        jobs.add("Vendeur");
-        jobs.add("Courtier");
-        jobs.add("Professeur");
-        jobs.add("Architecte");
-        jobs.add("Gardien");
-        jobs.add("Vigile");
-        jobs.add("Responsable des ressources humaines");
 
         return jobs.get(rand.nextInt(jobs.size()));
+    }
+
+    private String generateRandomOccupationByGender(int age, boolean isMale){
+        if(age < 6)
+            return "Sans-emploi";
+
+        if(isMale) {
+            if (age < 21)
+                return "Étudiant";
+            if (age > 63)
+                return "Retraité";
+
+            if(jobsM.isEmpty()){
+                return generateRandomOccupation(age);
+            }
+            return jobsM.get(rand.nextInt(jobsM.size()));
+        }
+        if (age < 21)
+            return "Étudiante";
+        if (age > 63)
+            return "Retraitée";
+        if(jobsF.isEmpty()){
+            return generateRandomOccupation(age);
+        }
+        return jobsF.get(rand.nextInt(jobsF.size()));
     }
 
     private List<AdminFile> generateRandomAdminFiles(int nb){
@@ -388,7 +563,7 @@ public class HospitalSetup {
                 if (prenoms.get(firstName))
                     gender = "M";
                 else gender = "F";
-                int birthYear = (2017 - Math.abs(rand.nextInt(100)));
+                int birthYear = (2017 - Math.abs(rand.nextInt(85)));
                 int birthMonth = (1 + rand.nextInt(12));
                 int birthDays = (1 + rand.nextInt(28));
                 String birthDate = birthYear + "-" + String.format("%02d", birthMonth)+"-"+String.format("%02d", birthDays);
@@ -410,7 +585,7 @@ public class HospitalSetup {
                         generatePhoneNumber("01"),
                         generatePhoneNumber("06"),
                         generatePhoneNumber("01"),
-                        generateRandomOccupation(LocalDateTime.now().getYear()-birthYear)
+                        generateRandomOccupationByGender(LocalDateTime.now().getYear()-birthYear, prenoms.get(firstName))
                 ));
             }
         } catch (IOException e) {
