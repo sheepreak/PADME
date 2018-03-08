@@ -29,6 +29,13 @@ export class SearchPipe implements PipeTransform {
 export class PatientListComponent implements OnInit {
   listPatients: any;
 
+  firstName = true;
+  lastName = true;
+  genre = true;
+  nationnality = true;
+  birthDate = true;
+
+
   constructor(private router: Router, private patientService: PatientListServiceService, private userService: UserService) {
   }
 

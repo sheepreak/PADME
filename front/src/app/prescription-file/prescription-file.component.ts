@@ -10,13 +10,7 @@ import {HttpClient} from "@angular/common/http";
   styleUrls: ['./prescription-file.component.css', './../app.component.css']
 })
 export class PrescriptionFileComponent implements OnInit {
-  directory = {
-    treatment: '',
-    startDate: '',
-    endDate: '',
-    prescriptionDate: '',
-    posologie: ''
-  }
+  prescription: any;
 
   posologies = [
     {date: "11h",
@@ -27,72 +21,40 @@ export class PrescriptionFileComponent implements OnInit {
       Infirmier: "Ameline MOREAU"}
   ]
 
-  oldDirectory;
   manageFile: ManageFile = new ManageFile();
-  firstName: string;
-  lastName: string;
+  userFirstName: string;
+  userLastName: string;
   status: string;
 
-  patientFirstName: string;
-  patientLastName: string;
+  patient: any;
 
   constructor(private router: Router, private route: ActivatedRoute, private userService: UserService, private http: HttpClient) {
   }
 
   ngOnInit() {
-    this.firstName = this.userService.getfirstName() ? this.userService.getfirstName() : '';
-    this.lastName = this.userService.getlastName() ? this.userService.getlastName() : '';
+    this.userFirstName = this.userService.getfirstName() ? this.userService.getfirstName() : '';
+    this.userLastName = this.userService.getlastName() ? this.userService.getlastName() : '';
     this.status = this.userService.getStatus() ? this.userService.getStatus() : '';
 
-    this.patientFirstName = this.userService.getPatient().firstName;
-    this.patientLastName = this.userService.getPatient().lastName;
+    this.patient = this.userService.getPatient();
 
     let state;
     this.route.params.subscribe(params => {
       state = params['state'];
       if (state == 'new') {
-        this.userService.resetPrescription();
         this.manageFile.state = ManageFile.State.New;
       } else {
-        this.directory.treatment = this.userService.getPrescription().treatment;
-        this.directory.startDate = this.userService.getPrescription().startDate;
-        this.directory.endDate = this.userService.getPrescription().endDate;
-        this.directory.prescriptionDate = this.userService.getPrescription().prescriptionDate;
-        this.directory.posologie = this.userService.getPrescription().posology;
+        this.prescription = this.userService.getPrescription();
+        this.prescription.posologies = this.posologies;
       }
     });
   }
 
-  modifData() {
-    this.oldDirectory = Object.assign({}, this.directory);
-    this.manageFile.state = ManageFile.State.Edited;
-  }
-
-  cancelModif() {
-    console.log(this.oldDirectory);
-    this.directory = this.oldDirectory;
-    this.manageFile.state = ManageFile.State.Consulted;
-  }
-
   onSubmit(form) {
-    var today = new Date();
-    var jj = today.getDay().toString();
-    var mm = (today.getMonth()+1).toString();
-    var aaaa = today.getFullYear();
-
-    if (jj.length != 2){
-      jj = "0".concat(jj);
-    }
-    if (mm.length != 2){
-      mm = "0".concat(mm);
-    }
-
-    let date = aaaa+"-"+mm+"-"+jj;
-
-    const req = this.http.put('http://localhost:8080/back-1.0-SNAPSHOT/rs/patient/addprescription/72', {
+    const req = this.http.put('http://localhost:8080/back-1.0-SNAPSHOT/rs/patient/addprescription/' + this.userService.getIdMedicalFolder(), {
       startDate: form.startDate,
       endDate : form.endDate,
-      prescriptionDate : date,
+      prescriptionDate : dateFormatted2(),
       treatment : form.treatment,
       posology: form.posology,
       staffId: this.userService.getId()

@@ -7,27 +7,53 @@
     <div class="col-md-offset-8 col-md-4">
       <input [(ngModel)]="filter" type="text" class="form-control" placeholder="Recherche">
     </div>
+
+    <div class="col-md-offset-6 col-md-6">
+      <label class="info">Affichage :</label>
+      <label>
+        <input [(ngModel)]="firstName" (change)="firstname != firstName" type="checkbox" name="onoffswitch"
+               class="onoffswitch-checkbox" id="myonoffswitch" checked>
+        {{'FirstName' | translate:user}}</label>
+      <label>
+        <input [(ngModel)]="lastName" (change)="lastName != lastname" type="checkbox" name="onoffswitch"
+               class="onoffswitch-checkbox" id="myonoffswitch" checked>
+        {{'LastName' | translate:user}}</label>
+      <label>
+        <input [(ngModel)]="genre" (change)="genre != genre" type="checkbox" name="onoffswitch"
+               class="onoffswitch-checkbox" id="myonoffswitch" checked>
+        {{'Genre' | translate:user}}</label>
+      <label>
+        <input [(ngModel)]="birthDate" (change)="birthDate != birthDate" type="checkbox" name="onoffswitch"
+               class="onoffswitch-checkbox" id="myonoffswitch" checked>
+        {{'BirthDate' | translate:user}}</label>
+      <label>
+        <input [(ngModel)]="nationnality" (change)="nationnality != nationnality" type="checkbox" name="onoffswitch"
+               class="onoffswitch-checkbox" id="myonoffswitch" checked>
+        {{'Nationnality' | translate:user}}</label>
+    </div>
   </div>
-  <div class="table-responsive">
-    <table class="table table-striped table-hover">
-      <thead>
-      <tr>
-        <th>{{'LastName' | translate:user | uppercase}}</th>
-        <th>{{'FirstName' | translate:user | uppercase}}</th>
-        <th>GENRE</th>
-        <th>{{'BirthDay' | translate:user | uppercase}}</th>
-        <th>PAYS</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let patient of listPatients | search:'lastName,firstName':filter" (click)="onClicOnPatient(patient)">
-        <td>{{patient.lastName | uppercase}}</td>
-        <td>{{patient.firstName | uppercase}}</td>
-        <td>{{patient.gender | translate:user }}</td>
-        <td>{{patient.birthDate}}</td>
-        <td>{{patient.country}}</td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+
+
+<div class="table-responsive">
+  <table class="table table-striped table-hover">
+    <thead>
+    <tr>
+      <th *ngIf="lastName">{{'LastName' | translate:user | uppercase}}</th>
+      <th *ngIf="firstName">{{'FirstName' | translate:user | uppercase}}</th>
+      <th *ngIf="genre">GENRE</th>
+      <th *ngIf="birthDate">{{'BirthDay' | translate:user | uppercase}}</th>
+      <th *ngIf="nationnality">PAYS</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let patient of listPatients | search:'lastName,firstName':filter" (click)="onClicOnPatient(patient)">
+      <td *ngIf="lastName">{{patient.lastName | uppercase}}</td>
+      <td *ngIf="firstName">{{patient.firstName | uppercase}}</td>
+      <td *ngIf="genre">{{patient.gender | translate:user }}</td>
+      <td *ngIf="birthDate">{{patient.birthDate}}</td>
+      <td *ngIf="nationnality">{{patient.country}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
 </div>
