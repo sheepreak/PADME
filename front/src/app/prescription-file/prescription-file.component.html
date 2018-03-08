@@ -36,59 +36,59 @@
       <p>{{"StartDate" | translate:user}} : {{directory.startDate}}</p>
       <p>{{"EndDate" | translate:user}} : {{directory.endDate}}</p>
 
-    <h3 translate>Posologie</h3>
-    <p>{{directory.posologie}}</p>
+      <h3 translate>Posologie</h3>
+      <p>{{directory.posologie}}</p>
 
-    <h3 translate>Prise des posologies</h3>
-    <div class="table-responsive">
-      <table class="table table-striped table-hover">
-        <thead>
-        <tr>
-          <th>{{'Date' | translate:user | uppercase}}</th>
-          <th>{{'Observation' | translate:user | uppercase}}</th>
-          <th>INFIRMIER</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let posology of posologies | search:'date':filter">
-          <td>{{posology.date}}</td>
-          <td>{{posology.observation}}</td>
-          <td>{{posology.infirmier}}</td>
-        </tr>
-        </tbody>
-      </table>
+      <h3 translate>Prise des posologies</h3>
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead>
+          <tr>
+            <th>{{'Date' | translate:user | uppercase}}</th>
+            <th>{{'Observation' | translate:user | uppercase}}</th>
+            <th>INFIRMIER</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let posology of posologies | search:'date':filter">
+            <td>{{posology.date}}</td>
+            <td>{{posology.observation}}</td>
+            <td>{{posology.infirmier}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <div class="col-md-10" *ngIf="manageFile.stateEdited() || manageFile.stateNew()">
-
-      <form class="form-horizontal" #prescriptionForm="ngForm" (ngSubmit)="onSubmit(prescriptionForm.value)">
+      <form class="form-horizontal" #prescriptionForm="ngForm" (ngSubmit)="onSubmit(prescriptionForm.value)" ngNativeValidate>
         <h3 translate>Prescription</h3>
-          <textarea [(ngModel)]="treatment" rows="4" cols="50">
-            {{directory.treatment}}
-          </textarea>
+        <textarea [(ngModel)]="treatment" id="treatment" name="treatment" rows="4" cols="50">
+              {{directory.treatment}}
+            </textarea>
 
         <h3 translate>StartDate</h3>
-        <textarea [(ngModel)]="startDate" rows="4" cols="50">
-            {{"StartDate" | translate:user}} : {{directory.startDate}}
-          </textarea>
+        <textarea [(ngModel)]="startDate" id="startDate" name="startDate" rows="4" cols="50">
+              {{directory.startDate}}
+            </textarea>
 
         <h3 translate>EndDate</h3>
-        <textarea [(ngModel)]="endDate" rows="4" cols="50">
-        {{"EndDate" | translate:user}} :{{directory.endDate}}
-        </textarea>
+        <textarea [(ngModel)]="endDate" id="endDate" name="endDate" rows="4" cols="50">
+          {{directory.endDate}}
+          </textarea>
 
         <h3 translate>Posologie</h3>
-        <textarea [(ngModel)]="endDate" rows="4" cols="50">
-          {{directory.posologie}}
-        </textarea>
+        <textarea [(ngModel)]="posologie" id="posologie" name="posologie" rows="4" cols="50">
+            {{directory.posologie}}
+          </textarea>
 
         <div class="col-md-12" style="text-align: center" *ngIf="manageFile.stateNew()">
-          <button type="submit" class="btn btn-validate" translate>Créer le document</button>
+          <button type="submit" class="btn btn-validate" translate>{{"Create" | translate:user }}</button>
         </div>
 
         <div class="col-md-12" style="text-align: center" *ngIf="manageFile.stateEdited()">
-          <button type="submit" class="btn btn-validate" translate>Validate</button>
-          <button (click)="cancelModif()" class="btn btn-warning" translate>Cancel</button>
+          <button type="submit" class="btn btn-validate" translate>{{"Validate" | translate:user }}</button>
+          <button (click)="cancelModif()" class="btn btn-warning" translate>{{"Cancel" | translate:user }}</button>
         </div>
       </form>
     </div>

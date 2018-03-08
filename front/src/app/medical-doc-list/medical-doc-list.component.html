@@ -50,10 +50,10 @@
       </thead>
       <tbody>
       <tr *ngFor="let prescription of listDoc.prescriptions" (click)="onClicOnPrescription(prescription)">
-        <td>{{prescription.prescriptionDate | date:"MM/dd/yyyy 'at' h:mma"}}</td>
+        <td>{{prescription.prescriptionDate}}</td>
         <td>{{prescription.treatment}}</td>
-        <td>{{prescription.startDate | date:"MM/dd/yyyy 'at' h:mma"}}</td>
-        <td>{{prescription.endDate | date:"MM/dd/yyyy 'at' h:mma"}}</td>
+        <td>{{prescription.startDate}}</td>
+        <td>{{prescription.endDate}}</td>
       </tr>
       </tbody>
     </table>

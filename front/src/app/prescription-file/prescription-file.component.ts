@@ -89,7 +89,7 @@ export class PrescriptionFileComponent implements OnInit {
 
     let date = aaaa+"-"+mm+"-"+jj;
 
-    const req = this.http.put('http://localhost:8080/back-1.0-SNAPSHOT/rs/patient/addexam/72', {
+    const req = this.http.put('http://localhost:8080/back-1.0-SNAPSHOT/rs/patient/addprescription/72', {
       startDate: form.startDate,
       endDate : form.endDate,
       prescriptionDate : date,
@@ -105,6 +105,6 @@ export class PrescriptionFileComponent implements OnInit {
           console.log("Error occured");
         }
       );
-    this.router.navigate(['doclist', { type: 'Examen' }]);
+    this.router.navigate(['doclist', { type: 'Prescription' }]);
   }
 }
