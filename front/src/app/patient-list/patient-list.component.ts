@@ -2,7 +2,6 @@ import {Component, OnInit, Pipe, PipeTransform} from '@angular/core';
 import {Router} from '@angular/router';
 import {PatientListServiceService} from './patient-list-service.service';
 import {UserService} from '../user.service';
-import {Patient} from "../patient";
 
 
 @Pipe({
@@ -28,6 +27,17 @@ export class SearchPipe implements PipeTransform {
 
 export class PatientListComponent implements OnInit {
   listPatients: any;
+  firstName = true;
+  lastName = true;
+  gender = true;
+  country = true;
+  birthDate = true;
+  navVisible: boolean;
+
+  search = {
+    firstName: true,
+    lastName: true,
+}
 
   constructor(private router: Router, private patientService: PatientListServiceService, private userService: UserService) {
   }
@@ -42,5 +52,25 @@ export class PatientListComponent implements OnInit {
   onClicOnPatient(patient) {
     this.userService.setPatient(patient);
     this.router.navigate(['/administrationfile']);
+  }
+
+  getItemsSearch(){
+    let s = ''
+    for (let i in this.search){
+      if (this.search[i]){
+        s += i + ",";
+      }
+    }
+    return s;
+  }
+
+  closeNav() {
+    this.navVisible = false;
+    this.userService.marginBody = 0;
+  }
+
+  openNav() {
+    this.navVisible = true;
+    this.userService.marginLeft = 0;
   }
 }

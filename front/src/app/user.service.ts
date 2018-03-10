@@ -24,7 +24,10 @@ export class UserService {
   private patient = {
     'patientId': null,
     'firstName': null,
-    'lastName': null
+    'lastName': null,
+    'genre': null,
+    'country': null,
+    'birthDate': null
   };
 
   private consultation = {
@@ -52,6 +55,7 @@ export class UserService {
     'posology': null
   }
 
+  private idMedicalFolder: null;
 
   constructor(private requester: WebApiPromiseService, private router: Router) {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -147,17 +151,13 @@ export class UserService {
     this.prescription = prescription;
   }
 
-  resetPrescription(){
-    this.prescription = null;
-  }
+ setIdMedicalFolder(id){
+    this.idMedicalFolder = id;
+ }
 
-  resetExamen(){
-    this.examen = null;
-  }
-
-  resetConsultation(){
-    this.consultation = null;
-  }
+ getIdMedicalFolder(){
+    return this.idMedicalFolder;
+ }
 
   getPatientIdSelected() {
     if (this.patient != null) {

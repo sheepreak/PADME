@@ -8,12 +8,24 @@
   "ADMIN": "Admin",
   "NURTH": "Infirmier",
   "SECRETARY": "Secrétaire",
+  "Function": "Fonction",
+  "Pole": "Pole médical",
+  "Departement": "Service",
+  "Unit": "Unité hospitalière",
+  "Hospital": "Hôpital",
+  "EndModification": "Modification terminé",
+
 
   "Edit":"Modifier",
   "Publish":"Publier",
   "Validate":"Valider les modifications",
   "Cancel":"Annuler",
   "Create":"Créer le document",
+  "DoDate": "Fait le",
+  "Searching": "Rechercher dans",
+  "Display" : "Affichage",
+  "ValidatePosology": "Valider la posologie",
+
 
   "Title": "Exemple de traduction",
   "Intro": "Bonjour je m'appelle Arthur, j'ai 42 ans.",
@@ -71,5 +83,7 @@
   "MedicalFolder" : "Dossier médical",
   "Add" : "Ajout",
   "MyDocument" : "Mes documents",
-  "Date": "Date"
+  "Date": "Date",
+  "AddPosology": "Aouter une prise de posologie"
+
 }

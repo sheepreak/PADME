@@ -8,12 +8,22 @@
   "ADMIN": "Admin",
   "NURTH": "Nurth",
   "SECRETARY": "Secretary",
+  "Function": "Function",
+  "Pole": "Medical pole",
+  "Departement": "Departement",
+  "Unit": "Hospital unit",
+  "Hospital": "Hospital",
+  "EndModification": "Modification finish",
 
   "Edit":"Edit",
   "Publish":"Publish",
   "Validate":"Validate the changes",
   "Cancel":"Cancel",
   "Create":"Create the document",
+  "DoDate": "Done on",
+  "Searching": "Searching",
+  "Display" : "Display",
+  "ValidatePosology": "Validate posology",
 
   "AdminFIle": "Administration file",
   "PersonalData": "Personal data",
@@ -69,7 +79,8 @@
   "MedicalFolder" : "Medical folder",
   "Add" : "Add document",
   "MyDocument" : "My document",
-  "Date": "Date"
+  "Date": "Date",
+  "AddPosology": "Add a posology"
 
 }
 

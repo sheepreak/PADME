@@ -13,49 +13,35 @@ import {HttpClient, HttpRequest} from "@angular/common/http";
 })
 
 export class ExamenFileComponent implements OnInit {
-  directory = {
-    motif: '',
-    description: '',
-    result: '',
-    observation: ''
-  };
-  oldDirectory;
+  examen: any;
 
   img: Array<Image> = [];
   imgMin: boolean;
   manageFile: ManageFile = new ManageFile();
 
-  firstName: string;
-  lastName: string;
-  status: string;
   nameImg: string;
   pathImg: string;
 
-  patientFirstName: string;
-  patientLastName: string
+  userFirstName: string;
+  userLastName: string;
+  status: string;
+  patient: any;
 
-  constructor(private router: Router, private route: ActivatedRoute, private userService: UserService,  private requester: WebApiPromiseService, private http: HttpClient) {
+  constructor(private router: Router, private route: ActivatedRoute, private userService: UserService, private requester: WebApiPromiseService, private http: HttpClient) {
   }
 
   ngOnInit() {
-    this.firstName = this.userService.getfirstName() ? this.userService.getfirstName() : '';
-    this.lastName = this.userService.getlastName() ? this.userService.getlastName() : '';
+    this.userFirstName = this.userService.getfirstName() ? this.userService.getfirstName() : '';
+    this.userLastName = this.userService.getlastName() ? this.userService.getlastName() : '';
     this.status = this.userService.getStatus() ? this.userService.getStatus() : '';
 
-    this.patientFirstName = this.userService.getPatient().firstName;
-    this.patientLastName = this.userService.getPatient().lastName;
+    this.patient = this.userService.getPatient();
 
-    let state;
     this.route.params.subscribe(params => {
-      state = params['state'];
-
-      if (state == 'new') {
-        this.userService.resetExamen();
+      if (params['state'] == 'new') {
         this.manageFile.state = ManageFile.State.New;
       } else {
-        this.directory.description = this.userService.getExamen().description;
-        this.directory.motif = this.userService.getExamen().motive;;
-        this.directory.observation = this.userService.getExamen().description;
+        this.examen = this.userService.getExamen();
         this.imgMin = true;
 
         let i = new Image('Radio épaule profile auxillaire', '../../assets/img/photo/epaule1.jpg');
@@ -66,37 +52,12 @@ export class ExamenFileComponent implements OnInit {
     });
   }
 
-  modifData() {
-    this.oldDirectory = Object.assign({}, this.directory);
-    this.manageFile.state = ManageFile.State.Edited;
-  }
-
-  cancelModif() {
-    console.log(this.oldDirectory);
-    this.directory = this.oldDirectory;
-    this.manageFile.state = ManageFile.State.Consulted;
-  }
-
   onSubmit(form) {
-    var today = new Date();
-    var jj = today.getDay().toString();
-    var mm = (today.getMonth()+1).toString();
-    var aaaa = today.getFullYear();
-
-    if (jj.length != 2){
-      jj = "0".concat(jj);
-    }
-    if (mm.length != 2){
-      mm = "0".concat(mm);
-    }
-
-    let date = aaaa+"-"+mm+"-"+jj;
-
-    const req = this.http.put('http://localhost:8080/back-1.0-SNAPSHOT/rs/patient/addexam/72', {
+    const req = this.http.put('http://localhost:8080/back-1.0-SNAPSHOT/rs/patient/addexam/'  + this.userService.getIdMedicalFolder(), {
       motive: form.motif,
-      description : form.description,
-      observation : form.description,
-      date : date,
+      description: form.description,
+      observation: form.description,
+      date: dateFormatted2(),
       staffId: this.userService.getId()
     })
       .subscribe(
@@ -107,7 +68,7 @@ export class ExamenFileComponent implements OnInit {
           console.log("Error occured");
         }
       );
-    this.router.navigate(['doclist', { type: 'Examen' }]);
+    this.router.navigate(['doclist', {type: 'Examen'}]);
   }
 
   public changeImg(img: Image) {
@@ -122,7 +83,6 @@ export class ExamenFileComponent implements OnInit {
 
   public addImg() {
     if (this.nameImg != null && this.pathImg != null) {
-
       let i = new Image(this.nameImg, this.pathImg);
       this.img.push(i);
 

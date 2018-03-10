@@ -35,6 +35,8 @@ public class MedicalFileRest {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getMedicalFiles(){
         List<MedicalFile> files = medicalFileRepository.getFiles();
+        for(MedicalFile file : files)
+            file.setPatient(null);
         GenericEntity<List<MedicalFile>> entities = new GenericEntity<List<MedicalFile>>(files){};
         return Response.ok(entities).build();
     }
@@ -97,7 +99,7 @@ public class MedicalFileRest {
         // Copy the file to its location.
         Files.copy(in, PATH.resolve(fileName), StandardCopyOption.REPLACE_EXISTING);
 
-        examen.setImgPath(fileName);
+        examen.addImg(fileName);
 
         // Return a 201 Created response with the appropriate Location header.
         URI path = uriInfo.getAbsolutePathBuilder().path(fileName).build();

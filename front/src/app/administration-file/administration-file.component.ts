@@ -13,12 +13,13 @@ import {ActivatedRoute} from "@angular/router";
 
 export class AdministrationFileComponent implements OnInit {
   directory: any = {};
-
+  user: any;
   isEmploye = true;
   oldDirectory: any;
   manageFile: ManageFile = new ManageFile();
 
   constructor(private route: ActivatedRoute, private userService: UserService, private administrationRequest: AdministrationRequestService) {
+    this.user = this.userService;
   }
 
   ngOnInit() {
@@ -44,6 +45,6 @@ export class AdministrationFileComponent implements OnInit {
 
   cancelModif() {
     this.directory = this.oldDirectory;
-    this.manageFile.state = ManageFile.State.Consulted;
+    this.manageFile.state = ManageFile.State.Publish;
   }
 }
