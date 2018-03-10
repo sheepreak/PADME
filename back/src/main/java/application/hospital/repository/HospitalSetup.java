@@ -84,11 +84,11 @@ public class HospitalSetup {
 
     @PostConstruct
     private void initialize() {
-        try {
+//        try {
             createData();
-        } catch (Exception e) {
-            System.err.println(e);
-        }
+//        } catch (Exception e) {
+//            System.err.println(e);
+//        }
 
     }
 
