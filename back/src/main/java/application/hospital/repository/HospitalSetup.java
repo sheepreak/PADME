@@ -677,10 +677,14 @@ public class HospitalSetup {
         MedicalFile mf1 = new MedicalFile(false, node.getId());
         MedicalFile mf2 = new MedicalFile(true, node.getId());
         //todo found image
+        medicalFileRepository.save(mf1);
+
+        medicalFileRepository.save(mf2);
 
         Observation o1 = new Observation(staffIdObs, "Patient ayant des douleurs de poitrine depuis 3 semaines et essouflement cardiaque rapide", printDate(firstDate));
         observationRepository.save(o1);
-        mf1.addObservation(o1);
+        if(mf1!=null && o1!=null)
+            mf1.addObservation(o1);
 
         Observation o2 =(new Observation(staffIdObs, "Angine de poitrine récurente soupsonné, besoin d'une coronarographie", printDate(firstDate.plusMinutes(7))));
         observationRepository.save(o2);
@@ -698,7 +702,6 @@ public class HospitalSetup {
         observationRepository.save(o3);
         mf1.addObservation(o3);
 
-        medicalFileRepository.save(mf1);
 
         Observation o4 = (new Observation(staffIdObs, "Visite pour examen coronarographie mensuel", printDate(firstDate.plusMonths(1))));
         observationRepository.save(o4);
@@ -724,7 +727,6 @@ public class HospitalSetup {
         prescriptionRepository.save(p2);
         mf2.addPrescription(p2);
 
-        medicalFileRepository.save(mf2);
         patient.addMedicalFile(mf1);
         patient.addMedicalFile(mf2);
     }
