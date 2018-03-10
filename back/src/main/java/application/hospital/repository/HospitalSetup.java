@@ -45,6 +45,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -78,7 +79,7 @@ public class HospitalSetup {
 
     private Random rand = new Random();
 
-    private int nbAutoGeneratePatient = 300;
+    private int nbAutoGeneratePatient = 10;
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
 
@@ -89,49 +90,15 @@ public class HospitalSetup {
     private List<Node> services = new ArrayList<>();
     private HashMap<Node, Case> medicalCases = new HashMap<>();
 
-    private class Case{
-        private List<Prescription> prescriptions;
-        private List<Observation> observations;
-        private List<Examen> examens;
-        private int ageMin;
-        private int ageMax;
-        private String gender;
-
-        public Case(List<Prescription>lp, List<Observation>lo, List<Examen>le, int ageMin, int ageMax, String gender){
-            this.prescriptions = lp;
-            this.observations = lo;
-            this.examens = le;
-            this.ageMax = ageMax;
-            this.ageMin = ageMin;
-            this.gender = gender.trim().toLowerCase();
+    @PostConstruct
+    private void initialize(){
+        try {
+            createData();
+        } catch (Exception e){
+            System.err.println(e);
         }
 
-        public char getGender(){
-            if(gender.isEmpty())
-                return 'b';
-            return gender.charAt(0);
-        }
-
-        public boolean isMatch(char gender, int age){
-            return gender == getGender() && ageMin <= age && ageMax >= age;
-        }
     }
-
-    private void initCaseOntologie(Node node, Integer staffId){
-        List<Prescription> prescriptions = new ArrayList<>();
-        List<Observation> observations= new ArrayList<>();
-        List<Examen> examens= new ArrayList<>();
-        int ageMin = 5;
-        int ageMax = 8;
-        examens.add(new Examen("Maux dentaire", "Radiographie dentaire", "", "Caries sur quatres dents temporaires(50,51,83,84)", LocalDateTime.now().minusMonths(6).minusDays(2).toString(), staffId));
-        observations.add(new Observation(staffId, "Conseiller à la mère du patient de l'avulsion de la dent 84",LocalDateTime.now().minusMonths(6).minusDays(2).plusMinutes(25).toString()));
-        observations.add(new Observation(staffId, "Refus de la mère du patient de traiter la dent 84",LocalDateTime.now().minusMonths(6).minusDays(2).plusMinutes(26).toString()));
-        observations.add(new Observation(staffId, "Abscès de la dent 84",LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(43).toString()));
-        prescriptions.add(new Prescription("Analgésiques", "10 mL", LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(40).toString(), LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(40).toString(), staffId));
-        prescriptions.add(new Prescription("Désinfectant dentaire", "1 verre à garder en bouche 2 min", LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(40).toString(), LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(40).toString(), staffId));
-        medicalCases.put(node, new Case(prescriptions,observations,examens,ageMin,ageMax,"both"));
-    }
-
     private Case generateRandomCase(){
         return null;
     }
@@ -165,8 +132,9 @@ public class HospitalSetup {
 
     @PersistenceContext(unitName = "JPAPU")
     private EntityManager entityManager;
-        @PostConstruct
+
     private void createData() {
+            entityManager.flush();
         initJobsList();
         //Hospital and nodes
         Hospital hospital = new Hospital("Hopital Rothschild", "France", "5 Rue Santerre 75012 Paris");
@@ -379,9 +347,9 @@ public class HospitalSetup {
         hospitalRepository.save(hospital);
 
         //user accounts for testing
-        Staff staff1 = new Staff("ameline", "ameline", "Moreau", "Ameline", "0606060606", "123 fake street", Status.ADMIN);
-        Staff staff2 = new Staff("charles", "charles", "Da Silva Costa", "Charles", "0606060607", "125 fake street", Status.DOCTOR);
-        Staff staff3 = new Staff("jeanluc", "jeanluc", "Fernandes", "Jean-Luc", "0606060608", "127 fake street", Status.SECRETARY);
+        Staff staff1 = new Staff("ameline@aphp.fr", "ameline", "Moreau", "Ameline", "0606060606", "123 fake street", Status.ADMIN);
+        Staff staff2 = new Staff("charles@aphp.fr", "charles", "Da Silva Costa", "Charles", "0606060607", "125 fake street", Status.DOCTOR);
+        Staff staff3 = new Staff("jeanluc@aphp.fr", "jeanluc", "Fernandes", "Jean-Luc", "0606060608", "127 fake street", Status.SECRETARY);
         staff1.setNode(nodePole1);
         staff2.setNode(nodePole1);
         staff3.setNode(nodePole1);
@@ -390,47 +358,51 @@ public class HospitalSetup {
         staffRepository.save(staff3);
 
         //dataset accounts for coherent data
-        Staff doc1 = new Staff("mgrey", "mgrey", "Grey", "Meredith", "0606060608", "15 rue Chapatte 75001 Paris", Status.DOCTOR);
+        Staff doc1 = new Staff("mgrey@aphp.fr", "mgrey", "Grey", "Meredith", "0606060608", "15 rue Chapatte 75001 Paris", Status.DOCTOR);
         doc1.setNode(nodePole2);
         staffRepository.save(doc1);
 
-        Staff doc2 = new Staff("cyang", "cyang", "Yang", "Cristina", "0606060609", "25 allée de la brûme 75012 Paris", Status.DOCTOR);
+        Staff doc0 = new Staff("milgrey@aphp.fr", "milgrey", "Ilgrey", "Patrick", "0606060108", "17 rue Chapatte 75001 Paris", Status.DOCTOR);
+        doc0.setNode(nodeService32);
+        staffRepository.save(doc0);
+
+        Staff doc2 = new Staff("cyang@aphp.fr", "cyang", "Yang", "Cristina", "0606060609", "25 allée de la brûme 75012 Paris", Status.DOCTOR);
         doc2.setNode(nodeService11);
         staffRepository.save(doc2);
 
-        Staff doc3 = new Staff("dshep", "dshep", "Shepherd", "Derek", "0606060610", "15 rue Chapatte 75001 Paris", Status.DOCTOR);
+        Staff doc3 = new Staff("dshep@aphp.fr", "dshep", "Shepherd", "Derek", "0606060610", "15 rue Chapatte 75001 Paris", Status.DOCTOR);
         doc3.setNode(nodeService12);
         staffRepository.save(doc3);
 
-        Staff doc4 = new Staff("akepn", "akepn", "Kepner", "April", "0606060611", "32 rue de la mairie 77450 Esbly", Status.DOCTOR);
+        Staff doc4 = new Staff("akepn@aphp.fr", "akepn", "Kepner", "April", "0606060611", "32 rue de la mairie 77450 Esbly", Status.DOCTOR);
         doc4.setNode(nodeService13);
         staffRepository.save(doc4);
 
-        Staff doc5 = new Staff("arobb", "arobb", "Robbins", "Arizona", "0606060612", "47 rue Pasteur 77700 Coupvray", Status.DOCTOR);
+        Staff doc5 = new Staff("arobb@aphp.fr", "arobb", "Robbins", "Arizona", "0606060612", "47 rue Pasteur 77700 Coupvray", Status.DOCTOR);
         doc5.setNode(nodeService14);
         staffRepository.save(doc5);
 
-        Staff doc6 = new Staff("mbail", "mbail", "Bailey", "Miranda", "0606060613", "25 avenue de la République 77340 Pontault-Combault", Status.DOCTOR);
+        Staff doc6 = new Staff("mbail@aphp.fr", "mbail", "Bailey", "Miranda", "0606060613", "25 avenue de la République 77340 Pontault-Combault", Status.DOCTOR);
         doc6.setNode(nodePole1);
         staffRepository.save(doc6);
 
-        Staff doc7 = new Staff("ohunt", "ohunt", "Hunt", "Owen", "0606060615", "64 allée des mille et une nuits 77184 Emerainville", Status.DOCTOR);
+        Staff doc7 = new Staff("ohunt@aphp.fr", "ohunt", "Hunt", "Owen", "0606060615", "64 allée des mille et une nuits 77184 Emerainville", Status.DOCTOR);
         doc7.setNode(nodePole3);
         staffRepository.save(doc7);
 
-        Staff doc8 = new Staff("ghous", "ghous", "House", "Gregory", "0606060616", "18 allée Montesquieu 93190 Livry-Gargan", Status.DOCTOR);
+        Staff doc8 = new Staff("ghous@aphp.fr", "ghous", "House", "Gregory", "0606060616", "18 allée Montesquieu 93190 Livry-Gargan", Status.DOCTOR);
         doc8.setNode(nodeService21);
         staffRepository.save(doc8);
 
-        Staff nurse1 = new Staff("obaker", "obaker", "Baker", "Oscar", "0606060617", "65 avenue Jean Jaurès 93390 Clichy-sous-bois", Status.NURSE);
+        Staff nurse1 = new Staff("obaker@aphp.fr", "obaker", "Baker", "Oscar", "0606060617", "65 avenue Jean Jaurès 93390 Clichy-sous-bois", Status.NURSE);
         nurse1.setNode(nodeHU111);
         staffRepository.save(nurse1);
 
-        Staff nurse2 = new Staff("obake2", "obake2", "Baker", "Olivia", "0606060618", "65 avenue Jean Jaurès 93390 Clichy-sous-bois", Status.NURSE);
+        Staff nurse2 = new Staff("obake2@aphp.fr", "obake2", "Baker", "Olivia", "0606060618", "65 avenue Jean Jaurès 93390 Clichy-sous-bois", Status.NURSE);
         nurse2.setNode(nodeHU112);
         staffRepository.save(nurse2);
 
-        Staff nurse3 = new Staff("mvalen", "mvalen", "Valentine", "Mai", "0606060619", "16 allée Monge 93320 Les Pavillons-sous-bois", Status.NURSE);
+        Staff nurse3 = new Staff("mvalen@aphp.fr", "mvalen", "Valentine", "Mai", "0606060619", "16 allée Monge 93320 Les Pavillons-sous-bois", Status.NURSE);
         nurse3.setNode(nodeHU113);
         staffRepository.save(nurse3);
 
@@ -460,10 +432,10 @@ public class HospitalSetup {
         medicalInfo1.addInformations("allergies", "sel", "gluten", "lactose");
         medicalInfoRepository.save(medicalInfo1);
 
-        MedicalFile medicalFile1 = new MedicalFile(true, 20);
+        MedicalFile medicalFile1 = new MedicalFile(true, nodeHCU1111.getId());
         medicalFileRepository.save(medicalFile1);
 
-        Observation observation1 = new Observation(23,
+        Observation observation1 = new Observation(staff2.getId(),
                 "Le patient a été admis pour une chute violente depuis une échelle."
         );
         observationRepository.save(observation1);
@@ -474,7 +446,7 @@ public class HospitalSetup {
                 null,
                 "Traumatisme crânien",
                 "2018-02-16",
-                23
+                doc0.getId()
         );
         examenRepository.save(exam1);
 
@@ -483,7 +455,7 @@ public class HospitalSetup {
                 "Injection par intra-veineuse, 1mL toutes les 10 minutes",
                 "2018-02-16",
                 "2018-02-19",
-                23
+                staff2.getId()
         );
         prescriptionRepository.save(prescription1);
 
@@ -498,7 +470,7 @@ public class HospitalSetup {
 
 
         //Patient autogeneration
-        generateRandomPatient(nbAutoGeneratePatient);
+        generateRandomPatient(nbAutoGeneratePatient, staff2, doc1, nodeService11);
 
     }
 
@@ -655,7 +627,7 @@ public class HospitalSetup {
         }
         return list;
     }
-    private List<Patient> generateRandomPatient(int nb){
+    private List<Patient> generateRandomPatient(int nb, Staff resp, Staff docExamen, Node nodeService){
 
         List<AdminFile> adminFiles = generateRandomAdminFiles(nb);
         for(AdminFile adminFile : adminFiles) {
@@ -663,47 +635,118 @@ public class HospitalSetup {
             medicalInfo.addInformations("allergies", "sel", "gluten", "lactose");
             medicalInfoRepository.save(medicalInfo);
             Patient patient = new Patient(adminFile, medicalInfo);
+            Node nodeHU = nodeService.getSubNodes().get(Math.abs(rand.nextInt(nodeService.getSubNodes().size())));
+            Node nodeHCU = nodeHU.getSubNodes().get(Math.abs(rand.nextInt(nodeHU.getSubNodes().size())));
+            setCaseCardioThorax(nodeHCU, resp.getId(), docExamen.getId(), patient);
             patientRepository.save(patient);
             list.add(patient);
         }
         return list;
     }
 
-    private void generateMedicalCase(){
+    private class Case{
+        private List<Prescription> prescriptions;
+        private List<Observation> observations;
+        private List<Examen> examens;
+        private int ageMin;
+        private int ageMax;
+        private String gender;
 
-    }
-
-    private List<MedicalFile> generateRandomMedicalFile(AdminFile adminFile, int nb, Node service, Node healthCareUnit) {
-        List<MedicalFile> list = new ArrayList<>();
-        for(int i= 0; i < nb; i++) {
-
+        public Case(List<Prescription>lp, List<Observation>lo, List<Examen>le, int ageMin, int ageMax, String gender){
+            this.prescriptions = lp;
+            this.observations = lo;
+            this.examens = le;
+            this.ageMax = ageMax;
+            this.ageMin = ageMin;
+            this.gender = gender.trim().toLowerCase();
         }
-        return list;
-    }
 
-    private List<Observation> generateRandomObservation(MedicalFile medicalFile, int nb) {
-        List<Observation> list = new ArrayList<>();
-        for(int i= 0; i < nb; i++) {
-
+        public char getGender(){
+            if(gender.isEmpty())
+                return 'b';
+            return gender.charAt(0);
         }
-        return list;
-    }
 
-    private List<Examen> generateRandomExamem(MedicalFile medicalFile, int nb) {
-        List<Examen> list = new ArrayList<>();
-        for(int i= 0; i < nb; i++) {
-
+        public boolean isMatch(char gender, int age){
+            return gender == getGender() && ageMin <= age && ageMax >= age;
         }
-        return list;
     }
 
-    private List<Prescription> generateRandomPrescription(MedicalFile medicalFile, int nb) {
-        List<Prescription> list = new ArrayList<>();
-        for(int i= 0; i < nb; i++) {
-
-        }
-        return list;
+    private void initCaseOntologie(Node node, Integer staffId){
+        List<Prescription> prescriptions = new ArrayList<>();
+        List<Observation> observations= new ArrayList<>();
+        List<Examen> examens= new ArrayList<>();
+        int ageMin = 5;
+        int ageMax = 8;
+        examens.add(new Examen("Maux dentaire", "Radiographie dentaire", new ArrayList<>(), "Caries sur quatres dents temporaires(50,51,83,84)", LocalDateTime.now().minusMonths(6).minusDays(2).toString(), staffId));
+        observations.add(new Observation(staffId, "Conseiller à la mère du patient de l'avulsion de la dent 84",LocalDateTime.now().minusMonths(6).minusDays(2).plusMinutes(25).toString()));
+        observations.add(new Observation(staffId, "Refus de la mère du patient de traiter la dent 84",LocalDateTime.now().minusMonths(6).minusDays(2).plusMinutes(26).toString()));
+        observations.add(new Observation(staffId, "Abscès de la dent 84",LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(43).toString()));
+        prescriptions.add(new Prescription("Analgésiques", "10 mL", LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(40).toString(), LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(40).toString(), staffId));
+        prescriptions.add(new Prescription("Désinfectant dentaire", "1 verre à garder en bouche 2 min", LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(40).toString(), LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(40).toString(), staffId));
+        medicalCases.put(node, new Case(prescriptions,observations,examens,ageMin,ageMax,"both"));
+    }
+    private String printDate(LocalDateTime localDateTime){
+        return localDateTime.toString();
     }
 
+    private void setCaseCardioThorax(Node node, Integer staffIdObs,Integer staffIdExa, Patient patient) {
+        LocalDateTime firstDate = LocalDateTime.now().minusMonths(2).minusDays(Math.abs(rand.nextInt(10) + 1)).plusMinutes(Math.abs(rand.nextInt(3600) + 1));
+        int minAge = 12;
+        int maxAge = 100;
+        MedicalFile mf1 = new MedicalFile(false, node.getId());
+        MedicalFile mf2 = new MedicalFile(true, node.getId());
+        //todo found image
+
+        Observation o1 = new Observation(staffIdObs, "Patient ayant des douleurs de poitrine depuis 3 semaines et essouflement cardiaque rapide", printDate(firstDate));
+        observationRepository.save(o1);
+        mf1.addObservation(o1);
+
+        Observation o2 =(new Observation(staffIdObs, "Angine de poitrine récurente soupsonné, besoin d'une coronarographie", printDate(firstDate.plusMinutes(7))));
+        observationRepository.save(o2);
+        mf1.addObservation(o2);
+
+        Examen e1= (new Examen("Angine de poitrine récurente", "Coronarographie", new ArrayList<>(), "Découverte d'une maladie coronarienne", printDate(firstDate.plusDays(10).plusMinutes(7 + 7)), staffIdExa));
+        examenRepository.save(e1);
+        mf1.addExamen(e1);
+
+        Prescription p1 = (new Prescription("Examen coronarographie", "1/mois pendant 1 an", printDate(firstDate.plusDays(10).plusMinutes(7 + 7)), printDate(firstDate.plusMonths(13).plusDays(10).plusMinutes(7 + 7)), staffIdObs));
+        prescriptionRepository.save(p1);
+        mf1.addPrescription(p1);
+
+        Observation o3 = (new Observation(staffIdObs, "Sortie du patient après examen et prescription pour la maladie coronarienne prescrite", printDate(firstDate.plusDays(11))));
+        observationRepository.save(o3);
+        mf1.addObservation(o3);
+
+        medicalFileRepository.save(mf1);
+
+        Observation o4 = (new Observation(staffIdObs, "Visite pour examen coronarographie mensuel", printDate(firstDate.plusMonths(1))));
+        observationRepository.save(o4);
+        mf2.addObservation(o4);
+
+        Examen e = (new Examen("Examen mensuel", "Coronarographie", new ArrayList<>(), "Découverte d'une ischémie silencieuse", printDate(firstDate.plusMonths(1).plusDays(3).plusMinutes(433)), staffIdExa));
+        examenRepository.save(e);
+        mf2.addExamen(e);
+
+        Observation o5 = (new Observation(staffIdObs, "Demande d'un examen appronfondie", printDate(firstDate.plusMonths(1).plusDays(4).plusMinutes(43))));
+        observationRepository.save(o5);
+        mf2.addObservation(o5);
+
+        Examen e2 = (new Examen("Demande d'examen appronfondie", "Coronarographie", new ArrayList<>(), "Découverte de lésions bitronculaires sévères sous la forme d'une sténose du tronc gauche supérieure à 60 % et d'une sténose de l'artère circonflexe supérieure à 60 %", printDate(firstDate.plusMonths(1).plusDays(7).plusMinutes(433)), staffIdExa));
+        examenRepository.save(e2);
+        mf2.addExamen(e2);
+
+        Examen e3 = (new Examen("Ischémie silencieuse avec lésions bitronculaires sévères sous la forme d'une sténose du tronc gauche supérieure à 60 % et d'une sténose de l'artère circonflexe supérieure à 60 %", "Intervention: double revascularisation coronarienne", new ArrayList<>(), "Déroulé sans problème", printDate(firstDate.plusMonths(1).plusDays(17).plusMinutes(433)), staffIdExa));
+        examenRepository.save(e3);
+        mf2.addExamen(e3);
+
+        Prescription p2 = (new Prescription("Repos sous surveillance", "Bilan 1/jour", printDate(firstDate.plusMonths(1).plusDays(17).plusMinutes(433)), printDate(firstDate.plusMonths(2).plusDays(17).plusMinutes(433)),staffIdObs));
+        prescriptionRepository.save(p2);
+        mf2.addPrescription(p2);
+
+        medicalFileRepository.save(mf2);
+        patient.addMedicalFile(mf1);
+        patient.addMedicalFile(mf2);
+    }
 
 }

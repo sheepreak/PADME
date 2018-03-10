@@ -1,0 +1,159 @@
+{
+  "speciality": "Odontologie",
+  "patientRequirement": {
+    "minAge": 4,
+    "maxAge": 10,
+    "male": true,
+    "female": true
+  },
+  "firstDate":{
+    "minusMonth": 0,
+    "minusDay": 1
+  },
+  "medicalFile": [
+    {
+
+      "examens": [
+        {
+          "motive": "Maux dentaire",
+          "description": "Radiographie dentaire",
+          "imgPath": "",
+          "observation": "Caries sur quatres dents temporaires(17,18,23,24)",
+          "date": {
+            "order": 2,
+            "plusMonth": 0,
+            "plusDay": 0,
+            "plusMinutes": 7
+          }
+        },
+        {
+          "motive": "Caries sur les dents 17,18 et 23 par soin simple",
+          "description": "Radiographie dentaire",
+          "imgPath": "",
+          "observation": "Opérations sur les dents 17, 18 et 23 effectuées",
+          "date": {
+            "order": 15,
+            "plusMonth": 0,
+            "plusDay": 0,
+            "plusMinutes": 10
+          }
+        }
+      ],
+      "prescriptions": [
+        {
+          "treatment": "Kétoprofène : Toprec 25",
+          "posology": "2cp",
+            "startDate": {
+            "order": 5,
+            "plusMonth": 0,
+            "plusDay": 0,
+            "plusMinutes": 53
+          },
+          "endDate": {
+            "order": 6,
+            "plusMonth": 0,
+            "plusDay": 0,
+            "plusMinutes": 0
+          }
+        },
+        {
+          "treatment": "Fénoprofène : Nalgésic 300",
+          "posology": "2cp",
+          "startDate": {
+            "order": 7,
+            "plusMonth": 0,
+            "plusDay": 0,
+            "plusMinutes": 0
+          },
+          "endDate": {
+            "order": 8,
+            "plusMonth": 0,
+            "plusDay": 0,
+            "plusMinutes": 0
+          }
+        },
+        {
+          "treatment": "Ibuprofène : Nofène 200",
+          "posology": "2cp",
+          "startDate": {
+            "order": 9,
+            "plusMonth": 0,
+            "plusDay": 0,
+            "plusMinutes": 0
+          },
+          "endDate": {
+            "order": 10,
+            "plusMonth": 0,
+            "plusDay": 0,
+            "plusMinutes": 0
+          }
+        },
+        {
+          "treatment": "Paracétamol : Claradol 500",
+          "posology": "2cp",
+          "startDate": {
+            "order": 11,
+            "plusMonth": 0,
+            "plusDay": 0,
+            "plusMinutes": 0
+          },
+          "endDate": {
+            "order": 12,
+            "plusMonth": 0,
+            "plusDay": 0,
+            "plusMinutes": 0
+          }
+        },
+        {
+          "treatment": "Aspirine : Aspegic 500",
+          "posology": "2cp",
+          "startDate": {
+            "order": 13,
+            "plusMonth": 0,
+            "plusDay": 0,
+            "plusMinutes": 0
+          },
+          "endDate": {
+            "order": 14,
+            "plusMonth": 0,
+            "plusDay": 0,
+            "plusMinutes": 0
+          }
+        }
+      ],
+      "observations": [
+        {
+          "responsable": {},
+          "comment": "Patient arrivé avec des maux dentaire",
+          "date":
+        {
+          "order": 1,
+          "plusMonth": 0,
+          "plusDay": 0,
+          "plusMinutes": 0
+        }
+        },
+        {
+          "responsable": {},
+          "comment": "Conseiller la mère du patient, de l'avulsion de la dent 34 et de traité par soin simple les dents 17,18,23",
+          "date": {
+            "order": 3,
+            "plusMonth": 0,
+            "plusDay": 0,
+            "plusMinutes": 10
+          }
+        },
+        {
+          "responsable": {},
+          "comment": "Refus de la mère du patient concernant le traitement de la dent 34 mais accepte le traitement par soin simple des dents 17,18,23",
+          "date":  {
+            "order": 4,
+            "plusMonth": 0,
+            "plusDay": 0,
+            "plusMinutes": 0
+          }
+        }
+      ]
+    }
+  ]
+}
