@@ -22,6 +22,7 @@ import {CollapseModule, ModalModule} from 'ngx-bootstrap';
 import {UserDocComponent} from './user-doc/user-doc.component';
 import { MedicalDocListComponent } from './medical-doc-list/medical-doc-list.component';
 import {MedicalDocService} from "./medical-doc-list/medical-doc.service";
+import { AdminViewRequestService } from './admin-view/admin-view-request.service';
 
 
 const appRoutes: Routes = [
@@ -101,7 +102,7 @@ const appRoutes: Routes = [
       }
     })
   ],
-  providers: [MedicalDocService, UserService, WebApiPromiseService, AdministrationRequestService],
+  providers: [MedicalDocService, UserService, WebApiPromiseService, AdministrationRequestService, AdminViewRequestService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
