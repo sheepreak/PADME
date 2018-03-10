@@ -672,7 +672,7 @@ public class HospitalSetup {
         medicalCases.put(node, new Case(prescriptions,observations,examens,ageMin,ageMax,"both"));
     }
     private String printDate(LocalDateTime localDateTime){
-        return dateFormat.format(localDateTime);
+        return localDateTime.toString();
     }
 
     private boolean setCaseCardioThorax(Node node, Integer staffIdObs,Integer staffIdExa, Patient patient) {
