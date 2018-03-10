@@ -16,6 +16,8 @@ import application.observation.domain.Observation;
 import application.observation.repository.ObservationRepository;
 import application.patient.domain.Patient;
 import application.patient.repository.PatientRepository;
+import application.posology.domain.Posology;
+import application.posology.repository.PosologyRepository;
 import application.prescription.domain.Prescription;
 import application.prescription.repository.PrescriptionRepository;
 import application.staff.Status;
@@ -73,13 +75,15 @@ public class HospitalSetup {
     private NodeRepository nodeRepository;
     @EJB
     private StaffRepository staffRepository;
+    @EJB
+    private PosologyRepository posologyRepository;
 
     private List<Patient> list = new ArrayList<>();
 
 
     private Random rand = new Random();
 
-    private int nbAutoGeneratePatient = 10;
+    private int nbAutoGeneratePatient = 100;
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
 
@@ -431,8 +435,9 @@ public class HospitalSetup {
         examenRepository.save(exam1);
 
         Prescription prescription1 = new Prescription(
-                "Morphine",
-                "Injection par intra-veineuse, 1mL toutes les 10 minutes",
+                "Morphine, injection par intra-veineuse, 1mL toutes les 10 minutes",
+                new ArrayList<>(),
+                "2018-02-16",
                 "2018-02-16",
                 "2018-02-19",
                 staff2.getId()
@@ -662,15 +667,16 @@ public class HospitalSetup {
         observations.add(new Observation(staffId, "Conseiller à la mère du patient de l'avulsion de la dent 34",LocalDateTime.now().minusMonths(6).minusDays(2).plusMinutes(25).toString()));
         observations.add(new Observation(staffId, "Refus de la mère du patient de traiter la dent 34",LocalDateTime.now().minusMonths(6).minusDays(2).plusMinutes(26).toString()));
         observations.add(new Observation(staffId, "Abscès de la dent 84",LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(43).toString()));
-        prescriptions.add(new Prescription("Analgésiques", "10 mL", LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(40).toString(), LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(40).toString(), staffId));
-        prescriptions.add(new Prescription("Désinfectant dentaire", "1 verre à garder en bouche 2 min", LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(40).toString(), LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(40).toString(), staffId));
+        //prescriptions.add(new Prescription("Analgésiques", "10 mL", LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(40).toString(), LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(40).toString(), staffId));
+        //prescriptions.add(new Prescription("Désinfectant dentaire", "1 verre à garder en bouche 2 min", LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(40).toString(), LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(40).toString(), staffId));
         medicalCases.put(node, new Case(prescriptions,observations,examens,ageMin,ageMax,"both"));
     }
     private String printDate(LocalDateTime localDateTime){
-        return localDateTime.toString();
+        return dateFormat.format(localDateTime);
     }
 
-    private void setCaseCardioThorax(Node node, Integer staffIdObs,Integer staffIdExa, Patient patient) {
+    private boolean setCaseCardioThorax(Node node, Integer staffIdObs,Integer staffIdExa, Patient patient) {
+        List<Staff> nurses = staffRepository.getStaffs().stream().filter(p -> p.getNode().equals(node) && p.getStatus().equals(Status.NURSE)).collect(Collectors.toList());
         LocalDateTime firstDate = LocalDateTime.now().minusMonths(2).minusDays(Math.abs(rand.nextInt(10) + 1)).plusMinutes(Math.abs(rand.nextInt(3600) + 1));
         int minAge = 12;
         int maxAge = 100;
@@ -683,8 +689,7 @@ public class HospitalSetup {
 
         Observation o1 = new Observation(staffIdObs, "Patient ayant des douleurs de poitrine depuis 3 semaines et essouflement cardiaque rapide", printDate(firstDate));
         observationRepository.save(o1);
-        if(mf1!=null && o1!=null)
-            mf1.addObservation(o1);
+        mf1.addObservation(o1);
 
         Observation o2 =(new Observation(staffIdObs, "Angine de poitrine récurente soupsonné, besoin d'une coronarographie", printDate(firstDate.plusMinutes(7))));
         observationRepository.save(o2);
@@ -694,7 +699,9 @@ public class HospitalSetup {
         examenRepository.save(e1);
         mf1.addExamen(e1);
 
-        Prescription p1 = (new Prescription("Examen coronarographie", "1/mois pendant 1 an", printDate(firstDate.plusDays(10).plusMinutes(7 + 7)), printDate(firstDate.plusMonths(13).plusDays(10).plusMinutes(7 + 7)), staffIdObs));
+
+
+        Prescription p1 = (new Prescription("Examen coronarographie, 1/mois pendant 1 an", new ArrayList<>(), printDate(firstDate.plusDays(10).plusMinutes(7 + 7)), printDate(firstDate.plusDays(10).plusMinutes(7 + 7)), printDate(firstDate.plusMonths(13).plusDays(10).plusMinutes(7 + 7)), staffIdObs));
         prescriptionRepository.save(p1);
         mf1.addPrescription(p1);
 
@@ -723,12 +730,20 @@ public class HospitalSetup {
         examenRepository.save(e3);
         mf2.addExamen(e3);
 
-        Prescription p2 = (new Prescription("Repos sous surveillance", "Bilan 1/jour", printDate(firstDate.plusMonths(1).plusDays(17).plusMinutes(433)), printDate(firstDate.plusMonths(2).plusDays(17).plusMinutes(433)),staffIdObs));
+        List<Posology> lp = new ArrayList<>();
+        for( LocalDateTime ldt = firstDate.plusMonths(1).plusDays(17).plusMinutes(433); ldt.isBefore(LocalDateTime.now()); ldt = ldt.plusDays(1).plusMinutes(rand.nextInt(10))){
+            Staff nurse = nurses.get(Math.abs(rand.nextInt(nurses.size())));
+            Posology p = new Posology(printDate(ldt), "Bilan patient ok", nurse.getFirstName(), nurse.getLastName(), true);
+            //posologyRepository.save(p);
+            lp.add(p);
+        }
+        Prescription p2 = (new Prescription("Repos sous surveillance. Bilan 1/jour", lp, printDate(firstDate.plusMonths(1).plusDays(17).plusMinutes(433)), printDate(firstDate.plusMonths(1).plusDays(17).plusMinutes(433)), printDate(firstDate.plusMonths(2).plusDays(17).plusMinutes(433)),staffIdObs));
         prescriptionRepository.save(p2);
         mf2.addPrescription(p2);
 
         patient.addMedicalFile(mf1);
         patient.addMedicalFile(mf2);
+        return true;
     }
 
 }
