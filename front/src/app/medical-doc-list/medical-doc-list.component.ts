@@ -14,7 +14,7 @@ export class MedicalDocListComponent implements OnInit {
   listDoc: any;
 
   constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, private userService: UserService, private medicalDocService: MedicalDocService) {
-    this.listDoc = {
+    /*this.listDoc = {
       "id": 152,
       "exams": [{
         "id": 154,
@@ -32,7 +32,8 @@ export class MedicalDocListComponent implements OnInit {
         "startDate": "2018-02-16",
         "endDate": "2018-02-19",
         "prescriptionDate": "2018-03-08T11:05:35.517",
-        "staffId": 23
+        "staffId": 23,
+        "posologys": []
       }],
       "observations": [{
         "id": 153,
@@ -43,22 +44,26 @@ export class MedicalDocListComponent implements OnInit {
       "status": true,
       "patient": null,
       "node": 20
-    }
+    }*/
   }
 
   ngOnInit() {
-    this.userService.setIdMedicalFolder(this.listDoc.id);
-    console.log(this.userService.getIdMedicalFolder());
-    this.medicalDocService.getDocuments(this.userService.getIdMedicalFolder()).then(data => {
-      console.log("-------------------");
-      console.log(data)
+    //this.userService.setIdMedicalFolder(this.listDoc.id);
 
+    //console.log(this.userService.getIdMedicalFolder());
+
+
+    this.medicalDocService.getDocuments(152).then(data => {
+      console.log("---------------");
+      console.log(data);
       this.listDoc = data;
     });
+
 
     this.route.params.subscribe(params => {
       this.type = params['type'];
     });
+
   }
 
   onClicOnConsultation(consultation) {

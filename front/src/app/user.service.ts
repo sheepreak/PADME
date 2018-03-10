@@ -17,9 +17,9 @@ export class UserService {
   private address: string;
   private id: string;
 
+  marginTop = 0;
   marginLeft = 0;
   marginBody = 0;
-
 
   private patient = {
     'patientId': null,
@@ -52,7 +52,7 @@ export class UserService {
     'endDate': null,
     'prescriptionDate': null,
     'treatment': null,
-    'posology': null
+    'posologies': null
   }
 
   private idMedicalFolder: null;
@@ -99,7 +99,6 @@ export class UserService {
   isConnected() {
     return this.connected;
   }
-
 
   loggout() {
     this.login = null;
