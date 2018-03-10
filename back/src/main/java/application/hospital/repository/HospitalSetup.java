@@ -99,9 +99,6 @@ public class HospitalSetup {
         }
 
     }
-    private Case generateRandomCase(){
-        return null;
-    }
     private void initJobsList(){
         jobs.add("Coursier");
         jobs.add("Vendeur Immobilier");
@@ -115,26 +112,9 @@ public class HospitalSetup {
         jobs.add("Gardien");
         jobs.add("Vigile");
         jobs.add("Responsable des ressources humaines");
-//        try {
-//            List<String> dataJobs = Parse.parseFileToString(Paths.get(this.getClass().getClassLoader().getResource("dataForSetup/Professions.csv").getPath()));
-//            jobs = Parse.parseJobs(dataJobs);
-//            for(String job:jobs){
-//                String[] values = job.split("/");
-//                if(values.length == 2){
-//                    jobsM.add(values[0]);
-//                    jobsF.add(values[1]);
-//                }
-//            }
-//        } catch (IOException ioe){
-//            //do nothing
-//        }
     }
 
-    @PersistenceContext(unitName = "JPAPU")
-    private EntityManager entityManager;
-
     private void createData() {
-            entityManager.flush();
         initJobsList();
         //Hospital and nodes
         Hospital hospital = new Hospital("Hopital Rothschild", "France", "5 Rue Santerre 75012 Paris");
@@ -678,9 +658,9 @@ public class HospitalSetup {
         List<Examen> examens= new ArrayList<>();
         int ageMin = 5;
         int ageMax = 8;
-        examens.add(new Examen("Maux dentaire", "Radiographie dentaire", new ArrayList<>(), "Caries sur quatres dents temporaires(50,51,83,84)", LocalDateTime.now().minusMonths(6).minusDays(2).toString(), staffId));
-        observations.add(new Observation(staffId, "Conseiller à la mère du patient de l'avulsion de la dent 84",LocalDateTime.now().minusMonths(6).minusDays(2).plusMinutes(25).toString()));
-        observations.add(new Observation(staffId, "Refus de la mère du patient de traiter la dent 84",LocalDateTime.now().minusMonths(6).minusDays(2).plusMinutes(26).toString()));
+        examens.add(new Examen("Maux dentaire", "Radiographie dentaire", new ArrayList<>(), "Caries sur quatres dents temporaires(12,13,33,34)", LocalDateTime.now().minusMonths(6).minusDays(2).toString(), staffId));
+        observations.add(new Observation(staffId, "Conseiller à la mère du patient de l'avulsion de la dent 34",LocalDateTime.now().minusMonths(6).minusDays(2).plusMinutes(25).toString()));
+        observations.add(new Observation(staffId, "Refus de la mère du patient de traiter la dent 34",LocalDateTime.now().minusMonths(6).minusDays(2).plusMinutes(26).toString()));
         observations.add(new Observation(staffId, "Abscès de la dent 84",LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(43).toString()));
         prescriptions.add(new Prescription("Analgésiques", "10 mL", LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(40).toString(), LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(40).toString(), staffId));
         prescriptions.add(new Prescription("Désinfectant dentaire", "1 verre à garder en bouche 2 min", LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(40).toString(), LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(40).toString(), staffId));
