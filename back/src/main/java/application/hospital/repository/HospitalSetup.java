@@ -38,6 +38,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @Startup
 @Singleton
@@ -377,86 +379,86 @@ public class HospitalSetup {
         nurse3.setNode(nodeHU113);
         staffRepository.save(nurse3);
 
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU1112);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU1111);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU1122);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU1121);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU1132);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU1131);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU1142);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU1141);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU1212);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU1211);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU1222);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU1221);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU1232);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU1231);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU1242);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU1241);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU1312);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU1311);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU1322);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU1321);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU1332);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU1331);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU1342);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU1341);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU1412);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU1411);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU1422);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU1421);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU1432);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU1431);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU1442);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU1441);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU2112);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU2111);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU2122);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU2121);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU2132);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU2131);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU2142);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU2141);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU2212);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU2211);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU2222);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU2221);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU2232);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU2231);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU2242);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU2241);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU2312);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU2311);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU2322);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU2321);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU2332);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU2331);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU2342);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU2341);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU3112);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU3111);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU3122);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU3121);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU3132);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU3131);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU3142);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU3141);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU3212);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU3211);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU3222);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU3221);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU3232);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU3231);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU3242);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU3241);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU3312);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU3311);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU3322);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU3321);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU3332);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU3331);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU3342);
-       //generateRandomStaff( 2, Status.NURSE, nodeHCU3341);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU1112);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU1111);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU1122);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU1121);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU1132);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU1131);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU1142);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU1141);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU1212);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU1211);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU1222);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU1221);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU1232);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU1231);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU1242);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU1241);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU1312);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU1311);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU1322);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU1321);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU1332);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU1331);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU1342);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU1341);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU1412);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU1411);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU1422);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU1421);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU1432);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU1431);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU1442);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU1441);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU2112);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU2111);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU2122);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU2121);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU2132);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU2131);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU2142);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU2141);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU2212);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU2211);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU2222);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU2221);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU2232);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU2231);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU2242);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU2241);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU2312);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU2311);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU2322);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU2321);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU2332);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU2331);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU2342);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU2341);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU3112);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU3111);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU3122);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU3121);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU3132);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU3131);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU3142);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU3141);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU3212);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU3211);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU3222);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU3221);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU3232);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU3231);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU3242);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU3241);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU3312);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU3311);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU3322);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU3321);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU3332);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU3331);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU3342);
+        generateRandomStaff( 2, Status.NURSE, nodeHCU3341);
 
         //Patient 1
         AdminFile adminFile1 = generateAdminFile(
@@ -705,9 +707,13 @@ public class HospitalSetup {
                         address.getAddress() + "/" + address.getPostCode().toString() + " " + address.getCity(),
                         status
                 );
-                staff.setNode(node);
-                staffRepository.save(staff);
-                list.add(staff);
+                if (staffRepository.getStaffs().stream().anyMatch(p -> p.getLogin().equals(firstName.charAt(1) + lastName + "@aphp.fr")))
+                    i--;
+                else {
+                    staff.setNode(node);
+                    staffRepository.save(staff);
+                    list.add(staff);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -781,7 +787,8 @@ public class HospitalSetup {
     }
 
     private boolean setCaseCardioThorax(Node node, Integer staffIdObs, Integer staffIdExa, Patient patient) {
-        //List<Staff> nurses = staffRepository.getStaffs().stream().filter(p -> p.getNode().equals(node) && p.getStatus().equals(Status.NURSE)).collect(Collectors.toList());
+
+        List<Staff> nurses = staffRepository.getStaffs().stream().filter(p -> p.getNode().equals(node) && p.getStatus().equals(Status.NURSE)).collect(Collectors.toList());
         LocalDateTime firstDate = LocalDateTime.now().minusMonths(2).minusDays(Math.abs(rand.nextInt(10) + 1)).plusMinutes(Math.abs(rand.nextInt(3600) + 1));
         int minAge = 12;
         int maxAge = 100;
@@ -833,12 +840,12 @@ public class HospitalSetup {
         mf2.addExamen(e3);
 
         List<Posology> lp = new ArrayList<>();
-        //for (LocalDateTime ldt = firstDate.plusMonths(1).plusDays(17).plusMinutes(433); ldt.isBefore(LocalDateTime.now()); ldt = ldt.plusDays(1)) {
-        //    Staff nurse = nurses.get(Math.abs(rand.nextInt(nurses.size())));
-        //    Posology p = new Posology(printDate(ldt), "Bilan patient ok", nurse.getFirstName(), nurse.getLastName(), true);
-        //    //posologyRepository.save(p);
-        //    lp.add(p);
-        //}
+        for (LocalDateTime ldt = firstDate.plusMonths(1).plusDays(17).plusMinutes(433); ldt.isBefore(LocalDateTime.now()); ldt = ldt.plusDays(1)) {
+            Staff nurse = nurses.get(Math.abs(rand.nextInt(nurses.size())));
+            Posology p = new Posology(printDate(ldt), "Bilan patient ok", nurse.getFirstName(), nurse.getLastName(), true);
+            //posologyRepository.save(p);
+            lp.add(p);
+        }
         Prescription p2 = (new Prescription("Repos sous surveillance. Bilan 1/jour", lp, printDate(firstDate.plusMonths(1).plusDays(17).plusMinutes(433)), printDate(firstDate.plusMonths(1).plusDays(17).plusMinutes(433)), printDate(firstDate.plusMonths(2).plusDays(17).plusMinutes(433)), staffIdObs));
         prescriptionRepository.save(p2);
         mf2.addPrescription(p2);
