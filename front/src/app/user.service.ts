@@ -24,7 +24,10 @@ export class UserService {
   private patient = {
     'patientId': null,
     'firstName': null,
-    'lastName': null
+    'lastName': null,
+    'genre': null,
+    'country': null,
+    'birthDate': null
   };
 
   private consultation = {

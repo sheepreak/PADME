@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ManageFile} from "../manageFile";
-import {Patient} from "../patient";
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../user.service";
-import {WebApiPromiseService} from "../web-api-promise.service";
 import {HttpClient} from "@angular/common/http";
 
 @Component({

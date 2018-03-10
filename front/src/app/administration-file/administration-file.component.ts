@@ -45,6 +45,6 @@ export class AdministrationFileComponent implements OnInit {
 
   cancelModif() {
     this.directory = this.oldDirectory;
-    this.manageFile.state = ManageFile.State.Consulted;
+    this.manageFile.state = ManageFile.State.Publish;
   }
 }

@@ -7,7 +7,7 @@
   </div>
   <div class="row myrow">
     <div class="col-md-7" *ngIf="manageFile.statePublish()">
-      <p class="libele">{{'DoDate' | translate:user}} {{consultation.prescriptionDate | date:"short"}}</p>
+      <p class="libele">{{'DoDate' | translate:user}} {{consultation.date | date:"short"}}</p>
     </div>
 
     <div class="col-md-2 mycol">
@@ -26,17 +26,17 @@
     <br>
     <div class="col-md-10" *ngIf="manageFile.statePublish()">
     <h3 translate>ExamenMotif</h3>
-    <p>{{consultation.observation}}</p>
+    <p>{{consultation.comment}}</p>
 
     <h3 translate>ExamenObservation</h3>
-    <p>{{consultation.observation}}</p>
+    <p>{{consultation.comment}}</p>
   </div>
 
   <div class="col-md-10" *ngIf="manageFile.stateNew()">
   <h3 translate>ExamenMotif</h3>
   <form class="form-horizontal" #consultationForm="ngForm" (ngSubmit)="onSubmit(consultationForm.value)"
         ngNativeValidate>
-    <textarea [(ngModel)]="motif" id="motif" name="motif" rows="4" cols="50"></textarea>
+    <textarea [(ngModel)]="comment" id="motif" name="motif" rows="4" cols="50"></textarea>
 
     <h3 translate>ExamenObservation</h3>
     <textarea [(ngModel)]="comment" id="comment" name="comment" rows="4" cols="50"></textarea>
