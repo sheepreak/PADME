@@ -53,7 +53,13 @@ export class PatientListComponent implements OnInit {
 
   onClicOnPatient(patient) {
     this.userService.setPatient(patient);
-    this.router.navigate(['/administrationfile']);
+    console.log("----------------");
+    console.log(patient);
+    if (this.userService.isDoctor()){
+      this.router.navigate(['doclist', { type: 'Consultation' }]);
+    }else {
+      this.router.navigate(['/administrationfile']);
+    }
   }
 
   getItemsSearch(){

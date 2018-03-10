@@ -45,7 +45,7 @@ export class PrescriptionFileComponent implements OnInit {
     const req = this.http.put('http://localhost:8080/back-1.0-SNAPSHOT/rs/patient/addprescription/' + this.userService.getIdMedicalFolder(), {
       startDate: form.startDate,
       endDate : form.endDate,
-      prescriptionDate : dateFormatted2(),
+      prescriptionDate : Date.now().toString(),
       treatment : form.treatment,
       posology: form.posology,
       staffId: this.userService.getId()
@@ -62,8 +62,7 @@ export class PrescriptionFileComponent implements OnInit {
   }
 
   onAddPosology(form) {
-
-    const req = this.http.put('http://localhost:8080/back-1.0-SNAPSHOT/rs/medicalFile/' + 155 + '/posology', {
+    const req = this.http.put('http://localhost:8080/back-1.0-SNAPSHOT/rs/medicalFile/' + this.userService.getIdMedicalFolder() + '/posology', {
       date: Date.now().toString(),
       observation: form.observation,
       nurseName: this.user.getfirstName(),

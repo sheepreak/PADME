@@ -14,6 +14,6 @@ export class MedicalDocService {
 
   /* get all documents */
   getDocuments(id) {
-    return this.http.get('http://localhost:8080/back-1.0-SNAPSHOT/rs/medicalFile/152', {headers: this.httpOptions}).toPromise();
+    return this.http.get('http://localhost:8080/back-1.0-SNAPSHOT/rs/medicalFile/' + id, {headers: this.httpOptions}).toPromise();
   }
 }

@@ -27,7 +27,8 @@ export class UserService {
     'lastName': null,
     'genre': null,
     'country': null,
-    'birthDate': null
+    'birthDate': null,
+    'idMedicalFile': null
   };
 
   private consultation = {
@@ -41,6 +42,7 @@ export class UserService {
     'id': null,
     'motive': null,
     'description': null,
+    'observation': null,
     'imgPath': null,
     'date': null,
     'staffId': null
