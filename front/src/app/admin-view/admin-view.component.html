@@ -19,13 +19,13 @@
     <table class="table table-striped">
       <thead>
       <tr>
-        <th>NOM</th>
-        <th>PRENOM</th>
-        <th>FONCTION</th>
-        <th>HOPITAL</th>
-        <th>PÔLE</th>
-        <th>SERVICE</th>
-        <th>UNITE</th>
+        <th>{{'LastName' | translate:user | uppercase}}</th>
+        <th>{{'FirstName' | translate:user | uppercase}}</th>
+        <th>{{'Function' | translate:user | uppercase}}</th>
+        <th>{{'Hospital' | translate:user | uppercase}}</th>
+        <th>{{'Pole' | translate:user | uppercase}}</th>
+        <th>{{'Departement' | translate:user | uppercase}}</th>
+        <th>{{'Unit' | translate:user | uppercase}}</th>
       </tr>
       </thead>
       <tbody>
@@ -70,14 +70,12 @@
       </tr>
       </tbody>
     </table>
-
   </div>
-
 </div>
 
 
 <ng-template #modalModif>
   <div class="modal-body" style="text-align: center">
-    Modifications terminées
+    {{'EndModification' | translate:user}}
   </div>
 </ng-template>

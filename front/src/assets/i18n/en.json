@@ -8,6 +8,12 @@
   "ADMIN": "Admin",
   "NURTH": "Nurth",
   "SECRETARY": "Secretary",
+  "Function": "Function",
+  "Pole": "Medical pole",
+  "Departement": "Departement",
+  "Unit": "Hospital unit",
+  "Hospital": "Hospital",
+  "EndModification": "Modification finish",
 
   "Edit":"Edit",
   "Publish":"Publish",
