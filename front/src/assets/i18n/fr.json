@@ -17,6 +17,8 @@
   "DoDate": "Fait le",
   "Searching": "Rechercher dans",
   "Display" : "Affichage",
+  "ValidatePosology": "Valider la posologie",
+
 
   "Title": "Exemple de traduction",
   "Intro": "Bonjour je m'appelle Arthur, j'ai 42 ans.",
@@ -74,5 +76,7 @@
   "MedicalFolder" : "Dossier médical",
   "Add" : "Ajout",
   "MyDocument" : "Mes documents",
-  "Date": "Date"
+  "Date": "Date",
+  "AddPosology": "Aouter une prise de posologie"
+
 }

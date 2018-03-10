@@ -35,7 +35,7 @@ export class ConsultationFileComponent implements OnInit {
       } else {
         this.consultation = this.userService.getConsultation();
       }
-    });
+    });statePublish
   }
 
   onSubmit(form) {

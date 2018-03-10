@@ -22,7 +22,6 @@
         }}</a></li>
       <li><a href="javascript:void(0)" [routerLink]="['doclist', { type: 'Prescription' }]">{{ 'Prescription' |
         translate:user }}</a></li>
-      <li *ngIf="user.isAdmin()"><a routerLink="adminview">{{ 'AdminView' | translate:user }}</a>
       <li><a href="javascript:void(0)" (click)="archiveIsCollapsed = !archiveIsCollapsed"
              [routerLink]="['doclist', { type: 'Archive' }]">{{ 'Archive' | translate:user }}</a></li>
 
@@ -49,8 +48,8 @@
       </ul>
     </li>
 
-    <li *ngIf="user.isAdmin()"><a routerLink="adminview">{{ 'StaffList' | translate:user }}</a></li>
     <li *ngIf="user.isDoctor() || user.isNurse()"><a routerLink="patientlist">{{ 'PatientList' | translate:user }}</a></li>
+    <li *ngIf="user.isAdmin()"><a routerLink="adminview">{{ 'AdminView' | translate:user }}</a>
   </ul>
 </div>
 

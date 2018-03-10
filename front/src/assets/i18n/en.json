@@ -17,6 +17,7 @@
   "DoDate": "Done on",
   "Searching": "Searching",
   "Display" : "Display",
+  "ValidatePosology": "Validate posology",
 
   "AdminFIle": "Administration file",
   "PersonalData": "Personal data",
@@ -72,7 +73,8 @@
   "MedicalFolder" : "Medical folder",
   "Add" : "Add document",
   "MyDocument" : "My document",
-  "Date": "Date"
+  "Date": "Date",
+  "AddPosology": "Add a posology"
 
 }
 
