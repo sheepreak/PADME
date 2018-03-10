@@ -3,63 +3,48 @@
     <div class="col-md-10">
       <h2 translate>Consultation</h2>
     </div>
-    <div class="col-md-1 text-right" *ngIf="manageFile.stateConsulted()">
-      <button type="button" class="btn btn-modif" (click)="modifData()" translate>Edit</button>
-    </div>
-    <div class="col-md-1 text-right" *ngIf="manageFile.stateConsulted()">
-      <button type="button" class="btn btn-modif" (click)="manageFile.publishData()" translate>Publish</button>
-    </div>
-  </div>
 
+  </div>
   <div class="row myrow">
     <div class="col-md-7" *ngIf="manageFile.statePublish()">
-      <p class="libele">Fait le {{manageFile.date}} à {{manageFile.hopital}}</p>
+      <p class="libele">{{'DoDate' | translate:user}} {{consultation.date | date:"short"}}</p>
     </div>
 
     <div class="col-md-2 mycol">
       <h3 translate>Patient</h3>
-      <p>{{patientLastName}}</p>
-      <p>{{patientFirstName}}</p>
+      <p>{{patient.lastName}}</p>
+      <p>{{patient.firstName}}</p>
     </div>
 
     <div class="col-md-2 mycol">
-      <h3>{{userStatus | translate:user }}</h3>
+      <h3>{{userStatus | translate:user}}</h3>
       <p>{{userLastName}}</p>
       <p>{{userFirstName}}</p>
     </div>
     <br>
 
     <br>
-    <div class="col-md-10" *ngIf="manageFile.stateConsulted() || manageFile.statePublish()">
+    <div class="col-md-10" *ngIf="manageFile.statePublish()">
+    <h3 translate>ExamenMotif</h3>
+    <p>{{consultation.comment}}</p>
 
-      <h3 translate>ExamenMotif</h3>
-      <p>{{directory.motif}}</p>
-
-      <h3 translate>ExamenObservation</h3>
-      <p>{{directory.observation}}</p>
-    </div>
-
-    <div class="col-md-10" *ngIf="manageFile.stateEdited() || manageFile.stateNew()">
-      <h3 translate>ExamenMotif</h3>
-      <form class="form-horizontal">
-          <textarea rows="4" cols="50">
-            {{directory.motif}}
-          </textarea>
-
-        <h3 translate>ExamenObservation</h3>
-        <textarea rows="4" cols="50">
-            {{directory.observation}}
-          </textarea>
-
-        <div class="col-md-12" style="text-align: center" *ngIf="manageFile.stateNew()">
-          <button type="submit" class="btn btn-validate" translate>{{"Create" | translate:user }}</button>
-        </div>
-
-        <div class="col-md-12" style="text-align: center" *ngIf="manageFile.stateEdited()">
-          <button type="submit" class="btn btn-validate" translate>{{"Validate" | translate:user }}</button>
-          <button (click)="cancelModif()" class="btn btn-warning" translate>{{"Cancel" | translate:user }}</button>
-        </div>
-      </form>
-    </div>
+    <h3 translate>ExamenObservation</h3>
+    <p>{{consultation.comment}}</p>
   </div>
+
+  <div class="col-md-10" *ngIf="manageFile.stateNew()">
+  <h3 translate>ExamenMotif</h3>
+  <form class="form-horizontal" #consultationForm="ngForm" (ngSubmit)="onSubmit(consultationForm.value)"
+        ngNativeValidate>
+    <textarea [(ngModel)]="comment" id="motif" name="motif" rows="4" cols="50"></textarea>
+
+    <h3 translate>ExamenObservation</h3>
+    <textarea [(ngModel)]="comment" id="comment" name="comment" rows="4" cols="50"></textarea>
+
+    <div class="col-md-12" style="text-align: center">
+      <button type="submit" class="btn btn-validate" translate>{{"Create" | translate:user}}</button>
+    </div>
+  </form>
 </div>
+
+

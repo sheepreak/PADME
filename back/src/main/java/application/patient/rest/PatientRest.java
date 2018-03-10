@@ -127,6 +127,4 @@ public class PatientRest {
         URI fileUri = uriInfo.getBaseUriBuilder().path(PatientRest.class).path(medicalFile.getId().toString()).build();
         return Response.created(fileUri).build();
     }
-
-
 }

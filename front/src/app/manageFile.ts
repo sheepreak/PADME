@@ -4,7 +4,7 @@ export class ManageFile
 {
   constructor ()
   {
-      this.state = ManageFile.State.Consulted;
+      this.state = ManageFile.State.Publish;
   }
 
   state: ManageFile.State;
@@ -12,25 +12,9 @@ export class ManageFile
   date: string
 
   publishData(){
-    var today = new Date();
-    var jj = today.getDay().toString();
-    var mm = (today.getMonth()+1).toString();
-    var aaaa = today.getFullYear();
-
-    if (jj.length != 2){
-      jj = "0".concat(jj);
-    }
-    if (mm.length != 2){
-      mm = "0".concat(mm);
-    }
-
-    this.date = jj+"/"+mm+"/"+aaaa;
+    this.date = dateFormatted1();
     this.hopital = "Hopital de Paris";
     this.state = ManageFile.State.Publish;
-  }
-
-  stateConsulted(){
-    return this.state == ManageFile.State.Consulted;
   }
 
   stateEdited(){
@@ -50,7 +34,6 @@ export namespace ManageFile
 {
   export enum State
   {
-    Consulted,
     Edited,
     Publish,
     New

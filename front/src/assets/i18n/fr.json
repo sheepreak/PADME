@@ -8,12 +8,24 @@
   "ADMIN": "Admin",
   "NURTH": "Infirmier",
   "SECRETARY": "Secrétaire",
+  "Function": "Fonction",
+  "Pole": "Pole médical",
+  "Departement": "Service",
+  "Unit": "Unité hospitalière",
+  "Hospital": "Hôpital",
+  "EndModification": "Modification terminé",
+
 
   "Edit":"Modifier",
   "Publish":"Publier",
   "Validate":"Valider les modifications",
   "Cancel":"Annuler",
   "Create":"Créer le document",
+  "DoDate": "Fait le",
+  "Searching": "Rechercher dans",
+  "Display" : "Affichage",
+  "ValidatePosology": "Valider la posologie",
+
 
   "Title": "Exemple de traduction",
   "Intro": "Bonjour je m'appelle Arthur, j'ai 42 ans.",
@@ -53,11 +65,16 @@
   "Path": "Lien",
 
   "Prescription": "Prescription",
-
+  "Observation": "Observation",
   "Consultation":"Consultation",
   "PatientList": "Liste des patients",
   "Examination": "Examens",
   "StaffList": "List du personnel",
+  "PrescriptionDate": "Date de préscription",
+  "Treatment": "Traitement",
+  "StartDate": "Début du traitement",
+  "EndDate": "Fin du traitement",
+  "TreatmentDuration": "Durée du traitment",
 
   "PatientList" : "Liste des patients",
   "AdminDocPatient" : "Fiche administrative patient",
@@ -65,5 +82,8 @@
   "Archive" : "Archive",
   "MedicalFolder" : "Dossier médical",
   "Add" : "Ajout",
-  "MyDocument" : "Mes documents"
+  "MyDocument" : "Mes documents",
+  "Date": "Date",
+  "AddPosology": "Aouter une prise de posologie"
+
 }

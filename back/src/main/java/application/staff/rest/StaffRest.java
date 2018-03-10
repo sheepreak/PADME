@@ -18,8 +18,10 @@ import org.codehaus.jettison.json.JSONObject;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 
@@ -91,11 +93,15 @@ public class StaffRest {
     @Path("/updatesocio")
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateStaffSocio(Staff staff) {
+        Staff oldStaff=staffRepository.find(staff.getId());
+        staff.setNode(oldStaff.getNode());
+        staff.setLogin(oldStaff.getLogin());
+        staff.setPassword(oldStaff.getPassword());
 
         if (staff == null)
             Response.status(Response.Status.BAD_REQUEST).build();
 
-        staffRepository.updateDataStaff(staff);
+        staffRepository.update(staff);
         return Response.ok(Response.Status.OK).build();
 
     }
@@ -144,8 +150,25 @@ public class StaffRest {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getStaffs() {
-        List<Staff> staffs = staffRepository.getStaffs();
+    public Response getStaffs(@Context UriInfo uri) {
+        int page = -1;
+        int size = -1;
+        for (Map.Entry<String, List<String>> e : uri.getQueryParameters().entrySet()) {
+            for (String value : e.getValue()) {
+                if (e.getKey().equals("page")) {
+                    page = Integer.parseInt(value);
+                } else if (e.getKey().equals("size")) {
+                    size = Integer.parseInt(value);
+                }
+            }
+        }
+
+        List<Staff> staffs;
+        if (page > 0 && size > 0) {
+            staffs = staffRepository.getStaffsWithPagination(page,size);
+        } else {
+            staffs = staffRepository.getStaffs();
+        }
         return Response.ok(getStaffInfo(staffs)).build();
     }
 
@@ -172,11 +195,11 @@ public class StaffRest {
         Integer key;
         List<Staff> tmpListStaff;
 
-        for(Staff s : staffs) {
+        for (Staff s : staffs) {
 
             key = s.getNode().getId();
 
-            if(!map.containsKey(key))
+            if (!map.containsKey(key))
                 tmpListStaff = new ArrayList();
             else
                 tmpListStaff = map.get(key);
@@ -188,9 +211,9 @@ public class StaffRest {
 
         json.append("[");
 
-        for(Hospital h : hospitals) {
+        for (Hospital h : hospitals) {
             List<Node> nodes = h.getHierarchy();
-            for(Node n : nodes) {
+            for (Node n : nodes) {
                 StringBuilder stringBuilder = new StringBuilder();
                 json.append(parcourTree(n, stringBuilder, map));
             }
@@ -210,13 +233,13 @@ public class StaffRest {
 
         tmpHierarchy.append(node.getId());
 
-        if((tmpListStaff = map.getOrDefault(node.getId(), Collections.EMPTY_LIST)) != Collections.EMPTY_LIST)
-            for(Staff s : tmpListStaff)
+        if ((tmpListStaff = map.getOrDefault(node.getId(), Collections.EMPTY_LIST)) != Collections.EMPTY_LIST)
+            for (Staff s : tmpListStaff)
                 sb.append(initJson(s, tmpHierarchy.toString()));
 
         tmpHierarchy.append(",");
 
-        for(Node n : node.getSubNodes())
+        for (Node n : node.getSubNodes())
             sb.append(parcourTree(n, tmpHierarchy, map));
 
         return sb.toString();

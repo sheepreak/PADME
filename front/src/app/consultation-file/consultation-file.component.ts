@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ManageFile} from "../manageFile";
-import {Patient} from "../patient";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../user.service";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-consultation-file',
@@ -10,30 +10,22 @@ import {UserService} from "../user.service";
   styleUrls: ['./consultation-file.component.css', './../app.component.css']
 })
 export class ConsultationFileComponent implements OnInit {
-  directory = {
-    motif: '',
-    observation: ''
-  }
-  oldDirectory;
+  consultation: any;
   manageFile: ManageFile = new ManageFile();
 
   userFirstName: string;
   userLastName: string;
   userStatus: string;
+  patient: any;
 
-  patientFirstName: string;
-  patientLastName: string;
-
-  constructor(private route: ActivatedRoute, private userService: UserService) {
+  constructor(private router: Router, private route: ActivatedRoute, private userService: UserService, private http: HttpClient) {
   }
 
   ngOnInit() {
     this.userFirstName = this.userService.getfirstName() ? this.userService.getfirstName() : '';
     this.userLastName = this.userService.getlastName() ? this.userService.getlastName() : '';
     this.userStatus = this.userService.getStatus() ? this.userService.getStatus() : '';
-
-    this.patientFirstName = this.userService.getPatient().firstName;
-    this.patientLastName = this.userService.getPatient().lastName;
+    this.patient = this.userService.getPatient();
 
     let state;
     this.route.params.subscribe(params => {
@@ -41,23 +33,25 @@ export class ConsultationFileComponent implements OnInit {
       if (state == 'new') {
         this.manageFile.state = ManageFile.State.New;
       } else {
-        this.directory.motif = 'Patient souvrant de maux de ventre';
-        this.directory.observation = 'Rythme cardiaque normale\n' +
-          '      Respiration normale\n' +
-          '      Grosseur aux niveau de l\'abdomen';
+        this.consultation = this.userService.getConsultation();
       }
     });
   }
 
-
-  modifData() {
-    this.oldDirectory = Object.assign({}, this.directory);
-    this.manageFile.state = ManageFile.State.Edited;
-  }
-
-  cancelModif() {
-    console.log(this.oldDirectory);
-    this.directory = this.oldDirectory;
-    this.manageFile.state = ManageFile.State.Consulted;
+  onSubmit(form) {
+    const req = this.http.put('http://localhost:8080/back-1.0-SNAPSHOT/rs/patient/addobservation/'  + this.userService.getIdMedicalFolder(), {
+      comment: form.comment,
+      date: new Date().toDateString(),
+      staffId: this.userService.getId()
+    })
+      .subscribe(
+        res => {
+          console.log(res);
+        },
+        err => {
+          console.log("Error occured");
+        }
+      );
+    this.router.navigate(['doclist', {type: 'Consultation'}]);
   }
 }

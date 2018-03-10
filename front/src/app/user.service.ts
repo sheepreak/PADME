@@ -24,9 +24,38 @@ export class UserService {
   private patient = {
     'patientId': null,
     'firstName': null,
-    'lastName': null
+    'lastName': null,
+    'genre': null,
+    'country': null,
+    'birthDate': null
   };
 
+  private consultation = {
+    'id': null,
+    'staffId': null,
+    'comment': null,
+    'date': null
+  }
+
+  private examen = {
+    'id': null,
+    'motive': null,
+    'description': null,
+    'imgPath': null,
+    'date': null,
+    'staffId': null
+  }
+
+  private prescription= {
+    'id':null,
+    'startDate': null,
+    'endDate': null,
+    'prescriptionDate': null,
+    'treatment': null,
+    'posology': null
+  }
+
+  private idMedicalFolder: null;
 
   constructor(private requester: WebApiPromiseService, private router: Router) {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -110,6 +139,26 @@ export class UserService {
     console.log(patient);
   }
 
+  setConsultation(consultation) {
+    this.consultation = consultation;
+  }
+
+  setExamen(examen) {
+    this.examen = examen;
+  }
+
+  setPrescription(prescription) {
+    this.prescription = prescription;
+  }
+
+ setIdMedicalFolder(id){
+    this.idMedicalFolder = id;
+ }
+
+ getIdMedicalFolder(){
+    return this.idMedicalFolder;
+ }
+
   getPatientIdSelected() {
     if (this.patient != null) {
       return this.patient.patientId;
@@ -119,6 +168,18 @@ export class UserService {
 
   getPatient() {
     return this.patient;
+  }
+
+  getConsultation(){
+    return this.consultation;
+  }
+
+  getExamen(){
+    return this.examen;
+  }
+
+  getPrescription(){
+    return this.prescription;
   }
 
   getAdress() {

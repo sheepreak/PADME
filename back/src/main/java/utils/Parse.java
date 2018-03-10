@@ -19,7 +19,7 @@ public class Parse {
 	public static List<String> parseFileToString(Path pathFile) throws IOException{
 		StringBuilder sb = new StringBuilder();
 		List<String> list = new ArrayList<>();
-		try(Stream<String> lines = Files.lines(pathFile, Charset.forName("ISO-8859-15"))){
+		try(Stream<String> lines = Files.lines(pathFile, Charset.forName("ISO-8859-13"))){
 			lines.forEach(list::add);
 		}
 		return list;
@@ -162,7 +162,26 @@ public class Parse {
 		return map;
 	}
 
+	/**
+	 * Parse all products data From one String with CSV Format contained this data
+	 * @param data
+	 * @return List<Jobs>
+	 * @throws IOException
+	 */
+	public static List<String> parseJobs(List<String> data) throws IOException{
 
+		boolean isFirst = true;
+		List<String> list = new ArrayList<>();
+		for(String str : data) {
+			if(isFirst) {
+				isFirst = false;
+				continue;
+			}
+			if(!list.contains(str))
+				list.add(str);
+		}
+		return list;
+	}
 
 }
 

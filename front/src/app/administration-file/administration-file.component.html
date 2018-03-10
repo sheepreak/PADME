@@ -3,13 +3,13 @@
     <div class="col-md-10">
       <h2 translate>AdminFIle</h2>
     </div>
-    <div class="col-md-1 text-right" *ngIf="manageFile.stateConsulted()">
+    <div class="col-md-1 text-right" *ngIf="user.isSecretary()">
       <button type="button" class="btn btn-modif" (click)="modifData()" translate>Edit</button>
     </div>
 
   </div>
 
-  <div class="row myrow" *ngIf="manageFile.stateConsulted()">
+  <div class="row myrow" *ngIf="manageFile.statePublish()">
     <div class="col-md-5">
       <h3 translate>PersonalData</h3>
       <p><strong>{{ 'LastName' | translate:user }}:</strong> {{directory.lastName}}</p>
@@ -34,14 +34,12 @@
       <div *ngIf="isEmploye">
         <h3 translate>ProfessionnalData</h3>
         <p><strong>{{ 'Profession' | translate:user }}:</strong> {{directory.profession}} </p>
-        <!--<p><strong>{{ 'Specialisation' | translate:user }}</strong> {{directory.specialisation}}</p>-->
       </div>
 
       <h3 translate>OtherData</h3>
       <p><strong>{{ 'SocialSecurity' | translate:user }}:</strong> {{directory.socialID}}</p>
     </div>
   </div>
-
 
   <div class="row myrow" *ngIf="manageFile.stateEdited() || manageFile.stateNew()">
     <form class="form-horizontal">
@@ -151,21 +149,9 @@
             </div>
           </div>
 
-          <!--<div class="form-group">
-            <label for="specialisation" class="col-sm-3 control-label">{{ 'Specialisation' | translate:user }}</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" id="specialisation" name="specialisation" [(ngModel)]="directory.specialisation">
-            </div>
-          </div>-->
         </div>
 
         <h3 translate>OtherData</h3>
-        <!--<div class="form-group">
-          <label for="vital" class="col-sm-3 control-label">{{ 'VitalCard' | translate:user }}</label>
-          <div class="col-sm-9">
-            <input type="text" class="form-control" id="vital" name="vital" maxlength="15" [(ngModel)]="directory.healthCard">
-          </div>
-        </div>-->
         <div class="form-group">
           <label for="social" class="col-sm-3 control-label">{{ 'SocialSecurity' | translate:user }}:</label>
           <div class="col-sm-9">
@@ -183,6 +169,5 @@
         <button (click)="cancelModif()" class="btn btn-warning" translate>Cancel</button>
       </div>
     </form>
-
   </div>
 </div>

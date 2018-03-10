@@ -3,73 +3,64 @@
     <div class="col-md-10">
       <h2 translate>Examen</h2>
     </div>
-    <div class="col-md-1 text-right" *ngIf="manageFile.stateConsulted()">
-      <button type="button" class="btn btn-modif" (click)="modifData()" translate>Edit</button>
-    </div>
-    <div class="col-md-1 text-right" *ngIf="manageFile.stateConsulted()">
-      <button type="button" class="btn btn-modif" (click)="manageFile.publishData()" translate>Publish</button>
-    </div>
-
   </div>
-
   <div class="row myrow">
 
     <div class="col-md-7" *ngIf="manageFile.statePublish()">
-      <p class="libele">Fait le {{manageFile.date}} à {{manageFile.hopital}}</p>
+      <p class="libele">{{'DoDate' | translate:user}} {{examen.date | date:"short"}}</p>
     </div>
 
     <div class="col-md-2 mycol">
       <h3 translate>Patient</h3>
-      <p>{{patientLastName}}</p>
-      <p>{{patientFirstName}}</p>
+      <p>{{patient.lastName}}</p>
+      <p>{{patient.firstName}}</p>
     </div>
 
     <div class="col-md-2 mycol">
-      <h3>{{status | translate:user  }}</h3>
-      <p>{{lastName}}</p>
-      <p>{{firstName}}</p>
+      <h3>{{status | translate:user}}</h3>
+      <p>{{userLastName}}</p>
+      <p>{{userFirstName}}</p>
     </div>
     <br>
 
-    <div class="col-md-10" *ngIf="manageFile.stateConsulted() || manageFile.statePublish()">
+    <div class="col-md-10" *ngIf="manageFile.statePublish()">
       <h3 translate>ExamenMotif</h3>
-      <p>{{directory.motif}}</p>
+      <p>{{examen.motif}}</p>
       <h3 translate>ExamenDescription</h3>
-      <p>{{directory.description}}</p>
+      <p>{{examen.description}}</p>
 
       <h3 translate>ExamenResult</h3>
       <div class="row-fluid">
-        <img (click)="loadAllImg()" class="img-thumbnail miniature" src="../../assets/img/icon/add-all.svg" title="{{ 'LoadAllImg' | translate:user }}">
+        <img (click)="loadAllImg()" class="img-thumbnail miniature" src="../../assets/img/icon/add-all.svg"
+             title="{{ 'LoadAllImg' | translate:user }}">
         <div class="inline" *ngFor="let i of img">
-          <img (click)="changeImg(i)" [ngClass]="{'img-thumbnail':true,  'miniature': i.mini, 'imgdata':!i.mini}" src={{i.currentpath}} title="{{i.name}}">
+          <img (click)="changeImg(i)" [ngClass]="{'img-thumbnail':true,  'miniature': i.mini, 'imgdata':!i.mini}"
+               src={{i.currentpath}} title="{{i.name}}">
         </div>
       </div>
 
       <h3 translate>ExamenObservation</h3>
-      <p>{{directory.observation}}</p>
+      <p>{{examen.observation}}</p>
     </div>
 
-    <div class="col-md-10" *ngIf="manageFile.stateEdited() || manageFile.stateNew()">
-      <form class="form-horizontal">
+    <div class="col-md-10" *ngIf="manageFile.stateNew()">
+
+      <form class="form-horizontal" #examenForm="ngForm" (ngSubmit)="onSubmit(examenForm.value)" ngNativeValidate>
         <h3 translate>ExamenMotif</h3>
-        <textarea id="motif" rows="2" cols="100">
-        {{directory.motif}}
-        </textarea>
+        <textarea [(ngModel)]="motif" id="motif" name="motif" rows="2" cols="100"></textarea>
 
         <h3 translate>ExamenDescription</h3>
-        <textarea rows="2" cols="100">
-        {{directory.description}}
-        </textarea>
+        <textarea [(ngModel)]="description" id="description" name="description" rows="2" cols="100"></textarea>
 
         <h3 translate>ExamenResult</h3>
         <div class="row-fluid">
           <div class="inline" *ngFor="let i of img">
-            <img (click)="changeImg(i)" [ngClass]="{'img-thumbnail':true,  'miniature': i.mini, 'imgdata':!i.mini}" src={{i.currentpath}} title="{{i.name}}">
+            <img (click)="changeImg(i)" [ngClass]="{'img-thumbnail':true,  'miniature': i.mini, 'imgdata':!i.mini}"
+                 src={{i.currentpath}} title="{{i.name}}">
           </div>
         </div>
 
         <form class="form-horizontal">
-
           <div class="form-group">
             <label for="path" class="col-sm-1 control-label">{{ 'Path' | translate:user }}:</label>
             <div class="col-sm-9">
@@ -88,19 +79,12 @@
         </form>
 
         <h3 translate>ExamenObservation</h3>
-        <textarea rows="2" cols="100">
-        {{directory.observation}}
-        </textarea>
-        <div class="col-md-12" style="text-align: center" *ngIf="manageFile.stateNew()">
-          <button type="submit" class="btn btn-validate" translate>{{"Create" | translate:user }}</button>
-        </div>
+        <textarea rows="2" cols="100"></textarea>
 
-        <div class="col-md-12" style="text-align: center" *ngIf="manageFile.stateEdited()">
-          <button type="submit" class="btn btn-validate" translate>{{"Validate" | translate:user }}</button>
-          <button (click)="cancelModif()" class="btn btn-warning" translate>{{"Cancel" | translate:user }}</button>
+        <div class="col-md-12" style="text-align: center">
+          <button type="submit" class="btn btn-validate" translate>{{"Create" | translate:user}}</button>
         </div>
       </form>
     </div>
   </div>
 </div>
-

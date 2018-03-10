@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Image} from '../image';
 import {ManageFile} from '../manageFile';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../user.service";
 import {WebApiPromiseService} from "../web-api-promise.service";
 import {HttpClient, HttpRequest} from "@angular/common/http";
@@ -13,75 +13,52 @@ import {HttpClient, HttpRequest} from "@angular/common/http";
 })
 
 export class ExamenFileComponent implements OnInit {
-  directory = {
-    motif: '',
-    description: '',
-    result: '',
-    observation: ''
-  };
-  oldDirectory;
+  examen: any;
 
   img: Array<Image> = [];
   imgMin: boolean;
   manageFile: ManageFile = new ManageFile();
 
-  firstName: string;
-  lastName: string;
-  status: string;
   nameImg: string;
   pathImg: string;
 
-  patientFirstName: string;
-  patientLastName: string
+  userFirstName: string;
+  userLastName: string;
+  status: string;
+  patient: any;
 
-  constructor(private route: ActivatedRoute, private userService: UserService,  private requester: WebApiPromiseService, private http: HttpClient) {
+  constructor(private router: Router, private route: ActivatedRoute, private userService: UserService, private requester: WebApiPromiseService, private http: HttpClient) {
   }
 
   ngOnInit() {
-    this.firstName = this.userService.getfirstName() ? this.userService.getfirstName() : '';
-    this.lastName = this.userService.getlastName() ? this.userService.getlastName() : '';
+    this.userFirstName = this.userService.getfirstName() ? this.userService.getfirstName() : '';
+    this.userLastName = this.userService.getlastName() ? this.userService.getlastName() : '';
     this.status = this.userService.getStatus() ? this.userService.getStatus() : '';
 
-    this.patientFirstName = this.userService.getPatient().firstName;
-    this.patientLastName = this.userService.getPatient().lastName;
+    this.patient = this.userService.getPatient();
 
-    let state;
     this.route.params.subscribe(params => {
-      state = params['state'];
-
-      if (state == 'new') {
+      if (params['state'] == 'new') {
         this.manageFile.state = ManageFile.State.New;
       } else {
-        this.directory.description = 'Radiographie simple de l\'epaule gauche avec clicher de face stricte et profile auxillaire';
-        this.directory.motif = 'Suite à une chute d\'équitation, douleur à l\'epaule droit, et manque de mobilité';
-        this.directory.observation = 'Fracture tassement de la face posterieur de la tếte humérale';
+        this.examen = this.userService.getExamen();
         this.imgMin = true;
 
         let i = new Image('Radio épaule profile auxillaire', '../../assets/img/photo/epaule1.jpg');
         let ii = new Image('Radio épaule face stricte', '../../assets/img/photo/epaule2.png');
-        console.log(i.name);
         this.img.push(i);
         this.img.push(ii);
       }
     });
   }
 
-  modifData() {
-    this.oldDirectory = Object.assign({}, this.directory);
-    this.manageFile.state = ManageFile.State.Edited;
-  }
-
-  cancelModif() {
-    console.log(this.oldDirectory);
-    this.directory = this.oldDirectory;
-    this.manageFile.state = ManageFile.State.Consulted;
-  }
-
   onSubmit(form) {
-    const req = this.http.post('http://jsonplaceholder.typicode.com/posts', {
-      title: 'foo',
-      body: 'bar',
-      userId: 1
+    const req = this.http.put('http://localhost:8080/back-1.0-SNAPSHOT/rs/patient/addexam/'  + this.userService.getIdMedicalFolder(), {
+      motive: form.motif,
+      description: form.description,
+      observation: form.description,
+      date: dateFormatted2(),
+      staffId: this.userService.getId()
     })
       .subscribe(
         res => {
@@ -91,6 +68,7 @@ export class ExamenFileComponent implements OnInit {
           console.log("Error occured");
         }
       );
+    this.router.navigate(['doclist', {type: 'Examen'}]);
   }
 
   public changeImg(img: Image) {
@@ -105,7 +83,6 @@ export class ExamenFileComponent implements OnInit {
 
   public addImg() {
     if (this.nameImg != null && this.pathImg != null) {
-
       let i = new Image(this.nameImg, this.pathImg);
       this.img.push(i);
 

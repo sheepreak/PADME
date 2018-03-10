@@ -8,3 +8,15 @@
   user-select: none;
   color:white;
 }
+
+.info{
+  font-size: 20px;
+  margin-right: 10px;
+  color: #337ab7;
+}
+
+label{
+  font-weight: normal;
+  margin-right: 10px;
+}
+

@@ -11,10 +11,8 @@ export class AdministrationRequestService {
     };
   }
 
-
   getAdminFilePatient(idPatient) {
     return this.http.get('http://localhost:8080/back-1.0-SNAPSHOT/rs/patient/' + idPatient + '/adminfile',
       {headers: this.httpOptions}).toPromise();
   }
-
 }
