@@ -80,7 +80,11 @@
   "Add" : "Add document",
   "MyDocument" : "My document",
   "Date": "Date",
-  "AddPosology": "Add a posology"
+  "AddPosology": "Add a posology",
+  "Taken": "Taken",
+  "NoConsultation":"This patient had no consultation",
+  "NoExamen": "This patient had no examen",
+  "NoPrescription": "This patient had no prescription"
 
 }
 

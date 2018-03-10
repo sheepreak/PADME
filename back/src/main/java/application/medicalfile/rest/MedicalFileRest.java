@@ -4,6 +4,9 @@ import application.examen.domain.Examen;
 import application.examen.repository.ExamenRepository;
 import application.medicalfile.domain.MedicalFile;
 import application.medicalfile.repository.MedicalFileRepository;
+import application.posology.domain.Posology;
+import application.prescription.domain.Prescription;
+import application.prescription.repository.PrescriptionRepository;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
@@ -25,6 +28,9 @@ public class MedicalFileRest {
 
     @EJB
     private ExamenRepository examRepository;
+
+    @EJB
+    private PrescriptionRepository prescriptionRepository;
 
     @Context
     private UriInfo uriInfo;
@@ -100,6 +106,7 @@ public class MedicalFileRest {
         Files.copy(in, PATH.resolve(fileName), StandardCopyOption.REPLACE_EXISTING);
 
         examen.addImg(fileName);
+        examRepository.update(examen);
 
         // Return a 201 Created response with the appropriate Location header.
         URI path = uriInfo.getAbsolutePathBuilder().path(fileName).build();
@@ -118,6 +125,22 @@ public class MedicalFileRest {
         }
 
         return Files.newInputStream(dest);
+    }
+
+    @PUT
+    @Path("{prescriptionId}/posology")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addPosology(@PathParam("prescriptionId") int prescriptionId, Posology posology) {
+
+        Prescription prescription = prescriptionRepository.find(prescriptionId);
+        if(prescription == null) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+        prescription.addPosology(posology);
+        prescriptionRepository.update(prescription);
+
+        return Response.status(Response.Status.CREATED).build();
+
     }
 
 

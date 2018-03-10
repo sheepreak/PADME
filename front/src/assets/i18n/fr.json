@@ -84,6 +84,10 @@
   "Add" : "Ajout",
   "MyDocument" : "Mes documents",
   "Date": "Date",
-  "AddPosology": "Aouter une prise de posologie"
+  "AddPosology": "Aouter une prise de posologie",
+  "Taken": "Prise du traitement",
+  "NoConsultation":"Ce patient n'a eu aucune consultation",
+  "NoExamen": "Ce patient n'a eu aucun examen",
+  "NoPrescription": "Ce patient n'a eu aucune prescription"
 
 }

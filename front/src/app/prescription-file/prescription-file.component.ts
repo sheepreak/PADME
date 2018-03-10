@@ -11,18 +11,6 @@ import {HttpClient} from "@angular/common/http";
 })
 export class PrescriptionFileComponent implements OnInit {
   prescription: any;
-
-  posologies = [
-    {date: Date.now().toString(),
-    observation: "Le patient va bien",
-    infirmier: "Ameline MOREAU",
-    isTake:true},
-    {date: Date.now().toString(),
-      observation: "Le patient ne veux pas prendre sont traitement",
-      infirmier: "Ameline MOREAU",
-      isTake:false}
-  ]
-
   manageFile: ManageFile = new ManageFile();
   userFirstName: string;
   userLastName: string;
@@ -48,7 +36,7 @@ export class PrescriptionFileComponent implements OnInit {
         this.manageFile.state = ManageFile.State.New;
       } else {
         this.prescription = this.userService.getPrescription();
-        this.prescription.posologies = this.posologies;
+        console.log(this.prescription);
       }
     });
   }
@@ -57,7 +45,7 @@ export class PrescriptionFileComponent implements OnInit {
     const req = this.http.put('http://localhost:8080/back-1.0-SNAPSHOT/rs/patient/addprescription/' + this.userService.getIdMedicalFolder(), {
       startDate: form.startDate,
       endDate : form.endDate,
-      prescriptionDate : dateFormatted2(),
+      prescriptionDate : Date.now().toString(),
       treatment : form.treatment,
       posology: form.posology,
       staffId: this.userService.getId()
@@ -73,12 +61,13 @@ export class PrescriptionFileComponent implements OnInit {
     this.router.navigate(['doclist', { type: 'Prescription' }]);
   }
 
-  onAddPosology(form){
-    /*
-    const req = this.http.put('http://localhost:8080/back-1.0-SNAPSHOT/rs/patient/addprescription/' + this.userService.getIdMedicalFolder(), {
-      date: dateFormatted2(),
-      observation : form.observation,
-      infirmier: this.user.getfirstName() + this.userLastName,
+  onAddPosology(form) {
+    const req = this.http.put('http://localhost:8080/back-1.0-SNAPSHOT/rs/medicalFile/' + this.userService.getIdMedicalFolder() + '/posology', {
+      date: Date.now().toString(),
+      observation: form.observation,
+      nurseName: this.user.getfirstName(),
+      nurseSurname: this.userLastName,
+      taken: form.taken
     })
       .subscribe(
         res => {
@@ -88,17 +77,6 @@ export class PrescriptionFileComponent implements OnInit {
           console.log("Error occured");
         }
       );
-    this.router.navigate(['doclist', { type: 'Prescription' }]);
 
-    */
-
-    this.posologies.push({
-      date: new Date().toDateString(),
-      observation : form.observation,
-      infirmier: this.user.getfirstName() + this.userLastName,
-      isTake:form.isTake
-    });
-
-    this.addPosology=false;
   }
 }

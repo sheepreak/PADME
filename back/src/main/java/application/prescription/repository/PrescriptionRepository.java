@@ -19,4 +19,8 @@ public class PrescriptionRepository {
     public void save(Prescription prescription) {
         em.persist(prescription);
     }
+
+    public void update(Prescription prescription) {
+        em.merge(prescription);
+    }
 }

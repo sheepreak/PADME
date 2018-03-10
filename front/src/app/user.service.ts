@@ -17,9 +17,9 @@ export class UserService {
   private address: string;
   private id: string;
 
+  marginTop = 0;
   marginLeft = 0;
   marginBody = 0;
-
 
   private patient = {
     'patientId': null,
@@ -27,7 +27,8 @@ export class UserService {
     'lastName': null,
     'genre': null,
     'country': null,
-    'birthDate': null
+    'birthDate': null,
+    'idMedicalFile': null
   };
 
   private consultation = {
@@ -41,6 +42,7 @@ export class UserService {
     'id': null,
     'motive': null,
     'description': null,
+    'observation': null,
     'imgPath': null,
     'date': null,
     'staffId': null
@@ -52,7 +54,7 @@ export class UserService {
     'endDate': null,
     'prescriptionDate': null,
     'treatment': null,
-    'posology': null
+    'posologies': null
   }
 
   private idMedicalFolder: null;
@@ -100,7 +102,6 @@ export class UserService {
     return this.connected;
   }
 
-
   loggout() {
     this.login = null;
     this.token = null;
@@ -108,6 +109,7 @@ export class UserService {
     this.lastName = null;
     this.connected = false;
     localStorage.clear();
+    this.setPatient(null);
   }
 
   getToken() {

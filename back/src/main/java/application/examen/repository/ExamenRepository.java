@@ -20,6 +20,10 @@ public class ExamenRepository {
         em.persist(examen);
     }
 
+    public void update(Examen examen) {
+        em.merge(examen);
+    }
+
     public java.util.List<Examen> getExams() {
         return em.createNamedQuery(Examen.FIND_ALL, Examen.class).getResultList();
     }
