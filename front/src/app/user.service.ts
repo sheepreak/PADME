@@ -109,6 +109,7 @@ export class UserService {
     this.lastName = null;
     this.connected = false;
     localStorage.clear();
+    this.setPatient(null);
   }
 
   getToken() {
