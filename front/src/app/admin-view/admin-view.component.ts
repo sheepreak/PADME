@@ -2,6 +2,7 @@ import {AfterViewChecked, ChangeDetectionStrategy, Component, OnInit, Pipe, Pipe
 import {WebApiPromiseService} from '../web-api-promise.service';
 import {ChangeDetectorRef} from '@angular/core';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap';
+import {AdminViewRequestService} from './admin-view-request.service';
 
 @Pipe({
   name: 'search'
@@ -42,7 +43,8 @@ export class AdminViewComponent implements OnInit, AfterViewChecked {
   unitySeleted = [];
 
 
-  constructor(private request: WebApiPromiseService, private cdr: ChangeDetectorRef, private modalService: BsModalService) {
+  constructor(private request: WebApiPromiseService, private cdr: ChangeDetectorRef,
+              private modalService: BsModalService, private adminRequest: AdminViewRequestService) {
     this.request.getStaffs().then(data => {
       this.listStaff = data;
 
@@ -100,22 +102,35 @@ export class AdminViewComponent implements OnInit, AfterViewChecked {
   }
 
 
-  onSubmit(template: TemplateRef<any>, index) {
-    console.log(this.hospitalSeleted[index]);
-    console.log(this.poleSeleted[index]);
-    console.log(this.serviceSeleted[index]);
+  onSubmit(template: TemplateRef<any>, index, staff) {
+    let node;
+    if (this.unitySeleted[index] != null) {
+      node = this.unitySeleted[index];
+    } else if (this.serviceSeleted[index] != null) {
+      node = this.serviceSeleted[index];
+    } else if (this.poleSeleted[index] != null) {
+      node = this.poleSeleted[index];
+    } else if (this.hospitalSeleted[index] != null) {
+      node = this.hospitalSeleted[index];
+    }
 
-
-    this.modalRef = this.modalService.show(template, {
-      animated: true,
-      keyboard: false,
-      backdrop: false,
-      ignoreBackdropClick: false
+    console.log(node);
+    console.log(index);
+    this.adminRequest.updateNodeStaff(staff.id, node).then(data => {
+      console.log(data);
+      this.modalRef = this.modalService.show(template, {
+        animated: true,
+        keyboard: false,
+        backdrop: false,
+        ignoreBackdropClick: false
+      });
+      setTimeout(() => {
+        this.modalRef.hide();
+      }, 700);
+    }).catch(err => {
+      console.log(err);
     });
 
-    setTimeout(() => {
-      this.modalRef.hide();
-    }, 700);
 
   }
 
