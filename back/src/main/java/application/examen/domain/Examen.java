@@ -2,9 +2,11 @@ package application.examen.domain;
 
 import application.medicalfile.domain.MedicalFile;
 import com.sun.istack.NotNull;
+import java.util.List;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import static application.examen.domain.Examen.FIND_ALL;
 
@@ -29,7 +31,7 @@ public class Examen {
     private String description;
 
     @Column
-    private String imgPath;
+    private List<String> imgPath;
 
     @NotNull
     @Column
@@ -48,10 +50,11 @@ public class Examen {
     private MedicalFile file;
 
     public Examen() {
+        imgPath = new ArrayList<String>();
         date = LocalDateTime.now().toString();
     }
 
-    public Examen(String motive, String description, String imgPath, String observation, String date, Integer staffId) {
+    public Examen(String motive, String description, List<String> imgPath, String observation, String date, Integer staffId) {
         this.motive = motive;
         this.description = description;
         this.imgPath = imgPath;
@@ -76,11 +79,11 @@ public class Examen {
         this.description = description;
     }
 
-    public String getImgPath() {
+    public List<String> getImgPath() {
         return imgPath;
     }
 
-    public void setImgPath(String imgPath) {
+    public void setImgPath(List<String> imgPath) {
         this.imgPath = imgPath;
     }
 
@@ -115,4 +118,10 @@ public class Examen {
     public void setStaffId(Integer staffId) {
         StaffId = staffId;
     }
+
+    public void addImg(String path) {
+        imgPath.add(path);
+    }
+
+
 }
