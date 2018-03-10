@@ -16,6 +16,7 @@ import application.observation.domain.Observation;
 import application.observation.repository.ObservationRepository;
 import application.patient.domain.Patient;
 import application.patient.repository.PatientRepository;
+import application.posology.domain.Posology;
 import application.prescription.domain.Prescription;
 import application.prescription.repository.PrescriptionRepository;
 import application.staff.Status;
@@ -418,7 +419,8 @@ public class HospitalSetup {
 
         Prescription prescription1 = new Prescription(
                 "Morphine",
-                "Injection par intra-veineuse, 1mL toutes les 10 minutes",
+                new ArrayList<Posology>(),
+                "2018-02-16",
                 "2018-02-16",
                 "2018-02-19",
                 23

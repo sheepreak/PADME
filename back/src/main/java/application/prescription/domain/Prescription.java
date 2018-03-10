@@ -1,10 +1,15 @@
 package application.prescription.domain;
 
 import application.medicalfile.domain.MedicalFile;
+import application.posology.domain.Posology;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+
+import static javax.persistence.CascadeType.ALL;
 
 @Entity
 public class Prescription {
@@ -20,8 +25,9 @@ public class Prescription {
     @Column
     private String treatment;
 
+    @NotNull
     @Column
-    private String posology;
+    private String date;
 
     @NotNull
     @Column
@@ -33,11 +39,10 @@ public class Prescription {
 
     @NotNull
     @Column
-    private String prescriptionDate;
-
-    @NotNull
-    @Column
     private Integer staffId;
+
+    @OneToMany(cascade=ALL, mappedBy="prescription")
+    private List<Posology> posologys;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @PrimaryKeyJoinColumn(name = "MEDICALFILE_ID")
@@ -45,24 +50,26 @@ public class Prescription {
 
 
     public Prescription() {
-        prescriptionDate = LocalDateTime.now().toString();
+        posologys = new ArrayList<>();
     }
 
-    public Prescription(String treatment, String posology, String startDate, String endDate, Integer staffId) {
+    public Prescription(String treatment, List<Posology> posologys, String date, String startDate, String endDate, Integer staffId) {
+
+        this.date = date;
+        this.posologys = posologys;
         this.treatment = treatment;
-        this.posology = posology;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.prescriptionDate = LocalDateTime.now().toString();
         this.staffId = staffId;
+
     }
 
-    public String getPosology() {
-        return posology;
+    public List<Posology> getPosologys() {
+        return posologys;
     }
 
-    public void setPosology(String posology) {
-        this.posology = posology;
+    public void setPosologys(List<Posology> posologys) {
+        this.posologys = posologys;
     }
 
     public String getStartDate() {
@@ -79,14 +86,6 @@ public class Prescription {
 
     public void setEndDate(String endDate) {
         this.endDate = endDate;
-    }
-
-    public String getPrescriptionDate() {
-        return prescriptionDate;
-    }
-
-    public void setPrescriptionDate(String prescriptionDate) {
-        this.prescriptionDate = prescriptionDate;
     }
 
     public Integer getId() {
@@ -111,5 +110,17 @@ public class Prescription {
 
     public void setStaffId(Integer staffId) {
         this.staffId = staffId;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void addPosology(Posology posology) {
+        posologys.add(posology);
     }
 }
