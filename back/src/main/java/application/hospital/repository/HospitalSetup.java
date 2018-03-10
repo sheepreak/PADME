@@ -73,16 +73,68 @@ public class HospitalSetup {
     @EJB
     private StaffRepository staffRepository;
 
+    private List<Patient> list = new ArrayList<>();
+
+
     private Random rand = new Random();
 
     private int nbAutoGeneratePatient = 300;
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
 
-    List<String> jobsM = new ArrayList<>();
-    List<String> jobsF = new ArrayList<>();
-    List<String> jobs = new ArrayList<>();
+    private List<String> jobsM = new ArrayList<>();
+    private List<String> jobsF = new ArrayList<>();
+    private List<String> jobs = new ArrayList<>();
 
+    private List<Node> services = new ArrayList<>();
+    private HashMap<Node, Case> medicalCases = new HashMap<>();
+
+    private class Case{
+        private List<Prescription> prescriptions;
+        private List<Observation> observations;
+        private List<Examen> examens;
+        private int ageMin;
+        private int ageMax;
+        private String gender;
+
+        public Case(List<Prescription>lp, List<Observation>lo, List<Examen>le, int ageMin, int ageMax, String gender){
+            this.prescriptions = lp;
+            this.observations = lo;
+            this.examens = le;
+            this.ageMax = ageMax;
+            this.ageMin = ageMin;
+            this.gender = gender.trim().toLowerCase();
+        }
+
+        public char getGender(){
+            if(gender.isEmpty())
+                return 'b';
+            return gender.charAt(0);
+        }
+
+        public boolean isMatch(char gender, int age){
+            return gender == getGender() && ageMin <= age && ageMax >= age;
+        }
+    }
+
+    private void initCaseOntologie(Node node, Integer staffId){
+        List<Prescription> prescriptions = new ArrayList<>();
+        List<Observation> observations= new ArrayList<>();
+        List<Examen> examens= new ArrayList<>();
+        int ageMin = 5;
+        int ageMax = 8;
+        examens.add(new Examen("Maux dentaire", "Radiographie dentaire", "", "Caries sur quatres dents temporaires(50,51,83,84)", LocalDateTime.now().minusMonths(6).minusDays(2).toString(), staffId));
+        observations.add(new Observation(staffId, "Conseiller à la mère du patient de l'avulsion de la dent 84",LocalDateTime.now().minusMonths(6).minusDays(2).plusMinutes(25).toString()));
+        observations.add(new Observation(staffId, "Refus de la mère du patient de traiter la dent 84",LocalDateTime.now().minusMonths(6).minusDays(2).plusMinutes(26).toString()));
+        observations.add(new Observation(staffId, "Abscès de la dent 84",LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(43).toString()));
+        prescriptions.add(new Prescription("Analgésiques", "10 mL", LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(40).toString(), LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(40).toString(), staffId));
+        prescriptions.add(new Prescription("Désinfectant dentaire", "1 verre à garder en bouche 2 min", LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(40).toString(), LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(40).toString(), staffId));
+        medicalCases.put(node, new Case(prescriptions,observations,examens,ageMin,ageMax,"both"));
+    }
+
+    private Case generateRandomCase(){
+        return null;
+    }
     private void initJobsList(){
         jobs.add("Coursier");
         jobs.add("Vendeur Immobilier");
@@ -131,6 +183,16 @@ public class HospitalSetup {
         Node nodeService31 = new Node("Radiologie cardio-thoracique", NodeLevel.service);
         Node nodeService32 = new Node("Radiologie crânienne", NodeLevel.service);
         Node nodeService33 = new Node("Radiologie des membres", NodeLevel.service);
+        services.add(nodeService11);
+        services.add(nodeService12);
+        services.add(nodeService13);
+        services.add(nodeService14);
+        services.add(nodeService21);
+        services.add(nodeService22);
+        services.add(nodeService23);
+        services.add(nodeService31);
+        services.add(nodeService32);
+        services.add(nodeService33);
         Node nodeHU111 = new Node("Unité hospitalière 1", NodeLevel.hospitalUnit);
         Node nodeHU112 = new Node("Unité hospitalière 2", NodeLevel.hospitalUnit);
         Node nodeHU113 = new Node("Unité hospitalière 3", NodeLevel.hospitalUnit);
@@ -594,7 +656,6 @@ public class HospitalSetup {
         return list;
     }
     private List<Patient> generateRandomPatient(int nb){
-        List<Patient> list = new ArrayList<>();
 
         List<AdminFile> adminFiles = generateRandomAdminFiles(nb);
         for(AdminFile adminFile : adminFiles) {
@@ -608,7 +669,11 @@ public class HospitalSetup {
         return list;
     }
 
-    private List<MedicalFile> generateRandomMedicalFile(AdminFile adminFile, int nb) {
+    private void generateMedicalCase(){
+
+    }
+
+    private List<MedicalFile> generateRandomMedicalFile(AdminFile adminFile, int nb, Node service, Node healthCareUnit) {
         List<MedicalFile> list = new ArrayList<>();
         for(int i= 0; i < nb; i++) {
 
@@ -639,5 +704,6 @@ public class HospitalSetup {
         }
         return list;
     }
+
 
 }

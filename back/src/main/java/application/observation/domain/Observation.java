@@ -39,6 +39,14 @@ public class Observation {
 
     }
 
+    public Observation(int staffId, String comment, String date){
+
+        this.staffId = staffId;
+        this.comment = comment;
+        this.date = date;
+
+    }
+
 
     public Observation() {
         this.date = LocalDateTime.now().toString();
