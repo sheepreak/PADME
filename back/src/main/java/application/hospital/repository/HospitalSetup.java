@@ -399,7 +399,7 @@ public class HospitalSetup {
         medicalInfo1.addInformations("allergies", "sel", "gluten", "lactose");
         medicalInfoRepository.save(medicalInfo1);
 
-        MedicalFile medicalFile1 = new MedicalFile(true, 20);
+        MedicalFile medicalFile1 = new MedicalFile(true, nodeHCU3342.getId());
         medicalFileRepository.save(medicalFile1);
 
         Observation observation1 = new Observation(23,
@@ -419,7 +419,7 @@ public class HospitalSetup {
 
         Prescription prescription1 = new Prescription(
                 "Morphine",
-                new ArrayList<Posology>(),
+                new ArrayList<>(),
                 "2018-02-16",
                 "2018-02-16",
                 "2018-02-19",
