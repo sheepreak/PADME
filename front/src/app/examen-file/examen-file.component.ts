@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../user.service";
 import {WebApiPromiseService} from "../web-api-promise.service";
 import {HttpClient, HttpRequest} from "@angular/common/http";
+import {MedicalFileService} from "../medical-file.service";
 
 @Component({
   selector: 'app-examen-file',
@@ -26,8 +27,9 @@ export class ExamenFileComponent implements OnInit {
   userLastName: string;
   status: string;
   patient: any;
+  doctor:any;
 
-  constructor(private router: Router, private route: ActivatedRoute, private userService: UserService, private requester: WebApiPromiseService, private http: HttpClient) {
+  constructor(private medicalService: MedicalFileService, private router: Router, private route: ActivatedRoute, private userService: UserService, private requester: WebApiPromiseService, private http: HttpClient) {
   }
 
   ngOnInit() {
@@ -43,13 +45,14 @@ export class ExamenFileComponent implements OnInit {
       } else {
         this.examen = this.userService.getExamen();
         this.imgMin = true;
-
-        let i = new Image('Radio épaule profile auxillaire', '../../assets/img/photo/epaule1.jpg');
-        let ii = new Image('Radio épaule face stricte', '../../assets/img/photo/epaule2.png');
-        this.img.push(i);
-        this.img.push(ii);
       }
     });
+
+    if (this.manageFile.statePublish()) {
+      this.medicalService.getDoctor(this.examen.staffId).then(data => {
+        this.doctor = data;
+      });
+    }
   }
 
   onSubmit(form) {
@@ -57,7 +60,7 @@ export class ExamenFileComponent implements OnInit {
       motive: form.motif,
       description: form.description,
       observation: form.description,
-      date: dateFormatted2(),
+      date: Date.now().toString(),
       staffId: this.userService.getId()
     })
       .subscribe(
@@ -68,6 +71,7 @@ export class ExamenFileComponent implements OnInit {
           console.log("Error occured");
         }
       );
+
     this.router.navigate(['doclist', {type: 'Examen'}]);
   }
 

@@ -3,6 +3,7 @@ import {ManageFile} from "../manageFile";
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../user.service";
 import {HttpClient} from "@angular/common/http";
+import {MedicalFileService} from "../medical-file.service";
 
 @Component({
   selector: 'app-consultation-file',
@@ -17,8 +18,9 @@ export class ConsultationFileComponent implements OnInit {
   userLastName: string;
   userStatus: string;
   patient: any;
+  doctor:any;
 
-  constructor(private router: Router, private route: ActivatedRoute, private userService: UserService, private http: HttpClient) {
+  constructor(private medicalService: MedicalFileService, private router: Router, private route: ActivatedRoute, private userService: UserService, private http: HttpClient) {
   }
 
   ngOnInit() {
@@ -36,6 +38,13 @@ export class ConsultationFileComponent implements OnInit {
         this.consultation = this.userService.getConsultation();
       }
     });
+
+    if (this.manageFile.statePublish()) {
+      this.medicalService.getDoctor(this.consultation.staffId).then(data => {
+        this.doctor = data;
+      });
+    }
+
   }
 
   onSubmit(form) {

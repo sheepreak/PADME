@@ -21,8 +21,7 @@ export class MedicalDocListComponent implements OnInit {
 
   ngOnInit() {
     let id = this.userService.getIdMedicalFolder();
-
-    console.log("----------------" + id);
+    console.log("Id Medical Folder "+ id);
 
     if (id == null) {
       this.isThereConsultation = false;

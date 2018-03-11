@@ -48,13 +48,13 @@ export class UserService {
     'staffId': null
   }
 
-  private prescription= {
+  private prescription = {
     'id':null,
     'startDate': null,
     'endDate': null,
-    'prescriptionDate': null,
+    'date': null,
     'treatment': null,
-    'posologies': null
+    'posologies': []
   }
 
   private idMedicalFolder: null;
@@ -158,7 +158,7 @@ export class UserService {
  }
 
  getIdMedicalFolder(){
-    return this.idMedicalFolder;
+    return this.patient.idMedicalFile;
  }
 
   getPatientIdSelected() {

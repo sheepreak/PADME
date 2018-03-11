@@ -15,10 +15,10 @@
       <p>{{patient.firstName}}</p>
     </div>
 
-    <div class="col-md-2 mycol">
+    <div class="col-md-2 mycol" *ngIf="manageFile.statePublish()">
       <h3>{{status | translate:user}}</h3>
-      <p>{{userLastName}}</p>
-      <p>{{userFirstName}}</p>
+      <p>{{doctor.firstName}}</p>
+      <p>{{doctor.lastName}}</p>
     </div>
     <br>
     <br>
@@ -80,10 +80,10 @@
         <textarea [(ngModel)]="treatment" id="treatment" name="treatment" rows="4" cols="50"></textarea>
 
         <h3 translate>StartDate</h3>
-        <textarea type="date" [(ngModel)]="startDate" id="startDate" name="startDate" rows="4" cols="50"></textarea>
+        <input type="date" value="startDate" id="startDate" name="startDate" rows="4" cols="50">
 
         <h3 translate>EndDate</h3>
-        <textarea type="date" [(ngModel)]="endDate" id="endDate" name="endDate" rows="4" cols="50"></textarea>
+        <input type="date" [(ngModel)]="endDate" id="endDate" name="endDate" rows="4" cols="50">
 
         <div class="col-md-12" style="text-align: center">
           <button type="submit" class="btn btn-validate" translate>{{"Create" | translate:user}}</button>

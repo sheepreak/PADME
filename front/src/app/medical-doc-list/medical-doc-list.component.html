@@ -52,7 +52,7 @@
       </thead>
       <tbody>
       <tr *ngFor="let prescription of listDoc.prescriptions" (click)="onClicOnPrescription(prescription)">
-        <td>{{prescription.prescriptionDate | date:"short"}}</td>
+        <td>{{prescription.date | date:"short"}}</td>
         <td>{{prescription.treatment}}</td>
         <td>{{prescription.startDate | date:"shortDate"}}</td>
         <td>{{prescription.endDate | date:"shortDate"}}</td>

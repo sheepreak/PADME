@@ -11,9 +11,12 @@ export class PatientListServiceService {
     };
   }
 
-  /* get all patient */
-  getPatients() {
-    //return this.http.get('http://localhost:8080/back-1.0-SNAPSHOT/rs/patient', {headers: this.httpOptions}).toPromise();
-    return this.http.get('http://localhost:8080/back-1.0-SNAPSHOT/rs/staff/patients/144', {headers: this.httpOptions}).toPromise();
+
+  getPatients(id) {
+    return this.http.get('http://localhost:8080/back-1.0-SNAPSHOT/rs/staff/patients/' + id, {headers: this.httpOptions}).toPromise();
+  }
+
+  getAllPatients() {
+    return this.http.get('http://localhost:8080/back-1.0-SNAPSHOT/rs/patient', {headers: this.httpOptions}).toPromise();
   }
 }

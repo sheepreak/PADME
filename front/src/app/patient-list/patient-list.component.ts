@@ -45,19 +45,25 @@ export class PatientListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.patientService.getPatients().then(data => {
-      this.listPatients = data;
-    });
+    if (this.user.isSecretary()){
+      this.patientService.getAllPatients().then(data => {
+        this.listPatients = data;
+      });
+    }else {
+      this.patientService.getPatients(this.user.getId()).then(data => {
+        this.listPatients = data;
+      });
+    }
     this.userService.setPatient(null);
   }
 
   onClicOnPatient(patient) {
     this.userService.setPatient(patient);
-    console.log("----------------");
-    console.log(patient);
     if (this.userService.isDoctor()){
       this.router.navigate(['doclist', { type: 'Consultation' }]);
-    }else {
+    }else if (this.userService.isNurse()) {
+      this.router.navigate(['doclist', { type: 'Prescription' }]);
+    }else{
       this.router.navigate(['/administrationfile']);
     }
   }
