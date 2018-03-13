@@ -2,6 +2,7 @@ package application.patient.rest;
 
 import application.adminfile.domain.AdminFile;
 import application.examen.domain.Examen;
+import application.filters.IJWTTokenNeeded;
 import application.medicalfile.domain.MedicalFile;
 import application.medicalfile.repository.MedicalFileRepository;
 import application.observation.domain.Observation;

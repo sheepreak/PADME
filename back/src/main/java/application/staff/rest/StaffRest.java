@@ -40,9 +40,6 @@ public class StaffRest {
     @EJB
     private MedicalFileRepository medicalFileRepository;
 
-    @EJB
-    private PatientRepository patientRepository;
-
     @GET
     @Path("/patients/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -139,6 +136,7 @@ public class StaffRest {
             Algorithm algorithm = Algorithm.HMAC256(KEY);
             String token = JWT.create().withIssuer("auth0").sign(algorithm);
             staff.setToken(token);
+            staffRepository.update(staff);
             return Response.ok(staff.staffConnectionInfo()).build();
 
         } catch (UnsupportedEncodingException e) {

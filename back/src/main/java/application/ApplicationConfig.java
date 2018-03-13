@@ -1,6 +1,7 @@
 package application;
 
 import application.filters.CORSFilter;
+import application.filters.JWTTokenNeeded;
 import application.hospital.rest.HospitalRestService;
 import application.medicalfile.rest.MedicalFileRest;
 import application.node.rest.NodeRestService;
@@ -27,6 +28,7 @@ public class ApplicationConfig extends Application {
         c.add(PatientRest.class);
         c.add(MedicalFileRest.class);
         c.add(NodeRestService.class);
+        c.add(JWTTokenNeeded.class);
         classes = Collections.unmodifiableSet(c);
     }
 

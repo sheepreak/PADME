@@ -51,4 +51,15 @@ public class StaffRepository {
         return staffs;
     }
 
+    public Staff findByToken(String token) {
+
+        try {
+            Staff staff = (Staff) em.createQuery("SELECT s FROM Staff s WHERE s.token LIKE :token").setParameter("token", token).getSingleResult();
+            return staff;
+        }
+        catch(Exception e) {
+            return null;
+        }
+
+    }
 }
