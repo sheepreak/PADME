@@ -38,7 +38,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Startup
@@ -69,26 +68,62 @@ public class HospitalSetup {
     private PosologyRepository posologyRepository;
 
     private List<Patient> list = new ArrayList<>();
-
-
     private Random rand = new Random();
-
     private int nbAutoGeneratePatient = 100;
-
     private List<String> jobsM = new ArrayList<>();
     private List<String> jobsF = new ArrayList<>();
     private List<String> jobs = new ArrayList<>();
-
     private List<Node> services = new ArrayList<>();
-    private HashMap<Node, Case> medicalCases = new HashMap<>();
+    private List<String> dataPrenom = new ArrayList<>();
+    private HashMap<String, Boolean> prenoms = new HashMap<>();
+    private List<String> dataInseeRefs = new ArrayList<>();
+    private List<InseeRef> listInseeRefs = new ArrayList<>();
+    private List<String> dataAddress = new ArrayList<>();
+    private List<Address> addressSamples = new ArrayList<>();
+    private List<Address> addressSamplesOnParis = new ArrayList<>();
+    private List<String> firstNames = new ArrayList<>();
+    private List<String> emailBox = new ArrayList<>();
+    private List<Staff> staffs = new ArrayList<>();
+
+    private Node nodeServicePediatricsPneumonology = new Node();
+    private Node nodeServiceEmergency = new Node();
+
 
     @PostConstruct
     private void initialize() {
 //        try {
-            createData();
+        createData();
 //        } catch (Exception e) {
 //            System.err.println(e);
 //        }
+    }
+
+    private void initDataParsed() {
+        try {
+            dataPrenom = Parse.parseFileToString(Paths.get(this.getClass().getClassLoader().getResource("dataForSetup/Prenoms.csv").getPath()));
+            prenoms = Parse.parseFirstname(dataPrenom);
+            dataInseeRefs = Parse.parseFileToString(Paths.get(this.getClass().getClassLoader().getResource("dataForSetup/laposte_hexasmal.csv").getPath()));
+            listInseeRefs = Parse.parseInseeRef(dataInseeRefs);
+            dataAddress = Parse.parseFileToString(Paths.get(this.getClass().getClassLoader().getResource("dataForSetup/les_bureaux_de_poste_et_agences_postales_en_idf.csv").getPath()));
+            addressSamples = Parse.parseSampleAddress(dataAddress, listInseeRefs);
+            firstNames = new ArrayList<>(prenoms.keySet());
+            addressSamplesOnParis = addressSamples.stream().filter(address -> address.getCity().toLowerCase().contains("paris")).collect(Collectors.toList());
+
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    private void initRandomBoxMail() {
+        emailBox.add("@yahoo.fr");
+        emailBox.add("@gmail.com");
+        emailBox.add("@free.fr");
+        emailBox.add("@hotmail.fr");
+        emailBox.add("@hotmail.com");
+        emailBox.add("@live.fr");
+        emailBox.add("@sfr.fr");
+        emailBox.add("@orange.fr");
+        emailBox.add("@yopmail.com");
 
     }
 
@@ -107,10 +142,127 @@ public class HospitalSetup {
         jobs.add("Responsable des ressources humaines");
     }
 
-    private void createData() {
+    private void initAllGenerateList() {
+        initDataParsed();
         initJobsList();
+        initRandomBoxMail();
+    }
+
+    private void createData() {
+        initAllGenerateList();
+
         //Hospital and nodes
         Hospital hospital = new Hospital("Hopital Rothschild", "France", "5 Rue Santerre 75012 Paris");
+
+        Node nodePole0 = new Node("Pediatrics", NodeLevel.pole);
+        Node nodeService01 = new Node("Service d’endocrinologie", NodeLevel.service);
+        Node nodeService02 = new Node("Service de gastro-entérologie, nutrition, pneumologie et mucoviscidose", NodeLevel.service);
+        Node nodeService03 = new Node("Service d’hématologie", NodeLevel.service);
+        Node nodeService04 = new Node("Service de pneumologie", NodeLevel.service);
+        services.add(nodeService01);
+        services.add(nodeService02);
+        services.add(nodeService03);
+        services.add(nodeService04);
+        Node nodeHU011 = new Node("Unité hospitalière 1", NodeLevel.hospitalUnit);
+        Node nodeHU012 = new Node("Unité hospitalière 2", NodeLevel.hospitalUnit);
+        Node nodeHU013 = new Node("Unité hospitalière 3", NodeLevel.hospitalUnit);
+        Node nodeHU014 = new Node("Unité hospitalière 4", NodeLevel.hospitalUnit);
+        Node nodeHU021 = new Node("Unité hospitalière 1", NodeLevel.hospitalUnit);
+        Node nodeHU022 = new Node("Unité hospitalière 2", NodeLevel.hospitalUnit);
+        Node nodeHU023 = new Node("Unité hospitalière 3", NodeLevel.hospitalUnit);
+        Node nodeHU024 = new Node("Unité hospitalière 4", NodeLevel.hospitalUnit);
+        Node nodeHU031 = new Node("Unité hospitalière 1", NodeLevel.hospitalUnit);
+        Node nodeHU032 = new Node("Unité hospitalière 2", NodeLevel.hospitalUnit);
+        Node nodeHU033 = new Node("Unité hospitalière 3", NodeLevel.hospitalUnit);
+        Node nodeHU034 = new Node("Unité hospitalière 4", NodeLevel.hospitalUnit);
+        Node nodeHU041 = new Node("Unité hospitalière 1", NodeLevel.hospitalUnit);
+        Node nodeHU042 = new Node("Unité hospitalière 2", NodeLevel.hospitalUnit);
+        Node nodeHU043 = new Node("Unité hospitalière 3", NodeLevel.hospitalUnit);
+        Node nodeHU044 = new Node("Unité hospitalière 4", NodeLevel.hospitalUnit);
+        Node nodeHCU0111 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU0121 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU0131 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU0141 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU0211 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU0221 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU0231 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU0241 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU0311 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU0321 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU0331 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU0341 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU0411 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU0421 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU0431 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU0441 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCU0112 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU0122 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU0132 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU0142 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU0212 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU0222 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU0232 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU0242 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU0312 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU0322 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU0332 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU0342 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU0412 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU0422 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU0432 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        Node nodeHCU0442 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
+        nodePole0.addNode(nodeService01).addNode(nodeService02).addNode(nodeService03).addNode(nodeService04);
+        nodeService01.addNode(nodeHU011).addNode(nodeHU012).addNode(nodeHU013).addNode(nodeHU014);
+        nodeService02.addNode(nodeHU021).addNode(nodeHU022).addNode(nodeHU023).addNode(nodeHU024);
+        nodeService03.addNode(nodeHU031).addNode(nodeHU032).addNode(nodeHU033).addNode(nodeHU034);
+        nodeService04.addNode(nodeHU041).addNode(nodeHU042).addNode(nodeHU043).addNode(nodeHU044);
+        nodeHU011.addNode(nodeHCU0111).addNode(nodeHCU0112);
+        nodeHU012.addNode(nodeHCU0121).addNode(nodeHCU0122);
+        nodeHU013.addNode(nodeHCU0131).addNode(nodeHCU0132);
+        nodeHU014.addNode(nodeHCU0141).addNode(nodeHCU0142);
+        nodeHU021.addNode(nodeHCU0211).addNode(nodeHCU0212);
+        nodeHU022.addNode(nodeHCU0221).addNode(nodeHCU0222);
+        nodeHU023.addNode(nodeHCU0231).addNode(nodeHCU0232);
+        nodeHU024.addNode(nodeHCU0241).addNode(nodeHCU0242);
+        nodeHU031.addNode(nodeHCU0311).addNode(nodeHCU0312);
+        nodeHU032.addNode(nodeHCU0321).addNode(nodeHCU0322);
+        nodeHU033.addNode(nodeHCU0331).addNode(nodeHCU0332);
+        nodeHU034.addNode(nodeHCU0341).addNode(nodeHCU0342);
+        nodeHU041.addNode(nodeHCU0411).addNode(nodeHCU0412);
+        nodeHU042.addNode(nodeHCU0421).addNode(nodeHCU0422);
+        nodeHU043.addNode(nodeHCU0431).addNode(nodeHCU0432);
+        nodeHU044.addNode(nodeHCU0441).addNode(nodeHCU0442);
+        hospital.addNodePole(nodePole0);
+
+        //pole emergency
+        Node nodePoleEmergency = new Node("Pediatrics", NodeLevel.pole);
+        Node nodeServiceEmergency = new Node("Service d’endocrinologie", NodeLevel.service);
+
+        services.add(nodeService01);
+        services.add(nodeService02);
+        services.add(nodeService03);
+        services.add(nodeService04);
+        Node nodeHUEmergency11 = new Node("Unité hospitalière 1", NodeLevel.hospitalUnit);
+        Node nodeHUEmergency12 = new Node("Unité hospitalière 2", NodeLevel.hospitalUnit);
+        Node nodeHUEmergency13 = new Node("Unité hospitalière 3", NodeLevel.hospitalUnit);
+        Node nodeHUEmergency14 = new Node("Unité hospitalière 4", NodeLevel.hospitalUnit);
+
+        Node nodeHCUEmergency111 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCUEmergency121 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCUEmergency131 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+        Node nodeHCUEmergency141 = new Node("Unité de soin 1", NodeLevel.healthCareUnit);
+
+        nodePoleEmergency.addNode(nodeServiceEmergency);
+        nodeService01.addNode(nodeHUEmergency11).addNode(nodeHUEmergency12).addNode(nodeHUEmergency13).addNode(nodeHUEmergency14);
+        nodeHUEmergency11.addNode(nodeHCUEmergency111);
+        nodeHUEmergency12.addNode(nodeHCUEmergency121);
+        nodeHUEmergency13.addNode(nodeHCUEmergency131);
+        nodeHUEmergency14.addNode(nodeHCUEmergency141);
+
+        hospital.addNodePole(nodePoleEmergency);
+
+
+        //other pole
         Node nodePole1 = new Node("Chirurgie", NodeLevel.pole);
         Node nodePole2 = new Node("Médecine générale", NodeLevel.pole);
         Node nodePole3 = new Node("Radiologie", NodeLevel.pole);
@@ -318,6 +470,8 @@ public class HospitalSetup {
         hospital.addNodePole(nodePole3);
 
         hospitalRepository.save(hospital);
+        nodeServicePediatricsPneumonology = nodeService04;
+        this.nodeServiceEmergency = nodeServiceEmergency;
 
         //user accounts for testing
         Staff staff1 = new Staff("ameline@aphp.fr", "ameline", "Moreau", "Ameline", "0606060606", "123 fake street", Status.ADMIN);
@@ -327,138 +481,230 @@ public class HospitalSetup {
         staff2.setNode(nodePole1);
         staff3.setNode(nodePole1);
         staffRepository.save(staff1);
+        staffs.add(staff1);
         staffRepository.save(staff2);
+        staffs.add(staff2);
         staffRepository.save(staff3);
+        staffs.add(staff3);
 
         //dataset accounts for coherent data
         Staff doc1 = new Staff("mgrey@aphp.fr", "mgrey", "Grey", "Meredith", "0606060608", "15 rue Chapatte 75001 Paris", Status.DOCTOR);
         doc1.setNode(nodePole2);
         staffRepository.save(doc1);
+        staffs.add(doc1);
 
         Staff doc0 = new Staff("milgrey@aphp.fr", "milgrey", "Ilgrey", "Patrick", "0606060108", "17 rue Chapatte 75001 Paris", Status.DOCTOR);
         doc0.setNode(nodeService32);
         staffRepository.save(doc0);
+        staffs.add(doc0);
 
         Staff doc2 = new Staff("cyang@aphp.fr", "cyang", "Yang", "Cristina", "0606060609", "25 allée de la brûme 75012 Paris", Status.DOCTOR);
         doc2.setNode(nodeService11);
         staffRepository.save(doc2);
+        staffs.add(doc2);
 
         Staff doc3 = new Staff("dshep@aphp.fr", "dshep", "Shepherd", "Derek", "0606060610", "15 rue Chapatte 75001 Paris", Status.DOCTOR);
         doc3.setNode(nodeService12);
         staffRepository.save(doc3);
+        staffs.add(doc3);
 
         Staff doc4 = new Staff("akepn@aphp.fr", "akepn", "Kepner", "April", "0606060611", "32 rue de la mairie 77450 Esbly", Status.DOCTOR);
         doc4.setNode(nodeService13);
         staffRepository.save(doc4);
+        staffs.add(doc4);
 
         Staff doc5 = new Staff("arobb@aphp.fr", "arobb", "Robbins", "Arizona", "0606060612", "47 rue Pasteur 77700 Coupvray", Status.DOCTOR);
         doc5.setNode(nodeService14);
         staffRepository.save(doc5);
+        staffs.add(doc5);
 
         Staff doc6 = new Staff("mbail@aphp.fr", "mbail", "Bailey", "Miranda", "0606060613", "25 avenue de la République 77340 Pontault-Combault", Status.DOCTOR);
         doc6.setNode(nodePole1);
         staffRepository.save(doc6);
+        staffs.add(doc6);
 
         Staff doc7 = new Staff("ohunt@aphp.fr", "ohunt", "Hunt", "Owen", "0606060615", "64 allée des mille et une nuits 77184 Emerainville", Status.DOCTOR);
         doc7.setNode(nodePole3);
         staffRepository.save(doc7);
+        staffs.add(doc7);
 
         Staff doc8 = new Staff("ghous@aphp.fr", "ghous", "House", "Gregory", "0606060616", "18 allée Montesquieu 93190 Livry-Gargan", Status.DOCTOR);
         doc8.setNode(nodeService21);
         staffRepository.save(doc8);
+        staffs.add(doc8);
 
         Staff nurse1 = new Staff("obaker@aphp.fr", "obaker", "Baker", "Oscar", "0606060617", "65 avenue Jean Jaurès 93390 Clichy-sous-bois", Status.NURSE);
         nurse1.setNode(nodeHU111);
         staffRepository.save(nurse1);
+        staffs.add(nurse1);
 
         Staff nurse2 = new Staff("obake2@aphp.fr", "obake2", "Baker", "Olivia", "0606060618", "65 avenue Jean Jaurès 93390 Clichy-sous-bois", Status.NURSE);
         nurse2.setNode(nodeHU112);
         staffRepository.save(nurse2);
+        staffs.add(nurse2);
 
         Staff nurse3 = new Staff("mvalen@aphp.fr", "mvalen", "Valentine", "Mai", "0606060619", "16 allée Monge 93320 Les Pavillons-sous-bois", Status.NURSE);
         nurse3.setNode(nodeHU113);
         staffRepository.save(nurse3);
+        staffs.add(nurse3);
 
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU1112);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU1111);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU1122);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU1121);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU1132);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU1131);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU1142);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU1141);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU1212);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU1211);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU1222);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU1221);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU1232);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU1231);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU1242);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU1241);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU1312);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU1311);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU1322);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU1321);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU1332);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU1331);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU1342);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU1341);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU1412);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU1411);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU1422);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU1421);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU1432);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU1431);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU1442);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU1441);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU2112);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU2111);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU2122);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU2121);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU2132);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU2131);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU2142);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU2141);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU2212);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU2211);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU2222);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU2221);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU2232);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU2231);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU2242);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU2241);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU2312);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU2311);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU2322);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU2321);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU2332);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU2331);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU2342);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU2341);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU3112);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU3111);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU3122);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU3121);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU3132);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU3131);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU3142);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU3141);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU3212);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU3211);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU3222);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU3221);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU3232);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU3231);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU3242);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU3241);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU3312);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU3311);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU3322);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU3321);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU3332);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU3331);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU3342);
-        generateRandomStaff( Math.abs(rand.nextInt(10))+2, Status.NURSE, nodeHCU3341);
+        generateRandomStaff(2, Status.NURSE, nodeHCU1112);
+        generateRandomStaff(2, Status.NURSE, nodeHCU1111);
+        generateRandomStaff(2, Status.NURSE, nodeHCU1122);
+        generateRandomStaff(2, Status.NURSE, nodeHCU1121);
+        generateRandomStaff(2, Status.NURSE, nodeHCU1132);
+        generateRandomStaff(2, Status.NURSE, nodeHCU1131);
+        generateRandomStaff(2, Status.NURSE, nodeHCU1142);
+        generateRandomStaff(2, Status.NURSE, nodeHCU1141);
+        generateRandomStaff(2, Status.NURSE, nodeHCU1212);
+        generateRandomStaff(2, Status.NURSE, nodeHCU1211);
+        generateRandomStaff(2, Status.NURSE, nodeHCU1222);
+        generateRandomStaff(2, Status.NURSE, nodeHCU1221);
+        generateRandomStaff(2, Status.NURSE, nodeHCU1232);
+        generateRandomStaff(2, Status.NURSE, nodeHCU1231);
+        generateRandomStaff(2, Status.NURSE, nodeHCU1242);
+        generateRandomStaff(2, Status.NURSE, nodeHCU1241);
+        generateRandomStaff(2, Status.NURSE, nodeHCU1312);
+        generateRandomStaff(2, Status.NURSE, nodeHCU1311);
+        generateRandomStaff(2, Status.NURSE, nodeHCU1322);
+        generateRandomStaff(2, Status.NURSE, nodeHCU1321);
+        generateRandomStaff(2, Status.NURSE, nodeHCU1332);
+        generateRandomStaff(2, Status.NURSE, nodeHCU1331);
+        generateRandomStaff(2, Status.NURSE, nodeHCU1342);
+        generateRandomStaff(2, Status.NURSE, nodeHCU1341);
+        generateRandomStaff(2, Status.NURSE, nodeHCU1412);
+        generateRandomStaff(2, Status.NURSE, nodeHCU1411);
+        generateRandomStaff(2, Status.NURSE, nodeHCU1422);
+        generateRandomStaff(2, Status.NURSE, nodeHCU1421);
+        generateRandomStaff(2, Status.NURSE, nodeHCU1432);
+        generateRandomStaff(2, Status.NURSE, nodeHCU1431);
+        generateRandomStaff(2, Status.NURSE, nodeHCU1442);
+        generateRandomStaff(2, Status.NURSE, nodeHCU1441);
+        generateRandomStaff(2, Status.NURSE, nodeHCU2112);
+        generateRandomStaff(2, Status.NURSE, nodeHCU2111);
+        generateRandomStaff(2, Status.NURSE, nodeHCU2122);
+        generateRandomStaff(2, Status.NURSE, nodeHCU2121);
+        generateRandomStaff(2, Status.NURSE, nodeHCU2132);
+        generateRandomStaff(2, Status.NURSE, nodeHCU2131);
+        generateRandomStaff(2, Status.NURSE, nodeHCU2142);
+        generateRandomStaff(2, Status.NURSE, nodeHCU2141);
+        generateRandomStaff(2, Status.NURSE, nodeHCU2212);
+        generateRandomStaff(2, Status.NURSE, nodeHCU2211);
+        generateRandomStaff(2, Status.NURSE, nodeHCU2222);
+        generateRandomStaff(2, Status.NURSE, nodeHCU2221);
+        generateRandomStaff(2, Status.NURSE, nodeHCU2232);
+        generateRandomStaff(2, Status.NURSE, nodeHCU2231);
+        generateRandomStaff(2, Status.NURSE, nodeHCU2242);
+        generateRandomStaff(2, Status.NURSE, nodeHCU2241);
+        generateRandomStaff(2, Status.NURSE, nodeHCU2312);
+        generateRandomStaff(2, Status.NURSE, nodeHCU2311);
+        generateRandomStaff(2, Status.NURSE, nodeHCU2322);
+        generateRandomStaff(2, Status.NURSE, nodeHCU2321);
+        generateRandomStaff(2, Status.NURSE, nodeHCU2332);
+        generateRandomStaff(2, Status.NURSE, nodeHCU2331);
+        generateRandomStaff(2, Status.NURSE, nodeHCU2342);
+        generateRandomStaff(2, Status.NURSE, nodeHCU2341);
+        generateRandomStaff(2, Status.NURSE, nodeHCU3112);
+        generateRandomStaff(2, Status.NURSE, nodeHCU3111);
+        generateRandomStaff(2, Status.NURSE, nodeHCU3122);
+        generateRandomStaff(2, Status.NURSE, nodeHCU3121);
+        generateRandomStaff(2, Status.NURSE, nodeHCU3132);
+        generateRandomStaff(2, Status.NURSE, nodeHCU3131);
+        generateRandomStaff(2, Status.NURSE, nodeHCU3142);
+        generateRandomStaff(2, Status.NURSE, nodeHCU3141);
+        generateRandomStaff(2, Status.NURSE, nodeHCU3212);
+        generateRandomStaff(2, Status.NURSE, nodeHCU3211);
+        generateRandomStaff(2, Status.NURSE, nodeHCU3222);
+        generateRandomStaff(2, Status.NURSE, nodeHCU3221);
+        generateRandomStaff(2, Status.NURSE, nodeHCU3232);
+        generateRandomStaff(2, Status.NURSE, nodeHCU3231);
+        generateRandomStaff(2, Status.NURSE, nodeHCU3242);
+        generateRandomStaff(2, Status.NURSE, nodeHCU3241);
+        generateRandomStaff(2, Status.NURSE, nodeHCU3312);
+        generateRandomStaff(2, Status.NURSE, nodeHCU3311);
+        generateRandomStaff(2, Status.NURSE, nodeHCU3322);
+        generateRandomStaff(2, Status.NURSE, nodeHCU3321);
+        generateRandomStaff(2, Status.NURSE, nodeHCU3332);
+        generateRandomStaff(2, Status.NURSE, nodeHCU3331);
+        generateRandomStaff(2, Status.NURSE, nodeHCU3342);
+        generateRandomStaff(2, Status.NURSE, nodeHCU3341);
+
+        //pole pediatrics - staffs
+
+        generateRandomStaff(2, Status.NURSE, nodeHCU0112);
+        generateRandomStaff(2, Status.NURSE, nodeHCU0111);
+        generateRandomStaff(2, Status.NURSE, nodeHCU0122);
+        generateRandomStaff(2, Status.NURSE, nodeHCU0121);
+        generateRandomStaff(2, Status.NURSE, nodeHCU0132);
+        generateRandomStaff(2, Status.NURSE, nodeHCU0131);
+        generateRandomStaff(2, Status.NURSE, nodeHCU0142);
+        generateRandomStaff(2, Status.NURSE, nodeHCU0141);
+        generateRandomStaff(2, Status.NURSE, nodeHCU0212);
+        generateRandomStaff(2, Status.NURSE, nodeHCU0211);
+        generateRandomStaff(2, Status.NURSE, nodeHCU0222);
+        generateRandomStaff(2, Status.NURSE, nodeHCU0221);
+        generateRandomStaff(2, Status.NURSE, nodeHCU0232);
+        generateRandomStaff(2, Status.NURSE, nodeHCU0231);
+        generateRandomStaff(2, Status.NURSE, nodeHCU0242);
+        generateRandomStaff(2, Status.NURSE, nodeHCU0241);
+        generateRandomStaff(2, Status.NURSE, nodeHCU0312);
+        generateRandomStaff(2, Status.NURSE, nodeHCU0311);
+        generateRandomStaff(2, Status.NURSE, nodeHCU0322);
+        generateRandomStaff(2, Status.NURSE, nodeHCU0321);
+        generateRandomStaff(2, Status.NURSE, nodeHCU0332);
+        generateRandomStaff(2, Status.NURSE, nodeHCU0331);
+        generateRandomStaff(2, Status.NURSE, nodeHCU0342);
+        generateRandomStaff(2, Status.NURSE, nodeHCU0341);
+        generateRandomStaff(2, Status.NURSE, nodeHCU0412);
+        generateRandomStaff(2, Status.NURSE, nodeHCU0411);
+        generateRandomStaff(2, Status.NURSE, nodeHCU0422);
+        generateRandomStaff(2, Status.NURSE, nodeHCU0421);
+        generateRandomStaff(2, Status.NURSE, nodeHCU0432);
+        generateRandomStaff(2, Status.NURSE, nodeHCU0431);
+        generateRandomStaff(2, Status.NURSE, nodeHCU0442);
+        generateRandomStaff(2, Status.NURSE, nodeHCU0441);
+
+        generateRandomStaff(2, Status.NURSE, nodeHU011);
+        generateRandomStaff(2, Status.NURSE, nodeHU012);
+        generateRandomStaff(2, Status.NURSE, nodeHU013);
+        generateRandomStaff(2, Status.NURSE, nodeHU014);
+        generateRandomStaff(2, Status.NURSE, nodeHU021);
+        generateRandomStaff(2, Status.NURSE, nodeHU022);
+        generateRandomStaff(2, Status.NURSE, nodeHU023);
+        generateRandomStaff(2, Status.NURSE, nodeHU024);
+        generateRandomStaff(2, Status.NURSE, nodeHU031);
+        generateRandomStaff(2, Status.NURSE, nodeHU032);
+        generateRandomStaff(2, Status.NURSE, nodeHU033);
+        generateRandomStaff(2, Status.NURSE, nodeHU034);
+        generateRandomStaff(2, Status.NURSE, nodeHU041);
+        generateRandomStaff(2, Status.NURSE, nodeHU042);
+        generateRandomStaff(2, Status.NURSE, nodeHU043);
+        generateRandomStaff(2, Status.NURSE, nodeHU044);
+
+        generateRandomStaff(2, Status.DOCTOR, nodeService01);
+        generateRandomStaff(2, Status.DOCTOR, nodeService02);
+        generateRandomStaff(2, Status.DOCTOR, nodeService03);
+        generateRandomStaff(2, Status.DOCTOR, nodeService04);
+        generateRandomStaff(1, Status.DOCTOR, nodePole0);
+
+        //pole emergencies - staffs
+
+        generateRandomStaff(2, Status.NURSE, nodeHCUEmergency111);
+        generateRandomStaff(2, Status.NURSE, nodeHCUEmergency121);
+        generateRandomStaff(2, Status.NURSE, nodeHCUEmergency131);
+        generateRandomStaff(2, Status.NURSE, nodeHCUEmergency141);
+        generateRandomStaff(2, Status.NURSE, nodeHUEmergency11);
+        generateRandomStaff(2, Status.NURSE, nodeHUEmergency12);
+        generateRandomStaff(2, Status.NURSE, nodeHUEmergency13);
+        generateRandomStaff(2, Status.NURSE, nodeHUEmergency14);
+        generateRandomStaff(1, Status.DOCTOR, nodeServiceEmergency);
+        generateRandomStaff(1, Status.DOCTOR, nodePoleEmergency);
+
+
+        Staff alainFieney = new Staff("afieney@aphp.fr", "fieney", "Fieney", "Alain", generatePhoneNumber("06"), addressSamplesOnParis.get(Math.abs(rand.nextInt(addressSamplesOnParis.size()))).toString(), Status.DOCTOR);
+        alainFieney.setNode(nodeServicePediatricsPneumonology);
+        staffRepository.save(alainFieney);
+        staffs.add(alainFieney);
 
         //Patient 1
         AdminFile adminFile1 = generateAdminFile(
@@ -520,10 +766,11 @@ public class HospitalSetup {
 
         patientRepository.save(patient1);
 
-
         //Patient autogeneration
-        generateRandomPatient(nbAutoGeneratePatient, staff2, doc1, nodeService11);
 
+        generateRandomPatient(nbAutoGeneratePatient, staff2, doc1, nodeService11, 12, 85);
+        //generateRandomPatient(20, alainFieney, alainFieney, nodeServicePediatricsPneumonology, 2, 12);
+        //setSarahLeroyCase(alainFieney, nodeServicePediatricsPneumonology);
     }
 
     private AdminFile generateAdminFile(String lastName,
@@ -617,65 +864,70 @@ public class HospitalSetup {
         return jobsF.get(rand.nextInt(jobsF.size()));
     }
 
-    private List<AdminFile> generateRandomAdminFiles(int nb) {
-        List<String> emailBox = new ArrayList<>();
-        emailBox.add("@yahoo.fr");
-        emailBox.add("@gmail.com");
-        emailBox.add("@free.fr");
-        emailBox.add("@hotmail.fr");
-        emailBox.add("@hotmail.com");
-        emailBox.add("@live.fr");
-        emailBox.add("@sfr.fr");
-        emailBox.add("@orange.fr");
-        emailBox.add("@yopmail.com");
+    private List<AdminFile> generateRandomAdminFiles(int nb, int minAge, int maxAge) {
 
         List<AdminFile> list = new ArrayList<>();
-        try {
+        if (firstNames.isEmpty() || prenoms.isEmpty() || addressSamples.isEmpty() || emailBox.isEmpty())
+            return list;
+        for (int i = 0; i < nb; i++) {
+            String firstName = firstNames.get(rand.nextInt(firstNames.size()));
+            String gender;
+            if (prenoms.get(firstName))
+                gender = "M";
+            else gender = "F";
+            int birthYear = (2017 - Math.abs(rand.nextInt(maxAge - minAge)) + minAge);
+            int birthMonth = (1 + rand.nextInt(12));
+            int birthDays = (1 + rand.nextInt(28));
+            String birthDate = birthYear + "-" + String.format("%02d", birthMonth) + "-" + String.format("%02d", birthDays);
+            Address address = addressSamples.get(rand.nextInt(addressSamples.size()));
+            Address birthAddress = addressSamples.get(rand.nextInt(addressSamples.size()));
+            String lastName = firstNames.get(rand.nextInt(firstNames.size()));
+            list.add(generateAdminFile(
+                    lastName,
+                    firstName,
+                    gender,
+                    birthDate,
+                    birthAddress,
+                    address.getAddress(),
+                    address.getPostCode().toString(),
+                    address.getCity(),
+                    null,
+                    address.getCountry(),
+                    lastName + "." + firstName + emailBox.get(rand.nextInt(emailBox.size())),
+                    generatePhoneNumber("01"),
+                    generatePhoneNumber("06"),
+                    generatePhoneNumber("01"),
+                    generateRandomOccupationByGender(LocalDateTime.now().getYear() - birthYear, prenoms.get(firstName))
+            ));
+        }
+        return list;
+    }
 
+    private List<Patient> generateRandomPatient(int nb, Staff resp, Staff docExamen, Node nodeService, int minAge, int maxAge) {
 
-            List<String> dataPrenom = Parse.parseFileToString(Paths.get(this.getClass().getClassLoader().getResource("dataForSetup/Prenoms.csv").getPath()));
-            HashMap<String, Boolean> prenoms = Parse.parseFirstname(dataPrenom);
+        List<AdminFile> adminFiles = generateRandomAdminFiles(nb, minAge, maxAge);
+        for (AdminFile adminFile : adminFiles) {
 
-            List<String> dataInseeRefs = Parse.parseFileToString(Paths.get(this.getClass().getClassLoader().getResource("dataForSetup/laposte_hexasmal.csv").getPath()));
-            List<InseeRef> listInseeRefs = Parse.parseInseeRef(dataInseeRefs);
+            MedicalInfo medicalInfo = new MedicalInfo();
+            medicalInfo.addInformations("allergies", "sel", "gluten");
+            medicalInfoRepository.save(medicalInfo);
+            Patient patient = new Patient(adminFile, medicalInfo);
+            patientRepository.save(patient);
+            Node nodeHU = nodeService.getSubNodes().get(Math.abs(rand.nextInt(nodeService.getSubNodes().size())));
+            Node nodeHCU = nodeHU.getSubNodes().get(Math.abs(rand.nextInt(nodeHU.getSubNodes().size())));
+            switch (nodeService.getSpeciality().toLowerCase()) {
+                case "chirurgie cardio-thoracique":
+                    System.out.println("New cardio-thorax case");
+                    System.out.println(setCaseCardioThorax(nodeHCU, resp.getId(), docExamen.getId(), patient));
+                    break;
 
-            List<String> dataAddress = Parse.parseFileToString(Paths.get(this.getClass().getClassLoader().getResource("dataForSetup/les_bureaux_de_poste_et_agences_postales_en_idf.csv").getPath()));
-            List<Address> addressSamples = Parse.parseSampleAddress(dataAddress, listInseeRefs);
-
-            List<String> firstNames = new ArrayList<>(prenoms.keySet());
-            for (int i = 0; i < nb; i++) {
-                String firstName = firstNames.get(rand.nextInt(firstNames.size()));
-                String gender;
-                if (prenoms.get(firstName))
-                    gender = "M";
-                else gender = "F";
-                int birthYear = (2017 - Math.abs(rand.nextInt(85)));
-                int birthMonth = (1 + rand.nextInt(12));
-                int birthDays = (1 + rand.nextInt(28));
-                String birthDate = birthYear + "-" + String.format("%02d", birthMonth) + "-" + String.format("%02d", birthDays);
-                Address address = addressSamples.get(rand.nextInt(addressSamples.size()));
-                Address birthAddress = addressSamples.get(rand.nextInt(addressSamples.size()));
-                String lastName = firstNames.get(rand.nextInt(firstNames.size()));
-                list.add(generateAdminFile(
-                        lastName,
-                        firstName,
-                        gender,
-                        birthDate,
-                        birthAddress,
-                        address.getAddress(),
-                        address.getPostCode().toString(),
-                        address.getCity(),
-                        null,
-                        address.getCountry(),
-                        lastName + "." + firstName + emailBox.get(rand.nextInt(emailBox.size())),
-                        generatePhoneNumber("01"),
-                        generatePhoneNumber("06"),
-                        generatePhoneNumber("01"),
-                        generateRandomOccupationByGender(LocalDateTime.now().getYear() - birthYear, prenoms.get(firstName))
-                ));
+                case "service de pneumologie":
+                    System.out.println("New pneumologie case");
+                    System.out.println(setCasePediatricsPneumology(resp, patient));
+                    break;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+            patientRepository.update(patient);
+            list.add(patient);
         }
         return list;
     }
@@ -683,115 +935,73 @@ public class HospitalSetup {
     private List<Staff> generateRandomStaff(int nb, Status status, Node node) {
 
         List<Staff> list = new ArrayList<>();
-        try {
-            List<String> dataPrenom = Parse.parseFileToString(Paths.get(this.getClass().getClassLoader().getResource("dataForSetup/Prenoms.csv").getPath()));
-            HashMap<String, Boolean> prenoms = Parse.parseFirstname(dataPrenom);
-
-            List<String> dataInseeRefs = Parse.parseFileToString(Paths.get(this.getClass().getClassLoader().getResource("dataForSetup/laposte_hexasmal.csv").getPath()));
-            List<InseeRef> listInseeRefs = Parse.parseInseeRef(dataInseeRefs);
-
-            List<String> dataAddress = Parse.parseFileToString(Paths.get(this.getClass().getClassLoader().getResource("dataForSetup/les_bureaux_de_poste_et_agences_postales_en_idf.csv").getPath()));
-            List<Address> addressSamples = Parse.parseSampleAddress(dataAddress, listInseeRefs);
-
-            List<String> firstNames = new ArrayList<>(prenoms.keySet());
-            for (int i = 0; i < nb; i++) {
-                String firstName = firstNames.get(rand.nextInt(firstNames.size()));
-                Address address = addressSamples.get(rand.nextInt(addressSamples.size()));
-                String lastName = firstNames.get(rand.nextInt(firstNames.size()));
-                Staff staff = new Staff(
-                        firstName.charAt(1) + lastName + "@aphp.fr",
-                        generatePhoneNumber("00"),
-                        lastName,
-                        firstName,
-                        generatePhoneNumber("06"),
-                        address.getAddress() + "/" + address.getPostCode().toString() + " " + address.getCity(),
-                        status
-                );
-                if (staffRepository.getStaffs().stream().anyMatch(p -> p.getLogin().equals(firstName.charAt(1) + lastName + "@aphp.fr")))
-                    i--;
-                else {
-                    staff.setNode(node);
-                    staffRepository.save(staff);
-                    list.add(staff);
-                }
+        if (firstNames.isEmpty() || addressSamplesOnParis.isEmpty())
+            return list;
+        for (int i = 0; i < nb; i++) {
+            String firstName = firstNames.get(rand.nextInt(firstNames.size()));
+            Address address = addressSamplesOnParis.get(Math.abs(rand.nextInt(addressSamplesOnParis.size())));
+            String lastName = firstNames.get(rand.nextInt(firstNames.size()));
+            Staff staff = new Staff(
+                    firstName.charAt(1) + lastName + "@aphp.fr",
+                    generatePhoneNumber("00"),
+                    lastName,
+                    firstName,
+                    generatePhoneNumber("06"),
+                    address.getAddress() + "/" + address.getPostCode().toString() + " " + address.getCity(),
+                    status
+            );
+            if (staffs.stream().anyMatch(p -> p.getLogin().equals(firstName.charAt(1) + lastName + "@aphp.fr")))
+                i--;
+            else {
+                staff.setNode(node);
+                staffRepository.save(staff);
+                list.add(staff);
+                staffs.add(staff);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         return list;
     }
 
-    private List<Patient> generateRandomPatient(int nb, Staff resp, Staff docExamen, Node nodeService) {
-
-        List<AdminFile> adminFiles = generateRandomAdminFiles(nb);
-        for (AdminFile adminFile : adminFiles) {
-
-            MedicalInfo medicalInfo = new MedicalInfo();
-            medicalInfo.addInformations("allergies", "sel", "gluten", "lactose");
-            medicalInfoRepository.save(medicalInfo);
-            Patient patient = new Patient(adminFile, medicalInfo);
-            patientRepository.save(patient);
-            Node nodeHU = nodeService.getSubNodes().get(Math.abs(rand.nextInt(nodeService.getSubNodes().size())));
-            Node nodeHCU = nodeHU.getSubNodes().get(Math.abs(rand.nextInt(nodeHU.getSubNodes().size())));
-            setCaseCardioThorax(nodeHCU, resp.getId(), docExamen.getId(), patient);
-            list.add(patient);
-        }
-        return list;
-    }
-
-    private class Case {
-        private List<Prescription> prescriptions;
-        private List<Observation> observations;
-        private List<Examen> examens;
-        private int ageMin;
-        private int ageMax;
-        private String gender;
-
-        public Case(List<Prescription> lp, List<Observation> lo, List<Examen> le, int ageMin, int ageMax, String gender) {
-            this.prescriptions = lp;
-            this.observations = lo;
-            this.examens = le;
-            this.ageMax = ageMax;
-            this.ageMin = ageMin;
-            this.gender = gender.trim().toLowerCase();
-        }
-
-        public char getGender() {
-            if (gender.isEmpty())
-                return 'b';
-            return gender.charAt(0);
-        }
-
-        public boolean isMatch(char gender, int age) {
-            return gender == getGender() && ageMin <= age && ageMax >= age;
-        }
-    }
-
-    private void initCaseOntologie(Node node, Integer staffId) {
-        List<Prescription> prescriptions = new ArrayList<>();
-        List<Observation> observations = new ArrayList<>();
-        List<Examen> examens = new ArrayList<>();
-        int ageMin = 5;
-        int ageMax = 8;
-        examens.add(new Examen("Maux dentaire", "Radiographie dentaire", new ArrayList<>(), "Caries sur quatres dents temporaires(12,13,33,34)", LocalDateTime.now().minusMonths(6).minusDays(2).toString(), staffId));
-        observations.add(new Observation(staffId, "Conseiller à la mère du patient de l'avulsion de la dent 34", LocalDateTime.now().minusMonths(6).minusDays(2).plusMinutes(25).toString()));
-        observations.add(new Observation(staffId, "Refus de la mère du patient de traiter la dent 34", LocalDateTime.now().minusMonths(6).minusDays(2).plusMinutes(26).toString()));
-        observations.add(new Observation(staffId, "Abscès de la dent 84", LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(43).toString()));
-        //prescriptions.add(new Prescription("Analgésiques", "10 mL", LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(40).toString(), LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(40).toString(), staffId));
-        //prescriptions.add(new Prescription("Désinfectant dentaire", "1 verre à garder en bouche 2 min", LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(40).toString(), LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(40).toString(), staffId));
-        medicalCases.put(node, new Case(prescriptions, observations, examens, ageMin, ageMax, "both"));
-    }
+//    private void initCaseOntologie(Node node, Integer staffId) {
+//        List<Prescription> prescriptions = new ArrayList<>();
+//        List<Observation> observations = new ArrayList<>();
+//        List<Examen> examens = new ArrayList<>();
+//        int ageMin = 5;
+//        int ageMax = 8;
+//        examens.add(new Examen("Maux dentaire", "Radiographie dentaire", new ArrayList<>(), "Caries sur quatres dents temporaires(12,13,33,34)", LocalDateTime.now().minusMonths(6).minusDays(2).toString(), staffId));
+//        observations.add(new Observation(staffId, "Conseiller à la mère du patient de l'avulsion de la dent 34", LocalDateTime.now().minusMonths(6).minusDays(2).plusMinutes(25).toString()));
+//        observations.add(new Observation(staffId, "Refus de la mère du patient de traiter la dent 34", LocalDateTime.now().minusMonths(6).minusDays(2).plusMinutes(26).toString()));
+//        observations.add(new Observation(staffId, "Abscès de la dent 84", LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(43).toString()));
+//        //prescriptions.add(new Prescription("Analgésiques", "10 mL", LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(40).toString(), LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(40).toString(), staffId));
+//        //prescriptions.add(new Prescription("Désinfectant dentaire", "1 verre à garder en bouche 2 min", LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(40).toString(), LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(40).toString(), staffId));
+//        medicalCases.put(node, new Case(prescriptions, observations, examens, ageMin, ageMax, "both"));
+//    }
 
     private String printDate(LocalDateTime localDateTime) {
         return localDateTime.toString();
     }
 
+    private void addObservation(MedicalFile mf, Observation o) {
+        observationRepository.save(o);
+        mf.addObservation(o);
+    }
+
+    private void addExamen(MedicalFile mf, Examen e) {
+        examenRepository.save(e);
+        mf.addExamen(e);
+    }
+
+    private void addPrescription(MedicalFile mf, Prescription p) {
+        prescriptionRepository.save(p);
+        mf.addPrescription(p);
+    }
+
     private boolean setCaseCardioThorax(Node node, Integer staffIdObs, Integer staffIdExa, Patient patient) {
 
-        List<Staff> nurses = staffRepository.getStaffs().stream().filter(p -> p.getNode().equals(node) && p.getStatus().equals(Status.NURSE)).collect(Collectors.toList());
+        List<Staff> nurses = staffs.stream().filter(p -> p.getNode().equals(node) && p.getStatus().equals(Status.NURSE)).collect(Collectors.toList());
         LocalDateTime firstDate = LocalDateTime.now().minusMonths(2).minusDays(Math.abs(rand.nextInt(10) + 1)).plusMinutes(Math.abs(rand.nextInt(3600) + 1));
-        int minAge = 12;
-        int maxAge = 100;
+//        int minAge = 12;
+//        int maxAge = 100;
         MedicalFile mf1 = new MedicalFile(false, node.getId());
         MedicalFile mf2 = new MedicalFile(true, node.getId());
         //todo found image
@@ -799,45 +1009,16 @@ public class HospitalSetup {
 
         medicalFileRepository.save(mf2);
 
-        Observation o1 = new Observation(staffIdObs, "Patient ayant des douleurs de poitrine depuis 3 semaines et essouflement cardiaque rapide", printDate(firstDate));
-        observationRepository.save(o1);
-        mf1.addObservation(o1);
-
-        Observation o2 = (new Observation(staffIdObs, "Angine de poitrine récurente soupsonné, besoin d'une coronarographie", printDate(firstDate.plusMinutes(7))));
-        observationRepository.save(o2);
-        mf1.addObservation(o2);
-
-        Examen e1 = (new Examen("Angine de poitrine récurente", "Coronarographie", new ArrayList<>(), "Découverte d'une maladie coronarienne", printDate(firstDate.plusDays(10).plusMinutes(7 + 7)), staffIdExa));
-        examenRepository.save(e1);
-        mf1.addExamen(e1);
-
-        Prescription p1 = (new Prescription("Examen coronarographie, 1/mois pendant 1 an", new ArrayList<>(), printDate(firstDate.plusDays(10).plusMinutes(7 + 7)), printDate(firstDate.plusDays(10).plusMinutes(7 + 7)), printDate(firstDate.plusMonths(13).plusDays(10).plusMinutes(7 + 7)), staffIdObs));
-        prescriptionRepository.save(p1);
-        mf1.addPrescription(p1);
-
-        Observation o3 = (new Observation(staffIdObs, "Sortie du patient après examen et prescription pour la maladie coronarienne prescrite", printDate(firstDate.plusDays(11))));
-        observationRepository.save(o3);
-        mf1.addObservation(o3);
-
-        Observation o4 = (new Observation(staffIdObs, "Visite pour examen coronarographie mensuel", printDate(firstDate.plusMonths(1))));
-        observationRepository.save(o4);
-        mf2.addObservation(o4);
-
-        Examen e = (new Examen("Examen mensuel", "Coronarographie", new ArrayList<>(), "Découverte d'une ischémie silencieuse", printDate(firstDate.plusMonths(1).plusDays(3).plusMinutes(433)), staffIdExa));
-        examenRepository.save(e);
-        mf2.addExamen(e);
-
-        Observation o5 = (new Observation(staffIdObs, "Demande d'un examen appronfondie", printDate(firstDate.plusMonths(1).plusDays(4).plusMinutes(43))));
-        observationRepository.save(o5);
-        mf2.addObservation(o5);
-
-        Examen e2 = (new Examen("Demande d'examen appronfondie", "Coronarographie", new ArrayList<>(), "Découverte de lésions bitronculaires sévères sous la forme d'une sténose du tronc gauche supérieure à 60 % et d'une sténose de l'artère circonflexe supérieure à 60 %", printDate(firstDate.plusMonths(1).plusDays(7).plusMinutes(433)), staffIdExa));
-        examenRepository.save(e2);
-        mf2.addExamen(e2);
-
-        Examen e3 = (new Examen("Ischémie silencieuse avec lésions bitronculaires sévères sous la forme d'une sténose du tronc gauche supérieure à 60 % et d'une sténose de l'artère circonflexe supérieure à 60 %", "Intervention: double revascularisation coronarienne", new ArrayList<>(), "Déroulé sans problème", printDate(firstDate.plusMonths(1).plusDays(17).plusMinutes(433)), staffIdExa));
-        examenRepository.save(e3);
-        mf2.addExamen(e3);
+        addObservation(mf1, new Observation(staffIdObs, "Patient ayant des douleurs de poitrine depuis 3 semaines et essouflement cardiaque rapide", printDate(firstDate)));
+        addObservation(mf1, new Observation(staffIdObs, "Angine de poitrine récurente soupsonné, besoin d'une coronarographie", printDate(firstDate.plusMinutes(7))));
+        addExamen(mf1, new Examen("Angine de poitrine récurente", "Coronarographie", new ArrayList<>(), "Découverte d'une maladie coronarienne", printDate(firstDate.plusDays(10).plusMinutes(7 + 7)), staffIdExa));
+        addPrescription(mf1, new Prescription("Examen coronarographie, 1/mois pendant 1 an", new ArrayList<>(), printDate(firstDate.plusDays(10).plusMinutes(7 + 7)), printDate(firstDate.plusDays(10).plusMinutes(7 + 7)), printDate(firstDate.plusMonths(13).plusDays(10).plusMinutes(7 + 7)), staffIdObs));
+        addObservation(mf1, new Observation(staffIdObs, "Sortie du patient après examen et prescription pour la maladie coronarienne prescrite", printDate(firstDate.plusDays(11))));
+        addObservation(mf2, new Observation(staffIdObs, "Visite pour examen coronarographie mensuel", printDate(firstDate.plusMonths(1))));
+        addExamen(mf2, new Examen("Examen mensuel", "Coronarographie", new ArrayList<>(), "Découverte d'une ischémie silencieuse", printDate(firstDate.plusMonths(1).plusDays(3).plusMinutes(433)), staffIdExa));
+        addObservation(mf2, new Observation(staffIdObs, "Demande d'un examen appronfondie", printDate(firstDate.plusMonths(1).plusDays(4).plusMinutes(43))));
+        addExamen(mf2, new Examen("Demande d'examen appronfondie", "Coronarographie", new ArrayList<>(), "Découverte de lésions bitronculaires sévères sous la forme d'une sténose du tronc gauche supérieure à 60 % et d'une sténose de l'artère circonflexe supérieure à 60 %", printDate(firstDate.plusMonths(1).plusDays(7).plusMinutes(433)), staffIdExa));
+        addExamen(mf2, new Examen("Ischémie silencieuse avec lésions bitronculaires sévères sous la forme d'une sténose du tronc gauche supérieure à 60 % et d'une sténose de l'artère circonflexe supérieure à 60 %", "Intervention: double revascularisation coronarienne", new ArrayList<>(), "Déroulé sans problème", printDate(firstDate.plusMonths(1).plusDays(17).plusMinutes(433)), staffIdExa));
 
         List<Posology> lp = new ArrayList<>();
         for (LocalDateTime ldt = firstDate.plusMonths(1).plusDays(17).plusMinutes(433); ldt.isBefore(LocalDateTime.now()); ldt = ldt.plusDays(1)) {
@@ -846,13 +1027,241 @@ public class HospitalSetup {
             //posologyRepository.save(p);
             lp.add(p);
         }
-        Prescription p2 = (new Prescription("Repos sous surveillance. Bilan 1/jour", lp, printDate(firstDate.plusMonths(1).plusDays(17).plusMinutes(433)), printDate(firstDate.plusMonths(1).plusDays(17).plusMinutes(433)), printDate(firstDate.plusMonths(2).plusDays(17).plusMinutes(433)), staffIdObs));
-        prescriptionRepository.save(p2);
-        mf2.addPrescription(p2);
+        addPrescription(mf2, new Prescription("Repos sous surveillance. Bilan 1/jour", lp, printDate(firstDate.plusMonths(1).plusDays(17).plusMinutes(433)), printDate(firstDate.plusMonths(1).plusDays(17).plusMinutes(433)), printDate(firstDate.plusMonths(2).plusDays(17).plusMinutes(433)), staffIdObs));
 
         patient.addMedicalFile(mf1);
         patient.addMedicalFile(mf2);
         return true;
     }
 
+    private void setSarahLeroyCase(Staff doctor, Node nodeServicePediatry) {
+
+    }
+
+    private boolean setCasePediatricsPneumology(Staff doctor, Patient patient) {
+
+        //emergency service
+
+        LocalDateTime firstDate = LocalDateTime.now().minusDays(7).minusMinutes(Math.abs(rand.nextInt(1322353))+124546);
+
+        MedicalFile mf1 = new MedicalFile(true, nodeServicePediatricsPneumonology.getId());
+        medicalFileRepository.save(mf1);
+
+        //int staffId, String comment, String date){
+        Staff emergencyStaff = doctor;//staffs.stream().filter(staff -> staff.getNode().getId().equals(nodeServiceEmergency.getId())).findFirst().orElse(null);
+        if (emergencyStaff != null) {
+            //int staffId, String comment, String date
+            addObservation(mf1, new Observation(emergencyStaff.getId(), "Amené aux urgences par sa mère pour une gêne respiratoire évoluant depuis 5 jours.", printDate(firstDate)));
+            addObservation(mf1, new Observation(emergencyStaff.getId(),  "Le patient a pris 50 mL de chacun des biberons de la journée. Les parents sont enrhumés et sont allés voir leur médecin traitant qui leur a donné un traitement symptomatique", printDate(firstDate)));
+            addObservation(mf1, new Observation(emergencyStaff.getId(), "À l’arrivée : T° = 37,4 °C ; FR = 65/min ; saturation = 95 % ; FC = 145/min ; TA = 85/65 mmHg, un tirage intercostal ainsi qu’un battement des ailes du nez. ", printDate(firstDate.plusMinutes(27))));
+            addObservation(mf1, new Observation(emergencyStaff.getId(), "L’auscultation retrouve des sibilants diffus avec un murmure vésiculaire mieux perçu à droite. L’examen du carnet de santé montre que le patient est né au terme d’une grossesse normale. " , printDate(firstDate.plusMinutes(28))));
+            addObservation(mf1, new Observation(emergencyStaff.getId(), "La maman avait réussi pendant la grossesse à arrêter sa consommation de tabac ; elle a repris après l’accouchement. ", printDate(firstDate.plusMinutes(29))));
+            addObservation(mf1, new Observation(emergencyStaff.getId(), "Il n’y a pas d’antécédent médical particulier, notamment de détresse respiratoire néonatale. ", printDate(firstDate.plusMinutes(30))));
+            addObservation(mf1, new Observation(emergencyStaff.getId(), "Ses parents ont un terrain atopique avec rhinoconjonctivite allergique saisonnière et asthme dans l’enfance.", printDate(firstDate.plusMinutes(31))));
+
+            //String treatment, List<Posology> posologys, String date, String startDate, String endDate, Integer staffId
+            addPrescription(mf1, new Prescription("Radiographie du thorax", new ArrayList<>(), printDate(firstDate.plusMinutes(32)), printDate(firstDate.plusMinutes(32)), printDate(firstDate.plusMinutes(32).plusDays(1)), emergencyStaff.getId()));
+            int prescriptionIndex = 0;
+
+//            addPrescription(mf1, new Prescription("Désobstructions  rhinopharyngées", new ArrayList<>(), printDate(firstDate.plusMinutes(32)), printDate(firstDate.plusMinutes(32)), printDate(firstDate.plusMinutes(32).plusDays(1)), emergencyStaff.getId()));
+//            prescriptionIndex++;
+
+            //String motive, String description, List<String> imgPath, String observation, String date, Integer staffId
+            addExamen(mf1, new Examen("FR > 60/min et Difficultés alimentaires, possible bronchiolite aiguë", "Radiographie du thorax", new ArrayList<>(), "La radiographie du thorax montre une distension thoracique sans foyer ni cardiomégalie", printDate(firstDate.plusMinutes(25).plusDays(1)), emergencyStaff.getId()));
+
+            //String date, String observation, String nurseName, String nurseSurname, boolean taken
+            mf1.getPrescriptions().get(prescriptionIndex).addPosology(new Posology(printDate(firstDate.plusMinutes(25).plusDays(1)), "Examen effectué", emergencyStaff.getFirstName(), emergencyStaff.getLastName(), true));
+
+//            addPrescription(mf1, new Prescription("Proclive  dorsal", new ArrayList<>(), printDate(firstDate.plusMinutes(32)), printDate(firstDate.plusMinutes(32)), printDate(firstDate.plusMinutes(32).plusDays(1)), emergencyStaff.getId());
+//            prescriptionIndex++;
+
+//            addPrescription(mf1, new Prescription("Scope  cardiorespiratoire", new ArrayList<>(), printDate(firstDate.plusMinutes(32)), printDate(firstDate.plusMinutes(32)), printDate(firstDate.plusMinutes(32).plusDays(1)), emergencyStaff.getId());
+//            prescriptionIndex++;
+
+            addObservation(mf1, new Observation(emergencyStaff.getId(), "Patient a du mal à respirer", printDate(firstDate.plusDays(2))));
+
+            patient.addMedicalFile(mf1);
+            return true;
+        }
+        return false;
+    }
 }
+
+        /*
+
+
+Noémie restera 48 h hospitalisée, avec une évolution rapidement favorable.
+Elle revient à l’âge de 4 mois pour un épisode semblable de dyspnée expiratoire débuté la veille. Elle est gardée depuis
+un mois à la crèche.
+À l’arrivée : T° = 37,8 °C ; FR = 38/min ; saturation = 98 % ; FC = 135/min ; TA = 85/56 mmHg.
+Elle  est  en  bon  état  général.  Elle  a  un  tirage  intercostal  et  sus-claviculaire.  Elle  conserve  une  excellente  perfusion
+périphérique et vous ne palpez pas d’hépatomégalie. L’auscultation retrouve des sibilants et des crépitants.
+4.
+Quel(s) est (sont) le(s) diagnostic(s) compatible(s) ?
+❏
+A.  Bronchiolite
+❏
+B.  Asthme du nourrisson
+❏
+C.  Myocardite
+❏
+D.  Pneumonie
+❏
+E.  Trachéite
+5.
+Quelle est votre prise en charge aux urgences ?
+❏
+A.  Hospitalisation
+❏
+B.  Corticothérapie  orale
+❏
+C.  Nébulisation  d’adrénaline
+❏
+D.  Kinésithérapie  respiratoire
+❏
+E.  Désobstructions  rhinopharyngées
+6.
+Quelle(s) mesure(s) est (sont) à proposer en prévention des récidives ?
+❏
+A.  Arrêt du tabagisme maternel
+❏
+B.  Traitement par inhibiteur de la pompe à protons
+❏
+C.  Sérothérapie anti-VRS par palivizumab
+❏
+D.  Lavage des mains en période épidémique
+❏
+E.  Antibiothérapie  alternée
+7.
+Quel(s) vaccin(s) doit (doivent) apparaître à son âge sur son carnet de santé ?
+❏
+A.  2 doses DTP – Ca – Hib
+❏
+B.  1 dose méningocoque C
+❏
+C.  1 dose ROR
+❏
+D.  1 dose varicelle
+❏
+E.  2 doses pneumocoque 23 valents
+Noémie fait quatre épisodes de dyspnée expiratoire au cours de sa première année de vie.
+Elle a actuellement 16 mois. Elle suit son couloir de croissance en poids et taille. Elle a été diversifiée à l’âge de 4 mois
+et boit du lait de croissance.
+8.
+Quel(s) examen(s) réalisez-vous pour argumenter le diagnostic d’asthme ?
+❏
+A.  Radiographie du thorax
+❏
+B.  EFR
+❏
+C.  Gaz du sang
+❏
+D.  Scanner  thoracique
+❏
+E.  Test de la sueur
+9.
+Quel(s) est (sont) le(s) diagnostic(s) différentiel(s) à évoquer ?
+❏
+A.  Tuberculose
+❏
+B.  Déficit  immunitaire
+❏
+C.  Trachéomalacie
+❏
+D.  Double arc aortique
+❏
+E.  Dysplasie  bronchopulmonaire
+Noémie a maintenant 3 ans. Les parents n’arrivent plus à gérer ses nombreux épisodes de dyspnée expiratoire. Vous
+reprenez l’enquête diagnostique et décidez de réaliser un bilan allergologique.
+10.   Quel bilan allergologique proposez-vous ?
+❏
+A.  Anamnèse
+❏
+B.
+Pricks tests
+❏
+C.
+Patchs tests
+❏
+D.  Eosinophilie  sanguine
+❏
+E.  IgE  totales
+ÉNONCÉ
+100
+Les  tests  cutanés  sont  positifs  pour  les  graminés,  l’œuf  et  l’arachide.  L’anamnèse  vous  apprend  qu’elle  consomme
+régulièrement de l’œuf sans réaction, mais qu’elle n’a jamais essayé la cacahuète.
+À 4 ans, Noémie est amenée de nouveau aux urgences. Elle a commencé à tousser en quintes puis a développé une
+gêne respiratoire sifflante après avoir gouté aux biscuits apéritifs lors d’un barbecue familial. Elle a eu également mal au
+ventre, vomi et est devenue toute rouge avec un œdème de la face. Les parents ont essayé des bouffées de salbutamol
+en chambre d’inhalation mais cela ne l’a que très peu améliorée.
+À l’arrivée : T° = 36,5 °C ; FR = 42/min ; saturation = 96 % ; FC = 150/min ; TA = 69/50 mmHg.
+L’enfant est agitée, dysphonique. Signes de lutte expiratoire. Extrémités chaudes avec TRC à 2 secondes, pas de foie
+palpable. L’abdomen est souple et sans défense.
+Vous observez des lésions urticariennes de l’ensemble du corps avec un œdème des lèvres.
+11.   Quelle est votre prise en charge thérapeutique aux urgences ?
+❏
+A.  Oxygénothérapie
+❏
+B.  Adrénaline 0,01 mg/kg en IM
+❏
+C.  Nébulisations de salbutamol
+❏
+D.  Antiémétique
+❏
+E.  Catécholamines
+L’état clinique s’améliore suite à l’injection IM d’adrénaline ainsi qu’aux thérapeutiques symptomatiques instituées.
+12.   Quelle est la suite de votre prise en charge ?
+❏
+A.  Retour à domicile
+❏
+B.  Dosage de tryptase
+❏
+C.  Carte  d’allergique
+❏
+D.  PAI
+❏
+E.  Trousse d’urgence (anti-H1, seringue auto-injectable d’adrénaline)
+Le diagnostic d’allergie à l’arachide a été retenu après cet épisode anaphylactique.
+Le tableau respiratoire se calme progressivement jusqu’à l’âge de 6 ans et demi. Elle a bénéficié d’un traitement par
+corticoïdes inhalés à doses moyennes.
+13.   Que pouvez-vous dire à propos de ce traitement à l’âge de Noémie ?
+❏
+A.  Administration par aérosol-doseur
+❏
+B.  Nécessité d’une chambre d’inhalation
+❏
+C.  Risque de candidose buccale
+❏
+D.  Seule type de traitement de fond à cet âge
+❏
+E.  Peut ralentir la vitesse de croissance
+14.   Quel(s) est (sont) le(s) élément(s) de suivi d’un asthme à cet âge ?
+❏
+A.  EFR
+❏
+B.
+Peak-flow
+❏
+C.  ECBC
+❏
+D.  Cliché  thoracique
+❏
+E.  Observance  thérapeutique
+Près d’un an plus tard, Noémie a un syndrome fébrile à 39 °C évoluant depuis 48 h avec rhinite et pharyngite. Sa
+maman lui auto-administre un traitement par amoxicilline. Quelques heures après la prise, Noémie est conduite aux
+urgences pour une éruption érythémateuse maculopapuleuse du tronc constatée lors de l’habillage. L’examen clinique
+est rassurant par ailleurs.
+La famille a peur de l’éventualité d’une nouvelle allergie.
+15.   Quelle est votre attitude pratique ?
+❏
+A.  Hospitalisation
+❏
+B.  Adrénaline 0,01 mg/kg en IM
+❏
+C.  Arrêt de la prescription d’amoxicilline
+❏
+D.  Test de provocation ultérieure
+❏
+E.  Contre-indication aux C3G
+
+         */

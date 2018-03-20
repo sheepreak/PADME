@@ -23,7 +23,7 @@ public class Node{
     @GeneratedValue
     private Integer id;
 
-    @Size(min=2, max=50)
+    @Size(min=2)
     @NotNull
     @Column(nullable=false)
     private String speciality;
