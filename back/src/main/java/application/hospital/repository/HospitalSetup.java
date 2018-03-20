@@ -85,10 +85,6 @@ public class HospitalSetup {
     private List<String> emailBox = new ArrayList<>();
     private List<Staff> staffs = new ArrayList<>();
 
-    private Node nodeServicePediatricsPneumonology = new Node();
-    private Node nodeServiceEmergency = new Node();
-
-
     @PostConstruct
     private void initialize() {
 //        try {
@@ -470,9 +466,6 @@ public class HospitalSetup {
         hospital.addNodePole(nodePole3);
 
         hospitalRepository.save(hospital);
-        nodeServicePediatricsPneumonology = nodeService04;
-        this.nodeServiceEmergency = nodeServiceEmergency;
-
         //user accounts for testing
         Staff staff1 = new Staff("ameline@aphp.fr", "ameline", "Moreau", "Ameline", "0606060606", "123 fake street", Status.ADMIN);
         Staff staff2 = new Staff("charles@aphp.fr", "charles", "Da Silva Costa", "Charles", "0606060607", "125 fake street", Status.DOCTOR);
@@ -702,7 +695,7 @@ public class HospitalSetup {
 
 
         Staff alainFieney = new Staff("afieney@aphp.fr", "fieney", "Fieney", "Alain", generatePhoneNumber("06"), addressSamplesOnParis.get(Math.abs(rand.nextInt(addressSamplesOnParis.size()))).toString(), Status.DOCTOR);
-        alainFieney.setNode(nodeServicePediatricsPneumonology);
+        alainFieney.setNode(nodeService04);
         staffRepository.save(alainFieney);
         staffs.add(alainFieney);
 
@@ -768,9 +761,10 @@ public class HospitalSetup {
 
         //Patient autogeneration
 
-        generateRandomPatient(nbAutoGeneratePatient, staff2, doc1, nodeService11, 12, 85);
-        //generateRandomPatient(20, alainFieney, alainFieney, nodeServicePediatricsPneumonology, 2, 12);
+        generateRandomPatient(20, staff2, doc1, nodeService11, 12, 85);
+        generateRandomPatient(20, alainFieney, alainFieney, nodeService04, 2, 12);
         //setSarahLeroyCase(alainFieney, nodeServicePediatricsPneumonology);
+        System.err.println("\n====================> INIT DATA IS DONE <====================\n");
     }
 
     private AdminFile generateAdminFile(String lastName,
@@ -917,16 +911,15 @@ public class HospitalSetup {
             Node nodeHCU = nodeHU.getSubNodes().get(Math.abs(rand.nextInt(nodeHU.getSubNodes().size())));
             switch (nodeService.getSpeciality().toLowerCase()) {
                 case "chirurgie cardio-thoracique":
-                    System.out.println("New cardio-thorax case");
-                    System.out.println(setCaseCardioThorax(nodeHCU, resp.getId(), docExamen.getId(), patient));
+                    System.err.println("New cardio-thorax case");
+                    System.err.println(setCaseCardioThorax(nodeHCU, resp.getId(), docExamen.getId(), patient));
                     break;
 
                 case "service de pneumologie":
-                    System.out.println("New pneumologie case");
-                    System.out.println(setCasePediatricsPneumology(resp, patient));
+                    System.err.println("New pneumologie case");
+                    System.err.println(setCasePediatricsPneumology(nodeHCU, resp.getId(), patient));
                     break;
             }
-            patientRepository.update(patient);
             list.add(patient);
         }
         return list;
@@ -961,21 +954,6 @@ public class HospitalSetup {
         }
         return list;
     }
-
-//    private void initCaseOntologie(Node node, Integer staffId) {
-//        List<Prescription> prescriptions = new ArrayList<>();
-//        List<Observation> observations = new ArrayList<>();
-//        List<Examen> examens = new ArrayList<>();
-//        int ageMin = 5;
-//        int ageMax = 8;
-//        examens.add(new Examen("Maux dentaire", "Radiographie dentaire", new ArrayList<>(), "Caries sur quatres dents temporaires(12,13,33,34)", LocalDateTime.now().minusMonths(6).minusDays(2).toString(), staffId));
-//        observations.add(new Observation(staffId, "Conseiller à la mère du patient de l'avulsion de la dent 34", LocalDateTime.now().minusMonths(6).minusDays(2).plusMinutes(25).toString()));
-//        observations.add(new Observation(staffId, "Refus de la mère du patient de traiter la dent 34", LocalDateTime.now().minusMonths(6).minusDays(2).plusMinutes(26).toString()));
-//        observations.add(new Observation(staffId, "Abscès de la dent 84", LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(43).toString()));
-//        //prescriptions.add(new Prescription("Analgésiques", "10 mL", LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(40).toString(), LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(40).toString(), staffId));
-//        //prescriptions.add(new Prescription("Désinfectant dentaire", "1 verre à garder en bouche 2 min", LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(40).toString(), LocalDateTime.now().minusMonths(4).minusDays(12).plusMinutes(40).toString(), staffId));
-//        medicalCases.put(node, new Case(prescriptions, observations, examens, ageMin, ageMax, "both"));
-//    }
 
     private String printDate(LocalDateTime localDateTime) {
         return localDateTime.toString();
@@ -1038,39 +1016,38 @@ public class HospitalSetup {
 
     }
 
-    private boolean setCasePediatricsPneumology(Staff doctor, Patient patient) {
+    private boolean setCasePediatricsPneumology(Node node, int doctorId, Patient patient) {
 
         //emergency service
 
-        LocalDateTime firstDate = LocalDateTime.now().minusDays(7).minusMinutes(Math.abs(rand.nextInt(1322353))+124546);
+        LocalDateTime firstDate = LocalDateTime.now().minusDays(2).minusMinutes(Math.abs(rand.nextInt(1000)));
 
-        MedicalFile mf1 = new MedicalFile(true, nodeServicePediatricsPneumonology.getId());
+        MedicalFile mf1 = new MedicalFile(true, node.getId());
         medicalFileRepository.save(mf1);
+        List<Staff> nurses = staffs.stream().filter(p -> p.getNode().equals(node) && p.getStatus().equals(Status.NURSE)).collect(Collectors.toList());
 
         //int staffId, String comment, String date){
-        Staff emergencyStaff = doctor;//staffs.stream().filter(staff -> staff.getNode().getId().equals(nodeServiceEmergency.getId())).findFirst().orElse(null);
-        if (emergencyStaff != null) {
             //int staffId, String comment, String date
-            addObservation(mf1, new Observation(emergencyStaff.getId(), "Amené aux urgences par sa mère pour une gêne respiratoire évoluant depuis 5 jours.", printDate(firstDate)));
-            addObservation(mf1, new Observation(emergencyStaff.getId(),  "Le patient a pris 50 mL de chacun des biberons de la journée. Les parents sont enrhumés et sont allés voir leur médecin traitant qui leur a donné un traitement symptomatique", printDate(firstDate)));
-            addObservation(mf1, new Observation(emergencyStaff.getId(), "À l’arrivée : T° = 37,4 °C ; FR = 65/min ; saturation = 95 % ; FC = 145/min ; TA = 85/65 mmHg, un tirage intercostal ainsi qu’un battement des ailes du nez. ", printDate(firstDate.plusMinutes(27))));
-            addObservation(mf1, new Observation(emergencyStaff.getId(), "L’auscultation retrouve des sibilants diffus avec un murmure vésiculaire mieux perçu à droite. L’examen du carnet de santé montre que le patient est né au terme d’une grossesse normale. " , printDate(firstDate.plusMinutes(28))));
-            addObservation(mf1, new Observation(emergencyStaff.getId(), "La maman avait réussi pendant la grossesse à arrêter sa consommation de tabac ; elle a repris après l’accouchement. ", printDate(firstDate.plusMinutes(29))));
-            addObservation(mf1, new Observation(emergencyStaff.getId(), "Il n’y a pas d’antécédent médical particulier, notamment de détresse respiratoire néonatale. ", printDate(firstDate.plusMinutes(30))));
-            addObservation(mf1, new Observation(emergencyStaff.getId(), "Ses parents ont un terrain atopique avec rhinoconjonctivite allergique saisonnière et asthme dans l’enfance.", printDate(firstDate.plusMinutes(31))));
+            addObservation(mf1, new Observation(doctorId, "Amené par sa mère pour une gêne respiratoire évoluant depuis 5 jours.", printDate(firstDate)));
+            addObservation(mf1, new Observation(doctorId,  "Le patient a pris 50 mL de chacun des biberons de la journée. Les parents sont enrhumés et sont allés voir leur médecin traitant qui leur a donné un traitement symptomatique", printDate(firstDate)));
+            addObservation(mf1, new Observation(doctorId, "À l’arrivée : T° = 37,4 °C ; FR = 65/min ; saturation = 95 % ; FC = 145/min ; TA = 85/65 mmHg, un tirage intercostal ainsi qu’un battement des ailes du nez. ", printDate(firstDate.plusMinutes(27))));
+            addObservation(mf1, new Observation(doctorId, "L’auscultation retrouve des sibilants diffus avec un murmure vésiculaire mieux perçu à droite. L’examen du carnet de santé montre que le patient est né au terme d’une grossesse normale. " , printDate(firstDate.plusMinutes(28))));
+            addObservation(mf1, new Observation(doctorId, "La maman avait réussi pendant la grossesse à arrêter sa consommation de tabac ; elle a repris après l’accouchement. ", printDate(firstDate.plusMinutes(29))));
+            addObservation(mf1, new Observation(doctorId, "Il n’y a pas d’antécédent médical particulier, notamment de détresse respiratoire néonatale. ", printDate(firstDate.plusMinutes(30))));
+            addObservation(mf1, new Observation(doctorId, "Ses parents ont un terrain atopique avec rhinoconjonctivite allergique saisonnière et asthme dans l’enfance.", printDate(firstDate.plusMinutes(31))));
 
             //String treatment, List<Posology> posologys, String date, String startDate, String endDate, Integer staffId
-            addPrescription(mf1, new Prescription("Radiographie du thorax", new ArrayList<>(), printDate(firstDate.plusMinutes(32)), printDate(firstDate.plusMinutes(32)), printDate(firstDate.plusMinutes(32).plusDays(1)), emergencyStaff.getId()));
+            addPrescription(mf1, new Prescription("Radiographie du thorax", new ArrayList<>(), printDate(firstDate.plusMinutes(32)), printDate(firstDate.plusMinutes(32)), printDate(firstDate.plusMinutes(32).plusDays(1)), doctorId));
             int prescriptionIndex = 0;
 
 //            addPrescription(mf1, new Prescription("Désobstructions  rhinopharyngées", new ArrayList<>(), printDate(firstDate.plusMinutes(32)), printDate(firstDate.plusMinutes(32)), printDate(firstDate.plusMinutes(32).plusDays(1)), emergencyStaff.getId()));
 //            prescriptionIndex++;
 
             //String motive, String description, List<String> imgPath, String observation, String date, Integer staffId
-            addExamen(mf1, new Examen("FR > 60/min et Difficultés alimentaires, possible bronchiolite aiguë", "Radiographie du thorax", new ArrayList<>(), "La radiographie du thorax montre une distension thoracique sans foyer ni cardiomégalie", printDate(firstDate.plusMinutes(25).plusDays(1)), emergencyStaff.getId()));
+            addExamen(mf1, new Examen("FR > 60/min et Difficultés alimentaires, possible bronchiolite aiguë", "Radiographie du thorax", new ArrayList<>(), "La radiographie du thorax montre une distension thoracique sans foyer ni cardiomégalie", printDate(firstDate.plusMinutes(25).plusDays(1)), doctorId));
 
             //String date, String observation, String nurseName, String nurseSurname, boolean taken
-            mf1.getPrescriptions().get(prescriptionIndex).addPosology(new Posology(printDate(firstDate.plusMinutes(25).plusDays(1)), "Examen effectué", emergencyStaff.getFirstName(), emergencyStaff.getLastName(), true));
+            mf1.getPrescriptions().get(prescriptionIndex).addPosology(new Posology(printDate(firstDate.plusMinutes(25).plusDays(1)), "Examen effectué", nurses.get(0).getFirstName(), nurses.get(0).getLastName(), true));
 
 //            addPrescription(mf1, new Prescription("Proclive  dorsal", new ArrayList<>(), printDate(firstDate.plusMinutes(32)), printDate(firstDate.plusMinutes(32)), printDate(firstDate.plusMinutes(32).plusDays(1)), emergencyStaff.getId());
 //            prescriptionIndex++;
@@ -1078,12 +1055,10 @@ public class HospitalSetup {
 //            addPrescription(mf1, new Prescription("Scope  cardiorespiratoire", new ArrayList<>(), printDate(firstDate.plusMinutes(32)), printDate(firstDate.plusMinutes(32)), printDate(firstDate.plusMinutes(32).plusDays(1)), emergencyStaff.getId());
 //            prescriptionIndex++;
 
-            addObservation(mf1, new Observation(emergencyStaff.getId(), "Patient a du mal à respirer", printDate(firstDate.plusDays(2))));
+            addObservation(mf1, new Observation(doctorId, "Patient a du mal à respirer", printDate(firstDate.plusDays(2).minusHours(3).minusMinutes(234))));
 
             patient.addMedicalFile(mf1);
             return true;
-        }
-        return false;
     }
 }
 
