@@ -52,7 +52,7 @@ public class Staff {
     @PrimaryKeyJoinColumn(name = "NODE_ID")
     private Node node; // contient le noeud auquel le membre du Staff est rattaché
 
-    private String token; // nom du membre du Staff
+    private String token;
 
     public Staff() {
     }

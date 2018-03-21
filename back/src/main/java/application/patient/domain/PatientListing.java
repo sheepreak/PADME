@@ -30,7 +30,6 @@ public class PatientListing {
         return firstName;
     }
 
-
     public String getGender() {
         return gender;
     }

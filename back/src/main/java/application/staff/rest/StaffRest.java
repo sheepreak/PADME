@@ -40,24 +40,22 @@ public class StaffRest {
     @EJB
     private MedicalFileRepository medicalFileRepository;
 
-    @EJB
-    private PatientRepository patientRepository;
-
     @GET
     @Path("/patients/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPatients(@PathParam("id") Integer id) throws JsonProcessingException {
 
         Staff staff = staffRepository.find(id);
-        List<Map<String, String>> maps = new ArrayList<>();
+        List<Map<String, Object>> maps = new ArrayList<>();
         List<Node> leafs = staff.leaves();
-        System.out.println(leafs.size());
+
         for (Node node : leafs) {
             List<MedicalFile> medicalFiles = medicalFileRepository.findFilesByNode(node.getId());
             for (MedicalFile medicalFile : medicalFiles) {
                 maps.add(medicalFile.patientInformations());
             }
         }
+
         ObjectMapper mapper = new ObjectMapper();
         return Response.ok(mapper.writeValueAsString(maps)).build();
 
@@ -139,6 +137,7 @@ public class StaffRest {
             Algorithm algorithm = Algorithm.HMAC256(KEY);
             String token = JWT.create().withIssuer("auth0").sign(algorithm);
             staff.setToken(token);
+            staffRepository.update(staff);
             return Response.ok(staff.staffConnectionInfo()).build();
 
         } catch (UnsupportedEncodingException e) {

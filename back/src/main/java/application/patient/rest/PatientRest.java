@@ -2,6 +2,7 @@ package application.patient.rest;
 
 import application.adminfile.domain.AdminFile;
 import application.examen.domain.Examen;
+import application.filters.IJWTTokenNeeded;
 import application.medicalfile.domain.MedicalFile;
 import application.medicalfile.repository.MedicalFileRepository;
 import application.observation.domain.Observation;
@@ -11,6 +12,7 @@ import application.patient.repository.PatientRepository;
 import application.prescription.domain.Prescription;
 
 import javax.ejb.EJB;
+import javax.resource.spi.AuthenticationMechanism;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import javax.ws.rs.core.Response.Status;

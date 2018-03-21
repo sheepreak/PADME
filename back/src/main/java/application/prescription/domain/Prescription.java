@@ -14,7 +14,6 @@ import static javax.persistence.CascadeType.ALL;
 @Entity
 public class Prescription {
 
-
     @Id
     @GeneratedValue
     @NotNull
@@ -42,7 +41,7 @@ public class Prescription {
     private Integer staffId;
 
     @OneToMany(cascade=ALL, mappedBy="prescription")
-    private List<Posology> posologys;
+    private List<Posology> posologies;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @PrimaryKeyJoinColumn(name = "MEDICALFILE_ID")
@@ -50,13 +49,13 @@ public class Prescription {
 
 
     public Prescription() {
-        posologys = new ArrayList<>();
+        posologies = new ArrayList<>();
     }
 
     public Prescription(String treatment, List<Posology> posologys, String date, String startDate, String endDate, Integer staffId) {
 
         this.date = date;
-        this.posologys = posologys;
+        this.posologies = posologys;
         this.treatment = treatment;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -65,11 +64,11 @@ public class Prescription {
     }
 
     public List<Posology> getPosologys() {
-        return posologys;
+        return posologies;
     }
 
     public void setPosologys(List<Posology> posologys) {
-        this.posologys = posologys;
+        this.posologies = posologys;
     }
 
     public String getStartDate() {
@@ -121,6 +120,6 @@ public class Prescription {
     }
 
     public void addPosology(Posology posology) {
-        posologys.add(posology);
+        posologies.add(posology);
     }
 }
