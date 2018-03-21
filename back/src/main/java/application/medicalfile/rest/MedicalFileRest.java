@@ -41,8 +41,6 @@ public class MedicalFileRest {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getMedicalFiles(){
         List<MedicalFile> files = medicalFileRepository.getFiles();
-        for(MedicalFile file : files)
-            file.setPatient(null);
         GenericEntity<List<MedicalFile>> entities = new GenericEntity<List<MedicalFile>>(files){};
         return Response.ok(entities).build();
     }
@@ -52,9 +50,7 @@ public class MedicalFileRest {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getMedicalFile(@PathParam("id") Integer id){
         MedicalFile file = medicalFileRepository.getFile(id);
-        file.setPatient(null);
-        GenericEntity<MedicalFile> entities = new GenericEntity<MedicalFile>(file){};
-        return Response.ok(entities).build();
+        return Response.ok(file).build();
     }
 
 

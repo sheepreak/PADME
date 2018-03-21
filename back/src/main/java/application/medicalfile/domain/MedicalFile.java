@@ -2,12 +2,17 @@ package application.medicalfile.domain;
 
 import application.adminfile.domain.AdminFile;
 import application.examen.domain.Examen;
+import application.medicalinfo.domain.MedicalInfo;
 import application.observation.domain.Observation;
 import application.patient.domain.Patient;
 import application.prescription.domain.Prescription;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.ws.rs.core.GenericEntity;
 import java.util.*;
 
 import static application.medicalfile.domain.MedicalFile.FIND_ALL;
@@ -134,24 +139,25 @@ public class MedicalFile {
         this.patient = patient;
     }
 
-    public Patient getPatient() {
-        return this.patient;
+    public MedicalInfo getMedicalInfo() {
+        return this.patient.getMedicalInfo();
     }
 
-    public Map<String, String> patientInformations() {
+    public Map<String, Object> patientInformations() {
 
         if(patient == null)
             return Collections.EMPTY_MAP;
 
-        Map<String, String> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         AdminFile adminFile = patient.getAdminFile();
         map.put("firstName", adminFile.getFirstName());
         map.put("lastName", adminFile.getLastName());
         map.put("gender", adminFile.getGender());
-        map.put("birthdate", adminFile.getBirthDate());
+        map.put("country", adminFile.getCountry());
+        map.put("birthDate", adminFile.getBirthDate());
         map.put("id", String.valueOf(patient.getId()));
         map.put("idMedicalFile", String.valueOf(id));
-        map.put("medicalInfo", String.valueOf(patient.getMedicalInfo().getInformations()));
+
         return map;
 
     }

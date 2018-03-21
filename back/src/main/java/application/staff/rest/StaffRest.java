@@ -46,15 +46,16 @@ public class StaffRest {
     public Response getPatients(@PathParam("id") Integer id) throws JsonProcessingException {
 
         Staff staff = staffRepository.find(id);
-        List<Map<String, String>> maps = new ArrayList<>();
+        List<Map<String, Object>> maps = new ArrayList<>();
         List<Node> leafs = staff.leaves();
-        System.out.println(leafs.size());
+
         for (Node node : leafs) {
             List<MedicalFile> medicalFiles = medicalFileRepository.findFilesByNode(node.getId());
             for (MedicalFile medicalFile : medicalFiles) {
                 maps.add(medicalFile.patientInformations());
             }
         }
+
         ObjectMapper mapper = new ObjectMapper();
         return Response.ok(mapper.writeValueAsString(maps)).build();
 
