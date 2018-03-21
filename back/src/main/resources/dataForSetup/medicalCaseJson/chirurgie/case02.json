@@ -1,0 +1,160 @@
+{
+
+  "speciality" : "Chirurgie cardio-thoracique",
+
+  "patientRequirement" : {
+    "minAge":12,
+    "maxAge":100,
+    "male": true,
+    "female": true
+  },
+  "firstDate":{
+    "minusMonth": 2,
+    "minusDay": 0
+  },
+"medicalFile" : 
+  [
+    {
+      "examens": [
+        {
+          "motive" : "Angine de poitrine récurente",
+          "description" : "Coronarographie",
+          "imgPath": "",
+          "observation": "Découverte d'une maladie coronarienne",
+          "date": {
+            "order": 3,
+            "plusMonth": 0,
+            "plusDay": 10,
+            "plusMinutes": 7
+          }
+        }
+      ],
+    
+      "prescriptions": [
+        {
+          "treatment": "Examen coronarographie",
+          "posology" : "1/mois pendant 1 an",
+          "startDate" : {
+            "order": 4,
+            "plusMonth": 0,
+            "plusDay": 0,
+            "hours": 0,
+            "mins":0
+          },
+          "endDate" : {
+            "order": 5,
+            "plusMonth": 0,
+            "plusDay": 0,
+            "plusMinutes": 0
+          }
+        }
+      ],
+    
+      "observations": [
+        {
+          "responsable" : {},
+          "comment" : "Patient ayant des douleurs de poitrine depuis 3 semaines et essouflement cardiaque rapide",
+          "date": {
+            "order": 1,
+            "plusMonth": 0,
+            "plusDay": 0,
+            "plusMinutes": 0
+          }
+        },
+        {
+          "responsable" : {},
+          "comment" : "Angine de poitrine récurente soupsonné, besoin d'une coronarographie",
+          "date": {
+            "order": 2,
+            "plusMonth": 0,
+            "plusDay": 0,
+            "plusMinutes": 7
+          }
+        },
+        {
+          "responsable" : {},
+          "comment" : "Sortie du patient après examen et prescription pour la maladie coronarienne prescrite",
+          "date": {
+            "order": 6,
+            "plusMonth": 0,
+            "plusDay": 3,
+            "plusMinutes": 7
+          }
+        }
+      ]
+    },
+    {
+      "examens": [
+        {
+          "motive" : "Examen mensuel",
+          "description" : "Coronarographie",
+          "imgPath": "",
+          "observation": "Découverte d'une ischémie silencieuse",
+          "date": {
+            "order": 8,
+            "plusMonth": 0,
+            "plusDay": 3,
+            "plusMinutes": 433
+          }
+        },
+        {
+          "motive" : "Demande d'examen appronfondie",
+          "description" : "Coronarographie",
+          "imgPath": "",
+          "observation": "Découverte de lésions bitronculaires sévères sous la forme d'une sténose du tronc gauche supérieure à 60 % et d'une sténose de l'artère circonflexe supérieure à 60 %",
+          "date": {
+            "order": 9,
+            "plusMonth": 0,
+            "plusDay": 7,
+            "plusMinutes": 433
+          }
+        },
+        {
+          "motive" : "Ischémie silencieuse avec lésions bitronculaires sévères sous la forme d'une sténose du tronc gauche supérieure à 60 % et d'une sténose de l'artère circonflexe supérieure à 60 %",
+          "description" : "Intervention: double revascularisation coronarienne",
+          "imgPath": "",
+          "observation": "Déroulé sans problème",
+          "date": {
+            "order": 10,
+            "plusMonth": 0,
+            "plusDay": 1,
+            "plusMinutes": 433
+          }
+        }
+      ],
+    
+      "prescriptions": [
+        {
+          "treatment": "Repos",
+          "posology" : "",
+          "startDate" : {
+          "order": 10,
+          "plusMonth": 0,
+          "plusDay": 0,
+          "plusMinutes": 0
+        },
+          "endDate" : {
+          "order": 10,
+          "plusMonth": 1,
+          "plusDay": 0,
+          "plusMinutes": 0
+        }
+        }
+      ],
+    
+      "observations": [
+        {
+          "responsable" : {},
+          "comment" : "Visite pour examen coronarographie mensuel",
+          "date": {
+            "order": 7,
+            "plusMonth": 1,
+            "plusDay": 0,
+            "plusMinutes": 12932
+
+          }
+        }
+      ]
+    }
+  ]
+}

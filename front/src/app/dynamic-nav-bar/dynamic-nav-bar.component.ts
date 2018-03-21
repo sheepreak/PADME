@@ -47,8 +47,10 @@ export class DynamicNavBarComponent implements OnInit {
     this.userService.marginLeft = 0;
     this.userService.marginBody = this.documentSection.nativeElement.offsetWidth;
 
-    this.patientFirstName = this.user.getPatient().firstName;
-    this.patientLastName = this.user.getPatient().lastName;
+    if (this.user.getPatient() != null) {
+      this.patientFirstName = this.user.getPatient().firstName;
+      this.patientLastName = this.user.getPatient().lastName;
+    }
   }
 
   onResize(event) {

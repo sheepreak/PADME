@@ -16,16 +16,16 @@
       <p>{{patient.firstName}}</p>
     </div>
 
-    <div class="col-md-2 mycol">
+    <div class="col-md-2 mycol" *ngIf="manageFile.statePublish()">
       <h3>{{status | translate:user}}</h3>
-      <p>{{userLastName}}</p>
-      <p>{{userFirstName}}</p>
+      <p>{{doctor.lastName}}</p>
+      <p>{{doctor.firstName}}</p>
     </div>
     <br>
 
     <div class="col-md-10" *ngIf="manageFile.statePublish()">
       <h3 translate>ExamenMotif</h3>
-      <p>{{examen.motif}}</p>
+      <p>{{examen.motive}}</p>
       <h3 translate>ExamenDescription</h3>
       <p>{{examen.description}}</p>
 
@@ -35,7 +35,7 @@
              title="{{ 'LoadAllImg' | translate:user }}">
         <div class="inline" *ngFor="let i of img">
           <img (click)="changeImg(i)" [ngClass]="{'img-thumbnail':true,  'miniature': i.mini, 'imgdata':!i.mini}"
-               src={{i.currentpath}} title="{{i.name}}">
+               src={{i}} title="{{i}}">
         </div>
       </div>
 
@@ -54,7 +54,7 @@
 
         <h3 translate>ExamenResult</h3>
         <div class="row-fluid">
-          <div class="inline" *ngFor="let i of img">
+          <div class="inline" *ngFor="let i of examen.imgPath">
             <img (click)="changeImg(i)" [ngClass]="{'img-thumbnail':true,  'miniature': i.mini, 'imgdata':!i.mini}"
                  src={{i.currentpath}} title="{{i.name}}">
           </div>

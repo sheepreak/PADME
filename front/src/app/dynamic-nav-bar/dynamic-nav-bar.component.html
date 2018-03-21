@@ -10,19 +10,19 @@
     style="position: absolute" [style.left.px]="-user.marginLeft"></span></a>
 
   <ul id="menu-accordeon">
-    <div *ngIf="user.getPatient()!= null && user.getPatient().patientId!=null">
+    <div *ngIf="user.getPatient()!= null && user.getPatient().firstName!=null">
       <li class="patient"><img
         src="../../assets/img/icon/patient3.png">{{user.getPatient().firstName}} {{user.getPatient().lastName}}
       </li>
-      <li *ngIf="(user.isDoctor() || user.isNurse())">
+      <li *ngIf="(user.isSecretary())">
         <a routerLink="administrationfile">{{'AdminFIle' | translate:user }}</a>
-      <li><a href="javascript:void(0)" [routerLink]="['doclist', { type: 'Consultation' }]">{{ 'Consultation' |
+      <li *ngIf="(user.isDoctor() || user.isNurse())"><a href="javascript:void(0)" [routerLink]="['doclist', { type: 'Consultation' }]">{{ 'Consultation' |
         translate:user }}</a></li>
-      <li><a href="javascript:void(0)" [routerLink]="['doclist', { type: 'Examen' }]">{{ 'Examen' | translate:user
+      <li *ngIf="(user.isDoctor() || user.isNurse())"><a href="javascript:void(0)" [routerLink]="['doclist', { type: 'Examen' }]">{{ 'Examen' | translate:user
         }}</a></li>
-      <li><a href="javascript:void(0)" [routerLink]="['doclist', { type: 'Prescription' }]">{{ 'Prescription' |
+      <li *ngIf="(user.isDoctor() || user.isNurse())"><a href="javascript:void(0)" [routerLink]="['doclist', { type: 'Prescription' }]">{{ 'Prescription' |
         translate:user }}</a></li>
-      <li><a href="javascript:void(0)" (click)="archiveIsCollapsed = !archiveIsCollapsed"
+      <li *ngIf="(user.isDoctor() || user.isNurse())"><a href="javascript:void(0)" (click)="archiveIsCollapsed = !archiveIsCollapsed"
              [routerLink]="['doclist', { type: 'Archive' }]">{{ 'Archive' | translate:user }}</a></li>
 
       <li class="imgList last"><a href="javascript:void(0)" (click)="addIsCollapsed = !addIsCollapsed"><img
@@ -48,7 +48,7 @@
       </ul>
     </li>
 
-    <li *ngIf="user.isDoctor() || user.isNurse()"><a routerLink="patientlist">{{ 'PatientList' | translate:user }}</a></li>
+    <li *ngIf="user.isDoctor() || user.isNurse() || user.isSecretary()"><a routerLink="patientlist">{{ 'PatientList' | translate:user }}</a></li>
     <li *ngIf="user.isAdmin()"><a routerLink="adminview">{{ 'AdminView' | translate:user }}</a>
   </ul>
 </div>

@@ -16,28 +16,20 @@
       <p>{{patient.firstName}}</p>
     </div>
 
-    <div class="col-md-2 mycol">
+    <div class="col-md-2 mycol" *ngIf="manageFile.statePublish()">
       <h3>{{userStatus | translate:user}}</h3>
-      <p>{{userLastName}}</p>
-      <p>{{userFirstName}}</p>
+      <p>{{doctor.lastName}}</p>
+      <p>{{doctor.firstName}}</p>
     </div>
     <br>
 
-    <br>
-    <div class="col-md-10" *ngIf="manageFile.statePublish()">
-    <h3 translate>ExamenMotif</h3>
-    <p>{{consultation.comment}}</p>
-
-    <h3 translate>ExamenObservation</h3>
-    <p>{{consultation.comment}}</p>
+    <h3 translate *ngIf="manageFile.statePublish()">ExamenObservation</h3>
+    <p *ngIf="manageFile.statePublish()">{{consultation.comment}}</p>
   </div>
 
   <div class="col-md-10" *ngIf="manageFile.stateNew()">
-  <h3 translate>ExamenMotif</h3>
   <form class="form-horizontal" #consultationForm="ngForm" (ngSubmit)="onSubmit(consultationForm.value)"
         ngNativeValidate>
-    <textarea [(ngModel)]="comment" id="motif" name="motif" rows="4" cols="50"></textarea>
-
     <h3 translate>ExamenObservation</h3>
     <textarea [(ngModel)]="comment" id="comment" name="comment" rows="4" cols="50"></textarea>
 

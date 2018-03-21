@@ -1,4 +1,4 @@
-import {Component, OnInit, Pipe, PipeTransform} from '@angular/core';
+import {Component, ElementRef, OnInit, Pipe, PipeTransform, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {PatientListServiceService} from './patient-list-service.service';
 import {UserService} from '../user.service';
@@ -33,6 +33,7 @@ export class PatientListComponent implements OnInit {
   country = true;
   birthDate = true;
   navVisible: boolean;
+  user: any;
 
   search = {
     firstName: true,
@@ -40,18 +41,31 @@ export class PatientListComponent implements OnInit {
 }
 
   constructor(private router: Router, private patientService: PatientListServiceService, private userService: UserService) {
+    this.user = this.userService;
   }
 
   ngOnInit() {
-    this.patientService.getPatients().then(data => {
-      this.listPatients = data;
-    });
+    if (this.user.isSecretary()){
+      this.patientService.getAllPatients().then(data => {
+        this.listPatients = data;
+      });
+    }else {
+      this.patientService.getPatients(this.user.getId()).then(data => {
+        this.listPatients = data;
+      });
+    }
     this.userService.setPatient(null);
   }
 
   onClicOnPatient(patient) {
     this.userService.setPatient(patient);
-    this.router.navigate(['/administrationfile']);
+    if (this.userService.isDoctor()){
+      this.router.navigate(['doclist', { type: 'Consultation' }]);
+    }else if (this.userService.isNurse()) {
+      this.router.navigate(['doclist', { type: 'Prescription' }]);
+    }else{
+      this.router.navigate(['/administrationfile']);
+    }
   }
 
   getItemsSearch(){
@@ -62,15 +76,5 @@ export class PatientListComponent implements OnInit {
       }
     }
     return s;
-  }
-
-  closeNav() {
-    this.navVisible = false;
-    this.userService.marginBody = 0;
-  }
-
-  openNav() {
-    this.navVisible = true;
-    this.userService.marginLeft = 0;
   }
 }

@@ -12,49 +12,30 @@ import {MedicalDocService} from "./medical-doc.service";
 export class MedicalDocListComponent implements OnInit {
   type: string;
   listDoc: any;
+  isThereConsultation = true;
+  isThereExamen = true;
+  isTherePrescription = true;
 
   constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, private userService: UserService, private medicalDocService: MedicalDocService) {
-    this.listDoc = {
-      "id": 152,
-      "exams": [{
-        "id": 154,
-        "motive": "Chute d'une échelle",
-        "description": "Radio crânienne",
-        "imgPath": null,
-        "observation": "Traumatisme crânien",
-        "date": "2018-02-16",
-        "staffId": 23
-      }],
-      "prescriptions": [{
-        "id": 155,
-        "treatment": "Morphine",
-        "posology": "Injection par intra-veineuse, 1mL toutes les 10 minutes",
-        "startDate": "2018-02-16",
-        "endDate": "2018-02-19",
-        "prescriptionDate": "2018-03-08T11:05:35.517",
-        "staffId": 23
-      }],
-      "observations": [{
-        "id": 153,
-        "staffId": 23,
-        "comment": "Le patient a été admis pour une chute violente depuis une échelle.",
-        "date": "2018-03-08T11:05:35.513"
-      }],
-      "status": true,
-      "patient": null,
-      "node": 20
-    }
   }
 
   ngOnInit() {
-    this.userService.setIdMedicalFolder(this.listDoc.id);
-    console.log(this.userService.getIdMedicalFolder());
-    this.medicalDocService.getDocuments(this.userService.getIdMedicalFolder()).then(data => {
-      console.log("-------------------");
-      console.log(data)
+    let id = this.userService.getIdMedicalFolder();
+    console.log("Id Medical Folder "+ id);
 
-      this.listDoc = data;
-    });
+    if (id == null) {
+      this.isThereConsultation = false;
+      this.isThereExamen = false;
+      this.isTherePrescription = false;
+      this.listDoc = [];
+    } else {
+      this.medicalDocService.getDocuments(this.userService.getIdMedicalFolder()).then(data => {
+        this.listDoc = data;
+        this.isThereConsultation = true;
+        this.isThereExamen = true;
+        this.isTherePrescription = true;
+      });
+    }
 
     this.route.params.subscribe(params => {
       this.type = params['type'];
