@@ -12,6 +12,7 @@ import application.patient.repository.PatientRepository;
 import application.prescription.domain.Prescription;
 
 import javax.ejb.EJB;
+import javax.resource.spi.AuthenticationMechanism;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import javax.ws.rs.core.Response.Status;

@@ -151,6 +151,7 @@ public class MedicalFile {
         map.put("birthdate", adminFile.getBirthDate());
         map.put("id", String.valueOf(patient.getId()));
         map.put("idMedicalFile", String.valueOf(id));
+        map.put("medicalInfo", String.valueOf(patient.getMedicalInfo().getInformations()));
         return map;
 
     }
