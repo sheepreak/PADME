@@ -1027,6 +1027,7 @@ public class HospitalSetup {
         return true;
     }
 
+
     private void setSarahLeroyCase(Staff doctor, Node node) {
         LocalDateTime now = LocalDateTime.now();
         int minusYear = now.getYear() - 2013;
