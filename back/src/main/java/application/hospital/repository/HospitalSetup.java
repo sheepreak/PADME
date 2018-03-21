@@ -466,6 +466,13 @@ public class HospitalSetup {
         hospital.addNodePole(nodePole3);
 
         hospitalRepository.save(hospital);
+
+        System.err.println("nodePole0:"+nodePole0);
+        System.err.println("nodePole1:"+nodePole1);
+        System.err.println("nodePole2:"+nodePole2);
+        System.err.println("nodePole3:"+nodePole3);
+
+
         //user accounts for testing
         Staff staff1 = new Staff("ameline@aphp.fr", "ameline", "Moreau", "Ameline", "0606060606", "123 fake street", Status.ADMIN);
         Staff staff2 = new Staff("charles@aphp.fr", "charles", "Da Silva Costa", "Charles", "0606060607", "125 fake street", Status.DOCTOR);
@@ -479,6 +486,9 @@ public class HospitalSetup {
         staffs.add(staff2);
         staffRepository.save(staff3);
         staffs.add(staff3);
+
+        System.err.println("Charles node:"+staff2.getNode());
+
 
         //dataset accounts for coherent data
         Staff doc1 = new Staff("mgrey@aphp.fr", "mgrey", "Grey", "Meredith", "0606060608", "15 rue Chapatte 75001 Paris", Status.DOCTOR);
@@ -965,6 +975,7 @@ public class HospitalSetup {
                 staffRepository.save(staff);
                 list.add(staff);
                 staffs.add(staff);
+                System.err.println(staff.getNode());
             }
         }
         return list;
