@@ -154,11 +154,11 @@ public class HospitalSetup {
         Node nodeService01 = new Node("Service d’endocrinologie", NodeLevel.service);
         Node nodeService02 = new Node("Service de gastro-entérologie, nutrition, pneumologie et mucoviscidose", NodeLevel.service);
         Node nodeService03 = new Node("Service d’hématologie", NodeLevel.service);
-        Node nodeService04 = new Node("Service de pneumologie", NodeLevel.service);
+        Node nodeServicePediatrics = new Node("Service de pneumologie", NodeLevel.service);
         services.add(nodeService01);
         services.add(nodeService02);
         services.add(nodeService03);
-        services.add(nodeService04);
+        services.add(nodeServicePediatrics);
         Node nodeHU011 = new Node("Unité hospitalière 1", NodeLevel.hospitalUnit);
         Node nodeHU012 = new Node("Unité hospitalière 2", NodeLevel.hospitalUnit);
         Node nodeHU013 = new Node("Unité hospitalière 3", NodeLevel.hospitalUnit);
@@ -207,11 +207,11 @@ public class HospitalSetup {
         Node nodeHCU0422 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
         Node nodeHCU0432 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
         Node nodeHCU0442 = new Node("Unité de soin 2", NodeLevel.healthCareUnit);
-        nodePole0.addNode(nodeService01).addNode(nodeService02).addNode(nodeService03).addNode(nodeService04);
+        nodePole0.addNode(nodeService01).addNode(nodeService02).addNode(nodeService03).addNode(nodeServicePediatrics);
         nodeService01.addNode(nodeHU011).addNode(nodeHU012).addNode(nodeHU013).addNode(nodeHU014);
         nodeService02.addNode(nodeHU021).addNode(nodeHU022).addNode(nodeHU023).addNode(nodeHU024);
         nodeService03.addNode(nodeHU031).addNode(nodeHU032).addNode(nodeHU033).addNode(nodeHU034);
-        nodeService04.addNode(nodeHU041).addNode(nodeHU042).addNode(nodeHU043).addNode(nodeHU044);
+        nodeServicePediatrics.addNode(nodeHU041).addNode(nodeHU042).addNode(nodeHU043).addNode(nodeHU044);
         nodeHU011.addNode(nodeHCU0111).addNode(nodeHCU0112);
         nodeHU012.addNode(nodeHCU0121).addNode(nodeHCU0122);
         nodeHU013.addNode(nodeHCU0131).addNode(nodeHCU0132);
@@ -237,7 +237,7 @@ public class HospitalSetup {
         services.add(nodeService01);
         services.add(nodeService02);
         services.add(nodeService03);
-        services.add(nodeService04);
+        services.add(nodeServicePediatrics);
         Node nodeHUEmergency11 = new Node("Unité hospitalière 1", NodeLevel.hospitalUnit);
         Node nodeHUEmergency12 = new Node("Unité hospitalière 2", NodeLevel.hospitalUnit);
         Node nodeHUEmergency13 = new Node("Unité hospitalière 3", NodeLevel.hospitalUnit);
@@ -677,7 +677,7 @@ public class HospitalSetup {
         generateRandomStaff(2, Status.DOCTOR, nodeService01);
         generateRandomStaff(2, Status.DOCTOR, nodeService02);
         generateRandomStaff(2, Status.DOCTOR, nodeService03);
-        generateRandomStaff(2, Status.DOCTOR, nodeService04);
+        generateRandomStaff(2, Status.DOCTOR, nodeServicePediatrics);
         generateRandomStaff(1, Status.DOCTOR, nodePole0);
 
         //pole emergencies - staffs
@@ -694,10 +694,16 @@ public class HospitalSetup {
         generateRandomStaff(1, Status.DOCTOR, nodePoleEmergency);
 
 
-        Staff alainFieney = new Staff("afieney@aphp.fr", "fieney", "Fieney", "Alain", generatePhoneNumber("06"), addressSamplesOnParis.get(Math.abs(rand.nextInt(addressSamplesOnParis.size()))).toString(), Status.DOCTOR);
-        alainFieney.setNode(nodeService04);
-        staffRepository.save(alainFieney);
-        staffs.add(alainFieney);
+        Staff heleneFieney = new Staff("hfieney@aphp.fr", "fieney", "Fieney", "Hélène", generatePhoneNumber("06"), addressSamplesOnParis.get(Math.abs(rand.nextInt(addressSamplesOnParis.size()))).toString(), Status.DOCTOR);
+        heleneFieney.setNode(nodeServicePediatrics);
+        staffRepository.save(heleneFieney);
+        staffs.add(heleneFieney);
+
+        Staff alinaFrey = new Staff("afrey@aphp.fr", "afrey", "Frey", "Alina", generatePhoneNumber("06"), addressSamplesOnParis.get(Math.abs(rand.nextInt(addressSamplesOnParis.size()))).toString(), Status.DOCTOR);
+
+        alinaFrey.setNode(nodeServicePediatrics);
+        staffRepository.save(alinaFrey);
+        staffs.add(alinaFrey);
 
         //Patient 1
         AdminFile adminFile1 = generateAdminFile(
@@ -761,9 +767,9 @@ public class HospitalSetup {
 
         //Patient autogeneration
 
+        setSarahLeroyCase(heleneFieney, nodeHCU0411);
         generateRandomPatient(20, staff2, doc1, nodeService11, 12, 85);
-        generateRandomPatient(20, alainFieney, alainFieney, nodeService04, 2, 12);
-        //setSarahLeroyCase(alainFieney, nodeServicePediatricsPneumonology);
+        generateRandomPatient(20, heleneFieney, heleneFieney, nodeServicePediatrics, 2, 12);
         System.err.println("\n====================> INIT DATA IS DONE <====================\n");
     }
 
@@ -876,6 +882,9 @@ public class HospitalSetup {
             Address address = addressSamples.get(rand.nextInt(addressSamples.size()));
             Address birthAddress = addressSamples.get(rand.nextInt(addressSamples.size()));
             String lastName = firstNames.get(rand.nextInt(firstNames.size()));
+            String email = lastName + "." + firstName + emailBox.get(rand.nextInt(emailBox.size()));
+            if(LocalDateTime.now().getYear()-birthDays < 12)
+                email = lastName + "." + firstNames.get(rand.nextInt(firstNames.size())) + emailBox.get(rand.nextInt(emailBox.size()));
             list.add(generateAdminFile(
                     lastName,
                     firstName,
@@ -887,7 +896,7 @@ public class HospitalSetup {
                     address.getCity(),
                     null,
                     address.getCountry(),
-                    lastName + "." + firstName + emailBox.get(rand.nextInt(emailBox.size())),
+                    email,
                     generatePhoneNumber("01"),
                     generatePhoneNumber("06"),
                     generatePhoneNumber("01"),
@@ -1012,7 +1021,71 @@ public class HospitalSetup {
         return true;
     }
 
-    private void setSarahLeroyCase(Staff doctor, Node nodeServicePediatry) {
+    private void setSarahLeroyCase(Staff doctor, Node node) {
+        LocalDateTime now = LocalDateTime.now();
+        int minusYear = now.getYear() - 2013;
+        int minusMonth = Math.abs(rand.nextInt(now.getMonthValue()));
+        int plusMonth = Math.abs(rand.nextInt(12-now.getMonthValue()));
+        int minusDay = Math.abs(rand.nextInt(now.getDayOfMonth()));
+        int plusDay = Math.abs(rand.nextInt(28-now.getDayOfMonth()));
+
+        int minusHour = Math.abs(rand.nextInt(now.getHour()));
+        int plusHour = Math.abs(rand.nextInt(24-now.getHour()));
+        int minusMinute = Math.abs(rand.nextInt(now.getMinute()));
+        int plusMinute = Math.abs(rand.nextInt(60-now.getMinute()));
+
+        LocalDateTime firstDate = now.minusYears(minusYear).minusMonths(minusMonth).plusMonths(plusMonth).minusDays(minusDay).plusDays(plusDay).minusHours(minusHour).plusHours(plusHour).minusMinutes(minusMinute).plusMinutes(plusMinute);
+
+        //Admin File
+        Address address = addressSamples.get(rand.nextInt(addressSamples.size()));
+
+        AdminFile adminFile = generateAdminFile(
+                "leroy",
+                "sarah",
+                "F",
+                firstDate.toLocalDate().toString(),
+                new Address("5 Rue Santerre", "Paris", 75012, "France", "75112"),
+                address.getAddress(),
+                address.getPostCode().toString(),
+                address.getCity(),
+                null,
+                address.getCountry(),
+                "leroy" + "." + firstNames.get(rand.nextInt(firstNames.size())) + emailBox.get(rand.nextInt(emailBox.size())),
+                generatePhoneNumber("01"),
+                generatePhoneNumber("06"),
+                generatePhoneNumber("01"),
+                "Sans-emploi");
+
+        //Medical Info File
+        MedicalInfo medicalInfo = new MedicalInfo();
+        medicalInfo.addInformations("maladie chronique", "asthme");
+        medicalInfo.addInformations("allergene", "corticostéroïdes");
+        medicalInfoRepository.save(medicalInfo);
+
+        //Patient
+        Patient patient = new Patient(adminFile, medicalInfo);
+        patientRepository.save(patient);
+
+
+        //Medical File
+        MedicalFile mf1 = new MedicalFile(true, node.getId());
+        medicalFileRepository.save(mf1);
+
+        //int staffId, String comment, String date
+        addObservation(mf1, new Observation(doctor.getId(), "Asthme à la naissance", printDate(firstDate.plusHours(1).minusMinutes(4))));
+
+        List<Posology> lp = new ArrayList<>();
+        for(LocalDateTime ldt = firstDate.plusHours(1).plusMinutes(12); ldt.isBefore(LocalDateTime.now()); ldt = ldt.plusMonths(4).plusMinutes(Math.abs(rand.nextInt(10000))).minusMinutes(Math.abs(rand.nextInt(10000)))){
+            //String date, String observation, String nurseName, String nurseSurname, boolean taken
+            lp.add(new Posology(printDate(ldt), "Traitement effectué.", doctor.getFirstName(), doctor.getLastName(), true));
+        }
+        //String treatment, List<Posology> posologys, String date, String startDate, String endDate, Integer staffId
+        addPrescription(mf1, new Prescription("Ventoline 5mg/mL et salbutamol 2,5 mg/mL par nébuleuse tous les 4 mois", lp, printDate(firstDate.plusHours(1).minusMinutes(4)), printDate(firstDate.plusHours(1).minusMinutes(4)), printDate(firstDate.plusYears(100).plusHours(1).minusMinutes(4)), doctor.getId()));
+
+        patient.addMedicalFile(mf1);
+
+        System.err.println(" ====> Sarah case create");
+
 
     }
 
@@ -1029,7 +1102,7 @@ public class HospitalSetup {
         //int staffId, String comment, String date){
             //int staffId, String comment, String date
             addObservation(mf1, new Observation(doctorId, "Amené par sa mère pour une gêne respiratoire évoluant depuis 5 jours.", printDate(firstDate)));
-            addObservation(mf1, new Observation(doctorId,  "Le patient a pris 50 mL de chacun des biberons de la journée. Les parents sont enrhumés et sont allés voir leur médecin traitant qui leur a donné un traitement symptomatique", printDate(firstDate)));
+            addObservation(mf1, new Observation(doctorId, "Le patient a pris 50 mL de chacun des biberons de la journée. Les parents sont enrhumés et sont allés voir leur médecin traitant qui leur a donné un traitement symptomatique", printDate(firstDate)));
             addObservation(mf1, new Observation(doctorId, "À l’arrivée : T° = 37,4 °C ; FR = 65/min ; saturation = 95 % ; FC = 145/min ; TA = 85/65 mmHg, un tirage intercostal ainsi qu’un battement des ailes du nez. ", printDate(firstDate.plusMinutes(27))));
             addObservation(mf1, new Observation(doctorId, "L’auscultation retrouve des sibilants diffus avec un murmure vésiculaire mieux perçu à droite. L’examen du carnet de santé montre que le patient est né au terme d’une grossesse normale. " , printDate(firstDate.plusMinutes(28))));
             addObservation(mf1, new Observation(doctorId, "La maman avait réussi pendant la grossesse à arrêter sa consommation de tabac ; elle a repris après l’accouchement. ", printDate(firstDate.plusMinutes(29))));
