@@ -693,17 +693,23 @@ public class HospitalSetup {
         generateRandomStaff(1, Status.DOCTOR, nodeServiceEmergency);
         generateRandomStaff(1, Status.DOCTOR, nodePoleEmergency);
 
-
-        Staff heleneFieney = new Staff("hfieney@aphp.fr", "fieney", "Fieney", "Hélène", generatePhoneNumber("06"), addressSamplesOnParis.get(Math.abs(rand.nextInt(addressSamplesOnParis.size()))).toString(), Status.DOCTOR);
+        //principal sarah's doctor in pedaitrics - pneumology
+        Staff heleneFieney = new Staff("hfieney@aphp.fr", "hfieney", "Fieney", "Hélène", generatePhoneNumber("06"), addressSamplesOnParis.get(Math.abs(rand.nextInt(addressSamplesOnParis.size()))).toString(), Status.DOCTOR);
         heleneFieney.setNode(nodeServicePediatrics);
         staffRepository.save(heleneFieney);
         staffs.add(heleneFieney);
 
+        //new sarah's doctor in pedaitrics - pneumology
         Staff alinaFrey = new Staff("afrey@aphp.fr", "afrey", "Frey", "Alina", generatePhoneNumber("06"), addressSamplesOnParis.get(Math.abs(rand.nextInt(addressSamplesOnParis.size()))).toString(), Status.DOCTOR);
-
         alinaFrey.setNode(nodeServicePediatrics);
         staffRepository.save(alinaFrey);
         staffs.add(alinaFrey);
+
+        //secretary in pedaitrics - pneumology
+        Staff davidArte = new Staff("darte@aphp.fr", "darte", "Arte", "David", generatePhoneNumber("06"), addressSamplesOnParis.get(Math.abs(rand.nextInt(addressSamplesOnParis.size()))).toString(), Status.SECRETARY);
+        davidArte.setNode(nodeServicePediatrics);
+        staffRepository.save(davidArte);
+        staffs.add(davidArte);
 
         //Patient 1
         AdminFile adminFile1 = generateAdminFile(
