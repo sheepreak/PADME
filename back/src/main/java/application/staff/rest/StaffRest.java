@@ -6,7 +6,6 @@ import application.hospital.repository.HospitalRepository;
 import application.medicalfile.domain.MedicalFile;
 import application.medicalfile.repository.MedicalFileRepository;
 import application.node.domain.Node;
-import application.patient.repository.PatientRepository;
 import application.staff.domain.Staff;
 import application.staff.repository.StaffRepository;
 import com.auth0.jwt.JWT;
@@ -30,7 +29,7 @@ import java.util.*;
 @Path("/staff")
 public class StaffRest {
 
-    public static final String KEY = "Code secret trop lol";
+    public static final Random RANDOM = new Random();
 
     @EJB
     private StaffRepository staffRepository;
@@ -138,7 +137,7 @@ public class StaffRest {
         }
         try {
 
-            Algorithm algorithm = Algorithm.HMAC256(KEY);
+            Algorithm algorithm = Algorithm.HMAC256(String.valueOf(RANDOM.doubles()));
             String token = JWT.create().withIssuer("auth0").sign(algorithm);
             staff.setToken(token);
             staffRepository.update(staff);
@@ -266,5 +265,6 @@ public class StaffRest {
         return sb.toString();
 
     }
+
 
 }
