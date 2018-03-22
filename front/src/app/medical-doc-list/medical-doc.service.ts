@@ -1,6 +1,8 @@
-import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {UserService} from "../user.service";
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {UserService} from '../user.service';
+import {Constants} from '../../constants';
+import * as util from 'util';
 
 @Injectable()
 export class MedicalDocService {
@@ -14,6 +16,6 @@ export class MedicalDocService {
 
   /* get all documents */
   getDocuments(id) {
-    return this.http.get('http://localhost:8080/back-1.0-SNAPSHOT/rs/medicalFile/' + id, {headers: this.httpOptions}).toPromise();
+    return this.http.get(util.format(Constants.GET_MEDICAL_FILE_URL, id), {headers: this.httpOptions}).toPromise();
   }
 }
