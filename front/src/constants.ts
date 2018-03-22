@@ -41,4 +41,12 @@ export class Constants {
     return Constants.URL_SERVER + '/patient/addobservation/%d';
   }
 
+  public static get ADD_PRESCRIPTION_URL() {
+    return Constants.URL_SERVER + '/patient/addprescription/%d';
+  }
+
+  public static get ADD_POSOLOGY_URL() {
+    return Constants.URL_SERVER + '/medicalFile/%d/posology';
+  }
+
 }
