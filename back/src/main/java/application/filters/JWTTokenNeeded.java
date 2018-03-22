@@ -72,6 +72,9 @@ public class JWTTokenNeeded implements ContainerRequestFilter {
         if(methode.equals("GET")) {
             return uri.contains("staff/patients/") || uri.split("/")[0].contains("medicalFile");
         }
+        if(methode.equals("PUT")) {
+            return uri.contains("/posology");
+        }
         if(methode.equals("POST")) {
             return uri.equals("patient");
         }
