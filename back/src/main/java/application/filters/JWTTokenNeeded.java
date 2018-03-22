@@ -47,7 +47,7 @@ public class JWTTokenNeeded implements ContainerRequestFilter {
         else if(staff.getStatus() == Status.SECRETARY)
             authorized = filterForSecretary(requestContext.getUriInfo().getPath(), requestContext.getMethod());
 
-        if(authorized)
+        if(!authorized)
             requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
 
     }
