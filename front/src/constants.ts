@@ -37,4 +37,8 @@ export class Constants {
     return Constants.URL_SERVER + '/patient';
   }
 
+  public static get ADD_OBSERVATION_URL() {
+    return Constants.URL_SERVER + '/patient/addobservation/%d';
+  }
+
 }

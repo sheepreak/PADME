@@ -4,6 +4,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../user.service";
 import {HttpClient} from "@angular/common/http";
 import {MedicalFileService} from "../medical-file.service";
+import * as util from 'util';
+import {Constants} from '../../constants';
 
 @Component({
   selector: 'app-consultation-file',
@@ -48,7 +50,7 @@ export class ConsultationFileComponent implements OnInit {
   }
 
   onSubmit(form) {
-    const req = this.http.put('http://localhost:8080/back-1.0-SNAPSHOT/rs/patient/addobservation/'  + this.userService.getIdMedicalFolder(), {
+    const req = this.http.put(util.format(Constants.ADD_OBSERVATION_URL, this.userService.getIdMedicalFolder()), {
       comment: form.comment,
       date: new Date().toDateString(),
       staffId: this.userService.getId()
