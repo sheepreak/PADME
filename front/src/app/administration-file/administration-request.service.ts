@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Constants} from '../../constants';
+import * as util from 'util';
 
 @Injectable()
 export class AdministrationRequestService {
@@ -12,7 +14,7 @@ export class AdministrationRequestService {
   }
 
   getAdminFilePatient(idPatient) {
-    return this.http.get('http://localhost:8080/back-1.0-SNAPSHOT/rs/patient/' + idPatient + '/adminfile',
+    return this.http.get(util.format(Constants.GET_ADMIN_FILE_URL, idPatient),
       {headers: this.httpOptions}).toPromise();
   }
 }

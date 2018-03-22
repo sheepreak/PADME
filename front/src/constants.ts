@@ -49,4 +49,8 @@ export class Constants {
     return Constants.URL_SERVER + '/medicalFile/%d/posology';
   }
 
+  public static get GET_ADMIN_FILE_URL(){
+    return Constants.URL_SERVER + '/patient/%d/adminfile';
+  }
+
 }
