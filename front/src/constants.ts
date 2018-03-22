@@ -28,4 +28,13 @@ export class Constants {
   public static get ADD_EXAM_URL() {
     return Constants.URL_SERVER + '/patient/addexam/%d';
   }
+
+  public static get GET_PATIENTS_BY_DOCTOR_URL() {
+    return Constants.URL_SERVER + '/staff/patients/%d';
+  }
+
+  public static get GET_ALL_PATIENTS() {
+    return Constants.URL_SERVER + '/patient';
+  }
+
 }
