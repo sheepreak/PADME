@@ -21,8 +21,11 @@ export class Constants {
     return Constants.URL_SERVER + '/hospital';
   }
 
-
   public static get UPDATE_NODE_STAFF_URL() {
     return Constants.URL_SERVER + '/staff/%d/node';
+  }
+
+  public static get ADD_EXAM_URL() {
+    return Constants.URL_SERVER + '/patient/addexam/%d';
   }
 }

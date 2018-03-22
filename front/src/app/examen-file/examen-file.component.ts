@@ -1,11 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {Image} from '../image';
 import {ManageFile} from '../manageFile';
-import {ActivatedRoute, Router} from "@angular/router";
-import {UserService} from "../user.service";
-import {WebApiPromiseService} from "../web-api-promise.service";
-import {HttpClient, HttpRequest} from "@angular/common/http";
-import {MedicalFileService} from "../medical-file.service";
+import {ActivatedRoute, Router} from '@angular/router';
+import {UserService} from '../user.service';
+import {WebApiPromiseService} from '../web-api-promise.service';
+import {HttpClient, HttpRequest} from '@angular/common/http';
+import {MedicalFileService} from '../medical-file.service';
+import * as util from 'util';
+import {Constants} from '../../constants';
 
 @Component({
   selector: 'app-examen-file',
@@ -27,7 +29,7 @@ export class ExamenFileComponent implements OnInit {
   userLastName: string;
   status: string;
   patient: any;
-  doctor:any;
+  doctor: any;
 
   constructor(private medicalService: MedicalFileService, private router: Router, private route: ActivatedRoute, private userService: UserService, private requester: WebApiPromiseService, private http: HttpClient) {
   }
@@ -56,7 +58,7 @@ export class ExamenFileComponent implements OnInit {
   }
 
   onSubmit(form) {
-    const req = this.http.put('http://localhost:8080/back-1.0-SNAPSHOT/rs/patient/addexam/'  + this.userService.getIdMedicalFolder(), {
+    const req = this.http.put(util.format(Constants.ADD_EXAM_URL, this.userService.getIdMedicalFolder()), {
       motive: form.motif,
       description: form.description,
       observation: form.description,
@@ -68,7 +70,7 @@ export class ExamenFileComponent implements OnInit {
           console.log(res);
         },
         err => {
-          console.log("Error occured");
+          console.log('Error occured');
         }
       );
 
