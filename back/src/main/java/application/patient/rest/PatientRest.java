@@ -41,6 +41,7 @@ public class PatientRest {
     }
 
     @POST
+    @IJWTTokenNeeded
     @Produces(MediaType.APPLICATION_JSON)
     public Response createPatient(Patient file) {
         repository.save(file);
@@ -64,6 +65,7 @@ public class PatientRest {
 
 
     @GET
+    @IJWTTokenNeeded
     @Path("{id}/adminfile")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAdminFile(@PathParam("id") Integer patientId) {
@@ -72,6 +74,7 @@ public class PatientRest {
     }
 
     @PUT
+    @IJWTTokenNeeded
     @Path("{id}/adminfile")
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateAdminFile(@PathParam("id") Integer patientId, AdminFile adminFile) {

@@ -1,5 +1,6 @@
 package application.staff.rest;
 
+import application.filters.IJWTTokenNeeded;
 import application.hospital.domain.Hospital;
 import application.hospital.repository.HospitalRepository;
 import application.medicalfile.domain.MedicalFile;
@@ -41,6 +42,7 @@ public class StaffRest {
     private MedicalFileRepository medicalFileRepository;
 
     @GET
+    @IJWTTokenNeeded
     @Path("/patients/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPatients(@PathParam("id") Integer id) throws JsonProcessingException {
@@ -62,6 +64,7 @@ public class StaffRest {
     }
 
     @POST
+    @IJWTTokenNeeded
     @Produces(MediaType.APPLICATION_JSON)
     public Response putStaff(Staff staff) {
 
@@ -74,6 +77,7 @@ public class StaffRest {
     }
 
     @PUT
+    @IJWTTokenNeeded
     @Path("/update")
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateStaff(Staff staff) {
@@ -148,6 +152,7 @@ public class StaffRest {
     }
 
     @GET
+    @IJWTTokenNeeded
     @Produces(MediaType.APPLICATION_JSON)
     public Response getStaffs(@Context UriInfo uri) {
         int page = -1;
