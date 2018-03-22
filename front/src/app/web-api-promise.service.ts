@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Constants} from '../constants';
 
 @Injectable()
 export class WebApiPromiseService {
@@ -17,20 +18,19 @@ export class WebApiPromiseService {
       'login': login,
       'password': password
     };
-    return this.http.post('http://localhost:8080/back-1.0-SNAPSHOT/rs/staff/connect', body, {headers: this.httpOptions}).toPromise();
+    return this.http.post(Constants.CONNECTION_URL, body, {headers: this.httpOptions}).toPromise();
   }
 
 
   getStaffs() {
-    return this.http.get('http://localhost:8080/back-1.0-SNAPSHOT/rs/staff', {headers: this.httpOptions}).toPromise();
+    return this.http.get(Constants.GET_STAFF_URL, {headers: this.httpOptions}).toPromise();
   }
 
   updateStaff(body) {
-    return this.http.put('http://localhost:8080/back-1.0-SNAPSHOT/rs/staff/updatesocio', body, {headers: this.httpOptions}).toPromise();
+    return this.http.put(Constants.UPDATE_STAFF_SOCIO_URL, body, {headers: this.httpOptions}).toPromise();
   }
 
-
   getHospitals() {
-    return this.http.get('http://localhost:8080/back-1.0-SNAPSHOT/rs/hospital', {headers: this.httpOptions}).toPromise();
+    return this.http.get(Constants.GET_HOSPITALS_URL, {headers: this.httpOptions}).toPromise();
   }
 }
