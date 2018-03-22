@@ -5,6 +5,8 @@ import {UserService} from "../user.service";
 import {HttpClient} from "@angular/common/http";
 import {MedicalDocService} from "../medical-doc-list/medical-doc.service";
 import {MedicalFileService} from "../medical-file.service";
+import {Constants} from '../../constants';
+import * as util from 'util';
 
 @Component({
   selector: 'app-prescription-file',
@@ -52,7 +54,7 @@ export class PrescriptionFileComponent implements OnInit {
   }
 
   onSubmit(form) {
-    const req = this.http.put('http://localhost:8080/back-1.0-SNAPSHOT/rs/patient/addprescription/' + this.userService.getIdMedicalFolder(), {
+    const req = this.http.put(util.format(Constants.ADD_PRESCRIPTION_URL, this.userService.getIdMedicalFolder()), {
       startDate: form.startDate,
       endDate : form.endDate,
       date : Date.now().toString(),
@@ -72,7 +74,7 @@ export class PrescriptionFileComponent implements OnInit {
   }
 
   onAddPosology(form) {
-    const req = this.http.put('http://localhost:8080/back-1.0-SNAPSHOT/rs/medicalFile/' + this.prescription.id + '/posology', {
+    const req = this.http.put(util.format(Constants.ADD_POSOLOGY_URL, this.prescription.id), {
       date: Date.now().toString(),
       observation: form.observation,
       nurseName: this.userFirstName,

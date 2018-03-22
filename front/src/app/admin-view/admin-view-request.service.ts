@@ -1,5 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Constants} from '../../constants';
+import * as util from 'util';
+
 
 @Injectable()
 export class AdminViewRequestService {
@@ -13,7 +16,7 @@ export class AdminViewRequestService {
 
 
   updateNodeStaff(idStaff, node) {
-    return this.http.put('http://localhost:8080/back-1.0-SNAPSHOT/rs/staff/' + idStaff + '/' + 'node',
+    return this.http.put(util.format(Constants.UPDATE_NODE_STAFF_URL, idStaff),
       node, {headers: this.httpOptions}).toPromise();
   }
 

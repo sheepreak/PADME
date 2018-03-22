@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import * as util from 'util';
+import {Constants} from '../constants';
 
 @Injectable()
 export class MedicalFileService {
@@ -13,7 +15,7 @@ export class MedicalFileService {
 
 
   getDoctor(id) {
-    return this.http.get('http://localhost:8080/back-1.0-SNAPSHOT/rs/staff/' + id, {headers: this.httpOptions}).toPromise();
+    return this.http.get(util.format(Constants.GET_STAFF_BY_ID_URL, id), {headers: this.httpOptions}).toPromise();
   }
 
 }
