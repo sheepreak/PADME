@@ -802,7 +802,7 @@ public class HospitalSetup {
             List<InseeRef> listInseeRefs = Parse.parseInseeRef(dataInseeRefs);
 
             List<String> dataAddress = Parse.parseFileToString(Paths.get(this.getClass().getClassLoader().getResource("dataForSetup/les_bureaux_de_poste_et_agences_postales_en_idf.csv").getPath()));
-            List<Address> addressSamples = Parse.parseSampleAddress(dataAddress, listInseeRefs);
+            List<Address> addressSamples = Parse.parseSampleAddress(dataAddress, listInseeRefs).stream().filter(addr -> addr.getCity().toLowerCase().equals("paris")).collect(Collectors.toList());
 
             List<String> firstNames = new ArrayList<>(prenoms.keySet());
             for (int i = 0; i < nb; i++) {
