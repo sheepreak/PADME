@@ -11,7 +11,7 @@ import {MedicalDocService} from "./medical-doc.service";
 })
 export class MedicalDocListComponent implements OnInit {
   type: string;
-  listDoc: any;
+  listDoc: any = {};
   isThereConsultation = true;
   isThereExamen = true;
   isTherePrescription = true;
