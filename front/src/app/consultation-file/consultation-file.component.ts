@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {ManageFile} from "../manageFile";
-import {ActivatedRoute, Router} from "@angular/router";
-import {UserService} from "../user.service";
-import {HttpClient} from "@angular/common/http";
-import {MedicalFileService} from "../medical-file.service";
+import {ManageFile} from '../manageFile';
+import {ActivatedRoute, Router} from '@angular/router';
+import {UserService} from '../user.service';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {MedicalFileService} from '../medical-file.service';
 import * as util from 'util';
 import {Constants} from '../../constants';
+import {TokenService} from '../token.service';
 
 @Component({
   selector: 'app-consultation-file',
@@ -20,9 +21,9 @@ export class ConsultationFileComponent implements OnInit {
   userLastName: string;
   userStatus: string;
   patient: any;
-  doctor:any;
+  doctor: any;
 
-  constructor(private medicalService: MedicalFileService, private router: Router, private route: ActivatedRoute, private userService: UserService, private http: HttpClient) {
+  constructor(private medicalService: MedicalFileService, private router: Router, private route: ActivatedRoute, private userService: UserService, private http: HttpClient, private tokenService: TokenService) {
   }
 
   ngOnInit() {
@@ -50,17 +51,21 @@ export class ConsultationFileComponent implements OnInit {
   }
 
   onSubmit(form) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': this.tokenService.getToken()
+    });
     const req = this.http.put(util.format(Constants.ADD_OBSERVATION_URL, this.userService.getIdMedicalFolder()), {
       comment: form.comment,
       date: new Date().toDateString(),
       staffId: this.userService.getId()
-    })
+    }, {headers: headers})
       .subscribe(
         res => {
           console.log(res);
         },
         err => {
-          console.log("Error occured");
+          console.log('Error occured');
         }
       );
     this.router.navigate(['doclist', {type: 'Consultation'}]);
