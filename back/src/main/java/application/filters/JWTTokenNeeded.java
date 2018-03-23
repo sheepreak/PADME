@@ -3,7 +3,6 @@ package application.filters;
 import application.staff.Status;
 import application.staff.domain.Staff;
 import application.staff.repository.StaffRepository;
-import com.sun.tools.javac.util.List;
 
 import javax.annotation.Priority;
 import javax.ejb.EJB;
