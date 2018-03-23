@@ -4,10 +4,11 @@ import {ManageFile} from '../manageFile';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../user.service';
 import {WebApiPromiseService} from '../web-api-promise.service';
-import {HttpClient, HttpRequest} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpRequest} from '@angular/common/http';
 import {MedicalFileService} from '../medical-file.service';
 import * as util from 'util';
 import {Constants} from '../../constants';
+import {TokenService} from '../token.service';
 
 @Component({
   selector: 'app-examen-file',
@@ -31,7 +32,7 @@ export class ExamenFileComponent implements OnInit {
   patient: any;
   doctor: any;
 
-  constructor(private medicalService: MedicalFileService, private router: Router, private route: ActivatedRoute, private userService: UserService, private requester: WebApiPromiseService, private http: HttpClient) {
+  constructor(private medicalService: MedicalFileService, private router: Router, private route: ActivatedRoute, private userService: UserService, private requester: WebApiPromiseService, private http: HttpClient, private tokenService: TokenService) {
   }
 
   ngOnInit() {
@@ -58,13 +59,19 @@ export class ExamenFileComponent implements OnInit {
   }
 
   onSubmit(form) {
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': this.tokenService.getToken()
+    });
+
     const req = this.http.put(util.format(Constants.ADD_EXAM_URL, this.userService.getIdMedicalFolder()), {
       motive: form.motif,
       description: form.description,
       observation: form.description,
       date: Date.now().toString(),
       staffId: this.userService.getId()
-    })
+    }, {headers: headers})
       .subscribe(
         res => {
           console.log(res);
