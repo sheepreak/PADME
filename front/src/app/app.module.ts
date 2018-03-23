@@ -20,10 +20,11 @@ import {AdminViewComponent} from './admin-view/admin-view.component';
 import {AdministrationRequestService} from './administration-file/administration-request.service';
 import {CollapseModule, ModalModule} from 'ngx-bootstrap';
 import {UserDocComponent} from './user-doc/user-doc.component';
-import { MedicalDocListComponent } from './medical-doc-list/medical-doc-list.component';
-import {MedicalDocService} from "./medical-doc-list/medical-doc.service";
-import { AdminViewRequestService } from './admin-view/admin-view-request.service';
-import {MedicalFileService} from "./medical-file.service";
+import {MedicalDocListComponent} from './medical-doc-list/medical-doc-list.component';
+import {MedicalDocService} from './medical-doc-list/medical-doc.service';
+import {AdminViewRequestService} from './admin-view/admin-view-request.service';
+import {MedicalFileService} from './medical-file.service';
+import {TokenService} from './token.service';
 
 
 const appRoutes: Routes = [
@@ -103,7 +104,7 @@ const appRoutes: Routes = [
       }
     })
   ],
-  providers: [MedicalFileService, MedicalDocService, UserService, WebApiPromiseService, AdministrationRequestService, AdminViewRequestService],
+  providers: [MedicalFileService, MedicalDocService, UserService, WebApiPromiseService, AdministrationRequestService, AdminViewRequestService, TokenService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

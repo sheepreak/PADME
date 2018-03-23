@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {WebApiPromiseService} from './web-api-promise.service';
+import {TokenService} from './token.service';
 
 
 @Injectable()
@@ -9,7 +10,6 @@ export class UserService {
   private connected: boolean;
   private login: string;
   private password: string;
-  private token: string;
   private firstName: string;
   private lastName: string;
   private status: string;
@@ -36,7 +36,7 @@ export class UserService {
     'staffId': null,
     'comment': null,
     'date': null
-  }
+  };
 
   private examen = {
     'id': null,
@@ -46,20 +46,20 @@ export class UserService {
     'imgPath': null,
     'date': null,
     'staffId': null
-  }
+  };
 
   private prescription = {
-    'id':null,
+    'id': null,
     'startDate': null,
     'endDate': null,
     'date': null,
     'treatment': null,
     'posologies': []
-  }
+  };
 
   private idMedicalFolder: null;
 
-  constructor(private requester: WebApiPromiseService, private router: Router) {
+  constructor(private requester: WebApiPromiseService, private router: Router, private tokenService: TokenService) {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user != null) {
       this.requester.connectUser(user.login, user.password).then(data => {
@@ -76,7 +76,7 @@ export class UserService {
     this.connected = true;
     this.login = login;
     this.password = password;
-    this.token = user.token;
+    this.tokenService.setToken(user.token);
     this.firstName = user.firstName;
     this.lastName = user.lastName;
     this.status = user.status.toUpperCase();
@@ -89,7 +89,7 @@ export class UserService {
         'id': user.id,
         'login': login,
         'password': this.password,
-        'token': user.token,
+        'token': this.tokenService.getToken(),
         'firstName': user.firstName,
         'lastName': user.lastName,
         'status': user.status.toUpperCase(),
@@ -104,16 +104,11 @@ export class UserService {
 
   loggout() {
     this.login = null;
-    this.token = null;
     this.firstName = null;
     this.lastName = null;
     this.connected = false;
     localStorage.clear();
     this.setPatient(null);
-  }
-
-  getToken() {
-    return this.token;
   }
 
   getLogin() {
@@ -138,7 +133,6 @@ export class UserService {
 
   setPatient(patient) {
     this.patient = patient;
-    console.log(patient);
   }
 
   setConsultation(consultation) {
@@ -153,13 +147,13 @@ export class UserService {
     this.prescription = prescription;
   }
 
- setIdMedicalFolder(id){
+  setIdMedicalFolder(id) {
     this.idMedicalFolder = id;
- }
+  }
 
- getIdMedicalFolder(){
+  getIdMedicalFolder() {
     return this.patient.idMedicalFile;
- }
+  }
 
   getPatientIdSelected() {
     if (this.patient != null) {
@@ -172,15 +166,15 @@ export class UserService {
     return this.patient;
   }
 
-  getConsultation(){
+  getConsultation() {
     return this.consultation;
   }
 
-  getExamen(){
+  getExamen() {
     return this.examen;
   }
 
-  getPrescription(){
+  getPrescription() {
     return this.prescription;
   }
 
