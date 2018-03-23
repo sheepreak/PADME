@@ -23,7 +23,7 @@ export class PrescriptionFileComponent implements OnInit {
   patient: any;
   user: any;
   addPosology: false;
-  doctor: any;
+  doctor: any = {};
 
   constructor(private medicalService: MedicalFileService, private router: Router, private route: ActivatedRoute, private userService: UserService, private http: HttpClient, private tokenService: TokenService) {
     this.user = this.userService;

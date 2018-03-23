@@ -21,7 +21,7 @@ export class ConsultationFileComponent implements OnInit {
   userLastName: string;
   userStatus: string;
   patient: any;
-  doctor: any;
+  doctor: any = {};
 
   constructor(private medicalService: MedicalFileService, private router: Router, private route: ActivatedRoute, private userService: UserService, private http: HttpClient, private tokenService: TokenService) {
   }

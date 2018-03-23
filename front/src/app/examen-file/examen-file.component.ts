@@ -30,7 +30,7 @@ export class ExamenFileComponent implements OnInit {
   userLastName: string;
   status: string;
   patient: any;
-  doctor: any;
+  doctor: any = {};
 
   constructor(private medicalService: MedicalFileService, private router: Router, private route: ActivatedRoute, private userService: UserService, private requester: WebApiPromiseService, private http: HttpClient, private tokenService: TokenService) {
   }
