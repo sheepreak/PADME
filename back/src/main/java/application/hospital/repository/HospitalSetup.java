@@ -367,10 +367,10 @@ public class HospitalSetup {
         staffRepository.save(staff2);
         staffRepository.save(staff3);
 
-        Staff adminPole1 = new Staff("admin.chirurgie@aphp.fr", "admin", "Moreau", "Ameline", "0606060606", "123 fake street", Status.ADMIN);
-        Staff adminPole2 = new Staff("admin.medecinegeneral@aphp.fr", "admin", "Moreau", "Ameline", "0606060606", "123 fake street", Status.ADMIN);
-        Staff adminPole3 = new Staff("admin.radiologie@aphp.fr", "admin", "Moreau", "Ameline", "0606060606", "123 fake street", Status.ADMIN);
-        Staff adminPolePed = new Staff("admin.pediatrie@aphp.fr", "admin", "Moreau", "Ameline", "0606060606", "123 fake street", Status.ADMIN);
+//        Staff adminPole1 = new Staff("admin.chirurgie@aphp.fr", "admin", "Moreau", "Ameline", "0606060606", "123 fake street", Status.ADMIN);
+//        Staff adminPole2 = new Staff("admin.medecinegeneral@aphp.fr", "admin", "Moreau", "Ameline", "0606060606", "123 fake street", Status.ADMIN);
+//        Staff adminPole3 = new Staff("admin.radiologie@aphp.fr", "admin", "Moreau", "Ameline", "0606060606", "123 fake street", Status.ADMIN);
+//        Staff adminPolePed = new Staff("admin.pediatrie@aphp.fr", "admin", "Moreau", "Ameline", "0606060606", "123 fake street", Status.ADMIN);
 
 
         //dataset accounts for demo
