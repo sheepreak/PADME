@@ -2,6 +2,7 @@ package application.patient.rest;
 
 import application.adminfile.domain.AdminFile;
 import application.examen.domain.Examen;
+import application.examen.repository.ExamenRepository;
 import application.filters.IJWTTokenNeeded;
 import application.medicalfile.domain.MedicalFile;
 import application.medicalfile.repository.MedicalFileRepository;
@@ -27,6 +28,8 @@ public class PatientRest {
     private PatientRepository repository;
     @EJB
     private MedicalFileRepository medicalFileRepository;
+    @EJB
+    private ExamenRepository examenRepository;
     @Context
     private UriInfo uriInfo;
 
@@ -127,9 +130,10 @@ public class PatientRest {
     @Produces(MediaType.APPLICATION_JSON)
     public Response addExam(@PathParam("medid") Integer fileId, Examen examen) {
         MedicalFile medicalFile = medicalFileRepository.getFile(fileId);
+        int idExamen = examenRepository.save(examen);
         medicalFile.addExamen(examen);
         medicalFileRepository.update(medicalFile);
         URI fileUri = uriInfo.getBaseUriBuilder().path(PatientRest.class).path(medicalFile.getId().toString()).build();
-        return Response.ok("{\n \"idExamen\":"+examen.getId()+"\n}").build();
+        return Response.ok("{\n \"idExamen\":"+idExamen+"\n}").build();
     }
 }

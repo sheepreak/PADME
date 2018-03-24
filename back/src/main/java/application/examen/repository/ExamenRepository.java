@@ -16,8 +16,9 @@ public class ExamenRepository {
         return em.find(Examen.class, id);
     }
 
-    public void save(Examen examen) {
+    public int save(Examen examen) {
         em.persist(examen);
+        return examen.getId();
     }
 
     public void update(Examen examen) {
