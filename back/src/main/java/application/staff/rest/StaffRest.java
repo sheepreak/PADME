@@ -49,8 +49,7 @@ public class StaffRest {
         Staff staff = staffRepository.find(id);
         List<Map<String, Object>> maps = new ArrayList<>();
         List<Node> leafs = staff.leaves();
-        if(staff.getNode().getSubNodes().size() == 0)
-            leafs.add(staff.getNode());
+
         for (Node node : leafs) {
             List<MedicalFile> medicalFiles = medicalFileRepository.findFilesByNode(node.getId());
             for (MedicalFile medicalFile : medicalFiles) {

@@ -537,7 +537,7 @@ public class HospitalSetup {
                 "93190",
                 "Livry-Gargan",
                 null,
-                "France",
+                "france",
                 "szalony.raymond@thisisafakeaddress.com",
                 "0143320054",
                 "0654789565",
@@ -934,13 +934,13 @@ public class HospitalSetup {
         //Admin File
         // 102 Rue de Reuilly, 75012 Paris
         //    public Address(String address, String city, Integer postCode, String country, String insee){
-        Address parentsHomeAddress = new Address("102 Rue de Reuilly", "Paris", 75012, "France", "75112");
+        Address parentsHomeAddress = new Address("102 Rue de Reuilly", "Paris", 75012, "france", "75112");
         AdminFile adminFile = generateAdminFile(
                 "leroy",
                 "sarah",
                 "F",
                 firstDate.toLocalDate().toString(),
-                new Address("5 Rue Santerre", "Paris", 75012, "France", "75112"),
+                new Address("5 Rue Santerre", "Paris", 75012, "france", "75112"),
                 parentsHomeAddress.getAddress(),
                 parentsHomeAddress.getPostCode().toString(),
                 parentsHomeAddress.getCity(),
