@@ -17,7 +17,7 @@ import {TokenService} from '../token.service';
 })
 
 export class ExamenFileComponent implements OnInit {
-  examen: any;
+  examen: any = {};
 
   img: Array<Image> = [];
   imgMin: boolean;
@@ -29,10 +29,12 @@ export class ExamenFileComponent implements OnInit {
   userFirstName: string;
   userLastName: string;
   status: string;
-  patient: any;
+  patient: any = {};
   doctor: any = {};
 
-  constructor(private medicalService: MedicalFileService, private router: Router, private route: ActivatedRoute, private userService: UserService, private requester: WebApiPromiseService, private http: HttpClient, private tokenService: TokenService) {
+  constructor(private medicalService: MedicalFileService, private router: Router, private route: ActivatedRoute,
+              private userService: UserService, private requester: WebApiPromiseService, private http: HttpClient,
+              private tokenService: TokenService) {
   }
 
   ngOnInit() {
@@ -43,7 +45,7 @@ export class ExamenFileComponent implements OnInit {
     this.patient = this.userService.getPatient();
 
     this.route.params.subscribe(params => {
-      if (params['state'] == 'new') {
+      if (params['state'] === 'new') {
         this.manageFile.state = ManageFile.State.New;
       } else {
         this.examen = this.userService.getExamen();
