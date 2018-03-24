@@ -130,6 +130,6 @@ public class PatientRest {
         medicalFile.addExamen(examen);
         medicalFileRepository.update(medicalFile);
         URI fileUri = uriInfo.getBaseUriBuilder().path(PatientRest.class).path(medicalFile.getId().toString()).build();
-        return Response.created(fileUri).build();
+        return Response.ok("{\n \"idExamen\":"+examen.getId()+"\n}").build();
     }
 }
