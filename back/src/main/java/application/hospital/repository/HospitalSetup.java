@@ -367,12 +367,6 @@ public class HospitalSetup {
         staffRepository.save(staff2);
         staffRepository.save(staff3);
 
-//        Staff adminPole1 = new Staff("admin.chirurgie@aphp.fr", "admin", "Moreau", "Ameline", "0606060606", "123 fake street", Status.ADMIN);
-//        Staff adminPole2 = new Staff("admin.medecinegeneral@aphp.fr", "admin", "Moreau", "Ameline", "0606060606", "123 fake street", Status.ADMIN);
-//        Staff adminPole3 = new Staff("admin.radiologie@aphp.fr", "admin", "Moreau", "Ameline", "0606060606", "123 fake street", Status.ADMIN);
-//        Staff adminPolePed = new Staff("admin.pediatrie@aphp.fr", "admin", "Moreau", "Ameline", "0606060606", "123 fake street", Status.ADMIN);
-
-
         //dataset accounts for demo
         Staff docHeleneFieney = new Staff("hfieney@aphp.fr", "hfieney", "Fieney", "Hélène", generatePhoneNumber("06"), "21 rue Chapatte 75001 Paris", Status.DOCTOR);
         docHeleneFieney.setNode(nodeServicePedPneumo);
@@ -385,6 +379,10 @@ public class HospitalSetup {
         Staff secDavidArte = new Staff("darte@aphp.fr", "darte", "Arte", "David", generatePhoneNumber("06"), "11 avenue de la république 75011 Paris", Status.SECRETARY);
         secDavidArte.setNode(nodeServicePedPneumo);
         staffRepository.save(secDavidArte);
+
+        Staff nurElisabethLenard = new Staff("elenard@aphp.fr", "elenard", "Lenard", "Élisabeth", generatePhoneNumber("06"), "9 avenue de la république 75011 Paris", Status.NURSE);
+        nurElisabethLenard.setNode(nodeHCUPedPneumo12);
+        staffRepository.save(nurElisabethLenard);
 
         //dataset accounts for coherent data
         Staff doc1 = new Staff("mgrey@aphp.fr", "mgrey", "Grey", "Meredith", "0606060608", "15 rue Chapatte 75001 Paris", Status.DOCTOR);
