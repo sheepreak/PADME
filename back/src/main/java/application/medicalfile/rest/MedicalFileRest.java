@@ -117,8 +117,8 @@ public class MedicalFileRest {
     @GET
     @IJWTTokenNeeded
     @Path("image/{name}")
-    @Produces("image/png")
-    public InputStream getJpegImage(@PathParam("name") String fileName) throws IOException {
+    @Produces({"image/jpeg", "image/png"})
+    public InputStream getImage(@PathParam("name") String fileName) throws IOException {
 
         java.nio.file.Path dest = PATH.resolve(fileName);
 
