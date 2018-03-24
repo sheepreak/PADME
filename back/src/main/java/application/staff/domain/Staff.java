@@ -136,6 +136,11 @@ public class Staff {
     }
 
     public List<Node> leaves(){
+        if(node.getSubNodes().size() == 0){
+            List<Node> leaves = new ArrayList<>();
+            leaves.add(node);
+            return leaves;
+        }
         return leavesHelper(this.node);
     }
 
