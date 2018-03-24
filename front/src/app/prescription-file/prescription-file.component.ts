@@ -59,12 +59,13 @@ export class PrescriptionFileComponent implements OnInit {
       'Content-Type': 'application/json',
       'Authorization': this.tokenService.getToken()
     });
+    
     const req = this.http.put(util.format(Constants.ADD_PRESCRIPTION_URL, this.userService.getIdMedicalFolder()), {
       startDate: form.startDate,
       endDate: form.endDate,
       date: Date.now().toString(),
       treatment: form.treatment,
-      posology: [],
+      posologys: [],
       staffId: this.userService.getId()
     }, {headers: headers})
       .subscribe(
@@ -72,6 +73,7 @@ export class PrescriptionFileComponent implements OnInit {
           console.log(res);
         },
         err => {
+          console.log(err);
           console.log('Error occured');
         }
       );
