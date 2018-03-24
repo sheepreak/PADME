@@ -120,6 +120,9 @@ public class Examen {
     }
 
     public void addImg(String path) {
+        if(imgPath==null){
+        imgPath = new ArrayList<String>();
+        }
         imgPath.add(path);
     }
 
