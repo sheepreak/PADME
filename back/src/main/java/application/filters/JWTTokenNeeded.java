@@ -32,35 +32,35 @@ public class JWTTokenNeeded implements ContainerRequestFilter {
 
         boolean authorized = true;
 
-        if(staff == null)
+        if (staff == null)
             authorized = false;
 
-        else if(staff.getStatus() == Status.DOCTOR)
+        else if (staff.getStatus() == Status.DOCTOR)
             authorized = filterForDoctor(requestContext.getUriInfo().getPath(), requestContext.getMethod());
 
-        else if(staff.getStatus() == Status.NURSE)
+        else if (staff.getStatus() == Status.NURSE)
             authorized = filterForNurse(requestContext.getUriInfo().getPath(), requestContext.getMethod());
 
-        else if(staff.getStatus() == Status.ADMIN)
+        else if (staff.getStatus() == Status.ADMIN)
             authorized = filterForAdmin(requestContext.getUriInfo().getPath(), requestContext.getMethod());
 
-        else if(staff.getStatus() == Status.SECRETARY)
+        else if (staff.getStatus() == Status.SECRETARY)
             authorized = filterForSecretary(requestContext.getUriInfo().getPath(), requestContext.getMethod());
 
-        if(!authorized)
+        if (!authorized)
             requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
 
     }
 
     private boolean filterForDoctor(String uri, String methode) {
 
-        if(methode.equals("GET")) {
+        if (methode.equals("GET")) {
             return uri.contains("staff/patients/") || uri.split("/")[0].contains("medicalFile");
         }
-        if(methode.equals("PUT")) {
+        if (methode.equals("PUT")) {
             return uri.split("/")[0].contains("medicalFile");
         }
-        if(methode.equals("POST")) {
+        if (methode.equals("POST")) {
             return uri.equals("patient");
         }
         return false;
@@ -69,13 +69,13 @@ public class JWTTokenNeeded implements ContainerRequestFilter {
 
     private boolean filterForNurse(String uri, String methode) {
 
-        if(methode.equals("GET")) {
+        if (methode.equals("GET")) {
             return uri.contains("staff/patients/") || uri.split("/")[0].contains("medicalFile");
         }
-        if(methode.equals("PUT")) {
+        if (methode.equals("PUT")) {
             return uri.contains("/posology");
         }
-        if(methode.equals("POST")) {
+        if (methode.equals("POST")) {
             return uri.equals("patient");
         }
         return false;
@@ -84,13 +84,13 @@ public class JWTTokenNeeded implements ContainerRequestFilter {
 
     private boolean filterForAdmin(String uri, String methode) {
 
-        if(methode.equals("GET")) {
+        if (methode.equals("GET")) {
             return !uri.contains("staff/patient");
         }
-        if(methode.equals("PUT")) {
+        if (methode.equals("PUT")) {
             return uri.contains("staff/update");
         }
-        if(methode.equals("POST")) {
+        if (methode.equals("POST")) {
             return uri.equals("staff");
         }
         return false;
@@ -99,13 +99,13 @@ public class JWTTokenNeeded implements ContainerRequestFilter {
 
     private boolean filterForSecretary(String uri, String methode) {
 
-        if(methode.equals("GET")) {
-            return uri.equals("patient") || uri.split("/")[1].equals("adminfile");
+        if (methode.equals("GET")) {
+            return uri.equals("patient") || uri.split("/")[1].equals("adminfile") || uri.split("/")[2].equals("adminfile");
         }
-        if(methode.equals("PUT")) {
+        if (methode.equals("PUT")) {
             return uri.split("/")[0].contains("medicalFile") || uri.split("/")[1].equals("adminfile");
         }
-        if(methode.equals("POST")) {
+        if (methode.equals("POST")) {
             return uri.equals("patient");
         }
         return false;
