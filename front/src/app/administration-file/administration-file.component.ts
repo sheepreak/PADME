@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ManageFile} from '../manageFile';
 import {UserService} from '../user.service';
 import {AdministrationRequestService} from './administration-request.service';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute} from '@angular/router';
 
 
 @Component({
@@ -46,5 +46,15 @@ export class AdministrationFileComponent implements OnInit {
   cancelModif() {
     this.directory = this.oldDirectory;
     this.manageFile.state = ManageFile.State.Publish;
+  }
+
+  onSubmit(value) {
+    this.administrationRequest.updateAdminFilePatient(this.userService.getPatientIdSelected(), value)
+      .then(data => {
+        console.log('ok');
+        this.manageFile.state = ManageFile.State.Publish;
+      }).catch(err => {
+      console.log(err);
+    });
   }
 }

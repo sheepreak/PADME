@@ -42,7 +42,7 @@
   </div>
 
   <div class="row myrow" *ngIf="manageFile.stateEdited() || manageFile.stateNew()">
-    <form class="form-horizontal">
+    <form class="form-horizontal" #docForm="ngForm" (ngSubmit)="onSubmit(docForm.value)" ngNativeValidate>
       <div class="col-md-6">
         <h3 translate>PersonalData</h3>
         <div class="form-group">
@@ -65,22 +65,22 @@
         <div class="form-group">
           <label for="sexe" class="col-sm-3 control-label">{{ 'Sexe' | translate:user }}:</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="sexe" name="sexe" [(ngModel)]="directory.gender">
+            <input type="text" class="form-control" id="sexe" name="gender" [(ngModel)]="directory.gender">
           </div>
         </div>
 
         <div class="form-group">
           <label for="birthDay" class="col-sm-3 control-label">{{ 'BirthDay' | translate:user }}:</label>
           <div class="col-sm-9">
-            <input type="date" class="form-control" id="birthDay" name="birthDay"
-                   value='{{directory.birthDate|date:"yyyy-MM-dd"}}' ([ngModel])="directory.birthDate">
+            <input type="date" class="form-control" id="birthDay" name="birthDate"
+                   value='{{directory.birthDate|date:"yyyy-MM-dd"}}' [(ngModel)]="directory.birthDate">
           </div>
         </div>
 
         <div class="form-group">
           <label for="placeBirth" class="col-sm-3 control-label">{{ 'BirthPlace' | translate:user }}:</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="placeBirth" name="placeBirth"
+            <input type="text" class="form-control" id="placeBirth" name="birthPlace"
                    [(ngModel)]="directory.birthPlace">
           </div>
         </div>
@@ -89,13 +89,13 @@
         <div class="form-group">
           <label for="adress" class="col-sm-3 control-label">{{ 'Adress' | translate:user }}:</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="adress" name="adress" [(ngModel)]="directory.address">
+            <input type="text" class="form-control" id="adress" name="address" [(ngModel)]="directory.address">
           </div>
         </div>
         <div class="form-group">
           <label for="cp" class="col-sm-3 control-label">{{ 'PostalCode' | translate:user }}:</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="cp" name="cp" [(ngModel)]="directory.postalCode">
+            <input type="text" class="form-control" id="cp" name="postalCode" [(ngModel)]="directory.postalCode">
           </div>
         </div>
         <div class="form-group">
@@ -107,7 +107,7 @@
         <div class="form-group">
           <label for="adressMore" class="col-sm-3 control-label">{{ 'AdressComplement' | translate:user }}:</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="adressMore" name="adressMore"
+            <input type="text" class="form-control" id="adressMore" name="addressComplement"
                    [(ngModel)]="directory.addressComplement">
           </div>
         </div>
@@ -120,13 +120,13 @@
         <div class="form-group">
           <label for="tel" class="col-sm-3 control-label">{{ 'Phone' | translate:user }}:</label>
           <div class="col-sm-9">
-            <input type="tel" class="form-control" id="tel" name="tel" [(ngModel)]="directory.phone">
+            <input type="tel" class="form-control" id="tel" name="phone" [(ngModel)]="directory.phone">
           </div>
         </div>
         <div class="form-group">
           <label for="portable" class="col-sm-3 control-label">{{ 'CellPhone' | translate:user }}:</label>
           <div class="col-sm-9">
-            <input type="tel" class="form-control" id="portable" name="portable" [(ngModel)]="directory.cellPhone">
+            <input type="tel" class="form-control" id="portable" name="cellPhone" [(ngModel)]="directory.cellPhone">
           </div>
         </div>
         <div class="form-group">
@@ -155,7 +155,7 @@
         <div class="form-group">
           <label for="social" class="col-sm-3 control-label">{{ 'SocialSecurity' | translate:user }}:</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="social" name="social" maxlength="15" [(ngModel)]="directory.socialID">
+            <input type="text" class="form-control" id="social" name="socialID" maxlength="15" [(ngModel)]="directory.socialID">
           </div>
         </div>
       </div>

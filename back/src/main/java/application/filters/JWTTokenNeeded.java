@@ -103,7 +103,7 @@ public class JWTTokenNeeded implements ContainerRequestFilter {
             return uri.equals("patient") || uri.split("/")[1].equals("adminfile") || uri.split("/")[2].equals("adminfile");
         }
         if (methode.equals("PUT")) {
-            return uri.split("/")[0].contains("medicalFile") || uri.split("/")[1].equals("adminfile");
+            return uri.split("/")[0].contains("medicalFile") || uri.split("/")[1].equals("adminfile")|| uri.split("/")[2].equals("adminfile");
         }
         if (methode.equals("POST")) {
             return uri.equals("patient");
