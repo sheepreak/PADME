@@ -133,7 +133,7 @@ public class HospitalSetup {
         Node nodeService31 = new Node("Radiologie cardio-thoracique", NodeLevel.service);
         Node nodeService32 = new Node("Radiologie crânienne", NodeLevel.service);
         Node nodeService33 = new Node("Radiologie des membres", NodeLevel.service);
-        Node nodeServicePedPneumo = new Node("Service pneumology en pédiatrie", NodeLevel.service);
+        Node nodeServicePedPneumo = new Node("Service pneumologie en pédiatrie", NodeLevel.service);
         Node nodeServicePedOnco = new Node("Service oncologie en pédiatrie", NodeLevel.service);
         services.add(nodeService11);
         services.add(nodeService12);
