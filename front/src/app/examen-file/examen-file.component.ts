@@ -4,11 +4,13 @@ import {ManageFile} from '../manageFile';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../user.service';
 import {WebApiPromiseService} from '../web-api-promise.service';
-import {HttpClient, HttpHeaders, HttpRequest} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpRequest, HttpResponse} from '@angular/common/http';
 import {MedicalFileService} from '../medical-file.service';
 import * as util from 'util';
 import {Constants} from '../../constants';
 import {TokenService} from '../token.service';
+import {ResponseContentType} from '@angular/http';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-examen-file',
@@ -18,6 +20,7 @@ import {TokenService} from '../token.service';
 
 export class ExamenFileComponent implements OnInit {
   examen: any = {};
+  listImgSrc = [];
 
   // img: Array<Image> = [];
 
@@ -53,6 +56,11 @@ export class ExamenFileComponent implements OnInit {
         this.manageFile.state = ManageFile.State.New;
       } else {
         this.examen = this.userService.getExamen();
+        if (this.examen.imgPath != null) {
+          for (let i = 0; i < this.examen.imgPath.length; i++) {
+            this.listImgSrc.push(this.getImgFromServer(this.examen.imgPath[i]));
+          }
+        }
         this.imgMin = true;
       }
     });
@@ -141,6 +149,19 @@ export class ExamenFileComponent implements OnInit {
 
 
   public getImgFromServer(name) {
+    const headerImg = new HttpHeaders({
+      'Content-Type': 'image/*',
+      'Authorization': this.tokenService.getToken(),
+    });
+
+    // this.http.get(util.format(Constants.GET_IMAGE_MEDICAL_URL, name),
+    //   {responseType: 'blob', headers: headerImg}).subscribe(res => {
+    //   this.isloading = true;
+    //   this.test = res;
+    //
+    // }, error2 => {
+    //   console.log(error2);
+    // });
     return util.format(Constants.GET_IMAGE_MEDICAL_URL, name);
   }
 
