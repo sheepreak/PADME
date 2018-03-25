@@ -83,7 +83,10 @@
   "Taken": "Taken",
   "NoConsultation":"This patient has no consultation",
   "NoExamen": "This patient has no exam",
-  "NoPrescription": "This patient has no prescription"
+  "NoPrescription": "This patient has no prescription",
+  "MedicalInfo": "Medicals Infoformations",
+  "Allergies": "Allergies",
+  "Handicap": "Handicap"
 
 }
 

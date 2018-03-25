@@ -5,12 +5,23 @@
     </div>
   </div>
 
-  <div class="row myrow" *ngFor="let info of informations">
+  <div class="row myrow">
     <div class="col-md-5">
-      <h3 translate>info</h3>
-      <div *ngFor="let i of info">
-        <p>i</p>
+
+      <div *ngIf="informations.allergies">
+        <h3 translate>Allergies</h3>
+        <div *ngFor="let info of informations.allergies.attributes">
+          <p>{{info}}</p>
+        </div>
       </div>
+
+      <div *ngIf="informations.handicap">
+        <h3 translate>Handicap</h3>
+        <div *ngFor="let info of informations.handicap.attributes">
+          <p>{{info}}</p>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>

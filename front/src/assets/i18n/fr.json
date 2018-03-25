@@ -87,6 +87,9 @@
   "Taken": "Prise du traitement",
   "NoConsultation":"Ce patient n'a eu aucune consultation",
   "NoExamen": "Ce patient n'a eu aucun examen",
-  "NoPrescription": "Ce patient n'a eu aucune prescription"
+  "NoPrescription": "Ce patient n'a eu aucune prescription",
+  "MedicalInfo": "Informations médicales",
+  "Allergies": "Allergies",
+  "Handicap": "Handicap"
 
 }

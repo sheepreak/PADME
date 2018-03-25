@@ -10,7 +10,10 @@ import {ManageFile} from "../manageFile";
 })
 export class InfoMedicalComponent implements OnInit {
   manageFile: ManageFile = new ManageFile();
-  informations = [];
+  informations = {
+    allergies: null,
+    handicap: null
+  };
 
   constructor(private userService: UserService, private route: ActivatedRoute) { }
 
@@ -18,5 +21,6 @@ export class InfoMedicalComponent implements OnInit {
     console.log("ooooooooooooooooooooo");
     this.informations = this.userService.getInfoMedical().informations;
     console.log(this.informations);
+    console.log(this.informations.allergies);
   }
 }
