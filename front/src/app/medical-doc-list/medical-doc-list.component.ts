@@ -31,12 +31,12 @@ export class MedicalDocListComponent implements OnInit {
     } else {
       this.medicalDocService.getDocuments(this.userService.getIdMedicalFolder()).then(data => {
         this.listDoc = data;
+        this.userService.setMedicalInfo(this.listDoc.medicalInfo);
         this.isThereConsultation = true;
         this.isThereExamen = true;
         this.isTherePrescription = true;
       });
     }
-
     this.route.params.subscribe(params => {
       this.type = params['type'];
     });

@@ -25,6 +25,7 @@ import {MedicalDocService} from './medical-doc-list/medical-doc.service';
 import {AdminViewRequestService} from './admin-view/admin-view-request.service';
 import {MedicalFileService} from './medical-file.service';
 import {TokenService} from './token.service';
+import {InfoMedicalComponent} from "./info-medical/info-medical.component";
 
 
 const appRoutes: Routes = [
@@ -61,6 +62,10 @@ const appRoutes: Routes = [
     component: MedicalDocListComponent
   },
   {
+    path: 'medicalinfo',
+    component: InfoMedicalComponent
+  },
+  {
     path: '**',
     redirectTo: ''
   },
@@ -83,7 +88,8 @@ const appRoutes: Routes = [
     ConsultationFileComponent,
     AdminViewComponent,
     UserDocComponent,
-    MedicalDocListComponent
+    MedicalDocListComponent,
+    InfoMedicalComponent
   ],
 
   imports: [

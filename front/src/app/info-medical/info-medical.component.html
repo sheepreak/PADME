@@ -1,0 +1,16 @@
+<div class="col-sm-11 col-md-11 main">
+  <div class="row title">
+    <div class="col-md-10">
+      <h2 translate>MedicalInfo</h2>
+    </div>
+  </div>
+
+  <div class="row myrow" *ngFor="let info of informations">
+    <div class="col-md-5">
+      <h3 translate>info</h3>
+      <div *ngFor="let i of info">
+        <p>i</p>
+      </div>
+    </div>
+  </div>
+</div>

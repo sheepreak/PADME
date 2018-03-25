@@ -50,6 +50,8 @@ export class ExamenFileComponent implements OnInit {
     this.status = this.userService.getStatus() ? this.userService.getStatus() : '';
 
     this.patient = this.userService.getPatient();
+    console.log(this.patient);
+    console.log(this.patient.firstName);
 
     this.route.params.subscribe(params => {
       if (params['state'] === 'new') {

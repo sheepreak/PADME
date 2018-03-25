@@ -57,6 +57,10 @@ export class UserService {
     'posologies': []
   };
 
+  private listdoc= null;
+
+  private medicalInfo = null;
+
   private idMedicalFolder: null;
 
   constructor(private requester: WebApiPromiseService, private router: Router, private tokenService: TokenService) {
@@ -131,9 +135,26 @@ export class UserService {
     return this.phone;
   }
 
+  getInfoMedical(){
+    return this.medicalInfo;
+  }
+
+  getListDoc(){
+    return this.listdoc;
+  }
+
+  setListDoc(list){
+    this.listdoc = list;
+  }
+
   setPatient(patient) {
     this.patient = patient;
   }
+
+  setMedicalInfo(medicalInfo) {
+    this.medicalInfo = medicalInfo;
+  }
+
 
   setConsultation(consultation) {
     this.consultation = consultation;

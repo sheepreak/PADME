@@ -43,7 +43,7 @@
           </thead>
           <tbody>
           <tr *ngFor="let posology of prescription.posologys">
-            <td><input type="checkbox" [(ngModel)]="posology.taker" disabled="disabled"></td>
+            <td><input type="checkbox" [(ngModel)]="posology.taken" disabled="disabled"></td>
             <td>{{posology.date | date:"short"}}</td>
             <td>{{posology.observation}}</td>
             <td>{{posology.nurseName}} {{posology.nurseSurname}}</td>
