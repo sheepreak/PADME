@@ -65,4 +65,8 @@ export class Constants {
     return Constants.URL_SERVER + '/medicalFile/image/%d';
   }
 
+  public static get GET_IMAGE_MEDICAL_URL() {
+    return Constants.URL_SERVER + '/medicalFile/image/%s';
+  }
+
 }

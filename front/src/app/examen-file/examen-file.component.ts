@@ -19,12 +19,16 @@ import {TokenService} from '../token.service';
 export class ExamenFileComponent implements OnInit {
   examen: any = {};
 
-  img: Array<Image> = [];
+  // img: Array<Image> = [];
+
+
+  listImg: FileList;
+
   imgMin: boolean;
   manageFile: ManageFile = new ManageFile();
 
-  nameImg: string;
-  pathImg: string;
+  // nameImg: string;
+  // pathImg: string;
 
   userFirstName: string;
   userLastName: string;
@@ -58,16 +62,17 @@ export class ExamenFileComponent implements OnInit {
         this.doctor = data;
       });
     }
+
+
   }
 
   onSubmit(form) {
-
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': this.tokenService.getToken()
     });
 
-    const req = this.http.put(util.format(Constants.ADD_EXAM_URL, this.userService.getIdMedicalFolder()), {
+    const req = this.http.put<{ idExamen }>(util.format(Constants.ADD_EXAM_URL, this.userService.getIdMedicalFolder()), {
       motive: form.motif,
       description: form.description,
       observation: form.description,
@@ -76,33 +81,67 @@ export class ExamenFileComponent implements OnInit {
     }, {headers: headers})
       .subscribe(
         res => {
+          console.log('abcd');
           console.log(res);
+          this.postImg(res.idExamen);
+          this.router.navigate(['doclist', {type: 'Examen'}]);
         },
         err => {
           console.log('Error occured');
         }
       );
-
-    this.router.navigate(['doclist', {type: 'Examen'}]);
   }
 
-  public changeImg(img: Image) {
-    img.changeImg();
-  }
 
-  public loadAllImg() {
-    for (let i of this.img) {
-      i.loadImg();
+  public postImg(idExamen) {
+    const headerImg = new HttpHeaders({
+      'Content-Type': 'image/png',
+      'Authorization': this.tokenService.getToken(),
+    });
+
+    for (let i = 0; i < this.listImg.length; i++) {
+      console.log(this.listImg[i]);
+      this.http.post(util.format(Constants.ADD_IMAGE_MEDICAL_URL, idExamen), this.listImg[i],
+        {headers: headerImg})
+        .subscribe(data => {
+          console.log(data);
+        }, err => {
+          console.log(err);
+        });
+
     }
   }
 
-  public addImg() {
-    if (this.nameImg != null && this.pathImg != null) {
-      let i = new Image(this.nameImg, this.pathImg);
-      this.img.push(i);
 
-      this.pathImg = null;
-      this.nameImg = null;
-    }
+  // public changeImg(img: Image) {
+  //   img.changeImg();
+  // }
+  //
+  // public loadAllImg() {
+  //   for (let i of this.img) {
+  //     i.loadImg();
+  //   }
+  // }
+  //
+  // public addImg() {
+  //   if (this.nameImg != null && this.pathImg != null) {
+  //     let i = new Image(this.nameImg, this.pathImg);
+  //     this.img.push(i);
+  //
+  //     this.pathImg = null;
+  //     this.nameImg = null;
+  //   }
+  // }
+
+
+  public onChangeImg(event) {
+    this.listImg = event.target.files;
+    console.log(this.listImg);
   }
+
+
+  public getImgFromServer(name) {
+    return util.format(Constants.GET_IMAGE_MEDICAL_URL, name);
+  }
+
 }

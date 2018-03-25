@@ -30,14 +30,15 @@
       <p>{{examen.description}}</p>
 
       <h3 translate>ExamenResult</h3>
+
       <div class="row-fluid">
         <img (click)="loadAllImg()" class="img-thumbnail miniature" src="../../assets/img/icon/add-all.svg"
              title="{{ 'LoadAllImg' | translate:user }}">
-        <div class="inline" *ngFor="let i of img">
-          <img (click)="changeImg(i)" [ngClass]="{'img-thumbnail':true,  'miniature': i.mini, 'imgdata':!i.mini}"
-               src={{i}} title="{{i}}">
+        <div class="inline" *ngFor="let i of examen.imgPath">
+          <img [src]="getImgFromServer(i)" [ngClass]="{'img-thumbnail':true,  'miniature': i.mini, 'imgdata':!i.mini}">
         </div>
       </div>
+
 
       <h3 translate>ExamenObservation</h3>
       <p>{{examen.observation}}</p>
@@ -47,36 +48,46 @@
 
       <form class="form-horizontal" #examenForm="ngForm" (ngSubmit)="onSubmit(examenForm.value)" ngNativeValidate>
         <h3 translate>ExamenMotif</h3>
-        <textarea [(ngModel)]="motif" id="motif" name="motif" rows="2" cols="100"></textarea>
+        <textarea [(ngModel)]="motif" id="motif" name="motif" rows="2" cols="100" required></textarea>
 
         <h3 translate>ExamenDescription</h3>
         <textarea [(ngModel)]="description" id="description" name="description" rows="2" cols="100"></textarea>
 
         <h3 translate>ExamenResult</h3>
         <div class="row-fluid">
+
           <div class="inline" *ngFor="let i of examen.imgPath">
             <img (click)="changeImg(i)" [ngClass]="{'img-thumbnail':true,  'miniature': i.mini, 'imgdata':!i.mini}"
-                 src={{i.currentpath}} title="{{i.name}}">
+            src={{i.currentpath}} title="{{i.name}}">
+
+            <img [ngClass]="{'img-thumbnail':true,  'miniature': i.mini, 'imgdata':!i.mini}"
+                 src={{i}} title="{{i}}">
           </div>
         </div>
 
-        <form class="form-horizontal">
-          <div class="form-group">
-            <label for="path" class="col-sm-1 control-label">{{ 'Path' | translate:user }}:</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" id="path" name="path" [(ngModel)]="path">
-            </div>
-          </div>
+        <!--<form class="form-horizontal">-->
+        <!--<div class="form-group">-->
+        <!--<label for="path" class="col-sm-1 control-label">{{ 'Path' | translate:user }}:</label>-->
+        <!--<div class="col-sm-9">-->
+        <!--<input type="text" class="form-control" id="path" name="path" [(ngModel)]="path">-->
+        <!--</div>-->
+        <!--</div>-->
 
-          <div class="form-group">
-            <label for="name" class="col-sm-1 control-label">{{ 'ImgName' | translate:user }}:</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" id="name" name="name" [(ngModel)]="name">
-            </div>
-          </div>
+        <!--<div class="form-group">-->
+        <!--<label for="name" class="col-sm-1 control-label">{{ 'ImgName' | translate:user }}:</label>-->
+        <!--<div class="col-sm-9">-->
+        <!--<input type="text" class="form-control" id="name" name="name" [(ngModel)]="name">-->
+        <!--</div>-->
+        <!--</div>-->
 
-          <button (click)="addImg()" class="btn btn-validate" translate>Add Image</button>
-        </form>
+        <!---->
+
+        <!--<button (click)="addImg()" class="btn btn-validate" translate>Add Image</button>-->
+        <!--</form>-->
+
+        <input type="file" name="file" id="file" [(ngModel)]="file" accept=".png,.jpeg" multiple
+               (change)="onChangeImg($event)">
+
 
         <h3 translate>ExamenObservation</h3>
         <textarea rows="2" cols="100"></textarea>
