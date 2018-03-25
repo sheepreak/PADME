@@ -23,7 +23,6 @@ import application.prescription.repository.PrescriptionRepository;
 import application.staff.Status;
 import application.staff.domain.Staff;
 import application.staff.repository.StaffRepository;
-import org.apache.derby.catalog.types.SynonymAliasInfo;
 import utils.Address;
 import utils.InseeRef;
 import utils.Parse;
@@ -39,7 +38,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Startup
@@ -70,7 +68,6 @@ public class HospitalSetup {
     private PosologyRepository posologyRepository;
 
     private List<Patient> list = new ArrayList<>();
-
 
     private Random rand = new Random();
 
@@ -618,7 +615,7 @@ public class HospitalSetup {
                     else
                         printLog("setCaseCardioThorax failured");
                     break;
-                case "Service pneumology en pédiatrie":
+                case "Service pneumologie en pédiatrie":
                     printLog(resp.getLastName()+"7"+nodeHCU);
                     if (setCasePediatricsPneumology(nodeHCU, resp.getId(), docExamen.getId(), patient))
                         printLog("setCasePediatricsPneumology successed");
