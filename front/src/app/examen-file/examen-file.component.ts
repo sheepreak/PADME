@@ -25,7 +25,7 @@ export class ExamenFileComponent implements OnInit {
   // img: Array<Image> = [];
 
 
-  listImg: FileList;
+  listImg =[];
 
   imgMin: boolean;
   manageFile: ManageFile = new ManageFile();
@@ -110,7 +110,6 @@ export class ExamenFileComponent implements OnInit {
     });
 
     for (let i = 0; i < this.listImg.length; i++) {
-      console.log(this.listImg[i]);
       this.http.post(util.format(Constants.ADD_IMAGE_MEDICAL_URL, idExamen), this.listImg[i],
         {headers: headerImg})
         .subscribe(data => {
@@ -146,7 +145,6 @@ export class ExamenFileComponent implements OnInit {
 
   public onChangeImg(event) {
     this.listImg = event.target.files;
-    console.log(this.listImg);
   }
 
 
