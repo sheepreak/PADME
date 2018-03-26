@@ -2,15 +2,22 @@ package application.staff.repository;
 
 import application.staff.domain.Staff;
 
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import java.security.Key;
 import java.util.List;
 import java.util.Map;
 
+import static javax.crypto.Cipher.ENCRYPT_MODE;
+
 @Stateless
 public class StaffRepository {
+
+    private static String KEY = "Password Key";
 
     @PersistenceContext(unitName = "JPAPU")
     private EntityManager em;
@@ -27,10 +34,13 @@ public class StaffRepository {
         em.merge(staff);
     }
 
-    public Staff tryConnection(String password, String login) throws NoResultException{
+    public Staff tryConnection(String password, String login) {
+
+
+
         try {
             return (Staff) em.createQuery("SELECT s FROM Staff s WHERE s.password LIKE :password AND s.login LIKE :login")
-                    .setParameter("password", password)
+                    .setParameter("password", encodePassword(password))
                     .setParameter("login", login)
                     .getSingleResult();
         } catch (NoResultException e){
@@ -61,5 +71,17 @@ public class StaffRepository {
             return null;
         }
 
+    }
+
+    private String encodePassword(String password) {
+        try {
+            Key key = new SecretKeySpec(KEY.getBytes("ISO-8859-2"), "Blowfish");
+            Cipher cipher = Cipher.getInstance("Blowfish");
+            cipher.init(ENCRYPT_MODE, key);
+            return new String(cipher.doFinal(password.getBytes()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return password;
     }
 }

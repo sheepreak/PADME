@@ -60,7 +60,7 @@ public class Examen {
         this.imgPath = imgPath;
         this.observation = observation;
         this.date = date;
-        StaffId = staffId;
+        this.StaffId = staffId;
     }
 
     public Integer getId() {
@@ -120,9 +120,8 @@ public class Examen {
     }
 
     public void addImg(String path) {
-        if(imgPath==null){
-        imgPath = new ArrayList<String>();
-        }
+        if(imgPath==null)
+            imgPath = new ArrayList<String>();
         imgPath.add(path);
     }
 

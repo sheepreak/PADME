@@ -3,15 +3,22 @@ package application.staff.domain;
 import application.node.domain.Node;
 import application.staff.Status;
 
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static javax.crypto.Cipher.ENCRYPT_MODE;
+
 @Entity
 public class Staff {
+
+    private static String KEY = "Password Key";
 
     @Id
     @NotNull
@@ -58,13 +65,27 @@ public class Staff {
     }
 
     public Staff(String login, String password, String lastName, String firstName, String phone, String address, Status status) {
+
         this.login = login;
-        this.password = password;
         this.lastName = lastName;
         this.firstName = firstName;
         this.phone = phone;
         this.address = address;
         this.status = status;
+        this.password = encodePassword(password);
+
+    }
+
+    private String encodePassword(String password) {
+        try {
+            Key key = new SecretKeySpec(KEY.getBytes("ISO-8859-2"), "Blowfish");
+            Cipher cipher = Cipher.getInstance("Blowfish");
+            cipher.init(ENCRYPT_MODE, key);
+            return new String(cipher.doFinal(password.getBytes()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return password;
     }
 
     public Integer getId() {
@@ -132,16 +153,22 @@ public class Staff {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = encodePassword(password);
     }
 
-    public List<Node> leaves(){
-        if(node.getSubNodes().size() == 0){
+    public List<Node> leaves() {
+
+        if(node == null)
+            return Collections.EMPTY_LIST;
+
+        if(node.getSubNodes().size() == 0) {
             List<Node> leaves = new ArrayList<>();
             leaves.add(node);
             return leaves;
         }
+
         return leavesHelper(this.node);
+
     }
 
     private List<Node> leavesHelper(Node node){
