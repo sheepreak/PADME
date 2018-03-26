@@ -955,6 +955,7 @@ public class HospitalSetup {
         medicalInfo.addInformations("allergies", "corticostéroïdes");
         medicalInfoRepository.save(medicalInfo);
 
+
         //Patient
         Patient patient = new Patient(adminFile, medicalInfo);
         patientRepository.save(patient);
@@ -963,6 +964,12 @@ public class HospitalSetup {
         //Medical File
         MedicalFile mf1 = new MedicalFile(true, node.getId());
         medicalFileRepository.save(mf1);
+
+        List<String> paths = new ArrayList<>();
+        paths.add(this.getClass().getClassLoader().getResource("dataForSetup/scannerPoumon1.png").getPath());
+        paths.add(this.getClass().getClassLoader().getResource("dataForSetup/scannerPoumon2.png").getPath());
+        //String motive, String description, List<String> imgPath, String observation, String date, Integer staffId
+        addExamen(mf1, new Examen("Radiographie des poumons après la naissance", "Radiographie des poumons", paths, "Asthne",printDate(firstDate.plusMinutes(53)), doctor.getId()));
 
         //int staffId, String comment, String date
         addObservation(mf1, new Observation(doctor.getId(), "Asthme à la naissance", printDate(firstDate.plusHours(1).minusMinutes(4))));
