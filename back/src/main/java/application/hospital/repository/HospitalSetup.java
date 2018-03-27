@@ -952,7 +952,7 @@ public class HospitalSetup {
         //Medical Info File
         MedicalInfo medicalInfo = new MedicalInfo();
         medicalInfo.addInformations("maladie chronique", "asthme");
-        medicalInfo.addInformations("allergene", "corticostéroïdes");
+        medicalInfo.addInformations("allergies", "corticostéroïdes");
         medicalInfoRepository.save(medicalInfo);
 
         //Patient
@@ -964,17 +964,24 @@ public class HospitalSetup {
         MedicalFile mf1 = new MedicalFile(true, node.getId());
         medicalFileRepository.save(mf1);
 
+        List<String> paths = new ArrayList<>();
+        paths.add(this.getClass().getClassLoader().getResource("dataForSetup/scannerPoumon1.png").getPath());
+        paths.add(this.getClass().getClassLoader().getResource("dataForSetup/scannerPoumon2.png").getPath());
+        //String motive, String description, List<String> imgPath, String observation, String date, Integer staffId
+        addExamen(mf1, new Examen("Radiographie des poumons après la naissance", "Radiographie des poumons", paths, "Asthme",printDate(firstDate.plusMinutes(53)), doctor.getId()));
+
         //int staffId, String comment, String date
         addObservation(mf1, new Observation(doctor.getId(), "Asthme à la naissance", printDate(firstDate.plusHours(1).minusMinutes(4))));
 
-        List<Posology> lp = new ArrayList<>();
-        for (LocalDateTime ldt = firstDate.plusHours(1).plusMinutes(12); ldt.isBefore(LocalDateTime.now()); ldt = ldt.plusMonths(4).plusMinutes(Math.abs(rand.nextInt(10000))).minusMinutes(Math.abs(rand.nextInt(10000)))) {
-            //String date, String observation, String nurseName, String nurseSurname, boolean taken
-            lp.add(new Posology(printDate(ldt), "Traitement effectué.", doctor.getFirstName(), doctor.getLastName(), true));
+        for(LocalDateTime ldtReload = firstDate.plusHours(1).plusMinutes(12); ldtReload.isBefore(LocalDateTime.now()); ldtReload = ldtReload.plusYears(2)) {
+            List<Posology> lp = new ArrayList<>();
+            for (LocalDateTime ldt = ldtReload; ldt.isBefore(ldtReload.plusYears(2)); ldt = ldt.plusMonths(4).plusMinutes(Math.abs(rand.nextInt(10000))).minusMinutes(Math.abs(rand.nextInt(10000)))) {
+                //String date, String observation, String nurseName, String nurseSurname, boolean taken
+                lp.add(new Posology(printDate(ldt), "Traitement effectué.", doctor.getFirstName(), doctor.getLastName(), true));
+            }
+            //String treatment, List<Posology> posologys, String date, String startDate, String endDate, Integer staffId
+            addPrescription(mf1, new Prescription("Ventoline 5mg/mL et Salbutamol 2,5 mg/mL par nébulisation tous les quatre mois. Renouvelable tous les deux ans", lp, printDate(firstDate.plusHours(1).minusMinutes(4)), printDate(firstDate.plusHours(1).minusMinutes(4)), printDate(firstDate.plusYears(100).plusHours(1).minusMinutes(4)), doctor.getId()));
         }
-        //String treatment, List<Posology> posologys, String date, String startDate, String endDate, Integer staffId
-        addPrescription(mf1, new Prescription("Ventoline 5mg/mL et salbutamol 2,5 mg/mL par nébuleuse tous les 4 mois", lp, printDate(firstDate.plusHours(1).minusMinutes(4)), printDate(firstDate.plusHours(1).minusMinutes(4)), printDate(firstDate.plusYears(100).plusHours(1).minusMinutes(4)), doctor.getId()));
-
         patient.addMedicalFile(mf1);
 
         printLog(" ====> Sarah case create");
