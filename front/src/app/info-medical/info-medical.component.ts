@@ -18,9 +18,6 @@ export class InfoMedicalComponent implements OnInit {
   constructor(private userService: UserService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    console.log("ooooooooooooooooooooo");
     this.informations = this.userService.getInfoMedical().informations;
-    console.log(this.informations);
-    console.log(this.informations.allergies);
   }
 }

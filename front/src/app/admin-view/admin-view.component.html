@@ -32,7 +32,7 @@
       <tr *ngFor="let staff of listStaff | search:'lastName,firstName':filter ; let i = index" [attr.data-index]="i">
         <td>{{staff.lastName | uppercase}}</td>
         <td>{{staff.firstName | uppercase}}</td>
-        <td>{{staff.status}}</td>
+        <td>{{staff.status | translate:user}}</td>
         <td>
           <select class="form-control" [ngModel]="hospitalSeleted[i]" (ngModelChange)="hospitalChange($event,i)">
             <option *ngFor="let hospital of listHospital" [ngValue]="hospital" >

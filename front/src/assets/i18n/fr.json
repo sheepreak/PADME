@@ -6,7 +6,7 @@
   "TodoList": "Liste des tâches",
   "DOCTOR": "Médecin",
   "ADMIN": "Administrateur",
-  "NURTH": "Infirmier",
+  "NURSE": "Infirmier",
   "SECRETARY": "Secrétaire",
   "Function": "Fonction",
   "Pole": "Pôle",
@@ -90,6 +90,13 @@
   "NoPrescription": "Ce patient n'a eu aucune prescription",
   "MedicalInfo": "Informations médicales",
   "Allergies": "Allergies",
-  "Handicap": "Handicap"
+  "Handicap": "Handicap",
+  "IsTake": "Prise",
+  "doctor":"Médecin",
+  "nurse": "Infirmier",
+  "secretary": "Secrétaire",
+  "admin":"Administrateur",
+  "Staff": "Personnel",
+  "Country2":"Pays"
 
 }
