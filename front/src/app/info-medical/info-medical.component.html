@@ -22,6 +22,12 @@
         </div>
       </div>
 
+      <div *ngIf="informations.handicap">
+        <h3 translate>PATOLOGIES</h3>
+        <div *ngFor="let info of informations.patologies.attributes">
+          <p>{{info}}</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>

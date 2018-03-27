@@ -57,7 +57,6 @@ export class ConsultationFileComponent implements OnInit {
     });
     const req = this.http.put(util.format(Constants.ADD_OBSERVATION_URL, this.userService.getIdMedicalFolder()), {
       comment: form.comment,
-      date: new Date().toDateString(),
       staffId: this.userService.getId()
     }, {headers: headers})
       .subscribe(

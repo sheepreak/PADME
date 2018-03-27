@@ -6,7 +6,7 @@
   "TodoList": "To do list",
   "DOCTOR": "Doctor",
   "ADMIN": "Admin",
-  "NURTH": "Nurse",
+  "NURSE": "Nurse",
   "SECRETARY": "Secretary",
   "Function": "Function",
   "Pole": "Pole",
@@ -84,9 +84,16 @@
   "NoConsultation":"This patient has no consultation",
   "NoExamen": "This patient has no exam",
   "NoPrescription": "This patient has no prescription",
-  "MedicalInfo": "Medicals Infoformations",
+  "MedicalInfo": "Medical Informations",
   "Allergies": "Allergies",
-  "Handicap": "Handicap"
+  "Handicap": "Handicap",
+  "IsTake": "Taken",
+  "doctor":"Doctor",
+  "nurse": "Nurse",
+  "secretary": "Secretary",
+  "admin":"Admin",
+  "Staff": "Staff",
+  "Country2":"Country"
 
 }
 

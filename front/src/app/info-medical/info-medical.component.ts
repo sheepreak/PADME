@@ -12,15 +12,13 @@ export class InfoMedicalComponent implements OnInit {
   manageFile: ManageFile = new ManageFile();
   informations = {
     allergies: null,
-    handicap: null
+    handicap: null,
+    patologies: null
   };
 
   constructor(private userService: UserService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    console.log("ooooooooooooooooooooo");
     this.informations = this.userService.getInfoMedical().informations;
-    console.log(this.informations);
-    console.log(this.informations.allergies);
   }
 }
