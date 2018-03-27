@@ -5,10 +5,10 @@
 
   <div class="row">
     <div class="col-md-2 col-sm-3">
-      <button class="btn btn-success btn-block btn-responsive">Ajouter personnel</button>
+      <button class="btn btn-success btn-block btn-responsive" (click)="openCreateStaff(modalCreateStaff)">Ajouter personnel</button>
     </div>
     <div class="col-md-2 col-sm-3">
-      <button class="btn btn-warning btn-block btn-responsive">Ajouter noeud</button>
+      <button class="btn btn-warning btn-block btn-responsive" (click)="openCreateNode(modalCreateNode)">Ajouter noeud</button>
     </div>
     <div class="col-md-offset-4 col-md-4 col-sm-6">
       <input [(ngModel)]="filter" type="text" class="form-control" placeholder="Recherche">
@@ -77,5 +77,36 @@
 <ng-template #modalModif>
   <div class="modal-body" style="text-align: center">
     {{'EndModification' | translate:user}}
+  </div>
+</ng-template>
+
+
+<ng-template #modalCreateNode>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Ajouter un noeud</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+
+    </form>
+  </div>
+</ng-template>
+
+
+
+<ng-template #modalCreateStaff>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Ajouter un membre du personnel</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+
+    </form>
   </div>
 </ng-template>

@@ -152,4 +152,25 @@ export class AdminViewComponent implements OnInit, AfterViewChecked {
     this.unitySeleted[index] = [];
   }
 
+
+  openCreateNode(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, {
+      animated: true,
+      keyboard: false,
+      backdrop: false,
+      ignoreBackdropClick: false
+    });
+
+  }
+
+
+  openCreateStaff(template: TemplateRef<any>){
+    this.modalRef = this.modalService.show(template, {
+      animated: true,
+      keyboard: false,
+      backdrop: false,
+      ignoreBackdropClick: false
+    });
+  }
+
 }
