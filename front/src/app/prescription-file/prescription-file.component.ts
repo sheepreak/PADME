@@ -25,7 +25,7 @@ export class PrescriptionFileComponent implements OnInit {
   addPosology: false;
   doctor: any = {};
 
-  constructor(private medicalService: MedicalFileService, private router: Router, private route: ActivatedRoute, private userService: UserService, private http: HttpClient, private tokenService: TokenService) {
+  constructor(private medicalService: MedicalFileService, private medicalDocService: MedicalDocService, private router: Router, private route: ActivatedRoute, private userService: UserService, private http: HttpClient, private tokenService: TokenService) {
     this.user = this.userService;
   }
 
@@ -93,6 +93,12 @@ export class PrescriptionFileComponent implements OnInit {
       .subscribe(
         res => {
           console.log(res);
+          this.medicalDocService.getDocuments(this.userService.getIdMedicalFolder()).then(data => {
+            const value: any = {};
+            value.medicalInfo = data;
+            const a = value.medicalInfo.prescriptions.filter(p => p.id === this.prescription.id);
+            this.prescription = a[0];
+          });
         },
         err => {
           console.log('Error occured');

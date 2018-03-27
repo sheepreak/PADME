@@ -29,9 +29,8 @@ public class Parse {
 	 * Parse all products data From one String with CSV Format contained this data
 	 * @param data
 	 * @return HashMap<firstname, isMale>
-	 * @throws IOException
 	 */
-	public static HashMap<String, Boolean> parseFirstname(List<String> data) throws IOException{
+	public static HashMap<String, Boolean> parseFirstname(List<String> data){
 		boolean isFirst = true;
 		HashMap<String, Boolean> map = new HashMap<>();
 		List languages = new ArrayList();
@@ -46,12 +45,12 @@ public class Parse {
 		languages.add("polish");
 		languages.add("romanian");
 		languages.add("astronomy");
-		for(String str : data) {
-			if(isFirst) {
+		for (String str : data) {
+			if (isFirst) {
 				isFirst = false;
 				continue;
 			}
-			String[] values = str.split(";",3);
+			String[] values = str.split(";", 3);
 			String language = values[2].split(",")[0];
 
 			if (languages.contains(language))
@@ -63,9 +62,8 @@ public class Parse {
 	 * Parse all products data From one String with CSV Format contained this data
 	 * @param data
 	 * @return HashMap<Address>
-	 * @throws IOException
 	 */
-	public static List<Address> parseSampleAddress(List<String> data, List<InseeRef> inseeRefs) throws IOException{
+	public static List<Address> parseSampleAddress(List<String> data, List<InseeRef> inseeRefs){
 
 		boolean isFirst = true;
 
@@ -94,9 +92,8 @@ public class Parse {
 	 * Parse all products data From one String with CSV Format contained this data
 	 * @param data
 	 * @return HashMap<InseeRef>
-	 * @throws IOException
 	 */
-	public static List<InseeRef> parseInseeRef(List<String> data) throws IOException{
+	public static List<InseeRef> parseInseeRef(List<String> data){
 
 		boolean isFirst = true;
 		List<InseeRef> list = new ArrayList<>();
@@ -117,9 +114,8 @@ public class Parse {
 	 * Parse all products data From one String with CSV Format contained this data
 	 * @param data
 	 * @return List<MedicalSpeciality>
-	 * @throws IOException
 	 */
-	public static List<String> parseSampleMedicalSpeciality(List<String> data) throws IOException{
+	public static List<String> parseSampleMedicalSpeciality(List<String> data){
 
 		boolean isFirst = true;
 		List<String> list = new ArrayList<>();
@@ -137,9 +133,8 @@ public class Parse {
 	 * Parse all products data From one String with CSV Format contained this data
 	 * @param data
 	 * @return HashMap<Name, Address>
-	 * @throws IOException
 	 */
-	public static HashMap<String, Address> parseHospitalApHp(List<String> data) throws IOException{
+	public static HashMap<String, Address> parseHospitalApHp(List<String> data){
 
 		boolean isFirst = true;
 		HashMap<String, Address> map = new HashMap<>();
@@ -166,9 +161,8 @@ public class Parse {
 	 * Parse all products data From one String with CSV Format contained this data
 	 * @param data
 	 * @return List<Jobs>
-	 * @throws IOException
 	 */
-	public static List<String> parseJobs(List<String> data) throws IOException{
+	public static List<String> parseJobs(List<String> data){
 
 		boolean isFirst = true;
 		List<String> list = new ArrayList<>();
