@@ -37,7 +37,6 @@ public class Examen {
     @Column
     private String observation;
 
-    @NotNull
     @Column
     private String date;
 
