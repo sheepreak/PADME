@@ -59,11 +59,10 @@ export class PrescriptionFileComponent implements OnInit {
       'Content-Type': 'application/json',
       'Authorization': this.tokenService.getToken()
     });
-    
+
     const req = this.http.put(util.format(Constants.ADD_PRESCRIPTION_URL, this.userService.getIdMedicalFolder()), {
       startDate: form.startDate,
       endDate: form.endDate,
-      date: Date.now().toString(),
       treatment: form.treatment,
       posologys: [],
       staffId: this.userService.getId()
@@ -86,7 +85,6 @@ export class PrescriptionFileComponent implements OnInit {
       'Authorization': this.tokenService.getToken()
     });
     const req = this.http.put(util.format(Constants.ADD_POSOLOGY_URL, this.prescription.id), {
-      date: Date.now().toString(),
       observation: form.observation,
       nurseName: this.userFirstName,
       nurseSurname: this.userLastName,
