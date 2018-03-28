@@ -4,7 +4,7 @@
       <h2 translate>AdminFIle</h2>
     </div>
     <div class="col-md-1 text-right" *ngIf="user.isSecretary()">
-      <button type="button" class="btn btn-modif" (click)="modifData()" translate>Edit</button>
+      <button *ngIf="!manageFile.stateNew()" type="button" class="btn btn-modif" (click)="modifData()" translate>Edit</button>
     </div>
 
   </div>
@@ -48,8 +48,7 @@
         <div class="form-group">
           <label for="lastName" class="col-sm-3 control-label">{{ 'LastName' | translate:user }}:</label>
           <div class="col-sm-9">
-            <input type="text" [(ngModel)]="directory.lastName" class="form-control" id="lastName" name="lastName"
-                   readonly>
+            <input type="text" [(ngModel)]="directory.lastName" class="form-control" id="lastName" name="lastName" required>
           </div>
 
         </div>
@@ -57,15 +56,14 @@
         <div class="form-group">
           <label for="firstName" class="col-sm-3 control-label">{{ 'FirstName' | translate:user }}:</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="firstName" name="firstName" [(ngModel)]="directory.firstName"
-                   readonly>
+            <input type="text" class="form-control" id="firstName" name="firstName" [(ngModel)]="directory.firstName" required>
           </div>
         </div>
 
         <div class="form-group">
           <label for="sexe" class="col-sm-3 control-label">{{ 'Sexe' | translate:user }}:</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="sexe" name="gender" [(ngModel)]="directory.gender">
+            <input type="text" class="form-control" id="sexe" name="gender" [(ngModel)]="directory.gender" required>
           </div>
         </div>
 
@@ -73,7 +71,7 @@
           <label for="birthDay" class="col-sm-3 control-label">{{ 'BirthDay' | translate:user }}:</label>
           <div class="col-sm-9">
             <input type="date" class="form-control" id="birthDay" name="birthDate"
-                   value='{{directory.birthDate|date:"yyyy-MM-dd"}}' [(ngModel)]="directory.birthDate">
+                   value='{{directory.birthDate|date:"yyyy-MM-dd"}}' [(ngModel)]="directory.birthDate" required>
           </div>
         </div>
 
@@ -155,7 +153,7 @@
         <div class="form-group">
           <label for="social" class="col-sm-3 control-label">{{ 'SocialSecurity' | translate:user }}:</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="social" name="socialID" maxlength="15" [(ngModel)]="directory.socialID">
+            <input type="text" class="form-control" id="social" name="socialID" maxlength="15" [(ngModel)]="directory.socialID" required>
           </div>
         </div>
       </div>

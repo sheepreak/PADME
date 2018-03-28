@@ -5,10 +5,13 @@
 
   <div class="row">
     <div class="col-md-2 col-sm-3">
-      <button class="btn btn-success btn-block btn-responsive" (click)="openCreateStaff(modalCreateStaff)">Ajouter personnel</button>
+      <button class="btn btn-success btn-block btn-responsive" (click)="openCreateStaff(modalCreateStaff)">Ajouter
+        personnel
+      </button>
     </div>
     <div class="col-md-2 col-sm-3">
-      <button class="btn btn-warning btn-block btn-responsive" (click)="openCreateNode(modalCreateNode)">Ajouter noeud</button>
+      <button class="btn btn-warning btn-block btn-responsive" (click)="openCreateNode(modalCreateNode)">Ajouter noeud
+      </button>
     </div>
     <div class="col-md-offset-4 col-md-4 col-sm-6">
       <input [(ngModel)]="filter" type="text" class="form-control" placeholder="Recherche">
@@ -35,7 +38,7 @@
         <td>{{staff.status | translate:user}}</td>
         <td>
           <select class="form-control" [ngModel]="hospitalSeleted[i]" (ngModelChange)="hospitalChange($event,i)">
-            <option *ngFor="let hospital of listHospital" [ngValue]="hospital" >
+            <option *ngFor="let hospital of listHospital" [ngValue]="hospital">
               {{hospital.name}}
             </option>
           </select>
@@ -43,7 +46,7 @@
 
         <td>
           <select class="form-control" [(ngModel)]="poleSeleted[i]" (ngModelChange)="poleChange($event,i)">
-            <option *ngFor="let pole of listPole[i]" [ngValue]="pole" >
+            <option *ngFor="let pole of listPole[i]" [ngValue]="pole">
               {{pole.speciality}}
             </option>
           </select>
@@ -89,12 +92,26 @@
     </button>
   </div>
   <div class="modal-body">
-    <form>
+    <form #nodeForm="ngForm" (ngSubmit)="createNode(nodeForm.value)" ngNativeValidate>
+      Type :
+      <select [(ngModel)]="level" name="level" (change)="onChangeLevel(level)">
+        <option [ngValue]=0>Pôle</option>
+        <option [ngValue]=1>Service</option>
+        <option [ngValue]=2>Unité hospitalière</option>
+      </select>
+      <br>
+      Noeud père :
+      <select name="idNode" [(ngModel)]="idNode">
+        <option *ngFor="let n of nodeFilter" [ngValue]="n.id">{{n.speciality}}</option>
+      </select>
+      <br>
+      <input type="text" placeholder="Spécialité" name="speciality" [(ngModel)]="speciality">
+      <br>
+      <button type="submit">Ajouter le noeud</button>
 
     </form>
   </div>
 </ng-template>
-
 
 
 <ng-template #modalCreateStaff>

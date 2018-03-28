@@ -22,4 +22,25 @@ export class AdminViewRequestService {
       node, {headers: headers}).toPromise();
   }
 
+
+  createNode(idNode, node) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': this.tokenService.getToken()
+    });
+
+    return this.http.put(util.format(Constants.ADD_NODE_URL, idNode),
+      node, {headers: headers}).toPromise();
+  }
+
+
+  getNode() {
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': this.tokenService.getToken()
+    });
+
+    return this.http.get(util.format(Constants.GET_NODE_URL), {headers: headers}).toPromise();
+  }
 }

@@ -38,7 +38,7 @@
 
 
         <div class="inline" *ngFor="let i of examen.imgPath">
-          <img src={{getImgFromServer(i)}}>
+          <img src={{getImgFromServer(i)}} [ngClass]="{'img-thumbnail':true,  'miniature': i.mini, 'imgdata':!i.mini}">
           <!--&lt;!&ndash;<img [src]="" [ngClass]="{'img-thumbnail':true,  'miniature': i.mini, 'imgdata':!i.mini}">&ndash;&gt;-->
         </div>
 

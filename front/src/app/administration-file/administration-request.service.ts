@@ -29,4 +29,15 @@ export class AdministrationRequestService {
     return this.http.put(util.format(Constants.GET_ADMIN_FILE_URL, idPatient),
       body, {headers: headers}).toPromise();
   }
+
+
+  addAdminFilePatient(body) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': this.tokenService.getToken()
+    });
+
+    return this.http.post(util.format(Constants.GET_ALL_PATIENTS),
+      body, {headers: headers}).toPromise();
+  }
 }

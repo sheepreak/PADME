@@ -42,9 +42,17 @@ export class AdminViewComponent implements OnInit, AfterViewChecked {
   serviceSeleted = [];
   unitySeleted = [];
 
+  allNode: any = [];
+  nodeFilter: any = [];
+
 
   constructor(private request: WebApiPromiseService, private cdr: ChangeDetectorRef,
               private modalService: BsModalService, private adminRequest: AdminViewRequestService) {
+    this.updateData();
+  }
+
+
+  updateData() {
     this.request.getStaffs().then(data => {
       this.listStaff = data;
 
@@ -160,11 +168,41 @@ export class AdminViewComponent implements OnInit, AfterViewChecked {
       backdrop: false,
       ignoreBackdropClick: false
     });
+    this.adminRequest.getNode().then(data => {
+      this.allNode = data;
+    });
 
   }
 
+  onChangeLevel(level) {
+    console.log(level);
+    if (level === 0) {
+      this.nodeFilter = [];
+    } else if (level === 1) {
+      this.nodeFilter = this.allNode.filter(p => p.level === 'pole');
+    } else if (level === 2) {
+      this.nodeFilter = this.allNode.filter(p => p.level === 'service');
+    }
 
-  openCreateStaff(template: TemplateRef<any>){
+  }
+
+  createNode(node) {
+    console.log(node);
+
+    const body = {
+      'level': node.level,
+      'speciality': node.speciality
+    };
+
+    this.adminRequest.createNode(node.idNode, body).then(data => {
+      this.updateData();
+    }).catch(err => {
+      console.log(err);
+    });
+  }
+
+
+  openCreateStaff(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template, {
       animated: true,
       keyboard: false,
