@@ -77,4 +77,8 @@ export class Constants {
   public static get GET_NODE_URL() {
     return Constants.URL_SERVER + '/node';
   }
+
+  public static get PUT_NODE_POLE() {
+    return Constants.URL_SERVER + '/hospital/%d';
+  }
 }
