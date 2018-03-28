@@ -4,6 +4,7 @@ import application.prescription.domain.Prescription;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 @Entity
 public class Posology {
@@ -14,7 +15,6 @@ public class Posology {
     @Column
     private Integer id;
 
-    @NotNull
     @Column
     private String date;
 
@@ -39,6 +39,8 @@ public class Posology {
     private Prescription prescription;
 
     public Posology() {
+
+        this.date = String.valueOf(LocalDateTime.now());
 
     }
 

@@ -5,6 +5,7 @@ import application.posology.domain.Posology;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,6 @@ public class Prescription {
     @Column
     private String treatment;
 
-    @NotNull
     @Column
     private String date;
 
@@ -48,7 +48,10 @@ public class Prescription {
 
 
     public Prescription() {
+
         posologies = new ArrayList<>();
+        this.date = LocalDateTime.now().toString();
+
     }
 
     public Prescription(String treatment, List<Posology> posologys, String date, String startDate, String endDate, Integer staffId) {

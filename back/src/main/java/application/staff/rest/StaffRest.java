@@ -180,6 +180,19 @@ public class StaffRest {
         return Response.ok(getStaffInfo(staffs)).build();
     }
 
+    @PUT
+    @Path("A/{id}/node")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateNode(@PathParam("id") Integer id, Node node) {
+
+        Staff staff = staffRepository.find(id);
+        staff.setNode(node);
+        staffRepository.update(staff);
+
+        return Response.status(Status.ACCEPTED).build();
+
+    }
+
 
     //------------- Private Helpers --------------
 
