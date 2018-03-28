@@ -606,7 +606,15 @@ public class HospitalSetup {
             medicalInfoRepository.save(medicalInfo);
             Patient patient = new Patient(adminFile, medicalInfo);
             patientRepository.save(patient);
+            if(nodeService.getSubNodes().isEmpty()){
+                printLog(nodeService+" doesn't have subNodes");
+                return list;
+            }
             Node nodeHU = nodeService.getSubNodes().get(Math.abs(rand.nextInt(nodeService.getSubNodes().size())));
+            if(nodeService.getSubNodes().isEmpty()){
+                printLog(nodeHU+" doesn't have subNodes");
+                return list;
+            }
             Node nodeHCU = nodeHU.getSubNodes().get(Math.abs(rand.nextInt(nodeHU.getSubNodes().size())));
             switch (nodeService.getSpeciality()) {
                 case "Chirurgie cardio-thoracique":
@@ -616,7 +624,6 @@ public class HospitalSetup {
                         printLog("setCaseCardioThorax failured");
                     break;
                 case "Service pneumologie en pédiatrie":
-                    printLog(resp.getLastName()+"7"+nodeHCU);
                     if (setCasePediatricsPneumology(nodeHCU, resp.getId(), docExamen.getId(), patient))
                         printLog("setCasePediatricsPneumology successed");
                     else
@@ -694,7 +701,10 @@ public class HospitalSetup {
             return "Etudiant";
         if (age > 63)
             return "Retraité";
-
+        if(jobs.isEmpty()) {
+            printLog("Jobs list is empty");
+            return "Sans-emploi";
+        }
         return jobs.get(rand.nextInt(jobs.size()));
     }
 
@@ -749,13 +759,19 @@ public class HospitalSetup {
             List<Address> addressSamples = Parse.parseSampleAddress(dataAddress, listInseeRefs);
 
             List<String> firstNames = new ArrayList<>(prenoms.keySet());
+
+            if(firstNames.isEmpty() || addressSamples.isEmpty()){
+                printLog("data parsed are empty");
+                return list;
+            }
+
             for (int i = 0; i < nb; i++) {
                 String firstName = firstNames.get(rand.nextInt(firstNames.size()));
                 String gender;
                 if (prenoms.get(firstName))
                     gender = "M";
                 else gender = "F";
-                int birthYear = (2017 - (Math.abs(rand.nextInt(maxAge - minAge)) + minAge));
+                int birthYear = (2017 - (Math.abs(rand.nextInt((maxAge - minAge)+1)) + (minAge-1) ));
                 int birthMonth = (1 + rand.nextInt(12));
                 int birthDays = (1 + rand.nextInt(28));
                 String birthDate = birthYear + "-" + String.format("%02d", birthMonth) + "-" + String.format("%02d", birthDays);
@@ -800,6 +816,10 @@ public class HospitalSetup {
             List<Address> addressSamples = Parse.parseSampleAddress(dataAddress, listInseeRefs).stream().filter(addr -> addr.getCity().toLowerCase().equals("paris")).collect(Collectors.toList());
 
             List<String> firstNames = new ArrayList<>(prenoms.keySet());
+            if(firstNames.isEmpty() || addressSamples.isEmpty()){
+                printLog("data parsed are empty");
+                return list;
+            }
             for (int i = 0; i < nb; i++) {
                 String firstName = firstNames.get(rand.nextInt(firstNames.size()));
                 Address address = addressSamples.get(rand.nextInt(addressSamples.size()));
@@ -884,7 +904,11 @@ public class HospitalSetup {
 
         List<Posology> lp = new ArrayList<>();
         for (LocalDateTime ldt = firstDate.plusMonths(1).plusDays(17).plusMinutes(433); ldt.isBefore(LocalDateTime.now()); ldt = ldt.plusDays(1)) {
-            Staff nurse = nurses.get(Math.abs(rand.nextInt(nurses.size())));
+            Staff nurse;
+                if(!nurses.isEmpty())
+                    nurse = nurses.get(Math.abs(rand.nextInt(nurses.size())));
+                else
+                    nurse = staffRepository.find(staffIdObs);
             Posology p = new Posology(printDate(ldt), "Bilan patient ok", nurse.getFirstName(), nurse.getLastName(), true);
             //posologyRepository.save(p);
             lp.add(p);
@@ -917,14 +941,13 @@ public class HospitalSetup {
         LocalDateTime now = LocalDateTime.now();
         int minusYear = now.getYear() - 2013;
         int minusMonth = Math.abs(rand.nextInt(now.getMonthValue()));
-        int plusMonth = Math.abs(rand.nextInt(12 - now.getMonthValue()));
+        int plusMonth = Math.abs(rand.nextInt((12 - now.getMonthValue())+1));
         int minusDay = Math.abs(rand.nextInt(now.getDayOfMonth()));
-        int plusDay = Math.abs(rand.nextInt(28 - now.getDayOfMonth()));
-
-        int minusHour = Math.abs(rand.nextInt(now.getHour()));
-        int plusHour = Math.abs(rand.nextInt(24 - now.getHour()));
-        int minusMinute = Math.abs(rand.nextInt(now.getMinute()));
-        int plusMinute = Math.abs(rand.nextInt(60 - now.getMinute()));
+        int plusDay = 1;
+        int minusHour = Math.abs(rand.nextInt((now.getHour())+1));
+        int plusHour = Math.abs(rand.nextInt((24 - now.getHour())+1));
+        int minusMinute = Math.abs(rand.nextInt((now.getMinute())+1));
+        int plusMinute = Math.abs(rand.nextInt((60 - now.getMinute())+1));
 
         LocalDateTime firstDate = now.minusYears(minusYear).minusMonths(minusMonth).plusMonths(plusMonth).minusDays(minusDay).plusDays(plusDay).minusHours(minusHour).plusHours(plusHour).minusMinutes(minusMinute).plusMinutes(plusMinute);
 
@@ -965,8 +988,10 @@ public class HospitalSetup {
         medicalFileRepository.save(mf1);
 
         List<String> paths = new ArrayList<>();
-        paths.add(this.getClass().getClassLoader().getResource("dataForSetup/scannerPoumon1.png").getPath());
-        paths.add(this.getClass().getClassLoader().getResource("dataForSetup/scannerPoumon2.png").getPath());
+        //todo: verify the path in comment for copy images
+        //copy images from ressources in dataForSetup to {payaraFolder}/glassfish/domains/domain1
+        paths.add("scannerPoumon1.png");
+        paths.add("scannerPoumon2.png");
         //String motive, String description, List<String> imgPath, String observation, String date, Integer staffId
         addExamen(mf1, new Examen("Radiographie des poumons après la naissance", "Radiographie des poumons", paths, "Asthme",printDate(firstDate.plusMinutes(53)), doctor.getId()));
 
@@ -996,7 +1021,10 @@ public class HospitalSetup {
         medicalFileRepository.save(mf1);
         List<Staff> nurses = staffRepository.getStaffs().stream().filter(p -> p.getNode().equals(node) && p.getStatus().equals(Status.NURSE)).collect(Collectors.toList());
         Staff staffPosology;
-        staffPosology = nurses.get(Math.abs(rand.nextInt(nurses.size())));
+        if(!nurses.isEmpty())
+            staffPosology = nurses.get(Math.abs(rand.nextInt(nurses.size())));
+        else
+            staffPosology = staffRepository.find(doctorId);
 
         Observation o1 = new Observation(doctorId, "Amené par sa mère pour une gêne respiratoire évoluant depuis 5 jours.", printDate(firstDate));
         observationRepository.save(o1);
