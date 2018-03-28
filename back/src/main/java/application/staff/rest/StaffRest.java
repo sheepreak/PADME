@@ -101,10 +101,10 @@ public class StaffRest {
         if (staff == null)
             Response.status(Response.Status.BAD_REQUEST).build();
 
-        oldStaff.setNode(staff.getNode());
-        oldStaff.setLogin(staff.getLogin());
-        oldStaff.setPassword(staff.getPassword());
-        staffRepository.update(oldStaff);
+        staff.setNode(oldStaff.getNode());
+        staff.setLogin(oldStaff.getLogin());
+        staff.setPassword(oldStaff.getPassword());
+        staffRepository.update(staff);
 
         return Response.ok(Response.Status.OK).build();
 
