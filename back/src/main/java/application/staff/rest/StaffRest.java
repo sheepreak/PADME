@@ -42,7 +42,7 @@ public class StaffRest {
 
     @GET
     @IJWTTokenNeeded
-    @Path("/patients/{id}")
+    @Path("DN/patients/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPatients(@PathParam("id") Integer id) throws JsonProcessingException {
 
@@ -63,6 +63,7 @@ public class StaffRest {
     }
 
     @POST
+    @Path("A")
     @IJWTTokenNeeded
     @Produces(MediaType.APPLICATION_JSON)
     public Response createStaff(Staff staff) {
@@ -77,7 +78,7 @@ public class StaffRest {
 
     @PUT
     @IJWTTokenNeeded
-    @Path("/update")
+    @Path("ADNS/update")
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateStaff(Staff staff) {
 
@@ -92,7 +93,7 @@ public class StaffRest {
 
     @PUT
     @IJWTTokenNeeded
-    @Path("/updatesocio")
+    @Path("ADNS/updatesocio")
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateStaffSocio(Staff staff) {
         Staff oldStaff=staffRepository.find(staff.getId());
@@ -111,7 +112,7 @@ public class StaffRest {
 
     @GET
     @IJWTTokenNeeded
-    @Path("/{id}")
+    @Path("A/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getStaff(@PathParam("id") Integer id) {
         Staff staff = staffRepository.find(id);
@@ -155,6 +156,7 @@ public class StaffRest {
 
     @GET
     @IJWTTokenNeeded
+    @Path("A")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getStaffs(@Context UriInfo uri) {
         int page = -1;
