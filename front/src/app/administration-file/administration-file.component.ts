@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ManageFile} from '../manageFile';
 import {UserService} from '../user.service';
 import {AdministrationRequestService} from './administration-request.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 
 @Component({
@@ -17,25 +17,32 @@ export class AdministrationFileComponent implements OnInit {
   isEmploye = true;
   oldDirectory: any;
   manageFile: ManageFile = new ManageFile();
+  state;
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private administrationRequest: AdministrationRequestService) {
+  constructor(private route: ActivatedRoute, private router: Router, private userService: UserService, private administrationRequest: AdministrationRequestService) {
     this.user = this.userService;
   }
 
   ngOnInit() {
-    this.administrationRequest.getAdminFilePatient(this.userService.getPatientIdSelected()).then(data => {
-      this.directory = data;
-    }).catch(err => {
-      console.log(err);
-    });
 
-    let state;
+
     this.route.params.subscribe(params => {
-      state = params['state'];
-      if (state == 'new') {
+      this.state = params['state'];
+      if (this.state === 'new') {
         this.manageFile.state = ManageFile.State.New;
+        this.directory = {};
       }
     });
+
+    if (this.state !== 'new') {
+      this.administrationRequest.getAdminFilePatient(this.userService.getPatientIdSelected()).then(data => {
+        this.directory = data;
+      }).catch(err => {
+        console.log(err);
+      });
+    }
+
+
   }
 
   modifData() {
@@ -49,12 +56,30 @@ export class AdministrationFileComponent implements OnInit {
   }
 
   onSubmit(value) {
-    this.administrationRequest.updateAdminFilePatient(this.userService.getPatientIdSelected(), value)
-      .then(data => {
-        console.log('ok');
-        this.manageFile.state = ManageFile.State.Publish;
+
+    if (this.state === 'new') {
+      value.country = 'france';
+      const body = {
+        'adminFile': value
+      };
+
+      this.administrationRequest.addAdminFilePatient(body).then(data => {
+        console.log('ajout réussi');
+        this.router.navigate(['/patientlist']);
       }).catch(err => {
-      console.log(err);
-    });
+        console.log(err);
+      });
+
+
+    } else {
+      console.log(value);
+      this.administrationRequest.updateAdminFilePatient(this.userService.getPatientIdSelected(), value)
+        .then(data => {
+          console.log('ok');
+          this.manageFile.state = ManageFile.State.Publish;
+        }).catch(err => {
+        console.log(err);
+      });
+    }
   }
 }

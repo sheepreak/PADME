@@ -43,6 +43,17 @@
       </li>
     </div>
 
+
+    <li *ngIf="user.isSecretary() && user.getPatient()== null" class="imgList last"><a href="javascript:void(0)" (click)="addIsCollapsed = !addIsCollapsed"><img
+      src="../../assets/img/icon/add-all.svg">{{ 'Add' | translate:user }}</a>
+      <ul [collapse]="addIsCollapsed">
+        <li *ngIf="user.isSecretary()"><a [routerLink]="['administrationfile', { state: 'new' }]">{{ 'AdminFIle' | translate:user }}</a></li>
+      </ul>
+    </li>
+
+
+
+
     <li><a href="javascript:void(0)" (click)="myDocIsCollapsed = !myDocIsCollapsed">{{ 'MyDocument' | translate:user
       }}</a>
       <ul [collapse]="myDocIsCollapsed">

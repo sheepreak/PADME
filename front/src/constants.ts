@@ -77,4 +77,12 @@ export class Constants {
     return Constants.URL_SERVER + '/medicalFile/image/%s';
   }
 
+
+  public static get ADD_NODE_URL() {
+    return Constants.URL_SERVER + '/node/%d';
+  }
+
+  public static get GET_NODE_URL() {
+    return Constants.URL_SERVER + '/node';
+  }
 }
