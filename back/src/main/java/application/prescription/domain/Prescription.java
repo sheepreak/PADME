@@ -3,11 +3,10 @@ package application.prescription.domain;
 import application.medicalfile.domain.MedicalFile;
 import application.posology.domain.Posology;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 import static javax.persistence.CascadeType.ALL;
 

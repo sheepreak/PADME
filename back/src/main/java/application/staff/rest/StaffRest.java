@@ -65,7 +65,7 @@ public class StaffRest {
     @POST
     @IJWTTokenNeeded
     @Produces(MediaType.APPLICATION_JSON)
-    public Response putStaff(Staff staff) {
+    public Response createStaff(Staff staff) {
 
         if (staff == null)
             Response.status(Response.Status.BAD_REQUEST).build();
@@ -91,23 +91,26 @@ public class StaffRest {
 
 
     @PUT
+    @IJWTTokenNeeded
     @Path("/updatesocio")
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateStaffSocio(Staff staff) {
         Staff oldStaff=staffRepository.find(staff.getId());
-        staff.setNode(oldStaff.getNode());
-        staff.setLogin(oldStaff.getLogin());
-        staff.setPassword(oldStaff.getPassword());
 
         if (staff == null)
             Response.status(Response.Status.BAD_REQUEST).build();
 
-        staffRepository.update(staff);
+        oldStaff.setNode(staff.getNode());
+        oldStaff.setLogin(staff.getLogin());
+        oldStaff.setPassword(staff.getPassword());
+        staffRepository.update(oldStaff);
+
         return Response.ok(Response.Status.OK).build();
 
     }
 
     @GET
+    @IJWTTokenNeeded
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getStaff(@PathParam("id") Integer id) {
@@ -173,19 +176,6 @@ public class StaffRest {
             staffs = staffRepository.getStaffs();
         }
         return Response.ok(getStaffInfo(staffs)).build();
-    }
-
-    @PUT
-    @Path("/{id}/node")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response updateNode(@PathParam("id") Integer id, Node node) {
-
-        Staff staff = staffRepository.find(id);
-        staff.setNode(node);
-        staffRepository.update(staff);
-
-        return Response.status(Status.ACCEPTED).build();
-
     }
 
 

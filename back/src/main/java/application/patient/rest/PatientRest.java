@@ -13,7 +13,6 @@ import application.patient.repository.PatientRepository;
 import application.prescription.domain.Prescription;
 
 import javax.ejb.EJB;
-import javax.resource.spi.AuthenticationMechanism;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import javax.ws.rs.core.Response.Status;
@@ -33,16 +32,6 @@ public class PatientRest {
     @Context
     private UriInfo uriInfo;
 
-    @GET
-    @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getPatient(@PathParam("id") Integer id) {
-        Patient file = repository.find(id);
-        if(file == null)
-            return Response.status(Status.NOT_FOUND).build();
-        return Response.ok(file).build();
-    }
-
     @POST
     @IJWTTokenNeeded
     @Produces(MediaType.APPLICATION_JSON)
@@ -53,6 +42,7 @@ public class PatientRest {
     }
 
     @GET
+    @IJWTTokenNeeded
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPatients(){
         List<Patient> files = repository.getFiles();
@@ -65,7 +55,6 @@ public class PatientRest {
         GenericEntity<List<PatientListing>> entities = new GenericEntity<List<PatientListing>>(l){};
         return Response.ok(entities).build();
     }
-
 
     @GET
     @IJWTTokenNeeded
@@ -92,6 +81,7 @@ public class PatientRest {
     }
 
     @PUT
+    @IJWTTokenNeeded
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response addMedicalFile(@PathParam("id") Integer id, MedicalFile file) {
@@ -104,6 +94,7 @@ public class PatientRest {
     }
 
     @PUT
+    @IJWTTokenNeeded
     @Path("addobservation/{medid}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response addObservation(@PathParam("medid") Integer fileId, Observation observation) {
@@ -115,6 +106,7 @@ public class PatientRest {
     }
 
     @PUT
+    @IJWTTokenNeeded
     @Path("addprescription/{medid}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response addPrescription(@PathParam("medid") Integer fileId, Prescription prescription) {
@@ -126,6 +118,7 @@ public class PatientRest {
     }
 
     @PUT
+    @IJWTTokenNeeded
     @Path("addexam/{medid}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response addExam(@PathParam("medid") Integer fileId, Examen examen) {

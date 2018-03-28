@@ -6,13 +6,9 @@ import application.medicalinfo.domain.MedicalInfo;
 import application.observation.domain.Observation;
 import application.patient.domain.Patient;
 import application.prescription.domain.Prescription;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.ws.rs.core.GenericEntity;
 import java.util.*;
 
 import static application.medicalfile.domain.MedicalFile.FIND_ALL;

@@ -1,6 +1,5 @@
 package application.filters;
 
-import application.staff.Status;
 import application.staff.domain.Staff;
 import application.staff.repository.StaffRepository;
 
@@ -13,6 +12,7 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
 import java.io.IOException;
+
 
 @Provider
 @IJWTTokenNeeded
@@ -34,17 +34,20 @@ public class JWTTokenNeeded implements ContainerRequestFilter {
         if (staff == null)
             authorized = false;
 
-        else if (staff.getStatus() == Status.DOCTOR)
-            authorized = filterForDoctor(requestContext.getUriInfo().getPath(), requestContext.getMethod());
-
-        else if (staff.getStatus() == Status.NURSE)
-            authorized = filterForNurse(requestContext.getUriInfo().getPath(), requestContext.getMethod());
-
-        else if (staff.getStatus() == Status.ADMIN)
-            authorized = filterForAdmin(requestContext.getUriInfo().getPath(), requestContext.getMethod());
-
-        else if (staff.getStatus() == Status.SECRETARY)
-            authorized = filterForSecretary(requestContext.getUriInfo().getPath(), requestContext.getMethod());
+        switch(staff.getStatus()) {
+            case DOCTOR :
+                authorized = filterForDoctor(requestContext.getUriInfo().getPath(), requestContext.getMethod());
+                break;
+            case NURSE :
+                authorized = filterForNurse(requestContext.getUriInfo().getPath(), requestContext.getMethod());
+                break;
+            case ADMIN :
+                authorized = filterForAdmin(requestContext.getUriInfo().getPath(), requestContext.getMethod());
+                break;
+            case SECRETARY :
+                authorized = filterForSecretary(requestContext.getUriInfo().getPath(), requestContext.getMethod());
+                break;
+        }
 
         if (!authorized)
             requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
