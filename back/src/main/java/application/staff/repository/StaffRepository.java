@@ -35,8 +35,6 @@ public class StaffRepository {
 
     public Staff tryConnection(String password, String login) {
 
-
-
         try {
             return (Staff) em.createQuery("SELECT s FROM Staff s WHERE s.password LIKE :password AND s.login LIKE :login")
                     .setParameter("password", encodePassword(password))
@@ -45,6 +43,7 @@ public class StaffRepository {
         } catch (NoResultException e){
             return null;
         }
+
     }
 
     public List<Staff> getStaffs() {

@@ -103,7 +103,7 @@ public class StaffRest {
 
         staff.setNode(oldStaff.getNode());
         staff.setLogin(oldStaff.getLogin());
-        staff.setPassword(oldStaff.getPassword());
+        staff.setPasswordWithoutEncode(oldStaff.getPassword());
         staffRepository.update(staff);
 
         return Response.ok(Response.Status.OK).build();

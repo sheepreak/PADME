@@ -155,6 +155,10 @@ public class Staff {
         this.password = encodePassword(password);
     }
 
+    public void setPasswordWithoutEncode(String password) {
+        this.password = password;
+    }
+
     public List<Node> leaves() {
 
         if(node == null)
