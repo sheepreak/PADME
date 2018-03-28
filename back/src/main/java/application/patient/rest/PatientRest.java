@@ -34,6 +34,7 @@ public class PatientRest {
 
     @POST
     @IJWTTokenNeeded
+    @Path("DNS")
     @Produces(MediaType.APPLICATION_JSON)
     public Response createPatient(Patient file) {
         repository.save(file);
@@ -43,6 +44,7 @@ public class PatientRest {
 
     @GET
     @IJWTTokenNeeded
+    @Path("DNS")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPatients(){
         List<Patient> files = repository.getFiles();
@@ -58,7 +60,7 @@ public class PatientRest {
 
     @GET
     @IJWTTokenNeeded
-    @Path("{id}/adminfile")
+    @Path("DNS/{id}/adminfile")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAdminFile(@PathParam("id") Integer patientId) {
         Patient patient = repository.find(patientId);
@@ -67,7 +69,7 @@ public class PatientRest {
 
     @PUT
     @IJWTTokenNeeded
-    @Path("{id}/adminfile")
+    @Path("DNS/{id}/adminfile")
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateAdminFile(@PathParam("id") Integer patientId, AdminFile adminFile) {
         Patient patient = repository.find(patientId);
@@ -82,7 +84,7 @@ public class PatientRest {
 
     @PUT
     @IJWTTokenNeeded
-    @Path("{id}")
+    @Path("DNS/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response addMedicalFile(@PathParam("id") Integer id, MedicalFile file) {
         Patient patient = repository.find(id);
@@ -95,7 +97,7 @@ public class PatientRest {
 
     @PUT
     @IJWTTokenNeeded
-    @Path("addobservation/{medid}")
+    @Path("DN/addobservation/{medid}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response addObservation(@PathParam("medid") Integer fileId, Observation observation) {
         MedicalFile medicalFile = medicalFileRepository.getFile(fileId);
@@ -107,7 +109,7 @@ public class PatientRest {
 
     @PUT
     @IJWTTokenNeeded
-    @Path("addprescription/{medid}")
+    @Path("DN/addprescription/{medid}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response addPrescription(@PathParam("medid") Integer fileId, Prescription prescription) {
         MedicalFile medicalFile = medicalFileRepository.getFile(fileId);
@@ -119,7 +121,7 @@ public class PatientRest {
 
     @PUT
     @IJWTTokenNeeded
-    @Path("addexam/{medid}")
+    @Path("DN/addexam/{medid}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response addExam(@PathParam("medid") Integer fileId, Examen examen) {
         MedicalFile medicalFile = medicalFileRepository.getFile(fileId);

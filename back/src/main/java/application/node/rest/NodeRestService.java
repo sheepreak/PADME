@@ -1,5 +1,6 @@
 package application.node.rest;
 
+import application.filters.IJWTTokenNeeded;
 import application.node.domain.Node;
 import application.node.repository.NodeRepository;
 
@@ -22,6 +23,8 @@ public class NodeRestService {
     private UriInfo uriInfo ;
 
     @POST
+    @IJWTTokenNeeded
+    @Path("A")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createNode(Node node){
         repository.save(node);
@@ -34,7 +37,8 @@ public class NodeRestService {
     }
 
     @DELETE
-    @Path("{id}")
+    @IJWTTokenNeeded
+    @Path("A/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteNode(@PathParam("id") Integer id) {
         try {
@@ -46,6 +50,8 @@ public class NodeRestService {
     }
 
     @GET
+    @IJWTTokenNeeded
+    @Path("ADNS")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getNodes() {
         List<Node> nodes = repository.list();
@@ -53,7 +59,8 @@ public class NodeRestService {
     }
 
     @GET
-    @Path("{id}")
+    @IJWTTokenNeeded
+    @Path("ADNS/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getNode(@PathParam("id") Integer id) {
         Node node= repository.find(id);
@@ -63,7 +70,8 @@ public class NodeRestService {
     }
 
     @PUT
-    @Path("{id}")
+    @IJWTTokenNeeded
+    @Path("A/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response addNode(@PathParam("id") Integer id, Node node){
         Node nodeImpl = repository.find(id);
@@ -76,6 +84,8 @@ public class NodeRestService {
 
 
     @PUT
+    @IJWTTokenNeeded
+    @Path("A")
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateNode(Node node){
         Node newNode = repository.find(node.getId());

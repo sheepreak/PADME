@@ -55,62 +55,24 @@ public class JWTTokenNeeded implements ContainerRequestFilter {
     }
 
     private boolean filterForDoctor(String uri, String methode) {
-
-        if (methode.equals("GET")) {
-            return uri.contains("staff/patients/") || uri.split("/")[0].contains("medicalFile");
-        }
-        if (methode.equals("PUT")) {
-            return uri.split("/")[0].contains("medicalFile");
-        }
-        if (methode.equals("POST")) {
-            return uri.equals("patient");
-        }
-        return false;
-
+        return uri.split("/")[1].contains("D");
     }
 
     private boolean filterForNurse(String uri, String methode) {
 
-        if (methode.equals("GET")) {
-            return uri.contains("staff/patients/") || uri.split("/")[0].contains("medicalFile");
-        }
-        if (methode.equals("PUT")) {
-            return uri.contains("/posology");
-        }
-        if (methode.equals("POST")) {
-            return uri.equals("patient");
-        }
-        return false;
+        return uri.split("/")[1].contains("N");
 
     }
 
     private boolean filterForAdmin(String uri, String methode) {
 
-        if (methode.equals("GET")) {
-            return !uri.contains("staff/patient");
-        }
-        if (methode.equals("PUT")) {
-            return uri.contains("staff/update");
-        }
-        if (methode.equals("POST")) {
-            return uri.equals("staff");
-        }
-        return false;
+        return uri.split("/")[1].contains("A");
 
     }
 
     private boolean filterForSecretary(String uri, String methode) {
 
-        if (methode.equals("GET")) {
-            return uri.equals("patient") || uri.split("/")[1].equals("adminfile") || uri.split("/")[2].equals("adminfile");
-        }
-        if (methode.equals("PUT")) {
-            return uri.split("/")[0].contains("medicalFile") || uri.split("/")[1].equals("adminfile")|| uri.split("/")[2].equals("adminfile");
-        }
-        if (methode.equals("POST")) {
-            return uri.equals("patient");
-        }
-        return false;
+        return uri.split("/")[1].contains("S");
 
     }
 

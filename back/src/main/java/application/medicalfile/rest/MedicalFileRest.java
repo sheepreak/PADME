@@ -43,7 +43,7 @@ public class MedicalFileRest {
 
     @GET
     @IJWTTokenNeeded
-    @Path("{id}")
+    @Path("DN/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getMedicalFile(@PathParam("id") Integer id){
         MedicalFile file = medicalFileRepository.getFile(id);
@@ -53,7 +53,7 @@ public class MedicalFileRest {
 
     @PUT
     @IJWTTokenNeeded
-    @Path("{id}")
+    @Path("DN/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response putExam(@PathParam("id") Integer id, Examen examen){
         MedicalFile medicalFile = medicalFileRepository.getFile(id);
@@ -64,6 +64,7 @@ public class MedicalFileRest {
 
     @POST
     @IJWTTokenNeeded
+    @Path("DN/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response putMedicalFiles(MedicalFile medicalFile){
         if(medicalFile == null)
@@ -74,7 +75,7 @@ public class MedicalFileRest {
 
     @POST
     @IJWTTokenNeeded
-    @Path("/image/{id}")
+    @Path("D/image/{id}")
     @Consumes({"image/jpeg", "image/png"})
     public Response uploadImage(InputStream in, @HeaderParam("Content-Type") String fileType,
                                 @HeaderParam("Content-Length") long fileSize, @PathParam("id") Integer examId) throws IOException {
@@ -111,7 +112,7 @@ public class MedicalFileRest {
 
     @GET
     @IJWTTokenNeeded
-    @Path("image/{name}")
+    @Path("D/image/{name}")
     @Produces({"image/jpeg", "image/png"})
     public InputStream getImage(@PathParam("name") String fileName) throws IOException {
 
@@ -126,7 +127,7 @@ public class MedicalFileRest {
 
     @PUT
     @IJWTTokenNeeded
-    @Path("{prescriptionId}/posology")
+    @Path("DN/{prescriptionId}/posology")
     @Produces(MediaType.APPLICATION_JSON)
     public Response addPosology(@PathParam("prescriptionId") int prescriptionId, Posology posology) {
 

@@ -25,6 +25,7 @@ public class HospitalRestService {
 
     @POST
     @IJWTTokenNeeded
+    @Path("A")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createHospital(Hospital hospital){
         repository.save(hospital);
@@ -38,7 +39,7 @@ public class HospitalRestService {
 
     @DELETE
     @IJWTTokenNeeded
-    @Path("{id}")
+    @Path("A/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteHospital(@PathParam("id") Long id) {
         try {
@@ -51,6 +52,7 @@ public class HospitalRestService {
 
     @GET
     @IJWTTokenNeeded
+    @Path("ADNS")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getHospitals() {
         List<Hospital> hospitals = repository.list();
@@ -59,7 +61,7 @@ public class HospitalRestService {
 
     @GET
     @IJWTTokenNeeded
-    @Path("{id}")
+    @Path("ADNS/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getHospital(@PathParam("id") Long id) {
         Hospital hospital= repository.find(id);
@@ -70,7 +72,7 @@ public class HospitalRestService {
 
     @PUT
     @IJWTTokenNeeded
-    @Path("{id}")
+    @Path("A/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response addNodePole(@PathParam("id") Long id, Node nodePole){
         Hospital hospital = repository.find(id);
