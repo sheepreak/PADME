@@ -194,11 +194,18 @@ export class AdminViewComponent implements OnInit, AfterViewChecked {
       'speciality': node.speciality
     };
 
-    this.adminRequest.createNode(node.idNode, body).then(data => {
-      this.updateData();
-    }).catch(err => {
-      console.log(err);
-    });
+    if (node.level === 0) {
+
+      this.adminRequest.createNodePole(this.listHospital[0].id, body).then(data => {
+        this.updateData();
+      }).catch(err => console.log(err));
+    } else {
+      this.adminRequest.createNode(node.idNode, body).then(data => {
+        this.updateData();
+      }).catch(err => {
+        console.log(err);
+      });
+    }
   }
 
 

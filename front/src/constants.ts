@@ -77,7 +77,6 @@ export class Constants {
     return Constants.URL_SERVER + '/medicalFile/image/%s';
   }
 
-  /* Node requests */
 
   public static get ADD_NODE_URL() {
     return Constants.URL_SERVER + '/node/%d';
@@ -87,4 +86,7 @@ export class Constants {
     return Constants.URL_SERVER + '/node';
   }
 
+  public static get PUT_NODE_POLE() {
+    return Constants.URL_SERVER + '/hospital/%d';
+  }
 }
