@@ -1,5 +1,6 @@
 package application.hospital.rest;
 
+import application.filters.IJWTTokenNeeded;
 import application.hospital.domain.Hospital;
 import application.hospital.repository.HospitalRepository;
 import application.node.domain.Node;
@@ -23,6 +24,7 @@ public class HospitalRestService {
     private UriInfo uriInfo ;
 
     @POST
+    @IJWTTokenNeeded
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createHospital(Hospital hospital){
         repository.save(hospital);
@@ -35,6 +37,7 @@ public class HospitalRestService {
     }
 
     @DELETE
+    @IJWTTokenNeeded
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteHospital(@PathParam("id") Long id) {
@@ -47,6 +50,7 @@ public class HospitalRestService {
     }
 
     @GET
+    @IJWTTokenNeeded
     @Produces(MediaType.APPLICATION_JSON)
     public Response getHospitals() {
         List<Hospital> hospitals = repository.list();
@@ -54,6 +58,7 @@ public class HospitalRestService {
     }
 
     @GET
+    @IJWTTokenNeeded
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getHospital(@PathParam("id") Long id) {
@@ -64,6 +69,7 @@ public class HospitalRestService {
     }
 
     @PUT
+    @IJWTTokenNeeded
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response addNodePole(@PathParam("id") Long id, Node nodePole){

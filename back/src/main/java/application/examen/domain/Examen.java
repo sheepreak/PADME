@@ -2,11 +2,11 @@ package application.examen.domain;
 
 import application.medicalfile.domain.MedicalFile;
 import com.sun.istack.NotNull;
-import java.util.List;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import static application.examen.domain.Examen.FIND_ALL;
 

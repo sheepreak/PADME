@@ -11,14 +11,16 @@ import application.prescription.repository.PrescriptionRepository;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
-import javax.ws.rs.core.*;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.List;
 import java.util.UUID;
 
 @Path("/medicalFile")
@@ -38,13 +40,6 @@ public class MedicalFileRest {
 
     private static java.nio.file.Path PATH = Paths.get("./img/");
 
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getMedicalFiles(){
-        List<MedicalFile> files = medicalFileRepository.getFiles();
-        GenericEntity<List<MedicalFile>> entities = new GenericEntity<List<MedicalFile>>(files){};
-        return Response.ok(entities).build();
-    }
 
     @GET
     @IJWTTokenNeeded

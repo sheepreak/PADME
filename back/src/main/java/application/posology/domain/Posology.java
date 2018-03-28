@@ -1,7 +1,6 @@
 package application.posology.domain;
 
 import application.prescription.domain.Prescription;
-import application.staff.domain.Staff;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

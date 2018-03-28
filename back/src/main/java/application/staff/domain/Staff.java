@@ -42,7 +42,6 @@ public class Staff {
     @Column
     private String firstName;   //prenom du membre du Staff
 
-
     @Column
     @Pattern(regexp="^(0|\\+33)[1-9]([-. ]?[0-9]{2}){4}$")
     private String phone;   // numéro de téléphone du membre du Staff
